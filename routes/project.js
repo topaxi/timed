@@ -1,4 +1,5 @@
 var Project = require('../models/project')
+  , Task    = require('../models/task')
 
 module.exports = function(app) {
   app.get('/project', function(req, res, next) {
@@ -23,6 +24,14 @@ module.exports = function(app) {
       if (err) return next(err)
 
       res.send(project)
+    })
+  })
+
+  app.get('/project/:id/tasks', function(req, res, next) {
+    Task.find({ 'project': req.params.id }, function(err, tasks) {
+      if (err) return next(err)
+
+      res.send(tasks)
     })
   })
 

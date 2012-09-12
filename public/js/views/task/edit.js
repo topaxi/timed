@@ -12,13 +12,13 @@
   document.head.appendChild(link)
 }(document)
 
-define(['backbone', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bootstrap-datepicker.js'], function(Backbone, tpl) {
+define(['backbone', 'text!views/task/edit.html', '/bootstrap-datepicker/js/bootstrap-datepicker.js'], function(Backbone, tpl) {
   'use strict'
 
   var dateFormat = 'dd.mm.yyyy'
     , def        = Timed.formatDate(new Date)
 
-  var ProjectEdit = Backbone.View.extend({
+  var TaskEdit = Backbone.View.extend({
       'render': function() {
         var model = this.model
           , $el   = this.$el = $(tpl)
@@ -40,10 +40,11 @@ define(['backbone', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bo
         $form.submit(function(e) {
           e.preventDefault()
 
-          var data = { 'name': $form.find('[name=name]').val()
-                     , 'from': parseDate($form.find('[name=from]').val())
-                     , 'to':   parseDate($form.find('[name=to]')  .val())
-                     , 'done': $form.find('[name=done]').prop('checked')
+          var data = { 'name':     $form.find('[name=name]').val()
+                     , 'duration': parseInt($form.find('[name=duration]').val(), 10) || null
+                     , 'from':     parseDate($form.find('[name=from]').val())
+                     , 'to':       parseDate($form.find('[name=to]')  .val())
+                     , 'done':     $form.find('[name=done]').prop('checked')
                      }
 
           model.save(data, {
@@ -74,5 +75,5 @@ define(['backbone', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bo
     return new Date(parts[2], parts[1] - 1, parts[0])
   }
 
-  return ProjectEdit
+  return TaskEdit
 })

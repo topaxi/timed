@@ -83,6 +83,7 @@ function login(req, res, next) {
 require('./routes')(app)
 require('./routes/user')(app)
 require('./routes/project')(app)
+require('./routes/task')(app)
 require('./routes/customer')(app)
 require('./routes/login')(app)
 

@@ -100,4 +100,25 @@ require(['backbone', 'models/user', 'views/timeline', 'bootstrap'],
       })
     })
   }()
+
+  !function() {
+    var dialog, users
+
+    $('#users').click(function(e) {
+      e.preventDefault()
+
+      if (dialog) {
+        users.fetch({ 'success': function() { dialog.render() } })
+
+        return
+      }
+
+      require(['collections/user', 'views/user/list'],
+          function(Users, UserList) {
+        users  = new Users
+        dialog = new UserList({ 'model': users })
+        users.fetch({ 'success': function() { dialog.render() } })
+      })
+    })
+  }()
 })

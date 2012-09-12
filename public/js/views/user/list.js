@@ -3,36 +3,43 @@ define(['backbone', 'models/user', 'text!views/user/list.html'],
   'use strict'
 
   var UserList = Backbone.View.extend({
-      'render': function() {
-        var $el   = this.$el = $(tpl)
+      'events': { 'click .edit':   'edit'
+                , 'click .create': 'edit'
+                }
+    , 'render': function() {
+        var self  = this
+          , $el   = self.$el = $(tpl)
           , $list = $el.find('.list')
 
-        this.model.each(function(user) {
+        self.delegateEvents()
+
+        self.model.each(function(user) {
           $list.append(
             $('<li>').text(' '+ user.get('name'))
                      .prepend(createEditButton(user))
           )
         })
 
-        $list.on('click', '.edit', edit)
-        $el.find('.create').click(edit)
+        $el.on('hide',   function() { self.trigger('close') })
         $el.on('hidden', function() { $(this).remove() })
         $el.modal()
+      }
+    , 'edit': function(e) {
+        var model = $(e.currentTarget).data('model') || new User
+          , self  = this
+
+        require(['views/user/edit'], function(UserEdit) {
+          var view = new UserEdit({ 'model': model })
+
+          view.on('close', function() { self.render() })
+
+          view.render()
+        })
       }
   })
 
   function createEditButton(model) {
     return $('<a class="btn btn-small edit" data-dismiss="modal" data-placement="left" title="Edit user" rel="tooltip"><i class="icon-edit"></i></a>').data('model', model).tooltip()
-  }
-
-  function edit(e) {
-    e.preventDefault()
-
-    var model = $(this).data('model') || new User
-
-    require(['views/user/edit'], function(UserEdit) {
-      (new UserEdit({ 'model': model })).render()
-    })
   }
 
   return UserList

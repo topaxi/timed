@@ -20,8 +20,9 @@ define(['backbone', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bo
 
   var ProjectEdit = Backbone.View.extend({
       'render': function() {
-        var model = this.model
-          , $el   = this.$el = $(tpl)
+        var self  = this
+          , model = self.model
+          , $el   = self.$el = $(tpl)
           , $form = $el.find('form')
 
         // TODO: Either i'm doing it wrong or the datepicker api seems weird
@@ -63,6 +64,7 @@ define(['backbone', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bo
         $el.on('shown', function() {
           $form.find('[name=name]').focus()
         })
+        $el.on('hide',   function() { self.trigger('close') })
         $el.on('hidden', function() { $(this).remove() })
         $el.modal()
       }

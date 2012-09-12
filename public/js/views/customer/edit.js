@@ -3,8 +3,9 @@ define(['backbone', 'text!views/customer/edit.html'], function(Backbone, tpl) {
 
   var CustomerEdit = Backbone.View.extend({
       'render': function() {
-        var model = this.model
-          , $el   = this.$el = $(tpl)
+        var self  = this
+          , model = self.model
+          , $el   = self.$el = $(tpl)
           , $form = $el.find('form')
 
         $form.find('[name=name]').val(model.get('name'))
@@ -28,6 +29,7 @@ define(['backbone', 'text!views/customer/edit.html'], function(Backbone, tpl) {
         $el.on('shown', function() {
           $form.find('[name=name]').focus()
         })
+        $el.on('hide',   function() { self.trigger('close') })
         $el.on('hidden', function() { $(this).remove() })
         $el.modal()
       }

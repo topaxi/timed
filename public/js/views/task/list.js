@@ -3,41 +3,48 @@ define(['backbone', 'models/task', 'text!views/task/list.html'],
   'use strict'
 
   var TaskList = Backbone.View.extend({
-      'render': function() {
-        var $el     = this.$el = $(tpl)
+      'events': { 'click .edit':   'edit'
+                , 'click .create': 'edit'
+                }
+    , 'render': function() {
+        var self    = this
+          , project = self.model.project
+          , $el     = self.$el = $(tpl)
           , $list   = $el.find('.list')
-          , project = this.model.project
+
+        self.delegateEvents()
 
         $el.find('h3').text('Tasks of '+ project.get('name'))
 
-        this.model.each(function(model) {
+        self.model.each(function(model) {
           $list.append(
             $('<li>').text(' '+ model.get('name'))
                      .prepend(createEditButton(model))
           )
         })
 
-        $list.on('click', '.edit', edit)
-        $el.find('.create').click(edit)
+        $el.on('hide',   function() { self.trigger('close') })
         $el.on('hidden', function() { $(this).remove() })
         $el.modal()
+      }
+    , 'edit': function(e) {
+        var model = $(e.currentTarget).data('model') || new Task
+          , self  = this
 
-        function edit(e) {
-          e.preventDefault()
+        if (!model.has('project')) model.set('project', self.model.project)
 
-          var model = $(this).data('model') || new Task
+        require(['views/task/edit'], function(TaskEdit) {
+          var view = new TaskEdit({ 'model': model })
 
-          if (!model.has('project')) model.set('project', project)
+          //view.on('close', function() { self.render() })
 
-          require(['views/task/edit'], function(TaskEdit) {
-            (new TaskEdit({ 'model': model })).render()
-          })
-        }
+          view.render()
+        })
       }
   })
 
   function createEditButton(model) {
-    return $('<a class="btn btn-small edit" data-dismiss="modal" data-placement="left" title="Edit task" rel="tooltip"><i class="icon-edit"></i></a>').data('model', model).tooltip()
+    return $('<a class="btn btn-small edit" data-placement="left" title="Edit task" rel="tooltip"><i class="icon-edit"></i></a>').data('model', model).tooltip()
   }
 
   return TaskList

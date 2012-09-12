@@ -3,11 +3,18 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
   'use strict'
 
   var ProjectList = Backbone.View.extend({
-      'render': function() {
-        var $el   = this.$el = $(tpl)
+      'events': { 'click .tasks':  'showTasks'
+                , 'click .edit':   'edit'
+                , 'click .create': 'edit'
+                }
+    , 'render': function() {
+        var self  = this
+          , $el   = self.$el = $(tpl)
           , $list = $el.find('.list')
 
-        this.model.each(function(project) {
+        self.delegateEvents()
+
+        self.model.each(function(project) {
           $list.append(
             $('<li>').text(' '+ project.get('name'))
                      .prepend(createTaskButton(project))
@@ -15,11 +22,36 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
           )
         })
 
-        $list.on('click', '.tasks', editTasks)
-        $list.on('click', '.edit', edit)
-        $el.find('.create').click(edit)
+        $el.on('hide',   function() { self.trigger('close') })
         $el.on('hidden', function() { $(this).remove() })
         $el.modal()
+      }
+    , 'edit': function(e) {
+        var model = $(e.currentTarget).data('model') || new Project
+          , self  = this
+
+        require(['views/project/edit'], function(ProjectEdit) {
+          var view = new ProjectEdit({ 'model': model })
+
+          view.on('close', function() { self.render() })
+
+          view.render()
+        })
+      }
+    , 'showTasks': function(e) {
+        var model = $(e.currentTarget).data('model')
+          , self  = this
+
+        require(['collections/task', 'views/task/list'], function(Tasks, TaskList) {
+          var tasks = new Tasks
+            , view  = new TaskList({ 'model': tasks })
+
+          //view.on('close', function() { self.render() })
+
+          tasks.project = model
+
+          tasks.fetch({ 'success': function() { view.render() } })
+        })
       }
   })
 
@@ -28,32 +60,7 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
   }
 
   function createTaskButton(model) {
-    return $('<a class="btn btn-small tasks" data-dismiss="modal" data-placement="left" title="Edit project tasks" rel="tooltip"><i class="icon-tasks"></i></a>').data('model', model).tooltip()
-  }
-
-  function edit(e) {
-    e.preventDefault()
-
-    var model = $(this).data('model') || new Project
-
-    require(['views/project/edit'], function(ProjectEdit) {
-      (new ProjectEdit({ 'model': model })).render()
-    })
-  }
-
-  function editTasks(e) {
-    e.preventDefault()
-
-    var model = $(this).data('model')
-
-    require(['collections/task', 'views/task/list'], function(Tasks, TaskList) {
-      var tasks = new Tasks
-        , list  = new TaskList({ 'model': tasks })
-
-      tasks.project = model
-
-      tasks.fetch({ 'success': function() { list.render() } })
-    })
+    return $('<a class="btn btn-small tasks" data-placement="left" title="Edit project tasks" rel="tooltip"><i class="icon-tasks"></i></a>').data('model', model).tooltip()
   }
 
   return ProjectList

@@ -46,7 +46,7 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
           var tasks = new Tasks
             , view  = new TaskList({ 'model': tasks })
 
-          //view.on('close', function() { self.render() })
+          view.on('close', function() { self.render() })
 
           tasks.project = model
 
@@ -60,7 +60,7 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
   }
 
   function createTaskButton(model) {
-    return $('<a class="btn btn-small tasks" data-placement="left" title="Edit project tasks" rel="tooltip"><i class="icon-tasks"></i></a>').data('model', model).tooltip()
+    return $('<a class="btn btn-small tasks" data-dismiss="modal" data-placement="left" title="Edit project tasks" rel="tooltip"><i class="icon-tasks"></i></a>').data('model', model).tooltip()
   }
 
   return ProjectList

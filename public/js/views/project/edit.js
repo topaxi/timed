@@ -31,7 +31,7 @@ define(['backbone', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bo
         $form.find('.date').datepicker({ 'weekStart': 1, 'format': dateFormat })
 
         $form.find('[name=name]').val(model.get('name'))
-        $form.find('[name=done]').prop('checked', true)
+        $form.find('[name=done]').prop('checked', model.get('done'))
         $form.submit(function(e) {
           e.preventDefault()
 

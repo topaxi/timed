@@ -27,7 +27,12 @@ module.exports = function(app) {
   })
 
   app.post('/project', function(req, res, next) {
-    var project = new Project({ 'name': req.body.name })
+    var project = new Project({ 'name':  req.body.name
+                              , 'from':  req.body.from
+                              , 'to':    req.body.to
+                              , 'tasks': req.body.tasks
+                              , 'done':  req.body.done
+                              })
 
     project.save(function(err) {
       if (err) return next(err)

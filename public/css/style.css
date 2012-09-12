@@ -7,4 +7,4 @@ body { padding-top: 60px }
 .timeline .activity   { background: #aae }
 
 /* Bugfixes */
-.datepicker { z-index: 9999999 }
+.datepicker, .tooltip { z-index: 9999999 }

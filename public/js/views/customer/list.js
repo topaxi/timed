@@ -22,7 +22,7 @@ define(['backbone', 'models/customer', 'text!views/customer/list.html'],
   })
 
   function createEditButton(model) {
-    return $('<a class="btn btn-small edit" data-dismiss="modal"><i class="icon-edit"></a>').data('model', model)
+    return $('<a class="btn btn-small edit" data-dismiss="modal" data-placement="left" title="Edit customer" rel="tooltip"><i class="icon-edit"></i></a>').data('model', model).tooltip()
   }
 
   function edit(e) {

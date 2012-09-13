@@ -1,4 +1,5 @@
-var User = require('../models/user')
+var User   = require('../models/user')
+  , bcrypt = require('bcrypt')
 
 module.exports = function(app) {
   app.get('/user/current', function(req, res) {
@@ -52,18 +53,46 @@ module.exports = function(app) {
       if (err) return next(err)
 
       user.name        = req.body.name
-      user.password    = req.body.password
       user.quota       = req.body.quota
       user.attendances = req.body.attendances
 
-      user.save(function(err) {
-        if (err) return next(err)
+      if (!req.body.password) {
+        save()
+      }
+      else if (user.password) {
+        bcrypt.compare(req.body.password, user.password, function(err, equal) {
+          if (err) return next(err)
 
-        // Update currently logged in user
-        if (req.user._id == user._id) req.user = user
+          if (equal) {
+            save()
+          }
+          else {
+            encryptPassword(req.body.password, saveWithPassword)
+          }
+        })
+      }
+      else {
+        encryptPassword(req.body.password, saveWithPassword)
+      }
 
-        res.send(user)
-      })
+      function saveWithPassword(err, hash) {
+        if (err) next(err)
+
+        user.password = hash
+
+        save()
+      }
+
+      function save() {
+        user.save(function(err) {
+          if (err) return next(err)
+
+          // Update currently logged in user
+          if (req.user._id == user._id) req.user = user
+
+          res.send(user)
+        })
+      }
     })
   })
 
@@ -77,5 +106,13 @@ module.exports = function(app) {
         return res.send(true)
       })
     })
+  })
+}
+
+function encryptPassword(password, cb) {
+  bcrypt.genSalt(10, function(err, salt) {
+    if (err) return cb(err)
+
+    bcrypt.hash(password, salt, cb)
   })
 }

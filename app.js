@@ -34,6 +34,7 @@ passport.deserializeUser(function(id, done) {
 app.configure(function() {
   var SessionMongoose = require('session-mongoose')
     , LocalStrategy   = require('passport-local').Strategy
+    , bcrypt          = require('bcrypt')
 
   passport.use(new LocalStrategy(
     function(username, password, done) {
@@ -46,9 +47,12 @@ app.configure(function() {
 
         if (!user) return done(null, false, { message: 'Unknown user ' + username })
 
-        if (user.password != password) return done(null, false, { message: 'Invalid password' })
+        bcrypt.compare(password, user.password, function(err, equal) {
+          if (err)    return done(null, false, { message: err })
+          if (!equal) return done(null, false, { message: 'Invalid password' })
 
-        return done(null, user)
+          return done(null, user)
+        })
       })
     }
   ))

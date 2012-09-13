@@ -10,5 +10,6 @@
                   , "passport-local": "0.1.x"
                   , "passport": "0.1.x"
                   , "session-mongoose": "*"
+                  , "bcrypt": "0.7.x"
                   }
 }

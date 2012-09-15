@@ -3,20 +3,11 @@ var Project = require('../models/project')
 
 module.exports = function(app) {
   app.get('/project', function(req, res, next) {
-    if (req.query.name) {
-      Project.find({ 'name': req.query.name }, function(err, projects) {
-        if (err) return next(err)
+    Project.find(function(err, projects) {
+      if (err) return next(err)
 
-        res.send(projects)
-      })
-    }
-    else {
-      Project.find(function(err, projects) {
-        if (err) return next(err)
-
-        res.send(projects)
-      })
-    }
+      res.send(projects)
+    })
   })
 
   app.get('/project/:id', function(req, res, next) {

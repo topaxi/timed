@@ -18,11 +18,14 @@ module.exports = function(app) {
   })
 
   app.post('/task', function(req, res, next) {
-    var task = new Task({ 'name':    req.body.name
-                        , 'project': req.body.project._id
-                        , 'from':    req.body.from
-                        , 'to':      req.body.to
-                        , 'tasks':   req.body.tasks
+    var task = new Task({ 'name':     req.body.name
+                        // Project may be an id or an object
+                        , 'project':  req.body.project._id || req.body.project
+                        , 'duration': req.body.duration
+                        , 'from':     req.body.from
+                        , 'to':       req.body.to
+                        , 'tasks':    req.body.tasks
+                        , 'done':     !!req.body.done
                         })
 
     task.save(function(err) {
@@ -39,12 +42,13 @@ module.exports = function(app) {
     Task.findById(req.params.id, function(err, task) {
       if (err) return next(err)
 
-      task.name    = req.body.name
-      task.project = req.body.project._id
-      task.tasks   = req.body.tasks
-      task.from    = req.body.from
-      task.to      = req.body.to
-      task.done    = req.body.done
+      task.name     = req.body.name
+      task.project  = req.body.project._id || req.body.project
+      task.duration = req.body.duration
+      task.tasks    = req.body.tasks
+      task.from     = req.body.from
+      task.to       = req.body.to
+      task.done     = req.body.done
 
       task.save(function(err) {
         if (err) return next(err)

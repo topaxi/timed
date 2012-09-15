@@ -36,19 +36,19 @@ define(['backbone'], function(Backbone) { 'use strict'
 
                       if (!attendance) return
 
-                      this.$el.find('.from').text(formatTime(attendance.from))
+                      $el.find('.from').text(formatTime(attendance.from))
 
                       if (attendance.to) {
-                        this.$el.find('.to').text(formatTime(attendance.to))
+                        $el.find('.to').text(formatTime(attendance.to))
                       }
                       else {
                         var now  = Date.now()
                           , diff = now - attendance.from
 
-                        this.$el.find('.to').text(formatDiff(diff))
-                        this.$el.find('.attendance').find('.icon-play')
-                                                    .removeClass('icon-play')
-                                                    .addClass('icon-stop')
+                        $el.find('.to').text(formatDiff(diff))
+                        $el.find('.attendance').find('.icon-play')
+                                               .removeClass('icon-play')
+                                               .addClass('icon-stop')
                       }
                     }
   })

@@ -71,6 +71,10 @@ app.configure(function() {
   app.use(passport.initialize())
   app.use(passport.session())
   app.use(require('connect-flash')())
+  app.use(function(req, res, next) {
+    res.locals.user = req.user
+    next()
+  })
   app.use(app.router)
   app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
   app.use(express.static(path.join(__dirname, 'public')))

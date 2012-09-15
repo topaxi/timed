@@ -1,8 +1,9 @@
 var passport = require('passport')
+  , User     = require('../models/user')
 
 module.exports = function(app) {
   app.get('/login', function(req, res) {
-    res.render('login', { user: req.user, message: req.flash('error') })
+    res.render('login', { message: req.flash('error') })
   })
 
   app.post('/login',

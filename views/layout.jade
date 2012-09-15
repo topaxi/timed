@@ -7,8 +7,6 @@ html
     link(rel='stylesheet', href='/css/style.css')
     script
       Timed = {}
-    block script
-      script(src="/bootstrap/js/bootstrap.js")
   body
     block navbar
       .navbar.navbar-inverse.navbar-fixed-top
@@ -21,19 +19,21 @@ html
             a.brand(href='/') Timed
             .nav-collapse.collapse
               ul.nav
-                li.active
-                  a(href='/') Home
-                li
-                  a#projects(href='#projects') Projects
-                li
-                  a#customers(href='#customers') Customers
-                li
-                  a#users(href='#users') Users
+                - if (user)
+                  li.active
+                    a(href='/') Home
+                  li
+                    a#projects(href='#projects') Projects
+                  li
+                    a#customers(href='#customers') Customers
+                  li
+                    a#users(href='#users') Users
                 li
                   a(href='/about') About
-              ul.nav.pull-right
-                li
-                  a(href='/logout') Logout
+              - if (user)
+                ul.nav.pull-right
+                  li
+                    a(href='/logout') Logout
 
     #main.container-fluid
       block content

@@ -6,7 +6,7 @@ module.exports = function(app) {
     res.render('index')
   })
 
-  app.get('/about', require('../middleware/auth.js'), function(req, res) {
+  app.get('/about', function(req, res) {
     res.render('about')
   })
 }

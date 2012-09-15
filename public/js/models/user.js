@@ -8,7 +8,22 @@ define(['backbone'], function(Backbone) { 'use strict'
                return url
              }
     , 'idAttribute': '_id'
+    , 'parse': function(res) {
+                 res.attendances.forEach(convertDates)
+
+                 return res
+               }
   })
+
+  function convertDates(a) {
+    var parsed
+
+    parsed = Date.parse(a.from)
+    a.from = parsed ? new Date(parsed) : null
+
+    parsed = Date.parse(a.to)
+    a.to   = parsed ? new Date(parsed) : null
+  }
 
   return User
 })

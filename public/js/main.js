@@ -25,6 +25,18 @@ Timed.formatDate = function(date) {
          ].join('.')
 }
 
+Timed.formatTime = function(date) {
+  date = Timed.parseDate(date)
+
+  return [ Timed.pad(date.getHours(), 2)
+         , Timed.pad(date.getMinutes(), 2)
+         ].join(':')
+}
+
+Timed.formatDateTime = function(date) {
+  return Timed.formatDate(date) +' '+ Timed.formatTime(date)
+}
+
 Timed.parseDate = function(date) {
   //if (!date) throw new Error('Cannot parse falsy value as Date')
   if (!date) date = 0
@@ -39,23 +51,25 @@ Timed.pad = function pad(n, d, p) {
   for (n = ''+ (n >>> 0); n.length < d;) n = (p || '0')+ n; return n
 }
 
-require(['backbone', 'models/user', 'views/timeline', 'bootstrap'],
-    function(Backbone, ModelUser, Timeline) {
+require(['backbone', 'models/user', 'views/timeline', 'views/trackbar', 'bootstrap'],
+    function(Backbone, ModelUser, Timeline, Trackbar) {
   'use strict'
 
   var user     = Timed.user = new ModelUser
     , timeline = new Timeline({ 'model': user })
+    , trackbar = new Trackbar({ 'model': user })
 
+  user.url = '/user/current'
   user.on('update', function() {
     //timeline.render()
+    trackbar.render()
   })
-
-  $.getJSON('/user/current', function(data) {
-    if (data.error) return alert(data.error.message)
-
-    user.set(data)
+  user.fetch({ 'success': function() {
+    user.url = '/user/'+ user.get('_id')
     user.trigger('update')
-  })
+
+    setInterval(function() { trackbar.render() }, 5000)
+  } })
 
   // TODO: Menu should be done shinier and with less duplicate code
 

@@ -37,5 +37,15 @@ html
                   li
                     a(href='/logout') Logout
 
+    if (user)
+      #trackbar.container-fluid
+        block trackbar
+          div.attendance Attendance
+            a.btn.btn-small.btn-inverse.mhs
+              i.icon-white.icon-play
+            a.from.mhs 00:00
+            span to
+            a.to.mhs 0m
+
     #main.container-fluid
       block content

@@ -8,6 +8,7 @@ Task.add({ 'name':     String
          , 'from':     Date
          , 'to':       Date
          , 'tasks':    [ Task ]
+         , 'priority': Number
          , 'done':     Boolean
          })
 

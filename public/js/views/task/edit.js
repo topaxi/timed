@@ -38,6 +38,11 @@ define(['backbone', 'text!views/task/edit.html', '/bootstrap-datepicker/js/boots
 
         $form.find('[name=name]').val(model.get('name'))
         $form.find('[name=done]').prop('checked', model.get('done'))
+
+        if (model.get('priority')) {
+          $form.find('[name=priority]').val(model.get('priority'))
+        }
+
         $form.submit(function(e) {
           e.preventDefault()
 
@@ -45,6 +50,7 @@ define(['backbone', 'text!views/task/edit.html', '/bootstrap-datepicker/js/boots
                      , 'duration': parseInt($form.find('[name=duration]').val(), 10) || null
                      , 'from':     parseDate($form.find('[name=from]').val())
                      , 'to':       parseDate($form.find('[name=to]')  .val())
+                     , 'priority': $form.find('[name=priority]').val() >>> 0
                      , 'done':     $form.find('[name=done]').prop('checked')
                      }
 

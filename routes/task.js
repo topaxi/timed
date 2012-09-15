@@ -25,6 +25,7 @@ module.exports = function(app) {
                         , 'from':     req.body.from
                         , 'to':       req.body.to
                         , 'tasks':    req.body.tasks
+                        , 'priority': req.body.priority
                         , 'done':     !!req.body.done
                         })
 
@@ -48,6 +49,7 @@ module.exports = function(app) {
       task.tasks    = req.body.tasks
       task.from     = req.body.from
       task.to       = req.body.to
+      task.priority = req.body.priority
       task.done     = req.body.done
 
       task.save(function(err) {

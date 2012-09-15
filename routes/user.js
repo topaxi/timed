@@ -56,6 +56,7 @@ module.exports = function(app) {
       user.name        = req.body.name
       user.quota       = req.body.quota
       user.attendances = req.body.attendances
+      user.projects    = req.body.projects
 
       if (!req.body.password) {
         save()

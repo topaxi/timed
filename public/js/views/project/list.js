@@ -6,6 +6,7 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
       'events': { 'click .tasks':  'showTasks'
                 , 'click .edit':   'edit'
                 , 'click .create': 'edit'
+                , 'click .follow': 'follow'
                 }
     , 'render': function() {
         var self  = this
@@ -16,9 +17,11 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
 
         self.model.each(function(project) {
           $list.append(
-            $('<li>').text(' '+ project.get('name'))
-                     .prepend(createTaskButton(project))
-                     .prepend(createEditButton(project))
+            $('<li class="row-fluid">').append(
+              $('<div class="span2">').append(createEditButton(project))
+                                      .append(createTaskButton(project))
+            ).append($('<div class="span9">').text(project.get('name')).css('line-height', '26px'))
+             .append($('<div class="span1">').append(createFollowButton(project)))
           )
         })
 
@@ -53,7 +56,40 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
           tasks.fetch({ 'success': function() { view.render() } })
         })
       }
+    , 'follow': function(e) {
+        var $el      = $(e.currentTarget)
+          , $icon    = $el.find('i')
+          , model    = $el.data('model')
+          , projects = Timed.user.get('projects')
+          , self     = this
+
+        if ($el.hasClass('btn-primary')) {
+          projects = projects.filter(function(project) {
+            return project && (project._id || project) != model.id
+          })
+
+          Timed.user.save({ 'projects': projects }, { 'success': function() {
+            $el.removeClass('btn-primary')
+            $icon.removeClass('icon-ok-sign').addClass('icon-plus-sign')
+          }})
+        }
+        else {
+          projects.push(model.id)
+
+          Timed.user.save({ 'projects': projects }, { 'success': function() {
+            $el.addClass('btn-primary')
+            $icon.removeClass('icon-plus-sign').addClass('icon-ok-sign')
+          }})
+        }
+      }
   })
+
+  function createFollowButton(model) {
+    var followed = ~Timed.user.get('projects').indexOf(model.id)
+    return $('<a class="btn btn-small follow" data-placement="right" title="Follow project" rel="tooltip"><i class="'+ (followed ? 'icon-ok-sign' : 'icon-plus-sign') +'"></i></a>')
+             .data('model', model).tooltip()
+             .toggleClass('btn-primary', !!followed)
+  }
 
   function createEditButton(model) {
     return $('<a class="btn btn-small edit" data-dismiss="modal" data-placement="left" title="Edit project" rel="tooltip"><i class="icon-edit"></i></a>').data('model', model).tooltip()

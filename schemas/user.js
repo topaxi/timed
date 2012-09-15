@@ -10,4 +10,5 @@ var User = module.exports = new Schema({
                  }
                 ]
   , 'attendances': [ Attendance ]
+  , 'projects': [{ type: Schema.Types.ObjectId, ref: 'Project' }]
 })

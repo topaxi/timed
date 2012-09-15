@@ -1,0 +1,31 @@
+.modal.hide.fade
+  .modal-header
+    button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+    h3 Edit Project
+  .modal-body
+    form.form-horizontal
+      .control-group
+        label.control-label(for='inputName') Name
+        .controls
+          input#inputName(type='text', placeholder='Name', name='name')
+      .control-group
+        label.control-label(for='inputFrom') From
+        .controls
+          .input-append.date
+            input#inputFrom(size='16', type='text', name='from')
+            span.add-on
+              i.icon-th
+      .control-group
+        label.control-label(for='inputTo') To
+        .controls
+          .input-append.date
+            input#inputTo(size='16', type='text', name='to')
+            span.add-on
+              i.icon-th
+      .control-group
+        .controls
+          label.checkbox
+            input(type='checkbox', name='done') Done
+  .modal-footer
+    a.btn(href='#', data-dismiss='modal') Close
+    a.btn.btn-primary.save(href='#') Save

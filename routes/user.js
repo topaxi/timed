@@ -35,7 +35,11 @@ module.exports = function(app) {
   })
 
   app.post('/user', function(req, res, next) {
-    var user = new User({ 'name': req.body.name })
+    var user = new User({ 'name':     req.body.name
+                        , 'quota':    req.body.quota
+                        , 'password': req.body.password
+                        , 'projects': req.body.projects
+                        })
 
     user.save(function(err) {
       if (err) return next(err)

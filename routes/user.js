@@ -1,5 +1,6 @@
-var User   = require('../models/user')
-  , bcrypt = require('bcrypt')
+var User    = require('../models/user')
+  , Project = require('../models/project')
+  , bcrypt  = require('bcrypt')
 
 module.exports = function(app) {
   app.get('/user/current', function(req, res) {
@@ -8,10 +9,6 @@ module.exports = function(app) {
     delete user.password
 
     res.send(user)
-  })
-
-  app.get('/user/projects', function(req, res) {
-  
   })
 
   app.get('/user', function(req, res, next) {

@@ -51,22 +51,21 @@ Timed.pad = function pad(n, d, p) {
   for (n = ''+ (n >>> 0); n.length < d;) n = (p || '0')+ n; return n
 }
 
-require(['backbone', 'models/user', 'views/timeline', 'views/trackbar', 'bootstrap'],
-    function(Backbone, ModelUser, Timeline, Trackbar) {
+require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', 'bootstrap'],
+    function(ModelUser, Timeline, Trackbar, Dashboard) {
   'use strict'
 
-  var user     = Timed.user = new ModelUser
-    , timeline = new Timeline({ 'model': user })
-    , trackbar = new Trackbar({ 'model': user })
+  var user      = Timed.user = new ModelUser
+    , timeline  = new Timeline ({ 'model': user })
+    , trackbar  = new Trackbar ({ 'model': user })
 
   user.url = '/user/current'
-  user.on('update', function() {
-    //timeline.render()
-    trackbar.render()
+  user.on('change', function() {
+    //timeline .render()
+    trackbar .render()
   })
   user.fetch({ 'success': function() {
     user.url = '/user/'+ user.get('_id')
-    user.trigger('update')
 
     setInterval(function() { trackbar.render() }, 5000)
   } })
@@ -133,6 +132,34 @@ require(['backbone', 'models/user', 'views/timeline', 'views/trackbar', 'bootstr
         dialog = new UserList({ 'model': users })
         users.fetch({ 'success': function() { dialog.render() } })
       })
+    })
+  }()
+
+  // TODO: Implement some kind of router, Backbone.Router?
+  // init dashboard
+  document.getElementById('dashboard') && function() {
+    require(['collections/project', 'views/dashboard'], function(Projects, Dashboard) {
+      var projects  = new Projects
+        , dashboard = new Dashboard
+
+      projects.user = Timed.user
+      dashboard.projects = projects
+
+      Timed.user.on('change', fetchProjects)
+
+      fetchProjects()
+
+      function fetchProjects() {
+        if (Timed.user.get('projects').length) {
+          projects.fetch({ 'success': function() {
+            dashboard.render()
+          } })
+        }
+        else {
+          projects.reset([])
+          dashboard.render()
+        }
+      }
     })
   }()
 })

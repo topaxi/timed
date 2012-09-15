@@ -68,6 +68,8 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
             return project && (project._id || project) != model.id
           })
 
+          // TODO: Why does this trigger an GET request before the PUT?
+          //       Which will in return trigger two "change" events on user...
           Timed.user.save({ 'projects': projects }, { 'success': function() {
             setTooltip($el, 'Follow project')
             $el.removeClass('btn-success')

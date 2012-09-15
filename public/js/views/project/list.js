@@ -63,14 +63,14 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
           , projects = Timed.user.get('projects')
           , self     = this
 
-        if ($el.hasClass('btn-primary')) {
+        if ($el.hasClass('btn-success')) {
           projects = projects.filter(function(project) {
             return project && (project._id || project) != model.id
           })
 
           Timed.user.save({ 'projects': projects }, { 'success': function() {
             setTooltip($el, 'Follow project')
-            $el.removeClass('btn-primary')
+            $el.removeClass('btn-success')
             $icon.removeClass('icon-ok-sign').addClass('icon-plus-sign')
           }})
         }
@@ -79,7 +79,7 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
 
           Timed.user.save({ 'projects': projects }, { 'success': function() {
             setTooltip($el, 'Unfollow project')
-            $el.addClass('btn-primary')
+            $el.addClass('btn-success')
             $icon.removeClass('icon-plus-sign').addClass('icon-ok-sign')
           }})
         }
@@ -94,7 +94,7 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
     var followed = ~Timed.user.get('projects').indexOf(model.id)
     return $('<a class="btn btn-small follow" data-placement="right" title="'+ (followed ? 'Unfollow' : 'Follow') +' project" rel="tooltip"><i class="'+ (followed ? 'icon-ok-sign' : 'icon-plus-sign') +'"></i></a>')
              .data('model', model).tooltip()
-             .toggleClass('btn-primary', !!followed)
+             .toggleClass('btn-success', !!followed)
   }
 
   function createEditButton(model) {

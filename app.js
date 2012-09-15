@@ -16,6 +16,13 @@ mongoose.connect(config.mongodb)
 
 var app = express()
 
+if (config.title) {
+  app.set('title', 'Timed - '+ config.title)
+}
+else {
+  app.set('title', 'Timed')
+}
+
 // Passport session setup.
 // To support persistent login sessions, Passport needs to be able to
 // serialize users into and deserialize users out of the session. Typically,

@@ -22,7 +22,7 @@ html
             .nav-collapse.collapse
               ul.nav
                 - if (user)
-                  li.active
+                  li(class=req.route.path == '/' ? 'active' : '')
                     a(href='/') Home
                   li
                     a#projects(href='#projects') Projects
@@ -30,7 +30,7 @@ html
                     a#customers(href='#customers') Customers
                   li
                     a#users(href='#users') Users
-                li
+                li(class=req.route.path == '/about' ? 'active' : '')
                   a(href='/about') About
               - if (user)
                 ul.nav.pull-right

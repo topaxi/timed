@@ -73,6 +73,7 @@ app.configure(function() {
   app.use(require('connect-flash')())
   app.use(function(req, res, next) {
     res.locals.user = req.user
+    res.locals.req  = req
     next()
   })
   app.use(app.router)

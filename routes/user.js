@@ -3,7 +3,11 @@ var User   = require('../models/user')
 
 module.exports = function(app) {
   app.get('/user/current', function(req, res) {
-    res.send(req.user)
+    var user = JSON.parse(JSON.stringify(req.user))
+
+    delete user.password
+
+    res.send(user)
   })
 
   app.get('/user/projects', function(req, res) {
@@ -11,25 +15,20 @@ module.exports = function(app) {
   })
 
   app.get('/user', function(req, res, next) {
-    if (req.query.name) {
-      User.find({ 'name': req.query.name }, function(err, users) {
-        if (err) return next(err)
+    User.find(function(err, users) {
+      if (err) return next(err)
 
-        res.send(users)
-      })
-    }
-    else {
-      User.find(function(err, users) {
-        if (err) return next(err)
+      users.forEach(deletePassword)
 
-        res.send(users)
-      })
-    }
+      res.send(users)
+    })
   })
 
   app.get('/user/:id', function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
+
+      user.password = undefined
 
       res.send(user)
     })
@@ -40,6 +39,8 @@ module.exports = function(app) {
 
     user.save(function(err) {
       if (err) return next(err)
+
+      user.password = undefined
 
       res.send(user)
     })
@@ -90,6 +91,8 @@ module.exports = function(app) {
           // Update currently logged in user
           if (req.user._id == user._id) req.user = user
 
+          user.password = undefined
+
           res.send(user)
         })
       }
@@ -107,6 +110,10 @@ module.exports = function(app) {
       })
     })
   })
+}
+
+function deletePassword(user) {
+  user.password = undefined
 }
 
 function encryptPassword(password, cb) {

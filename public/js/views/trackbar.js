@@ -17,8 +17,7 @@ define(['backbone'], function(Backbone) { 'use strict'
                         $icon.removeClass('icon-play').addClass('icon-stop')
                       }
                       else {
-                        var attendances = user.get('attendances')
-                          , attendance  = attendances[attendances.length - 1]
+                        var attendance = user.getCurrentAttendance()
 
                         attendance.to = new Date
                         user.save()
@@ -29,10 +28,9 @@ define(['backbone'], function(Backbone) { 'use strict'
                       this.render()
                     }
     , 'render':     function() {
-                      var user        = this.model
-                        , $el         = this.$el
-                        , attendances = this.model.get('attendances')
-                        , attendance  = attendances[attendances.length - 1]
+                      var user       = this.model
+                        , $el        = this.$el
+                        , attendance = user.getCurrentAttendance()
 
                       if (!attendance) return
 

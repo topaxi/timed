@@ -13,6 +13,11 @@ define(['backbone'], function(Backbone) { 'use strict'
 
                  return res
                }
+    , 'getCurrentAttendance': function() {
+        var attendances = this.get('attendances')
+
+        return attendances[attendances.length - 1]
+      }
   })
 
   function convertDates(a) {

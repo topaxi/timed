@@ -12,7 +12,8 @@
   document.head.appendChild(link)
 }(document)
 
-define(['backbone', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bootstrap-datepicker.js'], function(Backbone, tpl) {
+define(['backbone', 'collections/customer', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bootstrap-datepicker.js'],
+    function(Backbone, Customers, tpl) {
   'use strict'
 
   var dateFormat = 'dd.mm.yyyy'
@@ -20,10 +21,26 @@ define(['backbone', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bo
 
   var ProjectEdit = Backbone.View.extend({
       'render': function() {
-        var self  = this
-          , model = self.model
-          , $el   = self.$el = $(tpl)
-          , $form = $el.find('form')
+        var self      = this
+          , model     = self.model
+          , $el       = self.$el = $(tpl)
+          , $form     = $el.find('form')
+          , customers = new Customers
+
+        customers.fetch({ 'success': function() {
+          var $select = $form.find('#inputCustomer')
+            , selected = model.get('customer')
+
+          selected = selected && selected.id || selected
+
+          customers.each(function(customer) {
+            var $option = $('<option value="'+ customer.id +'">').text(customer.get('name'))
+
+            if (selected == customer.id) $option.prop('selected', true)
+
+            $select.append($option)
+          })
+        } })
 
         // TODO: Either i'm doing it wrong or the datepicker api seems weird
         $form.find('[name=from]').val(Timed.formatDate(model.get('from')))
@@ -41,10 +58,11 @@ define(['backbone', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bo
         $form.submit(function(e) {
           e.preventDefault()
 
-          var data = { 'name': $form.find('[name=name]').val()
-                     , 'from': parseDate($form.find('[name=from]').val())
-                     , 'to':   parseDate($form.find('[name=to]')  .val())
-                     , 'done': $form.find('[name=done]').prop('checked')
+          var data = { 'name':     $form.find('[name=name]').val()
+                     , 'customer': $form.find('[name=customer]').val()
+                     , 'from':     parseDate($form.find('[name=from]').val())
+                     , 'to':       parseDate($form.find('[name=to]')  .val())
+                     , 'done':     $form.find('[name=done]').prop('checked')
                      }
 
           model.save(data, {

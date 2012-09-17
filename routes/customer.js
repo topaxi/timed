@@ -43,8 +43,7 @@ module.exports = function(app) {
     Customer.findById(req.params.id, function(err, customer) {
       if (err) return next(err)
 
-      customer.name     = req.body.name
-      customer.projects = req.body.projects
+      customer.name = req.body.name
 
       customer.save(function(err) {
         if (err) return next(err)

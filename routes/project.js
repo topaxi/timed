@@ -36,11 +36,12 @@ module.exports = function(app) {
   })
 
   app.post('/project', function(req, res, next) {
-    var project = new Project({ 'name':  req.body.name
-                              , 'from':  req.body.from
-                              , 'to':    req.body.to
-                              , 'tasks': req.body.tasks
-                              , 'done':  req.body.done
+    var project = new Project({ 'name':     req.body.name
+                              , 'customer': req.body.customer
+                              , 'from':     req.body.from
+                              , 'to':       req.body.to
+                              , 'tasks':    req.body.tasks
+                              , 'done':     req.body.done
                               })
 
     project.save(function(err) {
@@ -57,11 +58,12 @@ module.exports = function(app) {
     Project.findById(req.params.id, function(err, project) {
       if (err) return next(err)
 
-      project.name  = req.body.name
-      project.tasks = req.body.tasks
-      project.from  = req.body.from
-      project.to    = req.body.to
-      project.done  = req.body.done
+      project.name     = req.body.name
+      project.customer = req.body.customer
+      project.tasks    = req.body.tasks
+      project.from     = req.body.from
+      project.to       = req.body.to
+      project.done     = req.body.done
 
       project.save(function(err) {
         if (err) return next(err)

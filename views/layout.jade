@@ -40,7 +40,14 @@ html
     if (user)
       #trackbar.container-fluid
         block trackbar
-          div.attendance Attendance
+          .attendance Attendance
+            a.btn.btn-small.btn-inverse.mhs
+              i.icon-white.icon-play
+            a.from.mhs 00:00
+            span to
+            a.to.mhs 0m
+          .activity Activity
+            span.name.mhs
             a.btn.btn-small.btn-inverse.mhs
               i.icon-white.icon-play
             a.from.mhs 00:00

@@ -1,6 +1,8 @@
 define(['backbone'], function(Backbone) { 'use strict'
   var Trackbar = Backbone.View.extend({
-      'events':     { 'click .attendance .btn': 'attendance' }
+      'events':     { 'click .attendance .btn': 'attendance'
+                    , 'click .activity .btn':   'activity'
+                    }
     , 'el':         $('#trackbar')
     , 'attendance': function(e) {
                       var $button = $(e.currentTarget)
@@ -8,18 +10,37 @@ define(['backbone'], function(Backbone) { 'use strict'
                         , $icon   = $button.find('i')
 
                       if ($icon.is('.icon-play')) {
-                        user.get('attendances').push({ 'from': new Date
-                                                     , 'to':   null
-                                                     })
+                        user.startAttendance()
 
                         user.save()
 
                         $icon.removeClass('icon-play').addClass('icon-stop')
                       }
                       else {
-                        var attendance = user.getCurrentAttendance()
+                        user.endCurrentAttendance()
 
-                        attendance.to = new Date
+                        user.save()
+
+                        $icon.removeClass('icon-stop').addClass('icon-play')
+                      }
+
+                      this.render()
+                    }
+    , 'activity':   function(e) {
+                      var $button = $(e.currentTarget)
+                        , user    = this.model
+                        , $icon   = $button.find('i')
+
+                      if ($icon.is('.icon-play')) {
+                        user.startActivity(user.getCurrentActivity().task)
+
+                        user.save()
+
+                        $icon.removeClass('icon-play').addClass('icon-stop')
+                      }
+                      else {
+                        user.endCurrentActivity()
+
                         user.save()
 
                         $icon.removeClass('icon-stop').addClass('icon-play')
@@ -28,25 +49,52 @@ define(['backbone'], function(Backbone) { 'use strict'
                       this.render()
                     }
     , 'render':     function() {
-                      var user       = this.model
-                        , $el        = this.$el
-                        , attendance = user.getCurrentAttendance()
+                      var user        = this.model
+                        , $el         = this.$el
+                        , $attendance = $el.find('.attendance')
+                        , $activity   = $el.find('.activity')
+                        , attendance  = user.getCurrentAttendance()
+                        , activity    = user.getCurrentActivity()
 
                       if (!attendance) return
 
-                      $el.find('.from').text(formatTime(attendance.from))
+                      $attendance.find('.from').text(formatTime(attendance.get('from')))
 
-                      if (attendance.to) {
-                        $el.find('.to').text(formatTime(attendance.to))
+                      if (attendance.get('to')) {
+                        $attendance.find('.to').text(formatTime(attendance.get('to')))
+                        $attendance.find('.icon-stop')
+                                   .removeClass('icon-stop')
+                                   .addClass('icon-play')
                       }
                       else {
                         var now  = Date.now()
-                          , diff = now - attendance.from
+                          , diff = now - attendance.get('from')
 
-                        $el.find('.to').text(formatDiff(diff))
-                        $el.find('.attendance').find('.icon-play')
-                                               .removeClass('icon-play')
-                                               .addClass('icon-stop')
+                        $attendance.find('.to').text(formatDiff(diff))
+                        $attendance.find('.icon-play')
+                                   .removeClass('icon-play')
+                                   .addClass('icon-stop')
+                      }
+
+                      if (!activity) return
+
+                      //$activity.find('.name').text(activity.get('task').get('name'))
+                      $activity.find('.from').text(formatTime(activity.get('from')))
+
+                      if (activity.get('to')) {
+                        $activity.find('.to').text(formatTime(activity.get('to')))
+                        $activity.find('.icon-stop')
+                                 .removeClass('icon-stop')
+                                 .addClass('icon-play')
+                      }
+                      else {
+                        var now  = Date.now()
+                          , diff = now - activity.get('from')
+
+                        $activity.find('.to').text(formatDiff(diff))
+                        $activity.find('.icon-play')
+                                 .removeClass('icon-play')
+                                 .addClass('icon-stop')
                       }
                     }
   })

@@ -9,7 +9,6 @@ define(['backbone', 'views/dashboard/project'],
         if (!this.el) return
 
         var self  = this
-          , model = self.model
           , $el   = self.$el.empty()
 
         if (!self.projects.length) return

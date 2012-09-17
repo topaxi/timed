@@ -1,6 +1,10 @@
-define(['backbone'], function(Backbone) { 'use strict'
+define(['backbone', 'collections/project', 'collections/attendance'],
+    function(Backbone, Projects, Attendances) {
+  'use strict'
+
   var User = Backbone.Model.extend({
-      'url': function() {
+      'defaults': { 'projects': [] }
+    , 'url': function() {
                var url = '/user'
 
                if (this.id) url += '/'+ this.id
@@ -9,14 +13,52 @@ define(['backbone'], function(Backbone) { 'use strict'
              }
     , 'idAttribute': '_id'
     , 'parse': function(res) {
-                 res.attendances.forEach(convertDates)
+                 res.attendances = new Attendances(res.attendances)
+                 res.attendances.user = this
 
                  return res
                }
-    , 'getCurrentAttendance': function() {
-        var attendances = this.get('attendances')
+    , 'startAttendance': function(from, to, activities) {
+        var attendance = { 'from':       from       || new Date
+                         , 'to':         to         || null
+                         , 'activities': activities || []
+                         }
 
-        return attendances[attendances.length - 1]
+        return this.get('attendances').create(attendance)
+      }
+    , 'endCurrentAttendance': function(to) {
+        this.endCurrentActivity()
+        this.get('attendances').last().end()
+      }
+    , 'getCurrentAttendance': function() {
+        return this.get('attendances').last()
+      }
+    , 'startActivity': function(task, from, to) {
+        this.endCurrentActivity()
+
+        var attendance = this.getCurrentAttendance()
+          , activity   = { 'from': from || new Date
+                         , 'to':   to   || null
+                         , 'task': task && task.id || task || null
+                         }
+
+        if (attendance.get('to')) attendance = this.startAttendance(from)
+
+        attendance.get('activities').create(activity)
+      }
+    , 'endCurrentActivity': function() {
+        var activity = this.getCurrentActivity()
+
+        if (activity) {
+          activity.end()
+        }
+     }
+    , 'getCurrentActivity': function() {
+        var attendance = this.get('attendances').last()
+
+        if (!attendance) return
+
+        return attendance.get('activities').last()
       }
   })
 

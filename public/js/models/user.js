@@ -42,7 +42,9 @@ define(['backbone', 'collections/project', 'collections/attendance'],
                          , 'task': task && task.id || task || null
                          }
 
-        if (attendance.get('to')) attendance = this.startAttendance(from)
+        if (!attendance || attendance.get('to')) {
+          attendance = this.startAttendance(from)
+        }
 
         attendance.get('activities').create(activity)
       }

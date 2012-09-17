@@ -28,6 +28,9 @@ define(['backbone', 'models/task', 'text!views/task/list.html'],
         $el.modal()
       }
     , 'edit': function(e) {
+        this.off('close')
+        this.$el.modal('hide')
+
         var model = $(e.currentTarget).data('model') || new Task
           , self  = this
 
@@ -36,7 +39,7 @@ define(['backbone', 'models/task', 'text!views/task/list.html'],
         require(['views/task/edit'], function(TaskEdit) {
           var view = new TaskEdit({ 'model': model })
 
-          //view.on('close', function() { self.render() })
+          view.on('close', function() { self.render() })
 
           view.render()
         })

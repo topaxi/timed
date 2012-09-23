@@ -9,7 +9,7 @@ html
     link(rel='stylesheet', href='/bootstrap/css/bootstrap-responsive.css')
     script
       Timed = {}
-    - if (user)
+    if user
       script(src='/js/require.js', data-main='/js/main')
   body
     block navbar
@@ -23,7 +23,7 @@ html
             a.brand(href='/') Timed
             .nav-collapse.collapse
               ul.nav
-                - if (user)
+                if user
                   li(class=req.route.path == '/' ? 'active' : '')
                     a(href='/') Home
                   li
@@ -34,7 +34,7 @@ html
                     a#users(href='#users') Users
                 li(class=req.route.path == '/about' ? 'active' : '')
                   a(href='/about') About
-              - if (user)
+              if user
                 ul.nav.pull-right
                   li
                     a(href='/logout') Logout

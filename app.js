@@ -11,10 +11,15 @@ var express  = require('express')
   , passport = require('passport')
   , config   = require('./config.json')
   , User     = require('./models/user')
+  , moment   = require('moment')
+
+moment.fn.toJSON = function() { this._d.toJSON() }
 
 mongoose.connect(config.mongodb)
 
 var app = express()
+
+app.locals.moment = moment
 
 if (config.title) {
   app.set('title', 'Timed - '+ config.title)

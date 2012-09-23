@@ -97,11 +97,7 @@ define(['backbone', 'moment'], function(Backbone, moment) { 'use strict'
   })
 
   function format(date) {
-    if (date > today()) {
-      return date.format('LT')
-    }
-
-    return date.format('LLL')
+    return date.format(date > today() ? 'LT' : 'LLL')
   }
 
   function today() {

@@ -12,11 +12,11 @@
   document.head.appendChild(link)
 }(document)
 
-define(['backbone', 'text!views/task/edit.html', '/bootstrap-datepicker/js/bootstrap-datepicker.js'], function(Backbone, tpl) {
+define(['backbone', 'moment', 'text!views/task/edit.html', '/bootstrap-datepicker/js/bootstrap-datepicker.js'],
+    function(Backbone, moment, tpl) {
   'use strict'
 
-  var dateFormat = 'dd.mm.yyyy'
-    , def        = Timed.formatDate(new Date)
+  var def = moment().format('L')
 
   var TaskEdit = Backbone.View.extend({
       'render': function() {
@@ -26,15 +26,15 @@ define(['backbone', 'text!views/task/edit.html', '/bootstrap-datepicker/js/boots
           , $form = $el.find('form')
 
         // TODO: Either i'm doing it wrong or the datepicker api seems weird
-        $form.find('[name=from]').val(Timed.formatDate(model.get('from')))
+        $form.find('[name=from]').val(model.get('from').format('L'))
                                  .closest('.date')
-                                 .data('date', Timed.formatDate(model.get('from')))
+                                 .data('date', model.get('from').format('L'))
 
-        $form.find('[name=to]').val(Timed.formatDate(model.get('to')))
+        $form.find('[name=to]').val(model.get('to').format('L'))
                                .closest('.date')
-                               .data('date', Timed.formatDate(model.get('to')))
+                               .data('date', model.get('to').format('L'))
 
-        $form.find('.date').datepicker({ 'weekStart': 1, 'format': dateFormat })
+        $form.find('.date').datepicker({ 'weekStart': 1, 'format': 'mm/dd/yyyy' })
 
         $form.find('[name=name]').val(model.get('name'))
         $form.find('[name=done]').prop('checked', model.get('done'))
@@ -48,8 +48,8 @@ define(['backbone', 'text!views/task/edit.html', '/bootstrap-datepicker/js/boots
 
           var data = { 'name':     $form.find('[name=name]').val()
                      , 'duration': parseInt($form.find('[name=duration]').val(), 10) || null
-                     , 'from':     parseDate($form.find('[name=from]').val())
-                     , 'to':       parseDate($form.find('[name=to]')  .val())
+                     , 'from':     moment($form.find('[name=from]').val())
+                     , 'to':       moment($form.find('[name=to]')  .val())
                      , 'priority': $form.find('[name=priority]').val() >>> 0
                      , 'done':     $form.find('[name=done]').prop('checked')
                      }
@@ -76,12 +76,6 @@ define(['backbone', 'text!views/task/edit.html', '/bootstrap-datepicker/js/boots
         $el.modal()
       }
   })
-
-  function parseDate(str) {
-    var parts = str.split('.')
-
-    return new Date(parts[2], parts[1] - 1, parts[0])
-  }
 
   return TaskEdit
 })

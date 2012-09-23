@@ -38,10 +38,11 @@ define(['backbone', 'collections/task'], function(Backbone, Tasks) {
 
         var tasks  = this.tasks
           , $tasks = $('<ul class="unstyled">')
-          , title  = this.model.get('name') +' '+ Timed.formatDate(this.model.get('from'))
+          , title  = this.model.get('name') +' '+ this.model.get('from').format('L')
+          , to     = this.model.get('to')
 
-        if (this.model.get('to')) {
-          title += ' - '+ Timed.formatDate(this.model.get('to'))
+        if (to) {
+          title += ' - '+ to.format('L')
         }
 
         this.$el.append($('<h4>').text(title))

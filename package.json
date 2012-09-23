@@ -11,5 +11,6 @@
                   , "passport": "0.1.x"
                   , "session-mongoose": "*"
                   , "bcrypt": "0.7.x"
+                  , "moment": "1.7.x"
                   }
 }

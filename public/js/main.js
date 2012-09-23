@@ -2,7 +2,8 @@ require.config({
     paths: { 'md5':        'lib/crypto/md5'
            , 'underscore': 'lib/underscore/underscore'
            , 'backbone':   'lib/backbone/backbone'
-//           , 'superagent': '/js/lib/superagent.min'
+           , 'moment':     'lib/moment/moment'
+//           , 'superagent': 'lib/superagent.min'
            , 'jquery':     [ '//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery'
                            , 'lib/jquery/jquery'
                            ]
@@ -16,40 +17,12 @@ require.config({
           }
 })
 
-Timed.formatDate = function(date) {
-  date = Timed.parseDate(date)
-
-  return [ Timed.pad(date.getDate(), 2)
-         , Timed.pad(date.getMonth() + 1, 2)
-         , date.getFullYear()
-         ].join('.')
-}
-
-Timed.formatTime = function(date) {
-  date = Timed.parseDate(date)
-
-  return [ Timed.pad(date.getHours(), 2)
-         , Timed.pad(date.getMinutes(), 2)
-         ].join(':')
-}
-
-Timed.formatDateTime = function(date) {
-  return Timed.formatDate(date) +' '+ Timed.formatTime(date)
-}
-
-Timed.parseDate = function(date) {
-  //if (!date) throw new Error('Cannot parse falsy value as Date')
-  if (!date) date = 0
-
-  if (typeof date == 'object') return date
-  if (typeof date == 'number') return new Date(date)
-
-  return new Date(Date.parse(date))
-}
-
-Timed.pad = function pad(n, d, p) {
-  for (n = ''+ (n >>> 0); n.length < d;) n = (p || '0')+ n; return n
-}
+require(['moment'], function(moment) {
+  // https://github.com/timrwood/moment/pull/444
+  moment.fn.toJSON = function() {
+    return this._d.toJSON()
+  }
+})
 
 require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', 'bootstrap'],
     function(ModelUser, Timeline, Trackbar, Dashboard) {

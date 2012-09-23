@@ -1,26 +1,24 @@
-define(['backbone', 'models/task'], function(Backbone, Task) { 'use strict'
+define(['backbone', 'models/task', 'moment'], function(Backbone, Task, moment) {
+  'use strict'
+
   var Activity = Backbone.Model.extend({
       'idAttribute': '_id'
     , 'sync': function() { return false }
     , 'initialize': function() {
-                 convertDates(this.attributes)
+                 this.attributes.from = moment(this.attributes.from)
+                 this.attributes.to   = moment(this.attributes.to)
 
                  //this.set('task', new Task({ '_id': this.get('task') }))
                }
     , 'end': function(to) {
         to = to || this.get('to')
-        this.set('to', to || new Date)
+        this.set('to', to || moment())
       }
   })
 
   function convertDates(a) {
-    var parsed
-
-    parsed = Date.parse(a.from)
-    a.from = parsed ? new Date(parsed) : null
-
-    parsed = Date.parse(a.to)
-    a.to   = parsed ? new Date(parsed) : null
+    a.from = moment(a.from)
+    a.to   = moment(a.to)
   }
 
   return Activity

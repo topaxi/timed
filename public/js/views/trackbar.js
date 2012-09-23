@@ -1,4 +1,4 @@
-define(['backbone'], function(Backbone) { 'use strict'
+define(['backbone', 'moment'], function(Backbone, moment) { 'use strict'
   var Trackbar = Backbone.View.extend({
       'events':     { 'click .attendance .btn': 'attendance'
                     , 'click .activity .btn':   'activity'
@@ -55,22 +55,21 @@ define(['backbone'], function(Backbone) { 'use strict'
                         , $activity   = $el.find('.activity')
                         , attendance  = user.getCurrentAttendance()
                         , activity    = user.getCurrentActivity()
+                        , to
 
                       if (!attendance) return
 
-                      $attendance.find('.from').text(formatTime(attendance.get('from')))
+                      $attendance.find('.from').text(format(attendance.get('from')))
 
-                      if (attendance.get('to')) {
-                        $attendance.find('.to').text(formatTime(attendance.get('to')))
+                      to = attendance.get('to')
+                      if (to) {
+                        $attendance.find('.to').text(format(to))
                         $attendance.find('.icon-stop')
                                    .removeClass('icon-stop')
                                    .addClass('icon-play')
                       }
                       else {
-                        var now  = Date.now()
-                          , diff = now - attendance.get('from')
-
-                        $attendance.find('.to').text(formatDiff(diff))
+                        $attendance.find('.to').text(attendance.get('from').fromNow())
                         $attendance.find('.icon-play')
                                    .removeClass('icon-play')
                                    .addClass('icon-stop')
@@ -79,19 +78,17 @@ define(['backbone'], function(Backbone) { 'use strict'
                       if (!activity) return
 
                       //$activity.find('.name').text(activity.get('task').get('name'))
-                      $activity.find('.from').text(formatTime(activity.get('from')))
+                      $activity.find('.from').text(format(activity.get('from')))
 
-                      if (activity.get('to')) {
-                        $activity.find('.to').text(formatTime(activity.get('to')))
+                      to = activity.get('to')
+                      if (to) {
+                        $activity.find('.to').text(format(to))
                         $activity.find('.icon-stop')
                                  .removeClass('icon-stop')
                                  .addClass('icon-play')
                       }
                       else {
-                        var now  = Date.now()
-                          , diff = now - activity.get('from')
-
-                        $activity.find('.to').text(formatDiff(diff))
+                        $activity.find('.to').text(activity.get('from').fromNow())
                         $activity.find('.icon-play')
                                  .removeClass('icon-play')
                                  .addClass('icon-stop')
@@ -99,16 +96,12 @@ define(['backbone'], function(Backbone) { 'use strict'
                     }
   })
 
-  function formatDiff(diff) {
-    return Math.round(diff / 1000 / 60) +'m'
-  }
-
-  function formatTime(date) {
+  function format(date) {
     if (date > today()) {
-      return Timed.formatTime(date)
+      return date.format('LT')
     }
 
-    return Timed.formatDateTime(date)
+    return date.format('LLL')
   }
 
   function today() {

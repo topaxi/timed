@@ -1,12 +1,12 @@
 require.config({
-    paths: { 'md5':        '/js/lib/crypto/md5'
-           , 'underscore': '/js/lib/underscore/underscore'
-           , 'backbone':   '/js/lib/backbone/backbone'
+    paths: { 'md5':        'lib/crypto/md5'
+           , 'underscore': 'lib/underscore/underscore'
+           , 'backbone':   'lib/backbone/backbone'
 //           , 'superagent': '/js/lib/superagent.min'
            , 'jquery':     [ '//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery'
-                           , '/js/lib/jquery/jquery'
+                           , 'lib/jquery/jquery'
                            ]
-           , 'bootstrap':  '/bootstrap/js/bootstrap'
+           , 'bootstrap':  '../bootstrap/js/bootstrap'
            }
   , shim: { 'superagent': { exports: 'superagent' }
           , 'backbone':   { exports: 'Backbone', deps: [ 'underscore', 'jquery' ] }

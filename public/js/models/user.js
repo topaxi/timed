@@ -12,6 +12,13 @@ define(['backbone', 'collections/project', 'collections/attendance'],
                return url
              }
     , 'idAttribute': '_id'
+    , 'initialize': function() {
+        var attendances = new Attendances(this.get('attendances'))
+
+        attendances.user = this
+
+        this.set('attendances', attendances)
+      }
     , 'parse': function(res) {
                  res.attendances = new Attendances(res.attendances)
                  res.attendances.user = this

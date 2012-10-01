@@ -7,9 +7,9 @@ html
     link(rel='stylesheet', href='/bootstrap/css/bootstrap.css')
     link(rel='stylesheet', href='/css/style.css')
     link(rel='stylesheet', href='/bootstrap/css/bootstrap-responsive.css')
-    script
-      Timed = {}
     if user
+      script
+        Timed = { user: !{JSON.stringify(user, ['_id', 'attendances', 'name', 'projects', 'quota'])} }
       script(src='/js/require.js', data-main='/js/main')
   body
     block navbar

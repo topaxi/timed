@@ -28,20 +28,16 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
     function(ModelUser, Timeline, Trackbar, Dashboard) {
   'use strict'
 
-  var user      = Timed.user = new ModelUser
-    , timeline  = new Timeline ({ 'model': user })
-    , trackbar  = new Trackbar ({ 'model': user })
+  var user     = Timed.user = new ModelUser(Timed.user)
+    , timeline = new Timeline ({ 'model': user })
+    , trackbar = new Trackbar ({ 'model': user })
 
   user.url = '/user/current'
   user.on('change', function() {
-    //timeline .render()
-    trackbar .render()
+    //timeline.render()
+    trackbar.render()
   })
-  user.fetch({ 'success': function() {
-    user.url = '/user/'+ user.get('_id')
-
-    setInterval(function() { trackbar.render() }, 5000)
-  } })
+  trackbar.render()
 
   // TODO: Menu should be done shinier and with less duplicate code
 

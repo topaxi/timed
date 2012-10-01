@@ -5,12 +5,12 @@ define(['backbone', 'collections/project', 'collections/attendance'],
   var User = Backbone.Model.extend({
       'defaults': { 'projects': [] }
     , 'url': function() {
-               var url = '/user'
+        var url = '/user'
 
-               if (this.id) url += '/'+ this.id
+        if (this.id) url += '/'+ this.id
 
-               return url
-             }
+        return url
+      }
     , 'idAttribute': '_id'
     , 'initialize': function() {
         var attendances = new Attendances(this.get('attendances'))
@@ -20,11 +20,11 @@ define(['backbone', 'collections/project', 'collections/attendance'],
         this.set('attendances', attendances)
       }
     , 'parse': function(res) {
-                 res.attendances = new Attendances(res.attendances)
-                 res.attendances.user = this
+        res.attendances = new Attendances(res.attendances)
+        res.attendances.user = this
 
-                 return res
-               }
+        return res
+      }
     , 'startAttendance': function(from, to, activities) {
         var attendance = { 'from':       from       || new Date
                          , 'to':         to         || null

@@ -69,7 +69,7 @@ define(['backbone', 'moment'], function(Backbone, moment) { 'use strict'
                                    .addClass('icon-play')
                       }
                       else {
-                        $attendance.find('.to').text(attendance.get('from').fromNow())
+                        $attendance.find('.to').text(attendance.get('from').fromNow(true))
                         $attendance.find('.icon-play')
                                    .removeClass('icon-play')
                                    .addClass('icon-stop')
@@ -88,7 +88,7 @@ define(['backbone', 'moment'], function(Backbone, moment) { 'use strict'
                                  .addClass('icon-play')
                       }
                       else {
-                        $activity.find('.to').text(activity.get('from').fromNow())
+                        $activity.find('.to').text(activity.get('from').fromNow(true))
                         $activity.find('.icon-play')
                                  .removeClass('icon-play')
                                  .addClass('icon-stop')

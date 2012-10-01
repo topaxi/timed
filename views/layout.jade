@@ -52,7 +52,7 @@ html
               - var to   = moment(attendance.to)
               a.from.mhs= from.format(from > today ? 'LT' : 'LLL')
               span -
-              a.to.mhs= to && to.format(from > today ? 'LT' : 'LLL') || from.fromNow()
+              a.to.mhs= to && to.format(from > today ? 'LT' : 'LLL') || from.fromNow(true)
             else
               a.from.mhs
               span -
@@ -69,7 +69,7 @@ html
               - var to   = moment(activity.to)
               a.from.mhs= from.format(from > today ? 'LT' : 'LLL')
               span -
-              a.to.mhs= to && to.format(from > today ? 'LT' : 'LLL') || from.fromNow()
+              a.to.mhs= to && to.format(from > today ? 'LT' : 'LLL') || from.fromNow(true)
             else
               a.from.mhs
               span -

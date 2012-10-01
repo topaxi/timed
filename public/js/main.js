@@ -38,6 +38,7 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
     trackbar.render()
   })
   trackbar.render()
+  setInterval(function() { trackbar.render() }, 5000)
 
   // TODO: Menu should be done shinier and with less duplicate code
 

@@ -62,8 +62,9 @@ html
             span.name.mhs
             a.btn.btn-small.btn-inverse.mhs
               i.icon-white.icon-play
-            - var activity = attendance.activities[attendance.activities.length - 1]
-            if activity
+            if attendance
+              - var activity = attendance.activities[attendance.activities.length - 1]
+            if attendance && activity
               - var from = moment(activity.from)
               - var to   = moment(activity.to)
               a.from.mhs= from.format(from > today ? 'LT' : 'LLL')

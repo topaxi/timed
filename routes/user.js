@@ -3,14 +3,6 @@ var User    = require('../models/user')
   , bcrypt  = require('bcrypt')
 
 module.exports = function(app) {
-  app.get('/user/current', function(req, res) {
-    var user = JSON.parse(JSON.stringify(req.user))
-
-    delete user.password
-
-    res.send(user)
-  })
-
   app.get('/user', function(req, res, next) {
     User.find(function(err, users) {
       if (err) return next(err)

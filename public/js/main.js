@@ -32,7 +32,6 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
     , timeline = new Timeline ({ 'model': user })
     , trackbar = new Trackbar ({ 'model': user })
 
-  user.url = '/user/current'
   user.on('change', function() {
     //timeline.render()
     trackbar.render()

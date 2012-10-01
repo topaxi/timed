@@ -1,5 +1,5 @@
-define(['backbone', 'collections/project', 'collections/attendance'],
-    function(Backbone, Projects, Attendances) {
+define(['backbone', 'moment', 'collections/project', 'collections/attendance'],
+    function(Backbone, moment, Projects, Attendances) {
   'use strict'
 
   var User = Backbone.Model.extend({
@@ -26,7 +26,7 @@ define(['backbone', 'collections/project', 'collections/attendance'],
         return res
       }
     , 'startAttendance': function(from, to, activities) {
-        var attendance = { 'from':       from       || new Date
+        var attendance = { 'from':       from       || moment()
                          , 'to':         to         || null
                          , 'activities': activities || []
                          }
@@ -44,7 +44,7 @@ define(['backbone', 'collections/project', 'collections/attendance'],
         this.endCurrentActivity()
 
         var attendance = this.getCurrentAttendance()
-          , activity   = { 'from': from || new Date
+          , activity   = { 'from': from || moment()
                          , 'to':   to   || null
                          , 'task': task && task.id || task || null
                          }

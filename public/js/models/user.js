@@ -13,11 +13,14 @@ define(['backbone', 'moment', 'collections/project', 'collections/attendance'],
       }
     , 'idAttribute': '_id'
     , 'initialize': function() {
-        var attendances = new Attendances(this.get('attendances'))
+        var attendances = this.get('attendances')
 
-        attendances.user = this
+        if (!(attendances instanceof Attendances)) {
+          attendances = new Attendances(attendances)
+          attendances.user = this
 
-        this.set('attendances', attendances)
+          this.set('attendances', attendances)
+        }
       }
     , 'parse': function(res) {
         res.attendances = new Attendances(res.attendances)
@@ -61,7 +64,7 @@ define(['backbone', 'moment', 'collections/project', 'collections/attendance'],
         if (activity) {
           activity.end()
         }
-     }
+      }
     , 'getCurrentActivity': function() {
         var attendance = this.get('attendances').last()
 
@@ -69,16 +72,17 @@ define(['backbone', 'moment', 'collections/project', 'collections/attendance'],
 
         return attendance.get('activities').last()
       }
+    , 'getAttendancesByDay': function(day) {
+        return this.get('attendances').filter(dayFilter(day))
+      }
   })
 
-  function convertDates(a) {
-    var parsed
+  function dayFilter(day) {
+    day = day || moment()
 
-    parsed = Date.parse(a.from)
-    a.from = parsed ? new Date(parsed) : null
-
-    parsed = Date.parse(a.to)
-    a.to   = parsed ? new Date(parsed) : null
+    return function(a) {
+      return a.get('from').diff(day, 'days') == 0
+    }
   }
 
   return User

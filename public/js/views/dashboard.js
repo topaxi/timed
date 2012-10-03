@@ -6,21 +6,59 @@ define(['backbone', 'views/dashboard/project'],
       'events': {}
     , 'el': $('#dashboard')
     , 'render': function() {
-        if (!this.el) return
+        var user        = Timed.user
+          , attendances = Timed.user.getAttendancesByDay()
+          , $el         = this.$el.empty()
 
-        var self  = this
-          , $el   = self.$el.empty()
+        if (attendances.length) {
+          var $list = $('<ul>')
 
-        if (!self.projects.length) return
+          attendances.forEach(function(attendance) {
+            var $li        = $('<li>')
+              , activities = attendance.get('activities')
+              , to         = attendance.get('to')
+              , from       = attendance.get('from')
+              , title      = [ from.format('LT')
+                             , to ? to.format('LT') : '?'
+                             ].join(' - ')
 
-        $el.append('<h3>Your Projects</h3>')
-        self.projects.each(function(project) {
-          var eventView = new DashboardProjectView({ 'model': project })
+            $li.text(title)
 
-          eventView.render()
+            if (activities.length) {
+              var $activityList = $('<ul>')
 
-          $el.append(eventView.el)
-        })
+              activities.forEach(function(activity) {
+                var to         = activity.get('to')
+                  , from       = activity.get('from')
+                  , title      = [ from.format('LT')
+                                 , to ? to.format('LT') : '?'
+                                 , activity.get('task') || '<a>Set task</a>'
+                                 ].join(' - ')
+
+                $activityList.append($('<li>').html(title))
+              })
+
+              $li.append($activityList)
+            }
+
+            $list.append($li)
+          })
+
+          $el.append('<h3>Todays attendances</h3>')
+          $el.append($list)
+        }
+
+        if (this.projects.length) {
+          $el.append('<h3>Your Projects</h3>')
+
+          this.projects.forEach(function(project) {
+            var eventView = new DashboardProjectView({ 'model': project })
+
+            eventView.render()
+
+            $el.append(eventView.el)
+          })
+        }
       }
   })
 

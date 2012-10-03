@@ -62,23 +62,17 @@ module.exports = function(app) {
             save()
           }
           else {
-            encryptPassword(req.body.password, saveWithPassword)
+            user.setPassword(req.body.password, save)
           }
         })
       }
       else {
-        encryptPassword(req.body.password, saveWithPassword)
+        user.setPassword(req.body.password, save)
       }
 
-      function saveWithPassword(err, hash) {
-        if (err) next(err)
+      function save(err) {
+        if (err) return next(err)
 
-        user.password = hash
-
-        save()
-      }
-
-      function save() {
         user.save(function(err) {
           if (err) return next(err)
 
@@ -108,12 +102,4 @@ module.exports = function(app) {
 
 function deletePassword(user) {
   user.password = undefined
-}
-
-function encryptPassword(password, cb) {
-  bcrypt.genSalt(10, function(err, salt) {
-    if (err) return cb(err)
-
-    bcrypt.hash(password, salt, cb)
-  })
 }

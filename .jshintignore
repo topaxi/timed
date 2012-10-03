@@ -3,5 +3,6 @@ node_modules
 public
 public/js/lib
 public/js/build.js
+public/js/text.js
 public/js/require.js
 public/js/require.min.js

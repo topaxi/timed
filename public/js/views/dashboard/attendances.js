@@ -3,7 +3,7 @@ define(['backbone', 'moment'], function(Backbone, moment) {
 
   var DashboardAttendancesView = Backbone.View.extend({
       'tagName':   'div'
-    , 'className': 'attendances'
+    , 'className': 'attendances span5'
     , 'render': function() {
         var attendances = Timed.user.getAttendancesByDay()
           , $el         = this.$el.empty()

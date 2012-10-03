@@ -21,15 +21,19 @@ define(['backbone', 'views/dashboard/attendances', 'views/dashboard/project'],
         }, 5000)
 
         if (this.projects.length) {
-          $el.append('<h3>Your Projects</h3>')
+          var $div = $('<div class="span5">')
+
+          $div.append('<h3>Your Projects</h3>')
 
           this.projects.forEach(function(project) {
             var eventView = new DashboardProjectView({ 'model': project })
 
             eventView.render()
 
-            $el.append(eventView.el)
+            $div.append(eventView.el)
           })
+  
+          $el.append($div)
         }
       }
   })

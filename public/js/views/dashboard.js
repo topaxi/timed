@@ -1,52 +1,24 @@
-define(['backbone', 'views/dashboard/project'],
-    function(Backbone, DashboardProjectView) {
+define(['backbone', 'views/dashboard/attendances', 'views/dashboard/project'],
+    function(Backbone, DashboardAttendancesView, DashboardProjectView) {
   'use strict'
 
   var Dashboard = Backbone.View.extend({
       'events': {}
     , 'el': $('#dashboard')
     , 'render': function() {
+        clearInterval(this.rerenderInterval)
+
         var user        = Timed.user
-          , attendances = Timed.user.getAttendancesByDay()
           , $el         = this.$el.empty()
+          , attendances = new DashboardAttendancesView
 
-        if (attendances.length) {
-          var $list = $('<ul>')
+        attendances.render()
 
-          attendances.forEach(function(attendance) {
-            var $li        = $('<li>')
-              , activities = attendance.get('activities')
-              , to         = attendance.get('to')
-              , from       = attendance.get('from')
-              , title      = [ from.format('LT')
-                             , to ? to.format('LT') : '?'
-                             ].join(' - ')
+        $el.append(attendances.el)
 
-            $li.text(title)
-
-            if (activities.length) {
-              var $activityList = $('<ul>')
-
-              activities.forEach(function(activity) {
-                var to         = activity.get('to')
-                  , from       = activity.get('from')
-                  , title      = [ from.format('LT')
-                                 , to ? to.format('LT') : '?'
-                                 , activity.get('task') || '<a>Set task</a>'
-                                 ].join(' - ')
-
-                $activityList.append($('<li>').html(title))
-              })
-
-              $li.append($activityList)
-            }
-
-            $list.append($li)
-          })
-
-          $el.append('<h3>Todays attendances</h3>')
-          $el.append($list)
-        }
+        this.rerenderInterval = setInterval(function() {
+          attendances.render()
+        }, 5000)
 
         if (this.projects.length) {
           $el.append('<h3>Your Projects</h3>')

@@ -1,5 +1,5 @@
 define(['backbone', 'models/attendance'], function(Backbone, Attendance) {
-  'use strict'
+  'use strict';
 
   var Attendances = Backbone.Collection.extend({
       'model': Attendance

@@ -1,6 +1,6 @@
 define(['backbone', 'models/user', 'text!views/user/list.html'],
     function(Backbone, User, tpl) {
-  'use strict'
+  'use strict';
 
   var UserList = Backbone.View.extend({
       'events': { 'click .edit':   'edit'

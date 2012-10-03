@@ -1,4 +1,4 @@
-define(['backbone'], function(Backbone) { 'use strict'
+define(['backbone'], function(Backbone) { 'use strict';
   var days = [ 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ]
 
   var Timeline = Backbone.View.extend({

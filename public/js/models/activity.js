@@ -1,5 +1,5 @@
 define(['backbone', 'models/task', 'moment'], function(Backbone, Task, moment) {
-  'use strict'
+  'use strict';
 
   var Activity = Backbone.Model.extend({
       'idAttribute': '_id'

@@ -1,6 +1,6 @@
 define(['backbone', 'moment', 'collections/project', 'collections/attendance'],
     function(Backbone, moment, Projects, Attendances) {
-  'use strict'
+  'use strict';
 
   var User = Backbone.Model.extend({
       'defaults': { 'projects': [] }

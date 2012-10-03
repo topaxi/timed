@@ -1,6 +1,6 @@
 define(['backbone', 'models/project', 'text!views/project/list.html'],
     function(Backbone, Project, tpl) {
-  'use strict'
+  'use strict';
 
   var ProjectList = Backbone.View.extend({
       'events': { 'click .tasks':  'showTasks'

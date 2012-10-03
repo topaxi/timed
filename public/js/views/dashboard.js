@@ -1,6 +1,6 @@
 define(['backbone', 'views/dashboard/attendances', 'views/dashboard/project'],
     function(Backbone, DashboardAttendancesView, DashboardProjectView) {
-  'use strict'
+  'use strict';
 
   var Dashboard = Backbone.View.extend({
       'events': {}

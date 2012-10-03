@@ -1,5 +1,5 @@
 define(['backbone', 'collections/task'], function(Backbone, Tasks) {
-  'use strict'
+  'use strict';
 
   // TODO: Split out task into an own view
   var DashboardProjectView = Backbone.View.extend({

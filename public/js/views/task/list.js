@@ -1,6 +1,6 @@
 define(['backbone', 'models/task', 'text!views/task/list.html'],
     function(Backbone, Task, tpl) {
-  'use strict'
+  'use strict';
 
   var TaskList = Backbone.View.extend({
       'events': { 'click .edit':   'edit'

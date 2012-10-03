@@ -1,6 +1,6 @@
 define(['backbone', 'models/customer', 'text!views/customer/list.html'],
     function(Backbone, Customer, tpl) {
-  'use strict'
+  'use strict';
 
   var CustomerList = Backbone.View.extend({
       'events': { 'click .edit':   'edit'

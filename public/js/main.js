@@ -26,7 +26,7 @@ require(['moment'], function(moment) {
 
 require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', 'bootstrap'],
     function(ModelUser, Timeline, Trackbar, Dashboard) {
-  'use strict'
+  'use strict';
 
   var user     = Timed.user = new ModelUser(Timed.user)
     , timeline = new Timeline ({ 'model': user })

@@ -1,4 +1,4 @@
-define(['backbone', 'models/task'], function(Backbone, Task) { 'use strict'
+define(['backbone', 'models/task'], function(Backbone, Task) { 'use strict';
   var Tasks = Backbone.Collection.extend({
       'model': Task
     , 'url':   function() {

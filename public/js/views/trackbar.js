@@ -1,4 +1,4 @@
-define(['backbone', 'moment'], function(Backbone, moment) { 'use strict'
+define(['backbone', 'moment'], function(Backbone, moment) { 'use strict';
   var Trackbar = Backbone.View.extend({
       'events':     { 'click .attendance .btn': 'attendance'
                     , 'click .activity .btn':   'activity'

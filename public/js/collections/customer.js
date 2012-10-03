@@ -1,4 +1,4 @@
-define(['backbone', 'models/customer'], function(Backbone, Customer) { 'use strict'
+define(['backbone', 'models/customer'], function(Backbone, Customer) { 'use strict';
   var Customers = Backbone.Collection.extend({
       'model': Customer
     , 'url':   '/customer'

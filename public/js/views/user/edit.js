@@ -1,5 +1,5 @@
 define(['backbone', 'text!views/user/edit.html'], function(Backbone, tpl) {
-  'use strict'
+  'use strict';
 
   var UserEdit = Backbone.View.extend({
       'render': function() {

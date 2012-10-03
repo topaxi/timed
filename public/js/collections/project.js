@@ -1,4 +1,4 @@
-define(['backbone', 'models/project'], function(Backbone, Project) { 'use strict'
+define(['backbone', 'models/project'], function(Backbone, Project) { 'use strict';
   var Projects = Backbone.Collection.extend({
       'model': Project
     , 'url':   function() {

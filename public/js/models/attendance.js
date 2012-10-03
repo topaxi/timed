@@ -1,6 +1,6 @@
 define(['backbone', 'collections/activity', 'moment'],
     function(Backbone, Activities, moment) {
-  'use strict'
+  'use strict';
 
   var Attendance = Backbone.Model.extend({
       'idAttribute': '_id'

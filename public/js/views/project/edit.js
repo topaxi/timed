@@ -14,7 +14,7 @@
 
 define(['backbone', 'collections/customer', 'moment', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bootstrap-datepicker.js'],
     function(Backbone, Customers, moment, tpl) {
-  'use strict'
+  'use strict';
 
   var def = moment().format('L')
 

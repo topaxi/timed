@@ -1,5 +1,5 @@
 define(['backbone', 'moment'], function(Backbone, moment) {
-  'use strict'
+  'use strict';
 
   var DashboardAttendancesView = Backbone.View.extend({
       'tagName':   'div'

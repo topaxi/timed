@@ -1,5 +1,5 @@
 define(['backbone', 'models/activity'], function(Backbone, Activity) {
-  'use strict'
+  'use strict';
 
   var Activities = Backbone.Collection.extend({
       'model': Activity

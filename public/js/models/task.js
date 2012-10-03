@@ -1,4 +1,4 @@
-define(['backbone'], function(Backbone) { 'use strict'
+define(['backbone'], function(Backbone) { 'use strict';
   var Task = Backbone.Model.extend({
       'url':         function() {
                        var url = '/task'

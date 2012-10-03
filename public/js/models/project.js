@@ -1,4 +1,4 @@
-define(['backbone', 'moment'], function(Backbone, moment) { 'use strict'
+define(['backbone', 'moment'], function(Backbone, moment) { 'use strict';
   var Project = Backbone.Model.extend({
       'url':         function() {
                        var url = '/project'

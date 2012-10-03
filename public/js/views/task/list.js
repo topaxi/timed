@@ -8,7 +8,7 @@ define(['backbone', 'models/task', 'text!views/task/list.html'],
                 }
     , 'render': function() {
         var self    = this
-          , project = self.model.project
+          , project = self.collection.project
           , $el     = self.$el = $(tpl)
           , $list   = $el.find('.list')
 
@@ -16,7 +16,7 @@ define(['backbone', 'models/task', 'text!views/task/list.html'],
 
         $el.find('h3').text('Tasks of '+ project.get('name'))
 
-        self.model.each(function(model) {
+        self.collection.each(function(model) {
           $list.append(
             $('<li>').text(' '+ model.get('name'))
                      .prepend(createEditButton(model))
@@ -34,10 +34,10 @@ define(['backbone', 'models/task', 'text!views/task/list.html'],
         var model = $(e.currentTarget).data('model') || new Task
           , self  = this
 
-        if (!model.has('project')) model.set('project', self.model.project)
+        if (!model.has('project')) model.set('project', self.collection.project)
 
         require(['views/task/edit'], function(TaskEdit) {
-          var view = new TaskEdit({ 'model': model })
+          var view = new TaskEdit({ 'model': model, 'collection': self.collection })
 
           view.on('close', function() { self.render() })
 

@@ -47,7 +47,7 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
 
         require(['collections/task', 'views/task/list'], function(Tasks, TaskList) {
           var tasks = new Tasks
-            , view  = new TaskList({ 'model': tasks })
+            , view  = new TaskList({ 'collection': tasks })
 
           view.on('close', function() { self.render() })
 

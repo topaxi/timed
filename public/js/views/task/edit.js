@@ -24,15 +24,17 @@ define(['backbone', 'moment', 'text!views/task/edit.html', '/bootstrap-datepicke
           , model = self.model
           , $el   = self.$el = $(tpl)
           , $form = $el.find('form')
+          , from  = model.get('from')
+          , to    = model.get('to')
 
         // TODO: Either i'm doing it wrong or the datepicker api seems weird
-        $form.find('[name=from]').val(model.get('from').format('L'))
+        $form.find('[name=from]').val(from ? from.format('L') : '')
                                  .closest('.date')
-                                 .data('date', model.get('from').format('L'))
+                                 .data('date', from ? from.format('L') : '')
 
-        $form.find('[name=to]').val(model.get('to').format('L'))
+        $form.find('[name=to]').val(to ? to.format('L') : '')
                                .closest('.date')
-                               .data('date', model.get('to').format('L'))
+                               .data('date', to ? to.format('L') : '')
 
         $form.find('.date').datepicker({ 'weekStart': 1, 'format': 'mm/dd/yyyy' })
 

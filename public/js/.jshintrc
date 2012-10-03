@@ -1,0 +1,23 @@
+{
+  "globals": {
+    "require": true,
+    "define": true,
+    "Timed": true,
+    "alert": true
+  },
+
+  "indent": 2,
+  "strict": true,
+
+  "node" : true,
+  "es5" : true,
+  "browser" : true,
+  "jquery": true,
+
+  "asi": true,
+  "laxcomma": true,
+  "immed": true,
+  "expr": true,
+  "white": false,
+  "supernew": true
+}

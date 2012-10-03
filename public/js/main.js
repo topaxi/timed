@@ -18,6 +18,8 @@ require.config({
 })
 
 require(['moment'], function(moment) {
+  'use strict';
+
   // https://github.com/timrwood/moment/pull/444
   moment.fn.toJSON = function() {
     return this._d.toJSON()
@@ -41,7 +43,7 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
 
   // TODO: Menu should be done shinier and with less duplicate code
 
-  !function() {
+  ;(function() {
     var dialog, customers
 
     $('#customers').click(function(e) {
@@ -60,9 +62,9 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
         customers.fetch({ 'success': function() { dialog.render() } })
       })
     })
-  }()
+  })()
 
-  !function() {
+  ;(function() {
     var dialog, projects
 
     $('#projects').click(function(e) {
@@ -81,9 +83,9 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
         projects.fetch({ 'success': function() { dialog.render() } })
       })
     })
-  }()
+  })()
 
-  !function() {
+  ;(function() {
     var dialog, users
 
     $('#users').click(function(e) {
@@ -102,11 +104,11 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
         users.fetch({ 'success': function() { dialog.render() } })
       })
     })
-  }()
+  })()
 
   // TODO: Implement some kind of router, Backbone.Router?
   // init dashboard
-  document.getElementById('dashboard') && function() {
+  document.getElementById('dashboard') && (function() {
     require(['collections/project', 'views/dashboard'], function(Projects, Dashboard) {
       var projects  = new Projects
         , dashboard = new Dashboard
@@ -130,5 +132,5 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
         }
       }
     })
-  }()
+  })()
 })

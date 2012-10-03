@@ -1,0 +1,7 @@
+node_modules
+.git
+public
+public/js/lib
+public/js/build.js
+public/js/require.js
+public/js/require.min.js

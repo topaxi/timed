@@ -1,0 +1,16 @@
+{
+  "indent": 2,
+  "strict": false,
+
+  "node" : true,
+  "es5" : true,
+  "browser" : true,
+  "jquery": true,
+
+  "asi": true,
+  "laxcomma": true,
+  "immed": true,
+  "expr": true,
+  "white": false,
+  "supernew": true
+}

@@ -32,7 +32,7 @@ define(['backbone', 'text!views/user/edit.html'], function(Backbone, tpl) {
 
           model.save(data, {
             'error': function(user, response) {
-              var response = JSON.parse(response.responseText)
+              response = JSON.parse(response.responseText)
 
               // TODO: Shiny error handling
               if (response.error) alert(response.error.message)

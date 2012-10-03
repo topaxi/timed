@@ -14,7 +14,7 @@ define(['backbone', 'text!views/customer/edit.html'], function(Backbone, tpl) {
 
           model.save({ 'name': $form.find('[name=name]').val() }, {
             'error': function(customer, response) {
-              var response = JSON.parse(response.responseText)
+              response = JSON.parse(response.responseText)
 
               // TODO: Shiny error handling
               if (response.error) alert(response.error.message)

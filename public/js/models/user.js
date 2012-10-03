@@ -81,7 +81,7 @@ define(['backbone', 'moment', 'collections/project', 'collections/attendance'],
     day = day || moment()
 
     return function(a) {
-      return a.get('from').diff(day, 'days') == 0
+      return !a.get('from').diff(day, 'days')
     }
   }
 

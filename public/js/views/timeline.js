@@ -22,6 +22,7 @@ define(['backbone'], function(Backbone) { 'use strict';
 
                      now.setDate(now.getDate() - 1)
 
+                     /*jshint loopfunc:true */
                      width = attendances.reduce(function(a, b) {
                        //console.log(a, b)
                        if (!compareDate(now, Timed.parseDate(b.from))) {

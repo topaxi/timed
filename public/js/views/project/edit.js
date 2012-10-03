@@ -1,4 +1,6 @@
-!function(document) {
+;(function(document) {
+  'use strict';
+
   if (document.getElementById('datepicker-stylesheet')) {
     return
   }
@@ -10,7 +12,7 @@
   link.href = '/bootstrap-datepicker/css/datepicker.css'
 
   document.head.appendChild(link)
-}(document)
+})(document)
 
 define(['backbone', 'collections/customer', 'moment', 'text!views/project/edit.html', '/bootstrap-datepicker/js/bootstrap-datepicker.js'],
     function(Backbone, Customers, moment, tpl) {
@@ -67,7 +69,7 @@ define(['backbone', 'collections/customer', 'moment', 'text!views/project/edit.h
 
           model.save(data, {
             'error': function(model, response) {
-              var response = JSON.parse(response.responseText)
+              response = JSON.parse(response.responseText)
 
               // TODO: Shiny error handling
               if (response.error) alert(response.error.message)

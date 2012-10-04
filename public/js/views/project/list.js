@@ -34,7 +34,7 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
           , self  = this
 
         require(['views/project/edit'], function(ProjectEdit) {
-          var view = new ProjectEdit({ 'model': model })
+          var view = new ProjectEdit({ 'model': model, 'collection': self.model })
 
           view.on('close', function() { self.render() })
 

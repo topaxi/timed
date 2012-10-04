@@ -75,6 +75,7 @@ define(['backbone', 'collections/customer', 'moment', 'text!views/project/edit.h
               if (response.error) alert(response.error.message)
             },
             'success': function() {
+              self.collection.add(model)
               $el.modal('hide')
             }
           })

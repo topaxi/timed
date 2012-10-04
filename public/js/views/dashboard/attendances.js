@@ -16,8 +16,9 @@ define(['backbone', 'collections/task', 'moment'],
           $el.empty()
 
           if (attendances.length) {
-            var $list = $('<ul>')
-              , total = 0
+            var $list           = $('<ul>')
+              , totalAttendance = 0
+              , totalActivity   = 0
 
             attendances.forEach(function(attendance) {
               var $li        = $('<li>')
@@ -28,7 +29,7 @@ define(['backbone', 'collections/task', 'moment'],
                                , to ? to.format('LT') : from.fromNow(true)
                                ].join(' - ')
 
-              total += (to || moment()).diff(from, 'minutes')
+              totalAttendance += (to || moment()).diff(from, 'minutes')
 
               $li.text(title)
 
@@ -45,6 +46,8 @@ define(['backbone', 'collections/task', 'moment'],
                                        '<a>Set task</a>'
                                    ].join(' - ')
 
+                  totalActivity += (to || moment()).diff(from, 'minutes')
+
                   $activityList.append($('<li>').html(title))
                 })
 
@@ -55,7 +58,8 @@ define(['backbone', 'collections/task', 'moment'],
             })
 
             $el.append('<h3>Todays attendances</h3>')
-            $el.append('<div>Total: '+ moment.duration(total, 'minutes').humanize())
+            $el.append('<div>Attendance: '+ moment.duration(totalAttendance, 'minutes').humanize())
+            $el.append('<div>Activity: '+ moment.duration(totalActivity, 'minutes').humanize())
             $el.append($list)
           }
         } })

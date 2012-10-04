@@ -20,6 +20,7 @@ define(['backbone', 'text!views/customer/edit.html'], function(Backbone, tpl) {
               if (response.error) alert(response.error.message)
             },
             'success': function() {
+              self.collection.add(model)
               $el.modal('hide')
             }
           })

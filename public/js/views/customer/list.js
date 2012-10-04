@@ -29,7 +29,7 @@ define(['backbone', 'models/customer', 'text!views/customer/list.html'],
           , self  = this
 
         require(['views/customer/edit'], function(CustomerEdit) {
-          var view = new CustomerEdit({ 'model': model })
+          var view = new CustomerEdit({ 'model': model, 'collection': self.model })
 
           view.on('close', function() { self.render() })
 

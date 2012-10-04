@@ -29,7 +29,7 @@ define(['backbone', 'models/user', 'text!views/user/list.html'],
           , self  = this
 
         require(['views/user/edit'], function(UserEdit) {
-          var view = new UserEdit({ 'model': model })
+          var view = new UserEdit({ 'model': model, 'collection': self.model })
 
           view.on('close', function() { self.render() })
 

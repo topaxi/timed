@@ -1,4 +1,5 @@
-define(['backbone', 'moment'], function(Backbone, moment) {
+define(['backbone', 'collections/task', 'moment'],
+    function(Backbone, Tasks, moment) {
   'use strict';
 
   var DashboardAttendancesView = Backbone.View.extend({
@@ -6,45 +7,54 @@ define(['backbone', 'moment'], function(Backbone, moment) {
     , 'className': 'attendances span5'
     , 'render': function() {
         var attendances = Timed.user.getAttendancesByDay()
-          , $el         = this.$el.empty()
+          , $el         = this.$el
+          , tasks       = new Tasks
 
-        if (attendances.length) {
-          var $list = $('<ul>')
+        tasks.user = Timed.user
+        // TODO: Get rid of this "polling"
+        tasks.fetch({ 'success': function() {
+          $el.empty()
 
-          attendances.forEach(function(attendance) {
-            var $li        = $('<li>')
-              , activities = attendance.get('activities')
-              , to         = attendance.get('to')
-              , from       = attendance.get('from')
-              , title      = [ from.format('LT')
-                             , to ? to.format('LT') : from.fromNow(true)
-                             ].join(' - ')
+          if (attendances.length) {
+            var $list = $('<ul>')
 
-            $li.text(title)
+            attendances.forEach(function(attendance) {
+              var $li        = $('<li>')
+                , activities = attendance.get('activities')
+                , to         = attendance.get('to')
+                , from       = attendance.get('from')
+                , title      = [ from.format('LT')
+                               , to ? to.format('LT') : from.fromNow(true)
+                               ].join(' - ')
 
-            if (activities.length) {
-              var $activityList = $('<ul>')
+              $li.text(title)
 
-              activities.forEach(function(activity) {
-                var to         = activity.get('to')
-                  , from       = activity.get('from')
-                  , title      = [ from.format('LT')
-                                 , to ? to.format('LT') : from.fromNow(true)
-                                 , activity.get('task') || '<a>Set task</a>'
-                                 ].join(' - ')
+              if (activities.length) {
+                var $activityList = $('<ul>')
 
-                $activityList.append($('<li>').html(title))
-              })
+                activities.forEach(function(activity) {
+                  var to         = activity.get('to')
+                    , from       = activity.get('from')
+                    , title      = [ from.format('LT')
+                                   , to ? to.format('LT') : from.fromNow(true)
+                                   , activity.get('task') ?
+                                       tasks.get(activity.get('task')).get('name') :
+                                       '<a>Set task</a>'
+                                   ].join(' - ')
 
-              $li.append($activityList)
-            }
+                  $activityList.append($('<li>').html(title))
+                })
 
-            $list.append($li)
-          })
+                $li.append($activityList)
+              }
 
-          $el.append('<h3>Todays attendances</h3>')
-          $el.append($list)
-        }
+              $list.append($li)
+            })
+
+            $el.append('<h3>Todays attendances</h3>')
+            $el.append($list)
+          }
+        } })
       }
   })
 

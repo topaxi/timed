@@ -1,4 +1,5 @@
 var User    = require('../models/user')
+  , Task    = require('../models/task')
   , Project = require('../models/project')
   , bcrypt  = require('bcrypt')
 
@@ -20,6 +21,27 @@ module.exports = function(app) {
       user.password = undefined
 
       res.send(user)
+    })
+  })
+
+  // Have to manually populate the tasks
+  // https://github.com/LearnBoost/mongoose/issues/601
+  app.get('/user/:id/tasks', function(req, res, next) {
+    var tasks = []
+    User.findById(req.params.id, function(err, user) {
+      if (err) return next(err)
+
+      user.attendances.forEach(function(attendance) {
+        attendance.activities.forEach(function(activity) {
+          tasks.push(activity.task)
+        })
+      })
+
+      Task.find({ '_id': { $in: tasks } }, function(err, tasks) {
+        if (err) return next(err)
+
+        res.send(tasks)
+      })
     })
   })
 

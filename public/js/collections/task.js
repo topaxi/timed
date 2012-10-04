@@ -4,7 +4,12 @@ define(['backbone', 'models/task'], function(Backbone, Task) { 'use strict';
     , 'url':   function() {
                  var url = '/task'
 
-                 if (this.project.id) url = '/project/'+ this.project.id +'/tasks'
+                 if (this.user) {
+                   url = '/user/'+ this.user.id +'/tasks'
+                 }
+                 else if (this.project && this.project.id) {
+                   url = '/project/'+ this.project.id +'/tasks'
+                 }
 
                  return url
                }

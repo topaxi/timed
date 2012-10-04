@@ -5,6 +5,17 @@ define(['backbone', 'collections/task', 'moment'],
   var DashboardAttendancesView = Backbone.View.extend({
       'tagName':   'div'
     , 'className': 'attendances span5'
+    , 'events':    { 'click .attendance > .edit': 'editAttendance'
+                   }
+    , 'editAttendance': function(e) {
+        require(['models/attendance', 'views/attendance/edit'],
+            function(Attendance, AttendanceEdit) {
+          var model = $(e.currentTarget).data('model') || new Attendance
+            , view  = new AttendanceEdit({ 'model': model })
+
+          view.render()
+        })
+      }
     , 'render': function() {
         var attendances = Timed.user.getAttendancesByDay()
           , $el         = this.$el
@@ -21,7 +32,7 @@ define(['backbone', 'collections/task', 'moment'],
               , totalActivity   = 0
 
             attendances.forEach(function(attendance) {
-              var $li        = $('<li>')
+              var $li        = $('<li class="attendance">')
                 , activities = attendance.get('activities')
                 , to         = attendance.get('to')
                 , from       = attendance.get('from')
@@ -31,7 +42,7 @@ define(['backbone', 'collections/task', 'moment'],
 
               totalAttendance += (to || moment()).diff(from, 'minutes')
 
-              $li.text(title)
+              $li.text(title).prepend(createEditAttendanceButton(attendance))
 
               if (activities.length) {
                 var $activityList = $('<ul>')
@@ -65,6 +76,10 @@ define(['backbone', 'collections/task', 'moment'],
         } })
       }
   })
+
+  function createEditAttendanceButton(model) {
+    return $('<a class="btn btn-small edit mrs" data-placement="left" title="Edit attendance" rel="tooltip"><i class="icon-edit"></i></a>').data('model', model).tooltip()
+  }
 
   return DashboardAttendancesView
 })

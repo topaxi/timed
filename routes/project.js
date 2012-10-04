@@ -77,10 +77,14 @@ module.exports = function(app) {
     Project.findById(req.params.id, function(err, project) {
       if (err) return next(err)
 
-      project.remove(function(err) {
+      Task.remove({ 'project': project }, function(err) {
         if (err) return next(err)
 
-        return res.send(true)
+        project.remove(function(err) {
+          if (err) return next(err)
+
+          return res.send(true)
+        })
       })
     })
   })

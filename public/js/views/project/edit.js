@@ -80,6 +80,19 @@ define(['backbone', 'collections/customer', 'moment', 'text!views/project/edit.h
           })
         })
         $el.find('.save').click(function() { $form.submit() })
+        $el.find('.delete').click(function() {
+          model.destroy({
+            'error': function(model, response) {
+                response = JSON.parse(response.responseText)
+
+                // TODO: Shiny error handling
+                if (response.error) alert(response.error.message)
+              }
+            , 'success': function() {
+                $el.modal('hide')
+              }
+          })
+        })
 
         $el.on('shown', function() {
           $form.find('[name=name]').focus()

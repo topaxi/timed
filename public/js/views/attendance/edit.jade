@@ -1,0 +1,18 @@
+.modal.hide.fade
+  .modal-header
+    button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+    h3 Edit attendance
+  .modal-body
+    form.form-horizontal
+      .control-group
+        label.control-label(for='inputFrom') From
+        .controls
+          input#inputFrom(size='16', type='text', name='from')
+      .control-group
+        label.control-label(for='inputTo') To
+        .controls
+          input#inputTo(size='16', type='text', name='to')
+  .modal-footer
+    a.btn.btn-danger.pull-left.delete(href='#') Delete
+    a.btn(href='#', data-dismiss='modal') Close
+    a.btn.btn-primary.save(href='#') Save

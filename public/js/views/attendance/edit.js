@@ -4,13 +4,14 @@ define(['backbone', 'moment', 'text!views/attendance/edit.html'],
 
   var AttendanceEdit = Backbone.View.extend({
       'render': function() {
-        var self  = this
-          , model = self.model
-          , $el   = self.$el = $(tpl)
-          , $form = $el.find('form')
-          , end   = !model.get('to')
-          , from  = model.get('from') || moment()
-          , to    = model.get('to')   || moment()
+        var self    = this
+          , model   = self.model
+          , $el     = self.$el = $(tpl)
+          , $form   = $el.find('form')
+          , current = Timed.user.getCurrentAttendance()
+          , end     = current && current.id == model.id
+          , from    = model.get('from') || moment()
+          , to      = model.get('to')   || moment()
 
         $form.find('[name=from]').val(from.format('LT'))
         $form.find('[name=to]')  .val(to  .format('LT'))

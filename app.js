@@ -95,10 +95,6 @@ app.configure('development', function() {
   app.use(express.errorHandler())
 });
 
-function login(req, res, next) {
-  res.render('login', { title: 'Timed' })
-}
-
 require('./routes')(app)
 require('./routes/user')(app)
 require('./routes/project')(app)

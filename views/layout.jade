@@ -62,10 +62,13 @@ html
               a.to.mhs
 
           .activity Activity
-            span.name.mhs
             if attendance
               - var activity = attendance.activities[attendance.activities.length - 1]
             if attendance && activity
+              - var task = tasks.filter(function(t) {
+              -   return String(t._id) == String(activity.task)
+              - })
+              span.name.mhs= task[0] && task[0].name || ''
               - var from = moment(activity.from)
               - var to   = moment(activity.to)
               a.btn.btn-small.btn-inverse.mhs

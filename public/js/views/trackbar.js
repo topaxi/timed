@@ -77,7 +77,7 @@ define(['backbone', 'moment'], function(Backbone, moment) { 'use strict';
 
         if (!activity) return
 
-        //$activity.find('.name').text(activity.get('task').get('name'))
+        $activity.find('.name').text(Timed.tasks.get(activity.get('task')).get('name'))
         $activity.find('.from').text(format(activity.get('from')))
 
         to = activity.get('to')

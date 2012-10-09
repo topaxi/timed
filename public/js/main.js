@@ -4,7 +4,7 @@ require.config({
            , 'backbone':   'lib/backbone/backbone'
            , 'moment':     'lib/moment/moment'
 //           , 'superagent': 'lib/superagent.min'
-           , 'jquery':     [ '//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery'
+           , 'jquery':     [ '//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery'
                            , 'lib/jquery/jquery'
                            ]
            , 'bootstrap':  '../bootstrap/js/bootstrap'

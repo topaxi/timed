@@ -32,7 +32,7 @@ define(['backbone', 'moment'], function(Backbone, moment) { 'use strict';
           , $icon   = $button.find('i')
 
         if ($icon.is('.icon-play')) {
-          user.startActivity(user.getCurrentActivity().task)
+          user.startActivity(user.getCurrentActivity().get('task'))
 
           user.save()
 

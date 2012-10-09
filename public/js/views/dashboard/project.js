@@ -6,10 +6,6 @@ define(['backbone', 'collections/task'], function(Backbone, Tasks) {
       'events': { 'click .activity': 'activity' }
     , 'tagName':   'div'
     , 'className': 'project'
-    , 'initialize': function() {
-        this.tasks = new Tasks
-        this.tasks.project = this.model
-      }
     , 'activity': function(e) {
         var $button    = $(e.currentTarget)
           , user       = Timed.user
@@ -34,36 +30,35 @@ define(['backbone', 'collections/task'], function(Backbone, Tasks) {
         this.render()
       }
     , 'render': function() {
-        this.$el.empty()
-
-        var tasks  = this.tasks
-          , $tasks = $('<ul class="unstyled">')
-          , title  = this.model.get('name') +' '+ this.model.get('from').format('L')
-          , to     = this.model.get('to')
+        var user     = Timed.user
+          , tasks    = Timed.tasks
+          , project  = this.model
+          , $el      = this.$el
+          , $tasks   = $('<ul class="unstyled">')
+          , title    = project.get('name') +' '+ project.get('from').format('L')
+          , to       = project.get('to')
+          , activity = Timed.user.getCurrentActivity()
+          , currentTaskId
 
         if (to) {
           title += ' - '+ to.format('L')
         }
 
-        this.$el.append($('<h4>').text(title))
-        this.$el.append($tasks)
+        if (activity) {
+          currentTaskId = activity.get('task')
+          currentTaskId = currentTaskId && currentTaskId.id || currentTaskId
+        }
 
-        tasks.fetch({ 'success': function() {
-          var activity      = Timed.user.getCurrentActivity()
-            , currentTaskId
+        tasks.where({ 'project': project.id }).forEach(function(task) {
+          var active = activity && !activity.get('to') && task.id == currentTaskId
 
-          if (activity) {
-            currentTaskId = activity.get('task')
-            currentTaskId = currentTaskId && currentTaskId.id || currentTaskId
-          }
+          $tasks.append($('<li>').text(task.get('name'))
+                                 .prepend(createTrackTaskActivityButton(task, active)))
+        })
 
-          tasks.each(function(task) {
-            var active = activity && !activity.get('to') && task.id == currentTaskId
-
-            $tasks.append($('<li>').text(task.get('name'))
-                                   .prepend(createTrackTaskActivityButton(task, active)))
-          })
-        } })
+        $el.empty()
+        $el.append($('<h4>').text(title))
+        $el.append($tasks)
       }
   })
 

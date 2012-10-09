@@ -11,6 +11,7 @@ html
       script
         Timed = { user: !{JSON.stringify(user, ['_id', 'attendances', 'name', 'projects', 'quota', 'from', 'to', 'activities', 'task'])} }
       script(src='/js/require.js', data-main='/js/main')
+    block scripts
   body
     block navbar
       .navbar.navbar-inverse.navbar-fixed-top

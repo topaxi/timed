@@ -27,14 +27,6 @@ module.exports = function(app) {
     })
   })
 
-  app.get('/project/:id/tasks', function(req, res, next) {
-    Task.find({ 'project': req.params.id }, function(err, tasks) {
-      if (err) return next(err)
-
-      res.send(tasks)
-    })
-  })
-
   app.post('/project', function(req, res, next) {
     var project = new Project({ 'name':     req.body.name
                               , 'customer': req.body.customer

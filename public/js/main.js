@@ -26,13 +26,32 @@ require(['moment'], function(moment) {
   }
 })
 
-require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', 'bootstrap'],
-    function(ModelUser, Timeline, Trackbar, Dashboard) {
+require([
+  'models/user'
+, 'collections/task'
+, 'collections/project'
+, 'collections/customer'
+, 'views/timeline'
+, 'views/trackbar'
+, 'views/dashboard'
+, 'bootstrap'
+], function(
+  User
+, Tasks
+, Projects
+, Customers
+, Timeline
+, Trackbar
+, Dashboard
+) {
   'use strict';
 
-  var user     = Timed.user = new ModelUser(Timed.user)
-    , timeline = new Timeline ({ 'model': user })
-    , trackbar = new Trackbar ({ 'model': user })
+  var user      = Timed.user      = new User(Timed.user)
+    , tasks     = Timed.tasks     = new Tasks(Timed.tasks)
+    , projects  = Timed.projects  = new Projects(Timed.projects)
+    , customers = Timed.customers = new Customers(Timed.customers)
+    , timeline  = new Timeline({ 'model': user })
+    , trackbar  = new Trackbar({ 'model': user })
 
   user.on('change', function() {
     //timeline.render()
@@ -44,7 +63,7 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
   // TODO: Menu should be done shinier and with less duplicate code
 
   ;(function() {
-    var dialog, customers
+    var dialog
 
     $('#customers').click(function(e) {
       e.preventDefault()
@@ -55,9 +74,7 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
         return
       }
 
-      require(['collections/customer', 'views/customer/list'],
-          function(Customers, CustomerList) {
-        customers = new Customers
+      require(['views/customer/list'], function(CustomerList) {
         dialog    = new CustomerList({ 'model': customers })
         customers.fetch({ 'success': function() { dialog.render() } })
       })
@@ -65,7 +82,7 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
   })()
 
   ;(function() {
-    var dialog, projects
+    var dialog
 
     $('#projects').click(function(e) {
       e.preventDefault()
@@ -76,9 +93,7 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
         return
       }
 
-      require(['collections/project', 'views/project/list'],
-          function(Projects, ProjectList) {
-        projects = new Projects
+      require(['views/project/list'], function(ProjectList) {
         dialog   = new ProjectList({ 'model': projects })
         projects.fetch({ 'success': function() { dialog.render() } })
       })
@@ -86,21 +101,21 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
   })()
 
   ;(function() {
-    var dialog, users
+    var dialog
 
     $('#users').click(function(e) {
       e.preventDefault()
 
       if (dialog) {
-        users.fetch({ 'success': function() { dialog.render() } })
+        Timed.users.fetch({ 'success': function() { dialog.render() } })
 
         return
       }
 
       require(['collections/user', 'views/user/list'],
           function(Users, UserList) {
-        users  = new Users
-        dialog = new UserList({ 'model': users })
+        Timed.users = new Users
+        dialog = new UserList({ 'model': Timed.users })
         users.fetch({ 'success': function() { dialog.render() } })
       })
     })
@@ -109,28 +124,13 @@ require(['models/user', 'views/timeline', 'views/trackbar', 'views/dashboard', '
   // TODO: Implement some kind of router, Backbone.Router?
   // init dashboard
   document.getElementById('dashboard') && (function() {
-    require(['collections/project', 'views/dashboard'], function(Projects, Dashboard) {
-      var projects  = new Projects
-        , dashboard = new Dashboard
+    require(['views/dashboard'], function(Dashboard) {
+      var dashboard = new Dashboard
 
-      projects.user = Timed.user
-      dashboard.projects = projects
-
-      Timed.user.on('change', fetchProjects)
-
-      fetchProjects()
-
-      function fetchProjects() {
-        if (Timed.user.get('projects').length) {
-          projects.fetch({ 'success': function() {
-            dashboard.render()
-          } })
-        }
-        else {
-          projects.reset([])
-          dashboard.render()
-        }
-      }
+      Timed.user.on('change', function() {
+        dashboard.render()
+      })
+      dashboard.render()
     })
   })()
 })

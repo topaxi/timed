@@ -5,11 +5,9 @@ define(['backbone', 'models/task', 'moment'], function(Backbone, Task, moment) {
       'idAttribute': '_id'
     , 'sync': function() { return false }
     , 'initialize': function() {
-                 this.attributes.from = moment(this.attributes.from)
-                 this.attributes.to   = moment(this.attributes.to)
-
-                 //this.set('task', new Task({ '_id': this.get('task') }))
-               }
+        this.attributes.from = moment(this.attributes.from)
+        this.attributes.to   = moment(this.attributes.to)
+      }
     , 'end': function(to) {
         to = to || this.get('to')
         this.set('to', to || moment())

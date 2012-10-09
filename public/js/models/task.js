@@ -2,13 +2,13 @@ define(['backbone', 'moment'], function(Backbone, moment) {
   'use strict';
 
   var Task = Backbone.Model.extend({
-      'url':         function() {
-                       var url = '/task'
+      'url': function() {
+        var url = '/task'
 
-                       if (this.id) url += '/'+ this.id
+        if (this.id) url += '/'+ this.id
 
-                       return url
-                     }
+        return url
+      }
     , 'idAttribute': '_id'
     , 'initialize': function() {
         this.attributes.from = moment(this.attributes.from)

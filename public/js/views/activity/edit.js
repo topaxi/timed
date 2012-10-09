@@ -52,7 +52,13 @@ define(['backbone', 'moment', 'text!views/activity/edit.html'],
         })
         $el.find('.save')  .click(function() { $form.submit() })
         $el.find('.delete').click(function() {
-          Timed.user.get('attendances').remove(model)
+          Timed.user.get('attendances').forEach(function(attendance) {
+            var activities = attendance.get('activities')
+
+            if (activities.contains(model)) {
+              activities.remove(model)
+            }
+          })
           Timed.user.save({}, {
             'error': function(model, response) {
               response = JSON.parse(response.responseText)

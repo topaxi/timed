@@ -115,7 +115,7 @@ require([
       require(['collections/user', 'views/user/list'],
           function(Users, UserList) {
         users = new Users
-        dialog = new UserList({ 'model': Timed.users })
+        dialog = new UserList({ 'model': users })
         users.fetch({ 'success': function() { dialog.render() } })
       })
     })

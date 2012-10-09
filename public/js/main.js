@@ -101,20 +101,20 @@ require([
   })()
 
   ;(function() {
-    var dialog
+    var dialog, users
 
     $('#users').click(function(e) {
       e.preventDefault()
 
       if (dialog) {
-        Timed.users.fetch({ 'success': function() { dialog.render() } })
+        users.fetch({ 'success': function() { dialog.render() } })
 
         return
       }
 
       require(['collections/user', 'views/user/list'],
           function(Users, UserList) {
-        Timed.users = new Users
+        users = new Users
         dialog = new UserList({ 'model': Timed.users })
         users.fetch({ 'success': function() { dialog.render() } })
       })

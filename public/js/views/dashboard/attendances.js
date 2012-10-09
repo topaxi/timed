@@ -6,12 +6,22 @@ define(['backbone', 'collections/task', 'moment'],
       'tagName':   'div'
     , 'className': 'attendances span5'
     , 'events':    { 'click .attendance > .edit': 'editAttendance'
+                   , 'click .activity > .edit':   'editActivity'
                    }
     , 'editAttendance': function(e) {
         require(['models/attendance', 'views/attendance/edit'],
             function(Attendance, AttendanceEdit) {
           var model = $(e.currentTarget).data('model') || new Attendance
             , view  = new AttendanceEdit({ 'model': model })
+
+          view.render()
+        })
+      }
+    , 'editActivity': function(e) {
+        require(['models/activity', 'views/activity/edit'],
+            function(Activity, ActivityEdit) {
+          var model = $(e.currentTarget).data('model') || new Activity
+            , view  = new ActivityEdit({ 'model': model })
 
           view.render()
         })
@@ -45,18 +55,19 @@ define(['backbone', 'collections/task', 'moment'],
               var $activityList = $('<ul>')
 
               activities.forEach(function(activity) {
-                var to         = activity.get('to')
-                  , from       = activity.get('from')
-                  , title      = [ from.format('LT')
-                                 , to ? to.format('LT') : from.fromNow(true)
-                                 , activity.get('task') ?
-                                     tasks.get(activity.get('task')).get('name') :
-                                     '<a>Set task</a>'
-                                 ].join(' - ')
+                var $li   = $('<li class="activity">')
+                  , to    = activity.get('to')
+                  , from  = activity.get('from')
+                  , title = [ from.format('LT')
+                            , to ? to.format('LT') : from.fromNow(true)
+                            , activity.get('task') ?
+                                tasks.get(activity.get('task')).get('name') :
+                                '<span class="text-warning">No task selected!</span>'
+                            ].join(' - ')
 
                 totalActivity += (to || moment()).diff(from, 'minutes')
 
-                $activityList.append($('<li>').html(title))
+                $activityList.append($li.html(title).prepend(createEditActivityButton(activity)))
               })
 
               $li.append($activityList)
@@ -72,6 +83,10 @@ define(['backbone', 'collections/task', 'moment'],
         }
       }
   })
+
+  function createEditActivityButton(model) {
+    return $('<a class="btn btn-small edit mrs" data-placement="left" title="Edit activity" rel="tooltip"><i class="icon-edit"></i></a>').data('model', model).tooltip()
+  }
 
   function createEditAttendanceButton(model) {
     return $('<a class="btn btn-small edit mrs" data-placement="left" title="Edit attendance" rel="tooltip"><i class="icon-edit"></i></a>').data('model', model).tooltip()

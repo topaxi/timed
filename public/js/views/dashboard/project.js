@@ -5,7 +5,7 @@ define(['backbone', 'collections/task'], function(Backbone, Tasks) {
   var DashboardProjectView = Backbone.View.extend({
       'events': { 'click .activity': 'activity' }
     , 'tagName':   'div'
-    , 'className': 'project'
+    , 'className': 'project mtl'
     , 'activity': function(e) {
         var $button    = $(e.currentTarget)
           , user       = Timed.user
@@ -52,7 +52,7 @@ define(['backbone', 'collections/task'], function(Backbone, Tasks) {
         tasks.where({ 'project': project.id }).forEach(function(task) {
           var active = activity && !activity.get('to') && task.id == currentTaskId
 
-          $tasks.append($('<li>').text(task.get('name'))
+          $tasks.append($('<li>').text(task.get('name')).addClass('mvs')
                                  .prepend(createTrackTaskActivityButton(task, active)))
         })
 

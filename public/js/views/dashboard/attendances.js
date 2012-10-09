@@ -39,7 +39,7 @@ define(['backbone', 'collections/task', 'moment'],
             , totalActivity   = 0
 
           attendances.forEach(function(attendance) {
-            var $li        = $('<li class="attendance">')
+            var $li        = $('<li class="attendance mtl">')
               , activities = attendance.get('activities')
               , to         = attendance.get('to')
               , from       = attendance.get('from')
@@ -55,7 +55,7 @@ define(['backbone', 'collections/task', 'moment'],
               var $activityList = $('<ul>')
 
               activities.forEach(function(activity) {
-                var $li   = $('<li class="activity">')
+                var $li   = $('<li class="activity mvs">')
                   , to    = activity.get('to')
                   , from  = activity.get('from')
                   , title = [ from.format('LT')

@@ -97,18 +97,7 @@ define(['backbone', 'moment'], function(Backbone, moment) { 'use strict';
   })
 
   function format(date) {
-    return date.format(date > today() ? 'LT' : 'LLL')
-  }
-
-  function today() {
-    var date = new Date
-
-    date.setHours(0)
-    date.setMinutes(0)
-    date.setSeconds(0)
-    date.setMilliseconds(0)
-
-    return date
+    return date.format(date > moment().startOf('day') ? 'LT' : 'LLL')
   }
 
   return Trackbar

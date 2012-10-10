@@ -43,7 +43,7 @@ html
     if user
       #trackbar.container-fluid
         block trackbar
-          - var today = moment().hours(0).minutes(0).seconds(0).milliseconds(0)
+          - var today = moment().startOf('day')
           .attendance Attendance
             - var attendance = user.attendances[user.attendances.length - 1]
             if attendance

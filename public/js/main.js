@@ -54,10 +54,11 @@ require([
     , trackbar  = new Trackbar({ 'model': user })
 
   user.on('change', function() {
-    //timeline.render()
     trackbar.render()
+    timeline.render()
   })
   trackbar.render()
+  timeline.render()
   setInterval(function() { trackbar.render() }, 5000)
 
   // TODO: Menu should be done shinier and with less duplicate code

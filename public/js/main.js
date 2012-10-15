@@ -60,6 +60,7 @@ require([
   trackbar.render()
   timeline.render()
   setInterval(function() { trackbar.render() }, 5000)
+  setInterval(function() { timeline.render() }, 1000 * 60)
 
   // TODO: Menu should be done shinier and with less duplicate code
 

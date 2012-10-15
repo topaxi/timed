@@ -10,11 +10,12 @@ define(['backbone', 'moment'], function(Backbone, moment) {
     , 'render': function() {
         this.$el.empty().appendTo('#timeline')
 
-        var now         = moment().startOf('day')
+        var day         = moment().startOf('day')
+          , now         = moment()
           , attendances = this.model.get('attendances')
 
         // TODO: Endless scrolling in both directions!
-        for (var i = 0, l = moment().daysInMonth(); i < l; ++i, now.date(now.date() - 1)) {
+        for (var i = 0, l = moment().daysInMonth(); i < l; ++i, day.date(day.date() - 1)) {
           var $li        = $('<li>')
             , $time
             , attendance = 0
@@ -25,7 +26,7 @@ define(['backbone', 'moment'], function(Backbone, moment) {
           attendance = ~~attendances.reduce(function(a, b) {
             var from = b.get('from')
 
-            if (!compareDate(now, from)) {
+            if (!compareDate(day, from)) {
               return a
             }
 
@@ -33,21 +34,21 @@ define(['backbone', 'moment'], function(Backbone, moment) {
               activities.push(activity)
             })
 
-            return a + (b.get('to') - from) / 1000 / 60
+            return a + ((b.get('to') || now) - from) / 1000 / 60
           }, 0)
 
           /*jshint loopfunc:true */
           activity = ~~activities.reduce(function(a, b) {
             var from = b.get('from')
 
-            if (!compareDate(now, from)) {
+            if (!compareDate(day, from)) {
               return a
             }
 
-            return a + (b.get('to') - from) / 1000 / 60
+            return a + ((b.get('to') || now) - from) / 1000 / 60
           }, 0)
 
-          $li.attr('data-date', now.toJSON()).text(now.format('ddd'))
+          $li.attr('data-date', day.toJSON()).text(day.format('ddd'))
 
           $li.append($('<div class="attendance">').attr('data-minutes', attendance)
                                                   .width(attendance / workTime * 100 +'%'))

@@ -132,6 +132,9 @@ require([
       Timed.user.on('change', function() {
         dashboard.render()
       })
+      Timed.tasks.on('all', function() {
+        dashboard.render()
+      })
       dashboard.render()
     })
   })()

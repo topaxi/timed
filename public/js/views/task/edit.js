@@ -66,7 +66,7 @@ define(['backbone', 'moment', 'text!views/task/edit.html', '/bootstrap-datepicke
               if (response.error) alert(response.error.message)
             },
             'success': function() {
-              self.collection.add(model)
+              Timed.tasks.add(model)
               $el.modal('hide')
             }
           })

@@ -45,15 +45,12 @@ define(['backbone', 'models/project', 'text!views/project/list.html'],
         var model = $(e.currentTarget).data('model')
           , self  = this
 
-        require(['collections/task', 'views/task/list'], function(Tasks, TaskList) {
-          var tasks = new Tasks
-            , view  = new TaskList({ 'collection': tasks })
+        require(['views/task/list'], function(TaskList) {
+          var view  = new TaskList({ 'project': model })
 
           view.on('close', function() { self.render() })
 
-          tasks.project = model
-
-          tasks.fetch({ 'success': function() { view.render() } })
+          Timed.tasks.fetch({ 'success': function() { view.render() } })
         })
       }
     , 'follow': function(e) {

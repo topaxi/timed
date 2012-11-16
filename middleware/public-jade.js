@@ -1,5 +1,6 @@
-var jade = require('jade')
-  , fs   = require('fs')
+var jade   = require('jade')
+  , fs     = require('fs')
+  , moment = require('moment')
 
 module.exports = function(req, res, next) {
   if (!/.html$/.test(req.originalUrl)) {
@@ -15,6 +16,10 @@ module.exports = function(req, res, next) {
 
     var fn = jade.compile(str, { 'filename': file, 'pretty': true })
 
-    res.send(fn(req.body || {}))
+    var context = req.body || {}
+
+    context.moment = moment
+
+    res.send(fn(context))
   })
 }

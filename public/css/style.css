@@ -10,7 +10,8 @@ body { padding-top: 60px }
 .timeline .worktime   { width: 100%; height: 6px; top: 7px; border-right: 1px solid #000 }
 
 /* Bugfixes */
-.datepicker, .tooltip { z-index: 9999999 }
+.datepicker, .daterangepicker, .tooltip { z-index: 9999999 }
+.controls .slider { vertical-align: sub; display: inline-block; width: 100% }
 
 /* spacing helpers from oocss
 p,m = padding,margin

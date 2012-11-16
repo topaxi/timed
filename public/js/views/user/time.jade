@@ -1,0 +1,22 @@
+.modal.hide.fade
+  .modal-header
+    button.close(type='button', data-dismiss='modal', aria-hidden='true') &times;
+    h3
+  .modal-body
+    form.form-horizontal
+      .control-group
+        .daterange.btn.pull-right
+          i.icon-calendar.icon-large
+          span.mhs #{moment().format('MMMM Do YYYY')} - #{moment().add('years', 1).format('MMMM Do YYYY')}
+          i.caret
+      each weekday in moment.weekdays
+        .control-group
+          .control-label= weekday
+          .controls
+            .row-fluid
+              .span2.control-label 0.0h
+              .span10
+                .slider
+  .modal-footer
+    a.btn(href='#', data-dismiss='modal') Close
+    a.btn.btn-primary.save(href='#') Save

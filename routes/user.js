@@ -29,6 +29,7 @@ module.exports = function(app) {
                         , 'quota':    req.body.quota
                         , 'password': req.body.password
                         , 'projects': req.body.projects
+                        , 'worktime': req.body.worktime
                         })
 
     user.save(function(err) {
@@ -51,6 +52,7 @@ module.exports = function(app) {
       user.quota       = req.body.quota
       user.attendances = req.body.attendances
       user.projects    = req.body.projects
+      user.worktime    = req.body.worktime
 
       if (!req.body.password) {
         save()

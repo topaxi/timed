@@ -1,8 +1,6 @@
 define(['backbone', 'moment'], function(Backbone, moment) {
   'use strict';
 
-  // TODO: This shouldn't be hardcoded!
-  var workTime = 8 * 60
   var Timeline = Backbone.View.extend({
       'tagName':   'ul'
     , 'className': 'timeline'
@@ -13,6 +11,8 @@ define(['backbone', 'moment'], function(Backbone, moment) {
         var day         = moment().startOf('day')
           , now         = moment()
           , attendances = this.model.get('attendances')
+          , worktime    = this.model.get('worktime')
+          , currentWorktime
 
         // TODO: Endless scrolling in both directions!
         for (var i = 0, l = moment().daysInMonth(); i < l; ++i, day.date(day.date() - 1)) {
@@ -21,6 +21,8 @@ define(['backbone', 'moment'], function(Backbone, moment) {
             , attendance = 0
             , activities = []
             , activity   = 0
+
+          currentWorktime = (worktime[day.format('YYYY-MM-DD')] || 0) * 60
 
           /*jshint loopfunc:true */
           attendance = ~~attendances.reduce(function(a, b) {
@@ -51,17 +53,17 @@ define(['backbone', 'moment'], function(Backbone, moment) {
           $li.attr('data-date', day.toJSON()).text(day.format('ddd'))
 
           $li.append($('<div class="attendance">').attr('data-minutes', attendance)
-                                                  .width(attendance / workTime * 100 +'%'))
+                                                  .width(attendance / currentWorktime * 100 +'%'))
 
           $time = $('<div class="activity">')
           $time.attr('data-minutes', activity)
-               .width(activity / workTime * 100 +'%')
+               .width(activity / currentWorktime * 100 +'%')
 
-          if (activity > workTime + 60) $time.addClass('overtime')
-          if (activity < workTime)      $time.addClass('undertime')
+          if (activity > currentWorktime + 60) $time.addClass('overtime')
+          if (activity < currentWorktime)      $time.addClass('undertime')
 
           $li.append($time)
-          $li.append('<div class="worktime">')
+          if (currentWorktime) $li.append('<div class="worktime">')
 
           this.$el.append($li)
         }

@@ -1,20 +1,6 @@
-;(function(document) {
-  'use strict';
+Timed.addStylesheet('datepicker')
 
-  if (document.getElementById('datepicker-stylesheet')) {
-    return
-  }
-
-  var link = document.createElement('link')
-
-  link.id = 'datepicker-stylesheet'
-  link.rel = 'stylesheet'
-  link.href = '/bootstrap-datepicker/css/datepicker.css'
-
-  document.head.appendChild(link)
-})(document)
-
-define(['backbone', 'moment', 'text!views/task/edit.html', '/bootstrap-datepicker/js/bootstrap-datepicker.js'],
+define(['backbone', 'moment', 'text!views/task/edit.html', 'datepicker'],
     function(Backbone, moment, tpl) {
   'use strict';
 

@@ -3,7 +3,7 @@ define(['backbone', 'moment', 'collections/project', 'collections/attendance'],
   'use strict';
 
   var User = Backbone.Model.extend({
-      'defaults': { 'projects': [] }
+      'defaults': { 'projects': [], 'worktime': {} }
     , 'url': function() {
         var url = '/user'
 

@@ -8,8 +8,9 @@ html
     link(rel='stylesheet', href='/css/style.css')
     link(rel='stylesheet', href='/bootstrap/css/bootstrap-responsive.css')
     if user
+      - user.password = undefined
       script
-        Timed = { user: !{JSON.stringify(user, ['_id', 'attendances', 'name', 'projects', 'quota', 'from', 'to', 'activities', 'task'])} }
+        Timed = { user: !{JSON.stringify(user)} }
       script(src='/js/require.js', data-main='/js/main')
     block scripts
   body

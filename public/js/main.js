@@ -7,7 +7,10 @@ require.config({
            , 'jquery':     [ '//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery'
                            , 'lib/jquery/jquery'
                            ]
+           , 'jqueryui':   'http://code.jquery.com/ui/1.9.1/jquery-ui'
            , 'bootstrap':  '../bootstrap/js/bootstrap'
+           , 'datepicker': '../bootstrap-datepicker/js/bootstrap-datepicker'
+           , 'daterangepicker': '../bootstrap-daterangepicker/daterangepicker'
            }
   , shim: { 'superagent': { exports: 'superagent' }
           , 'backbone':   { exports: 'Backbone', deps: [ 'underscore', 'jquery' ] }
@@ -25,6 +28,28 @@ require(['moment'], function(moment) {
     return this._d.toJSON()
   }
 })
+
+Timed.stylesheets = {
+    'jqueryui':        '/css/jqueryui/jquery-ui-1.8.16.custom'
+  , 'datepicker':      '/bootstrap-datepicker/css/datepicker'
+  , 'daterangepicker': '/bootstrap-daterangepicker/daterangepicker'
+}
+Timed.addStylesheet = function(name) {
+  'use strict';
+
+  var rel = 'stylesheet'
+    , id  = name +'-'+ rel
+
+  if (document.getElementById(id)) return
+
+  var link = document.createElement('link')
+
+  link.id   = id
+  link.rel  = rel
+  link.href = Timed.stylesheets[name] +'.css'
+
+  document.head.appendChild(link)
+}
 
 require([
   'models/user'

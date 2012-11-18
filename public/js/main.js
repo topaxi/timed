@@ -7,7 +7,7 @@ require.config({
            , 'jquery':     [ '//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery'
                            , 'lib/jquery/jquery'
                            ]
-           , 'jqueryui':   'http://code.jquery.com/ui/1.9.1/jquery-ui'
+           , 'jqueryui':   'lib/jqueryui/jquery-ui-1.9.1.custom'
            , 'bootstrap':  '../bootstrap/js/bootstrap'
            , 'datepicker': '../bootstrap-datepicker/js/bootstrap-datepicker'
            , 'daterangepicker': '../bootstrap-daterangepicker/daterangepicker'

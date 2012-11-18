@@ -1,6 +1,6 @@
 require.config({
     paths: { 'md5':        'lib/crypto/md5'
-           , 'underscore': 'lib/underscore/underscore'
+           , 'lodash':     'lib/lodash/lodash'
            , 'backbone':   'lib/backbone/backbone'
            , 'moment':     'lib/moment/moment'
 //           , 'superagent': 'lib/superagent.min'
@@ -13,9 +13,9 @@ require.config({
            , 'daterangepicker': '../bootstrap-daterangepicker/daterangepicker'
            }
   , shim: { 'superagent': { exports: 'superagent' }
-          , 'backbone':   { exports: 'Backbone', deps: [ 'underscore', 'jquery' ] }
+          , 'backbone':   { exports: 'Backbone', deps: [ 'lodash', 'jquery' ] }
           , 'md5':        { exports: 'CryptoJS.MD5' }
-          , 'underscore': { exports: '_' }
+          , 'lodash':     { exports: '_' }
           , 'bootstrap':  { deps: [ 'jquery' ] }
           }
 })

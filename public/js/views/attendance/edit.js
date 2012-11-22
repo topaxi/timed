@@ -28,7 +28,8 @@ define(['backbone', 'moment', 'text!views/attendance/edit.html'],
           model.set('to',
             to  .seconds(0).minutes(newTo  .minutes()).hours(newTo  .hours()))
 
-          if (end) Timed.user.endCurrentActivity()
+          if (end)       Timed.user.endCurrentActivity()
+          if (!model.id) Timed.user.get('attendances').add(model)
 
           Timed.user.save({}, {
             'error': function(model, response) {

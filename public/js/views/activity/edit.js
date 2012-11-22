@@ -36,7 +36,10 @@ define(['backbone', 'moment', 'text!views/activity/edit.html'],
           model.set('to',
             to  .seconds(0).minutes(newTo  .minutes()).hours(newTo  .hours()))
           model.set('task', $form.find('#inputTask').val())
-          console.log($form.find('#inputTask').val())
+
+          if (self.options.attendance) {
+            self.options.attendance.get('activities').add(model)
+          }
 
           Timed.user.save({}, {
             'error': function(model, response) {

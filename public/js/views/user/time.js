@@ -1,8 +1,8 @@
 Timed.addStylesheet('jqueryui')
 Timed.addStylesheet('daterangepicker')
 
-define(['backbone', 'text!views/user/time.html', 'jqueryui', 'daterangepicker'],
-    function(Backbone, tpl) {
+define(['backbone', 'moment', 'text!views/user/time.html', 'jqueryui', 'daterangepicker'],
+    function(Backbone, moment, tpl) {
   'use strict';
 
   var UserTime = Backbone.View.extend({
@@ -14,7 +14,7 @@ define(['backbone', 'text!views/user/time.html', 'jqueryui', 'daterangepicker'],
 
         $el.find('h3').text('Set Worktime for '+ self.model.get('name'))
         $el.find('.slider').slider({ 'max':   24
-                                   , 'step':  .5
+                                   , 'step':  0.5
                                    , 'slide': updateTimeLabel
                                    })
 
@@ -91,7 +91,7 @@ define(['backbone', 'text!views/user/time.html', 'jqueryui', 'daterangepicker'],
   function updateTimeLabel(e, ui) {
     var value = ui.value % 1 ? ui.value : ui.value +'.0'
 
-    $(this.parentNode).prev().text(value +'h')
+    $(e.target.parentNode).prev().text(value +'h')
   }
 
   function updateDaterangeLabel(start, end) {

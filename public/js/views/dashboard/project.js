@@ -49,7 +49,8 @@ define(['backbone', 'collections/task'], function(Backbone, Tasks) {
           currentTaskId = currentTaskId && currentTaskId.id || currentTaskId
         }
 
-        tasks.where({ 'project': project.id }).forEach(function(task) {
+        tasks.where({ 'project': project.id, 'done': false })
+             .forEach(function(task) {
           var active = activity && !activity.get('to') && task.id == currentTaskId
 
           $tasks.append($('<li>').text(task.get('name')).addClass('mvs')

@@ -63,11 +63,11 @@ define(['backbone', 'moment', 'text!views/user/time.html', 'jqueryui', 'daterang
             }
           }
 
+          if (Timed.user.id == model.id) Timed.user.set('worktime', wt)
+
           model.save({ 'worktime': wt }, {
             'error': function(user, response) {
               response = JSON.parse(response.responseText)
-
-              if (Timed.user.id == model.id) Timed.user.set('worktime', wt)
 
               // TODO: Shiny error handling
               if (response.error) alert(response.error.message)

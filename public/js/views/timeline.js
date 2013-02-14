@@ -36,8 +36,9 @@ define(['backbone', 'moment'], function(Backbone, moment) {
               activities.push(activity)
             })
 
-            return a + ((b.get('to') || now) - from) / 1000 / 60
+            return a + (b.get('to') || now) - from
           }, 0)
+          attendance /= 1000 * 60
 
           /*jshint loopfunc:true */
           activity = ~~activities.reduce(function(a, b) {
@@ -47,8 +48,9 @@ define(['backbone', 'moment'], function(Backbone, moment) {
               return a
             }
 
-            return a + ((b.get('to') || now) - from) / 1000 / 60
+            return a + (b.get('to') || now) - from
           }, 0)
+          activity /= 1000 * 60
 
           $li.attr('data-date', day.toJSON()).text(day.format('ddd'))
 

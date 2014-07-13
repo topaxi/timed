@@ -13,8 +13,6 @@ var express  = require('express')
   , User     = require('./models/user')
   , moment   = require('moment')
 
-moment.fn.toJSON = function() { this._d.toJSON() }
-
 mongoose.connect(config.mongodb)
 
 var app = express()
@@ -41,59 +39,58 @@ passport.deserializeUser(function(id, done) {
   User.findById(id, done);
 });
 
-app.configure(function() {
-  var SessionMongoose = require('session-mongoose')
-    , LocalStrategy   = require('passport-local').Strategy
-    , bcrypt          = require('bcrypt')
+var LocalStrategy   = require('passport-local').Strategy
+  , bcrypt          = require('bcrypt')
 
-  passport.use(new LocalStrategy(
-    function(username, password, done) {
-      // Find the user by username. If there is no user with the given
-      // username, or the password is not correct, set the user to `false` to
-      // indicate failure and set a flash message. Otherwise, return the
-      // authenticated `user`.
-      User.findOne({ 'name': username }, function(err, user) {
-        if (err) return done(err)
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    // Find the user by username. If there is no user with the given
+    // username, or the password is not correct, set the user to `false` to
+    // indicate failure and set a flash message. Otherwise, return the
+    // authenticated `user`.
+    User.findOne({ 'name': username }, function(err, user) {
+      if (err) return done(err)
 
-        if (!user) return done(null, false, { message: 'Unknown user ' + username })
+      if (!user) return done(null, false, { message: 'Unknown user ' + username })
 
-        bcrypt.compare(password, user.password, function(err, equal) {
-          if (err)    return done(null, false, { message: err })
-          if (!equal) return done(null, false, { message: 'Invalid password' })
+      bcrypt.compare(password, user.password, function(err, equal) {
+        if (err)    return done(null, false, { message: err })
+        if (!equal) return done(null, false, { message: 'Invalid password' })
 
-          return done(null, user)
-        })
+        return done(null, user)
       })
-    }
-  ))
+    })
+  }
+))
 
-  app.set('port', process.env.PORT || config.port || 3000)
-  app.set('views', __dirname + '/views')
-  app.set('view engine', 'jade')
-  app.use(express.favicon())
-  app.use(express.logger('dev'))
-  app.use(express.bodyParser())
-  app.use(express.cookieParser())
-  app.use(express.session({ 'secret': '12345678'
-                          , 'store':  new SessionMongoose({'url': config.mongodb })
-                          }))
-  app.use(express.methodOverride())
-  app.use(passport.initialize())
-  app.use(passport.session())
-  app.use(require('connect-flash')())
-  app.use(function(req, res, next) {
-    res.locals.user = req.user
-    res.locals.req  = req
-    next()
-  })
-  app.use(app.router)
-  app.use(require('./middleware/public-jade'))
-  app.use(express.static(path.join(__dirname, 'public')))
-});
+app.set('port', process.env.PORT || config.port || 3000)
+app.set('views', __dirname + '/views')
+app.set('view engine', 'jade')
 
-app.configure('development', function() {
-  app.use(express.errorHandler())
-});
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ 'extended': false }))
+app.use(bodyParser.json())
+//app.use(require('serve-favicon')())
+
+app.use(require('cookie-parser')(config.cookieSecret))
+
+var expressSession = require('express-session')
+app.use(expressSession({ 'secret': config.cookieSecret
+                       , 'store':  new (require('connect-mongo')(expressSession))({ 'url': config.mongodb })
+                       }))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(require('connect-flash')())
+app.use(function(req, res, next) {
+  res.locals.user = req.user
+  res.locals.req  = req
+  next()
+})
+app.use(require('./middleware/public-jade'))
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(function(err, req, res, next) {
+  // TODO: Error-handling
+})
 
 require('./routes')(app)
 require('./routes/user')(app)

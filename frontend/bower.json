@@ -3,6 +3,8 @@
   "dependencies": {
     "handlebars": "~1.3.0",
     "jquery": "^2.1.1",
+    "jquery-ui": "^1.11.1",
+    "jquery-ui-bootstrap": "^0.2.5",
     "ember": "1.7.0",
     "ember-data": "1.0.0-beta.10",
     "ember-resolver": "~0.1.7",

@@ -5,7 +5,7 @@ Vagrant.configure('2') do |config|
   config.vm.hostname = 'timed'
 
   config.vm.box_url = 'https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box'
-  
+
   config.vm.box = 'ubuntu-trusty-server'
   config.vm.guest = :ubuntu
 
@@ -22,6 +22,6 @@ Vagrant.configure('2') do |config|
   config.vm.network :public_network
 
   config.ssh.forward_agent = true
-  
+
   config.vm.provision :shell, :path => 'tools/vagrant/provision.sh'
 end

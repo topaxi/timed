@@ -4,7 +4,7 @@ var Project = require('../models/project')
 module.exports = function(app) {
   app.get('/project', function(req, res, next) {
     if (req.query.id && req.query.id.length) {
-      Project.find({ '_id': { $in: req.query.id } }, function(err, projects) {
+      Project.find({ '_id': { '$in': req.query.id } }, function(err, projects) {
         if (err) return next(err)
 
         res.send(projects)

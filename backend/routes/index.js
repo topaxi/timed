@@ -11,10 +11,6 @@ module.exports = function(app) {
       res.render('index', data)
     })
   })
-
-  app.get('/about', function(req, res) {
-    res.render('about')
-  })
 }
 
 function fetchData(cb) {

@@ -86,7 +86,6 @@ app.use(function(req, res, next) {
   res.locals.req  = req
   next()
 })
-app.use(require('./middleware/public-jade'))
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(function(err, req, res, next) {
   // TODO: Error-handling

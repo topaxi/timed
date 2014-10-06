@@ -75,8 +75,11 @@ app.use(bodyParser.json())
 app.use(require('cookie-parser')(config.cookieSecret))
 
 var expressSession = require('express-session')
-app.use(expressSession({ 'secret': config.cookieSecret
-                       , 'store':  new (require('connect-mongo')(expressSession))({ 'url': config.mongodb })
+  , MongoStore     = require('connect-mongo')(expressSession)
+app.use(expressSession({ 'secret':            config.cookieSecret
+                       , 'resave':            false
+                       , 'saveUninitialized': true
+                       , 'store':             new MongoStore({ 'url': config.mongodb })
                        }))
 app.use(passport.initialize())
 app.use(passport.session())

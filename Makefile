@@ -12,7 +12,7 @@ run-backend:
 	@cd ./backend && node app.js
 
 run-frontend:
-	@cd ./frontend && ember serve
+	@cd ./frontend && ember serve --live-reload-port 42000 --port 4200
 
 mongo:
 	@vagrant ssh -c mongo

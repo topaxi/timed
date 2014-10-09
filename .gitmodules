@@ -1,3 +1,0 @@
-[submodule "public/bootstrap-daterangepicker"]
-	path = public/bootstrap-daterangepicker
-	url = git://github.com/topaxi/bootstrap-daterangepicker.git

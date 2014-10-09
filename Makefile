@@ -1,5 +1,8 @@
 all:
 
+user:
+	@vagrant ssh -c 'node /vagrant/backend/bin/user.js'
+
 run:
 	@vagrant ssh -c 'cd /vagrant && make run-server'
 

@@ -28,6 +28,7 @@ function install_nginx() {
   ln -sf /vagrant/tools/vagrant/nginx/timed.conf /etc/nginx/conf.d/timed.conf
 
   rm -f /etc/nginx/conf.d/default.conf
+  rm -f /etc/nginx/sites-enabled/default.conf
 
   service nginx restart
 }

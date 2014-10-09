@@ -4,27 +4,27 @@ var User    = require('../models/user')
   , bcrypt  = require('bcrypt')
 
 module.exports = function(app) {
-  app.get('/user', function(req, res, next) {
+  app.get('/api/v1/users', function(req, res, next) {
     User.find(function(err, users) {
       if (err) return next(err)
 
-      users.forEach(deletePassword)
+      users.forEach(deletePasswordForResponse)
 
-      res.send(users)
+      res.send({ users: users })
     })
   })
 
-  app.get('/user/:id', function(req, res, next) {
+  app.get('/api/v1/user/:id', function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 
-      user.password = undefined
+      deletePasswordForResponse(user)
 
-      res.send(user)
+      res.send({ user: user })
     })
   })
 
-  app.post('/user', function(req, res, next) {
+  app.post('/api/v1/users', function(req, res, next) {
     var user = new User({ 'name':     req.body.name
                         , 'quota':    req.body.quota
                         , 'password': req.body.password
@@ -35,16 +35,16 @@ module.exports = function(app) {
     user.save(function(err) {
       if (err) return next(err)
 
-      user.password = undefined
+      deletePasswordForResponse(user.password)
 
-      res.send(user)
+      res.send({ user: user })
     })
   })
 
   // todo
-  // app.put('/user', fun...
+  // app.put('/api/v1/user', fun...
 
-  app.put('/user/:id', function(req, res, next) {
+  app.put('/api/v1/user/:id', function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 
@@ -82,15 +82,15 @@ module.exports = function(app) {
           // Update currently logged in user
           if (req.user._id == user._id) req.user = user
 
-          user.password = undefined
+          deletePasswordForResponse(user)
 
-          res.send(user)
+          res.send({ user: user })
         })
       }
     })
   })
 
-  app.delete('/user/:id', function(req, res, next) {
+  app.delete('/api/v1/user/:id', function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 
@@ -103,6 +103,6 @@ module.exports = function(app) {
   })
 }
 
-function deletePassword(user) {
+function deletePasswordForResponse(user) {
   user.password = undefined
 }

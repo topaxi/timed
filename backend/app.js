@@ -89,9 +89,6 @@ app.use(function(req, res, next) {
   next()
 })
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(function(err, req, res, next) {
-  // TODO: Error-handling
-})
 
 require('./routes')(app)
 require('./routes/user')(app)
@@ -99,6 +96,11 @@ require('./routes/project')(app)
 require('./routes/task')(app)
 require('./routes/customer')(app)
 require('./routes/login')(app)
+
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500)
+  res.send({ message: err.message, error: true })
+})
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log("Express server listening on port " + app.get('port'))

@@ -38,17 +38,41 @@ var Authenticator = AuthBase.extend({
       .then(function(res) {
         Ember.run(function() { resolve(res) })
       }, function(xhr) {
-        Ember.run(function() { reject(xhr.responseText) })
+        Ember.run(function() {
+          var error
+
+          try {
+            error = JSON.parse(xhr.responseText)
+          }
+          catch (e) {
+            error = xhr.responseText
+          }
+
+          reject(error)
+        })
       })
     })
   }
 })
 
 Ember.Application.initializer({
-  name: 'authentication'
+  name: 'authentication-before-simple-auth'
 , before: 'simple-auth'
 , initialize: function(container) {
     container.register('authenticator:custom', Authenticator)
+  }
+})
+
+Ember.Application.initializer({
+  name: 'authentication'
+, after: 'simple-auth'
+, initialize: function(container) {
+    var session = container.lookup('simple-auth-session:main')
+
+    session.on('sessionAuthenticationFailed', function(err) {
+      // TODO: Shiny error message.
+      alert(err ? err.message : 'Authentication error!')
+    })
   }
 })
 

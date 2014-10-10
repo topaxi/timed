@@ -9,9 +9,9 @@ import DS from 'ember-data';
 Ember.MODEL_FACTORY_INJECTIONS = true
 
 var App = Ember.Application.extend({
-  modulePrefix: config.modulePrefix,
-  podModulePrefix: config.podModulePrefix,
-  Resolver: Resolver
+  modulePrefix:    config.modulePrefix
+, podModulePrefix: config.podModulePrefix
+, Resolver:        Resolver
 })
 
 Session.reopen({
@@ -28,12 +28,12 @@ var Authenticator = AuthBase.extend({
   authenticate: function(credentials) {
     return new Ember.RSVP.Promise(function(resolve, reject) {
       Ember.$.ajax({
-        url: '/api/v1/login',
-        type: 'POST',
-        dataType: 'json',
-        data: { 'username': credentials.identification
-              , 'password': credentials.password
-              }
+        url:      '/api/v1/login'
+      , type:     'POST'
+      , dataType: 'json'
+      , data:     { 'username': credentials.identification
+                  , 'password': credentials.password
+                  }
       })
       .then(function(res) {
         Ember.run(function() { resolve(res) })
@@ -45,9 +45,9 @@ var Authenticator = AuthBase.extend({
 })
 
 Ember.Application.initializer({
-  name: 'authentication',
-  before: 'simple-auth',
-  initialize: function(container) {
+  name: 'authentication'
+, before: 'simple-auth'
+, initialize: function(container) {
     container.register('authenticator:custom', Authenticator)
   }
 })

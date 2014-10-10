@@ -7,7 +7,7 @@ export default {
     var session = container.lookup('simple-auth-session:main')
 
     session.on('sessionAuthenticationFailed', function(err) {
-      Notify.warning(err ? err.message : 'Authentication error!')
+      Notify.error(err ? err.message : 'Authentication error!')
     })
   }
 }

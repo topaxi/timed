@@ -13,9 +13,18 @@
       <ul class="navbar-nav nav">
         <li>{{#link-to 'user'}}Users{{/link-to}}</li>
         <li>{{#link-to 'about'}}About{{/link-to}}</li>
-
+      </ul>
+      <ul class="navbar-nav nav navbar-right">
         {{#if session.isAuthenticated}}
-          <li><a class="pointer" {{action 'invalidateSession'}}>Logout {{session.user.name}}</a></li>
+          <li class="dropdown">
+            <a class="dropdown-toggle pointer" data-toggle="dropdown">
+              {{session.user.name}}
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="pointer" {{action 'invalidateSession'}}>Logout {{session.user.name}}</a></li>
+            </ul>
+          </li>
         {{else}}
           <li>{{#link-to 'login'}}Login{{/link-to}}</li>
         {{/if}}

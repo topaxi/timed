@@ -36,9 +36,7 @@ var Authenticator = AuthBase.extend({
               }
       })
       .then(function(res) {
-        Ember.run(function() {
-          resolve({ accessToken: res.accessToken, userId: res.userId })
-        });
+        Ember.run(function() { resolve(res) })
       }, function(xhr) {
         Ember.run(function() { reject(xhr.responseText) })
       })

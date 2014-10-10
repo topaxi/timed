@@ -1,10 +1,11 @@
 var User    = require('../models/user')
   , Task    = require('../models/task')
   , Project = require('../models/project')
+  , auth    = require('../middleware/auth')
   , bcrypt  = require('bcrypt')
 
 module.exports = function(app) {
-  app.get('/api/v1/users', function(req, res, next) {
+  app.get('/api/v1/users', auth, function(req, res, next) {
     User.find(function(err, users) {
       if (err) return next(err)
 
@@ -14,7 +15,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get('/api/v1/users/:id', function(req, res, next) {
+  app.get('/api/v1/users/:id', auth, function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 
@@ -24,7 +25,7 @@ module.exports = function(app) {
     })
   })
 
-  app.post('/api/v1/users', function(req, res, next) {
+  app.post('/api/v1/users', auth, function(req, res, next) {
     var user = new User({ 'name':     req.body.name
                         , 'quota':    req.body.quota
                         , 'password': req.body.password
@@ -42,9 +43,9 @@ module.exports = function(app) {
   })
 
   // todo
-  // app.put('/api/v1/users', fun...
+  // app.put('/api/v1/users', auth, fun...
 
-  app.put('/api/v1/users/:id', function(req, res, next) {
+  app.put('/api/v1/users/:id', auth, function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 
@@ -90,7 +91,7 @@ module.exports = function(app) {
     })
   })
 
-  app.delete('/api/v1/users/:id', function(req, res, next) {
+  app.delete('/api/v1/users/:id', auth, function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 

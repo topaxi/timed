@@ -4,9 +4,10 @@ var passport = require('passport')
 module.exports = function(app) {
   app.post('/api/v1/login', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
-      if (err) return next(err)
+      if (err)   return next(err)
+      if (!user) return next(new Error('Invalid login!'))
 
-      res.send({ userId: user.id })
+      res.send({ sessionId: req.sessionID, userId: user.id })
     })(req, res, next)
   })
 

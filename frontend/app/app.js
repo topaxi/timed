@@ -6,7 +6,7 @@ import AuthBase from 'simple-auth/authenticators/base';
 import Session from 'simple-auth/session';
 import DS from 'ember-data';
 
-Ember.MODEL_FACTORY_INJECTIONS = true;
+Ember.MODEL_FACTORY_INJECTIONS = true
 
 var App = Ember.Application.extend({
   modulePrefix: config.modulePrefix,
@@ -57,6 +57,6 @@ Ember.Application.initializer({
 DS.RESTSerializer.reopen({ 'primaryKey': '_id' })
 DS.RESTAdapter.reopen({ 'namespace': 'api/v1' })
 
-loadInitializers(App, config.modulePrefix);
+loadInitializers(App, config.modulePrefix)
 
-export default App;
+export default App

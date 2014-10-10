@@ -2,10 +2,12 @@ var passport = require('passport')
   , User     = require('../models/user')
 
 module.exports = function(app) {
-  var auth = passport.authenticate('local', { 'failureRedirect': '/login', 'failureFlash': true })
+  app.post('/api/v1/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+      if (err) return next(err)
 
-  app.post('/api/v1/login', auth, function(req, res) {
-    res.send({ userId: req.user.id })
+      res.send({ userId: user.id })
+    })(req, res, next)
   })
 
   app.get('/logout', function(req, res) {

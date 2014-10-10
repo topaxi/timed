@@ -49,13 +49,12 @@ passport.use(new LocalStrategy(
     // indicate failure and set a flash message. Otherwise, return the
     // authenticated `user`.
     User.findOne({ 'name': username }, function(err, user) {
-      if (err) return done(err)
-
-      if (!user) return done(null, false, { message: 'Unknown user ' + username })
+      if (err)   return done(err)
+      if (!user) return done(new Error('Invalid login!'))
 
       bcrypt.compare(password, user.password, function(err, equal) {
-        if (err)    return done(null, false, { message: err })
-        if (!equal) return done(null, false, { message: 'Invalid password' })
+        if (err)    return done(err)
+        if (!equal) return done(new Error('Invalid login!'))
 
         return done(null, user)
       })

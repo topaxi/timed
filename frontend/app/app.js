@@ -30,6 +30,7 @@ var Authenticator = AuthBase.extend({
       Ember.$.ajax({
         url: '/api/v1/login',
         type: 'POST',
+        dataType: 'json',
         data: { 'username': credentials.identification
               , 'password': credentials.password
               }

@@ -13,6 +13,12 @@
       <ul class="navbar-nav nav">
         <li>{{#link-to 'user'}}Users{{/link-to}}</li>
         <li>{{#link-to 'about'}}About{{/link-to}}</li>
+
+        {{#if session.isAuthenticated}}
+          <li><a class="pointer" {{action 'invalidateSession'}}>Logout {{session.user.name}}</a></li>
+        {{else}}
+          <li>{{#link-to 'login'}}Login{{/link-to}}</li>
+        {{/if}}
       </ul>
     </div>
   </div>

@@ -18,6 +18,9 @@ body { padding-top: 60px }
 .db  { display: block        }
 .dib { display: inline-block }
 
+/* Cursors */
+.pointer { cursor: pointer }
+
 /* spacing helpers from oocss
 p,m = padding,margin
 a,t,r,b,l,h,v = all,top,right,bottom,left,horizontal,vertical

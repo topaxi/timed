@@ -33,14 +33,14 @@ else {
 // the user by ID when deserializing.
 passport.serializeUser(function(user, done) {
   done(null, user.id)
-});
+})
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, done);
-});
+  User.findById(id, done)
+})
 
-var LocalStrategy   = require('passport-local').Strategy
-  , bcrypt          = require('bcrypt')
+var LocalStrategy = require('passport-local').Strategy
+  , bcrypt        = require('bcrypt')
 
 passport.use(new LocalStrategy(
   function(username, password, done) {

@@ -14,7 +14,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get('/api/v1/user/:id', function(req, res, next) {
+  app.get('/api/v1/users/:id', function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 
@@ -42,9 +42,9 @@ module.exports = function(app) {
   })
 
   // todo
-  // app.put('/api/v1/user', fun...
+  // app.put('/api/v1/users', fun...
 
-  app.put('/api/v1/user/:id', function(req, res, next) {
+  app.put('/api/v1/users/:id', function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 
@@ -90,7 +90,7 @@ module.exports = function(app) {
     })
   })
 
-  app.delete('/api/v1/user/:id', function(req, res, next) {
+  app.delete('/api/v1/users/:id', function(req, res, next) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 

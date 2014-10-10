@@ -20,7 +20,6 @@ read({ 'prompt': 'Username: ' }, function(err, username) {
 
         console.log('User', username, 'created')
 
-        rl.close()
         process.exit()
       })
     })

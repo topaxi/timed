@@ -2,18 +2,16 @@
 
 var config   = require('../config.json')
   , mongoose = require('mongoose')
-  , rl       = require('readline').createInterface({ input:  process.stdin
-                                                   , output: process.stdout
-                                                   })
+  , read     = require('read')
   , User     = require('../models/user')
   , user     = new User
 
 mongoose.connect(config.mongodb)
 
-rl.question('Username: ', function(username) {
+read({ 'prompt': 'Username: ' }, function(err, username) {
   user.name = username
 
-  rl.question('Password: ', function(password) {
+  read({ 'prompt': 'Password: ', 'silent': true }, function(err, password) {
     user.setPassword(password, function(err) {
       if (err) throw err
 

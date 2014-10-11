@@ -26,11 +26,11 @@ module.exports = function(app) {
   })
 
   app.post('/api/v1/users', auth, function(req, res, next) {
-    var user = new User({ 'name':     req.body.name
-                        , 'quota':    req.body.quota
-                        , 'password': req.body.password
-                        , 'projects': req.body.projects
-                        , 'worktime': req.body.worktime
+    var user = new User({ 'name':     req.body.user.name
+                        , 'quota':    req.body.user.quota
+                        , 'password': req.body.user.password
+                        , 'projects': req.body.user.projects
+                        , 'worktime': req.body.user.worktime
                         })
 
     user.save(function(err) {
@@ -49,29 +49,29 @@ module.exports = function(app) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 
-      user.name        = req.body.name
-      user.quota       = req.body.quota
-      user.attendances = req.body.attendances
-      user.projects    = req.body.projects
-      user.worktime    = req.body.worktime
+      user.name        = req.body.user.name        || user.name
+      user.quota       = req.body.user.quota       || user.quota
+      user.attendances = req.body.user.attendances || user.attendances
+      user.projects    = req.body.user.projects    || user.projects
+      user.worktime    = req.body.user.worktime    || user.worktime
 
-      if (!req.body.password) {
+      if (!req.body.user.password) {
         save()
       }
       else if (user.password) {
-        bcrypt.compare(req.body.password, user.password, function(err, equal) {
+        bcrypt.compare(req.body.user.password, user.password, function(err, equal) {
           if (err) return next(err)
 
           if (equal) {
             save()
           }
           else {
-            user.setPassword(req.body.password, save)
+            user.setPassword(req.body.user.password, save)
           }
         })
       }
       else {
-        user.setPassword(req.body.password, save)
+        user.setPassword(req.body.user.password, save)
       }
 
       function save(err) {

@@ -27,6 +27,9 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+              {{#link-to 'user.edit' session.user tagName='li'}}
+                {{#link-to 'user.edit' session.user}}Edit profile{{/link-to}}
+              {{/link-to}}
               <li><a class="pointer" {{action 'invalidateSession'}}>Logout</a></li>
             </ul>
           </li>

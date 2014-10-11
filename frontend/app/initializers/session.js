@@ -41,6 +41,16 @@ var Authenticator = AuthBase.extend({
       })
     })
   }
+, restore: function(data) {
+    return new Ember.RSVP.Promise(function(resolve, reject) {
+      if (!Ember.isEmpty(data.sessionId)) {
+        resolve(data)
+      }
+      else {
+        reject()
+      }
+    })
+  }
 })
 
 export default {

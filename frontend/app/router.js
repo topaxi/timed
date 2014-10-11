@@ -9,6 +9,7 @@ Router.map(function() {
   this.route('login')
 
   this.resource('user', function() {
+    this.route('new')
     this.route('edit', { 'path': '/:user_id' })
   })
 

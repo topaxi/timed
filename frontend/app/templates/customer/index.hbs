@@ -1,0 +1,9 @@
+<h1>Customers</h1>
+
+<ul class="unstyled list">
+  {{#each customer in model}}
+    <li>
+      {{#link-to 'customer.edit' customer}}{{customer.name}}{{/link-to}}
+    </li>
+  {{/each}}
+</ul>

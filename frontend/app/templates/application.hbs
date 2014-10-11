@@ -11,6 +11,10 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav nav">
+        {{#link-to 'customer' tagName='li'}}
+          {{#link-to 'customer'}}Customers{{/link-to}}
+        {{/link-to}}
+
         {{#link-to 'user' tagName='li'}}
           {{#link-to 'user'}}Users{{/link-to}}
         {{/link-to}}

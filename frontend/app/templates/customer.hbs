@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="nav nav-pills nav-stacked">
+        {{#link-to 'customer.index' tagName='li'}}
+          {{#link-to 'customer.index'}}Customers{{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'customer.new' tagName='li'}}
+          {{#link-to 'customer.new'}}Create customer{{/link-to}}
+        {{/link-to}}
+      </div>
+    </div>
+
+    <div class="col-md-10">
+      {{outlet}}
+    </div>
+  </div>
+</div>

@@ -11,8 +11,13 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav nav">
-        <li>{{#link-to 'user'}}Users{{/link-to}}</li>
-        <li>{{#link-to 'about'}}About{{/link-to}}</li>
+        {{#link-to 'user' tagName='li'}}
+          {{#link-to 'user'}}Users{{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'about' tagName='li'}}
+          {{#link-to 'about'}}About{{/link-to}}
+        {{/link-to}}
       </ul>
       <ul class="navbar-nav nav navbar-right">
         {{#if session.isAuthenticated}}
@@ -26,7 +31,9 @@
             </ul>
           </li>
         {{else}}
-          <li>{{#link-to 'login'}}Login{{/link-to}}</li>
+          {{#link-to 'login' tagName='li'}}
+            {{#link-to 'login'}}Login{{/link-to}}
+          {{/link-to}}
         {{/if}}
       </ul>
     </div>

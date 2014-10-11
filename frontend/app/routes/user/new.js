@@ -1,10 +1,11 @@
 import ProtectedRoute from 'timed/routes/protected';
 
 export default ProtectedRoute.extend({
-  setupController: function() {
-    var user = this.store.createRecord('user')
-
+  setupController: function(controller, user) {
     this.controllerFor('user.edit').setProperties({ 'isNew': true, 'model': user })
+  }
+, model: function() {
+    return this.store.createRecord('user')
   }
 , renderTemplate: function() {
     this.render('user/edit')

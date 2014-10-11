@@ -9,4 +9,7 @@ export default ProtectedRoute.extend({
 , renderTemplate: function() {
     this.render('user/edit')
   }
+, deactivate: function() {
+    this.controllerFor('user.edit').model.rollback()
+  }
 })

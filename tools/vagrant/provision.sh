@@ -12,7 +12,7 @@ function install() {
 
 function install_core() {
   apt-get update
-  apt-get install -y curl build-essential git tmux
+  apt-get install -y curl build-essential git tmux htop
 }
 
 function install_mongodb() {

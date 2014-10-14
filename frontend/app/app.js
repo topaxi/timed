@@ -30,8 +30,10 @@ DS.RESTAdapter.reopen({
   }
 })
 
+/* jshint ignore:start */
 // Fix momentjs
 define('moment', function() { return { 'default': window.moment } })
+/* jshint ignore:end */
 
 window.addEventListener('error', function(err) {
   Notify.error(err.message)

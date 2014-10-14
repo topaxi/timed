@@ -30,7 +30,7 @@
       </button>
 
       {{#unless model.isNew}}
-        <button type="button" {{action 'delete' on='doubleClick'}} class="btn btn-danger pull-right">
+        <button type="button" {{action 'delete' on='doubleClick'}} class="btn btn-danger pull-right" data-tooltip title="Doubleclick to delete">
           Delete user
         </button>
       {{/unless}}

@@ -1,6 +1,6 @@
-import ProtectedRoute from 'timed/routes/protected';
+import Ember from 'ember';
 
-export default ProtectedRoute.extend({
+export default Ember.Route.extend({
   deactivate: function() {
     this.controllerFor('customer.edit').model.rollback()
   }

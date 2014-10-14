@@ -1,9 +1,28 @@
 <h1>Projects</h1>
 
-<ul class="unstyled list">
-  {{#each project in model}}
-    <li>
-      {{#link-to 'project.edit' project}}{{project.name}}{{/link-to}}
-    </li>
-  {{/each}}
-</ul>
+<table class="table">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Date</td>
+      <td width="32">Tasks</td>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each project in model}}
+      <tr>
+        <td>
+          {{#link-to 'project.edit' project}}{{project.name}}{{/link-to}}
+        </td>
+        <td>
+          {{date-format project.from 'YYYY-MM-DD'}}{{#if project.to}} - {{date-format project.to 'YYYY-MM-DD'}}{{/if}}
+        </td>
+        <td>
+          {{#link-to 'task' project class="btn btn-default"}}
+            <span class="glyphicon glyphicon-tasks"></span>
+          {{/link-to}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

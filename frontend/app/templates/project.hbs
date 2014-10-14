@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="nav nav-pills nav-stacked">
+        {{#link-to 'project.index' tagName='li'}}
+          {{#link-to 'project.index'}}Projects{{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'project.new' tagName='li'}}
+          {{#link-to 'project.new'}}Create project{{/link-to}}
+        {{/link-to}}
+      </div>
+    </div>
+
+    <div class="col-md-10">
+      {{outlet}}
+    </div>
+  </div>
+</div>

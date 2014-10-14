@@ -1,0 +1,40 @@
+import Ember from 'ember';
+import moment from 'moment';
+
+const ICON = '<span class="input-group-addon pointer"><i class="glyphicon glyphicon-calendar"></i></span>'
+
+export default Ember.TextField.extend({
+  'readonly': true
+, 'date':     null
+, 'format':   'YYYY-MM-DD'
+, 'options':  { 'autoclose': true }
+, 'updateValue': function() {
+    var date = this.get('date')
+
+    if (!date || !date.isValid()) {
+      return this.set('value', null)
+    }
+
+    this.set('value', date.format(this.format))
+  }.observes('date')
+, 'updateDate': function() {
+    var date = moment.utc(this.get('value'), this.format).startOf('day')
+
+    if (!date.isValid()) {
+      return this.set('date', null)
+    }
+
+    this.set('date', date)
+  }.observes('value')
+, 'didInsertElement': function() {
+    var $datepicker = this.$().datepicker(Ember.$.extend({}, this.options, { 'format': 'yyyy-mm-dd' }))
+      , $icon       = Ember.$(ICON)
+
+    $icon.click(() => $datepicker.focus())
+
+    $datepicker.wrap('<div class="input-group">').after($icon)
+    $datepicker.on('changeDate', () => this.updateDate())
+
+    this.updateValue()
+  }
+})

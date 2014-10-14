@@ -1,0 +1,9 @@
+<h1>Projects</h1>
+
+<ul class="unstyled list">
+  {{#each project in model}}
+    <li>
+      {{#link-to 'project.edit' project}}{{project.name}}{{/link-to}}
+    </li>
+  {{/each}}
+</ul>

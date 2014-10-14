@@ -1,7 +1,8 @@
 var Task = require('../models/task')
+  , auth = require('../middleware/auth')
 
 module.exports = function(app) {
-  app.get('/task', function(req, res, next) {
+  app.get('/api/v1/task', auth, function(req, res, next) {
     Task.find(function(err, tasks) {
       if (err) return next(err)
 
@@ -9,7 +10,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get('/task/:id', function(req, res, next) {
+  app.get('/api/v1/task/:id', auth, function(req, res, next) {
     Task.findById(req.params.id, function(err, task) {
       if (err) return next(err)
 
@@ -17,16 +18,16 @@ module.exports = function(app) {
     })
   })
 
-  app.post('/task', function(req, res, next) {
-    var task = new Task({ 'name':     req.body.name
+  app.post('/api/v1/task', auth, function(req, res, next) {
+    var task = new Task({ 'name':     req.body.task.name
                         // Project may be an id or an object
-                        , 'project':  req.body.project._id || req.body.project
-                        , 'duration': req.body.duration
-                        , 'from':     req.body.from
-                        , 'to':       req.body.to
-                        , 'tasks':    req.body.tasks
-                        , 'priority': req.body.priority
-                        , 'done':     !!req.body.done
+                        , 'project':  req.body.task.project._id || req.body.task.project
+                        , 'duration': req.body.task.duration
+                        , 'from':     req.body.task.from
+                        , 'to':       req.body.task.to
+                        , 'tasks':    req.body.task.tasks
+                        , 'priority': req.body.task.priority
+                        , 'done':     !!req.body.task.done
                         })
 
     task.save(function(err) {
@@ -37,20 +38,20 @@ module.exports = function(app) {
   })
 
   // todo
-  // app.put('/task', fun...
+  // app.put('/api/v1/task', auth, fun...
 
-  app.put('/task/:id', function(req, res, next) {
+  app.put('/api/v1/task/:id', auth, function(req, res, next) {
     Task.findById(req.params.id, function(err, task) {
       if (err) return next(err)
 
-      task.name     = req.body.name
-      task.project  = req.body.project._id || req.body.project
-      task.duration = req.body.duration
-      task.tasks    = req.body.tasks
-      task.from     = req.body.from
-      task.to       = req.body.to
-      task.priority = req.body.priority
-      task.done     = req.body.done
+      task.name     = req.body.task.name
+      task.project  = req.body.task.project._id || req.body.task.project
+      task.duration = req.body.task.duration
+      task.tasks    = req.body.task.tasks
+      task.from     = req.body.task.from
+      task.to       = req.body.task.to
+      task.priority = req.body.task.priority
+      task.done     = req.body.task.done
 
       task.save(function(err) {
         if (err) return next(err)
@@ -60,7 +61,7 @@ module.exports = function(app) {
     })
   })
 
-  app.delete('/task/:id', function(req, res, next) {
+  app.delete('/api/v1/task/:id', auth, function(req, res, next) {
     Task.findById(req.params.id, function(err, task) {
       if (err) return next(err)
 

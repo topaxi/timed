@@ -16,7 +16,10 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app')
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 app.import('bower_components/bootstrap/dist/css/bootstrap.css')
+app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff', { 'destDir': 'fonts' })
 app.import('bower_components/bootstrap/dist/js/bootstrap.js')
-app.import('bower_components/moment/moment.js', { exports: { 'moment': [ 'default' ] } })
+app.import('bower_components/moment/moment.js', { 'exports': { 'moment': [ 'default' ] } })
+app.import('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js')
+app.import('bower_components/bootstrap-datepicker/css/datepicker3.css')
 
 module.exports = app.toTree()

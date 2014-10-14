@@ -30,6 +30,13 @@ DS.RESTAdapter.reopen({
   }
 })
 
+// Fix momentjs
+define('moment', function() { return { 'default': window.moment } })
+
+window.addEventListener('error', function(err) {
+  Notify.error(err.message)
+}, false)
+
 loadInitializers(App, config.modulePrefix)
 
 export default App

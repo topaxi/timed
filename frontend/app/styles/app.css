@@ -19,7 +19,7 @@ body { padding-top: 60px }
 .dib { display: inline-block }
 
 /* Cursors */
-.pointer { cursor: pointer }
+.pointer { cursor: pointer !important }
 
 /* spacing helpers from oocss
 p,m = padding,margin

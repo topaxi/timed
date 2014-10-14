@@ -14,7 +14,7 @@ Vagrant.configure('2') do |config|
   config.vm.provider 'virtualbox' do |v|
      v.customize [ 'storagectl', :id, '--name', 'SATAController', '--hostiocache', 'on' ]
      v.customize [ 'modifyvm',   :id, '--cpus',       2 ]
-     v.customize [ 'modifyvm',   :id, '--memory',   512 ]
+     v.customize [ 'modifyvm',   :id, '--memory',   786 ]
   end
 
   config.vm.network 'forwarded_port', guest: 42000, host: 42000

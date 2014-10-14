@@ -14,5 +14,9 @@ export default Ember.ObjectController.extend({
         Notify.error(err || 'Error while trying to save task!')
       )
     }
+  , delete: function() {
+      this.model.deleteRecord()
+      this.send('submit')
+    }
   }
 })

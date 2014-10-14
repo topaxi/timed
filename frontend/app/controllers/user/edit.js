@@ -5,13 +5,25 @@ export default Ember.ObjectController.extend({
   isNew: false
 , actions: {
     submit: function() {
-      this.model.save().then(function() {
+      this.model.save().then(() => {
         Notify.success('User successfully saved!')
 
         this.transitionToRoute('user.edit', this.model)
-      }.bind(this), function(err) {
-        return Notify.error(err || 'Error while trying to save user!')
       })
+      .catch(err =>
+        Notify.error(err || 'Error while trying to save user!')
+      )
+    }
+  , delete: function() {
+      this.model.deleteRecord()
+      this.model.save().then(() => {
+        Notify.success('User successfully deleted!')
+
+        this.transitionToRoute('user')
+      })
+      .catch(err =>
+        Notify.error(err || 'Error while trying to delete user!')
+      )
     }
   }
 })

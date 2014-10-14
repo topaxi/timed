@@ -13,5 +13,16 @@ export default Ember.ObjectController.extend({
         return Notify.error(err || 'Error while trying to save customer!')
       })
     }
+  , delete: function() {
+      this.model.deleteRecord()
+      this.model.save().then(() => {
+        Notify.success('Customer successfully deleted!')
+
+        this.transitionToRoute('customer')
+      })
+      .catch(err =>
+        Notify.error(err || 'Error while trying to delete customer!')
+      )
+    }
   }
 })

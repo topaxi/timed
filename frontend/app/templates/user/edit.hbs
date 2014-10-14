@@ -28,6 +28,12 @@
           Update user
         {{/if}}
       </button>
+
+      {{#unless model.isNew}}
+        <button type="button" {{action 'delete' on='doubleClick'}} class="btn btn-danger pull-right">
+          Delete user
+        </button>
+      {{/unless}}
     </div>
   </div>
 </form>

@@ -48,6 +48,12 @@
           Update task
         {{/if}}
       </button>
+
+      {{#unless model.isNew}}
+        <button type="button" {{action 'delete' on='doubleClick'}} class="btn btn-danger pull-right">
+          Delete task
+        </button>
+      {{/unless}}
     </div>
   </div>
 </form>

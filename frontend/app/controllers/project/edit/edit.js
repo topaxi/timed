@@ -17,5 +17,16 @@ export default Ember.ObjectController.extend({
         Notify.error(err || 'Error while trying to save project!')
       )
     }
+  , delete: function() {
+      this.model.deleteRecord()
+      this.model.save().then(() => {
+        Notify.success('Project successfully deleted!')
+
+        this.transitionToRoute('project')
+      })
+      .catch(err =>
+        Notify.error(err || 'Error while trying to delete project!')
+      )
+    }
   }
 })

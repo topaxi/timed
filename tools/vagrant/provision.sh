@@ -45,6 +45,10 @@ function install_timed() {
   npm install bower     -g
   npm install ember-cli -g
 
+  rm -rf /root/.npm
+  rm -rf backend/node_modules
+  rm -rf frontend/node_modules frontend/bower_components
+
   su vagrant -c 'make install'
 
   fix_broccoli_concat

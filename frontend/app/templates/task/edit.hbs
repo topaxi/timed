@@ -1,0 +1,53 @@
+{{#if model.isNew}}
+  <h1>Create task</h1>
+
+  <br>
+{{/if}}
+
+<form class="form-horizontal" {{action 'submit' on='submit'}}>
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      {{input id='name' placeholder='Task name' value=name class='form-control' autocomplete='false'}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="duration" class="col-sm-2 control-label">Duration</label>
+    <div class="col-sm-10">
+      {{input id='duration' type='number' class='form-control' value=duration}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="from" class="col-sm-2 control-label">From</label>
+    <div class="col-sm-10">
+      {{date-picker id='from' class='form-control pointer' readonly=true date=from}}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="to" class="col-sm-2 control-label">To</label>
+    <div class="col-sm-10">
+      {{date-picker id='to' class='form-control pointer' readonly=true date=to}}
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          {{input type='checkbox' checked=done value=1}}
+          Done
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">
+        {{#if model.isNew}}
+          Create task
+        {{else}}
+          Update task
+        {{/if}}
+      </button>
+    </div>
+  </div>
+</form>

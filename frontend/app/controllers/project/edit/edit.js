@@ -8,13 +8,14 @@ export default Ember.ObjectController.extend({
   }
 , actions: {
     submit: function() {
-      this.model.save().then(function() {
+      this.model.save().then(() => {
         Notify.success('Project successfully saved!')
 
         this.transitionToRoute('project.edit', this.model)
-      }.bind(this), function(err) {
-        return Notify.error(err || 'Error while trying to save project!')
       })
+      .catch(err =>
+        Notify.error(err || 'Error while trying to save project!')
+      )
     }
   }
 })

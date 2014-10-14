@@ -2,23 +2,23 @@ var Task = require('../models/task')
   , auth = require('../middleware/auth')
 
 module.exports = function(app) {
-  app.get('/api/v1/task', auth, function(req, res, next) {
-    Task.find(function(err, tasks) {
+  app.get('/api/v1/tasks', auth, function(req, res, next) {
+    Task.find(req.query, function(err, tasks) {
       if (err) return next(err)
 
-      res.send(tasks)
+      res.send({ tasks: tasks })
     })
   })
 
-  app.get('/api/v1/task/:id', auth, function(req, res, next) {
+  app.get('/api/v1/tasks/:id', auth, function(req, res, next) {
     Task.findById(req.params.id, function(err, task) {
       if (err) return next(err)
 
-      res.send(task)
+      res.send({ task: task })
     })
   })
 
-  app.post('/api/v1/task', auth, function(req, res, next) {
+  app.post('/api/v1/tasks', auth, function(req, res, next) {
     var task = new Task({ 'name':     req.body.task.name
                         // Project may be an id or an object
                         , 'project':  req.body.task.project._id || req.body.task.project
@@ -33,14 +33,14 @@ module.exports = function(app) {
     task.save(function(err) {
       if (err) return next(err)
 
-      res.send(task)
+      res.send({ task: task })
     })
   })
 
   // todo
-  // app.put('/api/v1/task', auth, fun...
+  // app.put('/api/v1/tasks', auth, fun...
 
-  app.put('/api/v1/task/:id', auth, function(req, res, next) {
+  app.put('/api/v1/tasks/:id', auth, function(req, res, next) {
     Task.findById(req.params.id, function(err, task) {
       if (err) return next(err)
 
@@ -56,12 +56,12 @@ module.exports = function(app) {
       task.save(function(err) {
         if (err) return next(err)
 
-        res.send(task)
+        res.send({ task: task })
       })
     })
   })
 
-  app.delete('/api/v1/task/:id', auth, function(req, res, next) {
+  app.delete('/api/v1/tasks/:id', auth, function(req, res, next) {
     Task.findById(req.params.id, function(err, task) {
       if (err) return next(err)
 

@@ -2,8 +2,9 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   'name':     DS.attr('string')
-, 'customer': DS.belongsTo('customer')
-//, 'tasks':    DS.hasMany('task')
+  // TODO: Async customer sometimes messes up the edit form after some transitions
+, 'customer': DS.belongsTo('customer', { 'async': true })
+, 'tasks':    DS.hasMany('task', { 'async': true })
 , 'from':     DS.attr('utc')
 , 'to':       DS.attr('utc')
 , 'done':     DS.attr('boolean')

@@ -33,7 +33,6 @@ module.exports = function(app) {
                               , 'customer': req.body.project.customer
                               , 'from':     req.body.project.from
                               , 'to':       req.body.project.to
-                              , 'tasks':    req.body.project.tasks
                               , 'done':     req.body.project.done
                               })
 
@@ -53,7 +52,6 @@ module.exports = function(app) {
 
       project.name     = req.body.project.name
       project.customer = req.body.project.customer
-      project.tasks    = req.body.project.tasks
       project.from     = req.body.project.from
       project.to       = req.body.project.to
       project.done     = req.body.project.done

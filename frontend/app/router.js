@@ -10,11 +10,12 @@ Router.map(function() {
 
   this.resource('project', function() {
     this.route('new')
-    this.route('edit', { 'path': '/:project_id' })
-
-    this.resource('task', { 'path': '/:project_id/task' }, function() {
-      this.route('new')
-      this.route('edit', { 'path': '/:task_id' })
+    this.route('edit', { 'path': '/:project_id' }, function() {
+      this.route('edit', { 'path': '/' })
+      this.resource('task', function() {
+        this.route('new')
+        this.route('edit', { 'path': '/:task_id' })
+      })
     })
   })
 

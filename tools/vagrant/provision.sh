@@ -50,13 +50,6 @@ function install_timed() {
   rm -rf frontend/node_modules frontend/bower_components
 
   su vagrant -c 'make install'
-
-  fix_broccoli_concat
-}
-
-# We're not able to create hardlinks in vbox shares (or any network mount).
-function fix_broccoli_concat() {
-  sed -i 's/fs\.linkSync/fs\.symlinkSync/g' /vagrant/frontend/node_modules/ember-cli/node_modules/broccoli-concat/index.js
 }
 
 install

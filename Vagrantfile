@@ -24,4 +24,7 @@ Vagrant.configure('2') do |config|
   config.ssh.forward_agent = true
 
   config.vm.provision :shell, :path => 'tools/vagrant/provision.sh'
+  config.vm.provision :shell, :run => 'always' do |s|
+    s.inline = 'mkdir /tmp/timed; chown vagrant:vagrant /tmp/timed; mount -o bind /tmp/timed /vagrant/frontend/tmp'
+  end
 end

@@ -24,7 +24,7 @@ var Authenticator = AuthBase.extend({
                   }
       })
       .then(res => Ember.run(() => resolve(res)))
-      .catch(xhr => Ember.run(() => {
+      .fail(xhr => Ember.run(() => {
         var error
 
         try {

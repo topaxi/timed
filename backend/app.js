@@ -11,13 +11,10 @@ var express  = require('express')
   , passport = require('passport')
   , config   = require('./config.json')
   , User     = require('./models/user')
-  , moment   = require('moment')
 
 mongoose.connect(config.mongodb)
 
 var app = express()
-
-app.locals.moment = moment
 
 if (config.title) {
   app.set('title', 'Timed - '+ config.title)

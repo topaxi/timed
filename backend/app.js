@@ -87,7 +87,6 @@ app.use(function(req, res, next) {
 })
 app.use(express.static(path.join(__dirname, 'public')))
 
-require('./routes')(app)
 require('./routes/user')(app)
 require('./routes/project')(app)
 require('./routes/task')(app)

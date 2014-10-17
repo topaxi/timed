@@ -7,7 +7,7 @@ export default Ember.TextField.extend({
   'readonly': true
 , 'date':     null
 , 'format':   'YYYY-MM-DD'
-, 'options':  { 'autoclose': true }
+, 'options':  { 'autoclose': true, 'format': 'yyyy-mm-dd' }
 , 'updateValue': function() {
     var date = this.get('date')
 
@@ -34,7 +34,7 @@ export default Ember.TextField.extend({
     }
   }.observes('date')
 , 'didInsertElement': function() {
-    var $datepicker = this.$().datepicker(Ember.$.extend({}, this.options, { 'format': 'yyyy-mm-dd' }))
+    var $datepicker = this.$().datepicker(Ember.$.extend({}, this.options))
       , $icon       = Ember.$(ICON)
 
     $icon.click(() => $datepicker.focus())

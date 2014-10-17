@@ -20,12 +20,10 @@ run-backend:
 	@cd ./backend && node app.js
 
 run-frontend:
-	@cd ./frontend && ember serve --live-reload-port 42000 \
-	                              --port 4200
+	@cd ./frontend && ember serve --port 4200
 
 run-frontend-polling:
-	@cd ./frontend && ember serve --live-reload-port 42000 \
-	                              --port 4200 \
+	@cd ./frontend && ember serve --port 4200 \
 	                              --watcher polling
 
 mongo:

@@ -17,7 +17,6 @@ Vagrant.configure('2') do |config|
      v.customize [ 'modifyvm',   :id, '--memory',   786 ]
   end
 
-  config.vm.network 'forwarded_port', guest: 42000, host: 42000
   config.vm.network :private_network, :ip => '192.168.42.23'
   config.vm.network :public_network
 

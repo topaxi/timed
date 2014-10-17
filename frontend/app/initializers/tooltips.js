@@ -4,7 +4,7 @@ export default {
   name: 'tooltips'
 , initialize: function() {
     Ember.$('body').tooltip({
-      'selector': '[data-tooltip]'
+      'selector': '.tip'
     })
   }
 }

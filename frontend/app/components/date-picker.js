@@ -26,6 +26,13 @@ export default Ember.TextField.extend({
 
     this.set('date', date)
   }.observes('value')
+, 'updatePicker': function() {
+    var date = this.get('date')
+
+    if (date && date.isValid()) {
+      this.$().datepicker('update', date.toDate())
+    }
+  }.observes('date')
 , 'didInsertElement': function() {
     var $datepicker = this.$().datepicker(Ember.$.extend({}, this.options, { 'format': 'yyyy-mm-dd' }))
       , $icon       = Ember.$(ICON)

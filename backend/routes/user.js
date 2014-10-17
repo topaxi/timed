@@ -36,7 +36,7 @@ module.exports = function(app) {
     user.save(function(err) {
       if (err) return next(err)
 
-      deletePasswordForResponse(user.password)
+      deletePasswordForResponse(user)
 
       res.send({ user: user })
     })

@@ -62,4 +62,7 @@ export default DS.Model.extend({
       activity.end()
     }
   }
+, 'getAttendancesByDay': function(day = moment.utc().startOf('day')) {
+    return this.get('attendances').filter(attendance => !attendance.startOf('day').diff(day))
+  }
 })

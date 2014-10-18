@@ -21,6 +21,9 @@ body { padding-top: 60px }
 /* Cursors */
 .pointer { cursor: pointer !important }
 
+/* Text algnment */
+.tar { text-align: right }
+
 /* spacing helpers from oocss
 p,m = padding,margin
 a,t,r,b,l,h,v = all,top,right,bottom,left,horizontal,vertical

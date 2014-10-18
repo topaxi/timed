@@ -41,10 +41,6 @@ var LocalStrategy = require('passport-local').Strategy
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    // Find the user by username. If there is no user with the given
-    // username, or the password is not correct, set the user to `false` to
-    // indicate failure and set a flash message. Otherwise, return the
-    // authenticated `user`.
     User.findOne({ 'name': username }, function(err, user) {
       if (err)   return done(err)
       if (!user) return done(new Error('Invalid login!'))
@@ -79,13 +75,11 @@ app.use(expressSession({ 'secret':            config.cookieSecret
                        }))
 app.use(passport.initialize())
 app.use(passport.session())
-app.use(require('connect-flash')())
 app.use(function(req, res, next) {
   res.locals.user = req.user
   res.locals.req  = req
   next()
 })
-app.use(express.static(path.join(__dirname, 'public')))
 
 require('./routes/user')(app)
 require('./routes/project')(app)

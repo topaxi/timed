@@ -1,0 +1,11 @@
+<div class="attendance mbm">
+  {{track-attendance user=user}}
+</div>
+
+{{#if user.currentActivity.task}}
+  <div class="activity mbm">
+    {{track-task task=user.currentActivity.task}}
+
+    {{user.currentActivity.task.name}}
+  </div>
+{{/if}}

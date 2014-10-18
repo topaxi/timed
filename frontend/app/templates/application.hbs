@@ -51,4 +51,10 @@
   </div>
 </div>
 
-<div id="main" class="container">{{outlet}}</div>
+<div id="main" class="container">
+  {{#if session.isAuthenticated}}
+    {{track-bar user=session.user}}
+  {{/if}}
+
+  {{outlet}}
+</div>

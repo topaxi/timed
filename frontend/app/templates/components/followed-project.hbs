@@ -1,0 +1,27 @@
+<colgroup>
+  <col width="32">
+  <col>
+  <col width="32">
+</colgroup>
+<thead>
+  <tr>
+    <th colspan="2">
+      {{#link-to 'project.edit' project}}
+        {{project.name}}
+      {{/link-to}}
+    </th>
+    <th>{{follow-project btnClass='btn-xs' project=project}}</th>
+  </tr>
+</thead>
+<tbody>
+  {{#each task in tasks}}
+    <tr>
+      <td>{{track-task btnClass='btn-xs' task=task}}</td>
+      <td colspan="2">
+        {{#link-to 'task.edit' project task}}
+          {{task.name}}
+        {{/link-to}}
+      </td>
+    </tr>
+  {{/each}}
+</tbody>

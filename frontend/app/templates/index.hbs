@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-md-8">
+  </div>
+  <div class="col-md-4">
+    {{#if projects}}
+      <h2>Followed Projects:</h2>
+
+      {{#each project in projects}}
+        {{followed-project project=project}}
+      {{/each}}
+    {{/if}}
+  </div>
+</div>

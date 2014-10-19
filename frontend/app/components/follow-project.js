@@ -8,7 +8,7 @@ export default Ember.Component.extend({
     this.session = this.container.lookup('simple-auth-session:main')
   }
 , title: function() {
-    return `${this.get('isFollowing') ? 'Unfollow' : 'Follow'} ${this.get('project').get('name')}`
+    return `${this.get('isFollowing') ? 'Unfollow' : 'Follow'} ${this.get('project.name')}`
   }.property('project.name', 'isFollowing')
 , fixTooltip: function() {
     var tooltip = this.$('.tip')
@@ -16,17 +16,18 @@ export default Ember.Component.extend({
     tooltip.prop('title', this.get('title'))
     tooltip.tooltip('fixTitle')
 
-    if (tooltip.is(':hover')) tooltip.tooltip('show')
+    if (tooltip.is(':hover')) {
+      tooltip.tooltip('show')
+    }
   }.observes('title')
 , isFollowing: function() {
-    var user     = this.session.get('user')
-      , projects = user.get('projects')
+    var projects = this.session.get('user.projects')
 
     if (!projects) {
       return false
     }
 
-    return user.get('projects').contains(this.get('project'))
+    return projects.contains(this.get('project'))
   }.property('session.user.projects.@each')
 , actions: {
     follow: function() {

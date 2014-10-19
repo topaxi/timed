@@ -8,7 +8,7 @@ export default Ember.TextField.extend({
 , 'date':       null
 , 'format':     'YYYY-MM-DD'
 , 'classNames': [ 'form-control', 'pointer' ]
-, 'options':    { 'autoclose': true, 'format': 'yyyy-mm-dd' }
+, 'options':    { 'autoclose': true, 'todayHighlight': true, 'format': 'yyyy-mm-dd' }
 , 'updateValue': function() {
     var date = this.get('date')
 

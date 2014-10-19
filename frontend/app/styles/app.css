@@ -12,6 +12,7 @@ body { padding-top: 60px }
 /* Bugfixes */
 .datepicker, .daterangepicker { z-index: 9999999 }
 .controls .slider { vertical-align: sub; display: inline-block; width: 100% }
+.tooltip { white-space: nowrap }
 
 /* Display */
 .di  { display: inline       }

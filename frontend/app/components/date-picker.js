@@ -4,10 +4,11 @@ import moment from 'moment';
 var ICON = '<span class="input-group-addon pointer"><i class="glyphicon glyphicon-calendar"></i></span>'
 
 export default Ember.TextField.extend({
-  'readonly': true
-, 'date':     null
-, 'format':   'YYYY-MM-DD'
-, 'options':  { 'autoclose': true, 'format': 'yyyy-mm-dd' }
+  'readonly':   true
+, 'date':       null
+, 'format':     'YYYY-MM-DD'
+, 'classNames': [ 'form-control', 'pointer' ]
+, 'options':    { 'autoclose': true, 'format': 'yyyy-mm-dd' }
 , 'updateValue': function() {
     var date = this.get('date')
 

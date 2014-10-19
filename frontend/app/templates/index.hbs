@@ -1,40 +1,9 @@
 <div class="row">
-  <div class="col-md-8">
-    {{#if attendances}}
-    <h2>{{date-format currentDay 'YYYY-MM-DD'}} - Activities</h2>
+  {{attendance-list user=model class='col-md-8'}}
 
-      {{#each attendance in attendances}}
-        <table class="table">
-          <colgroup>
-            <col width="200">
-            <col>
-            <col width="120">
-          </colgroup>
-          <thead>
-            <tr>
-              <th colspan="3">
-                {{date-format attendance.from 'hh:mm'}} - {{date-format attendance.to 'hh:mm'}}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each activity in attendance.activities}}
-              <tr>
-                <td>{{activity.task.project.name}}</td>
-                <td>{{activity.task.name}}</td>
-                <td class="tar">
-                  {{date-duration activity.from activity.to}}
-                </td>
-              </tr>
-            {{/each}}
-          </tbody>
-        </table>
-      {{/each}}
-    {{/if}}
-  </div>
   <div class="col-md-4">
     {{#if projects}}
-      <h2>Followed Projects</h2>
+      <h2>{{#link-to 'project'}}Followed Projects{{/link-to}}</h2>
 
       {{#each project in projects}}
         {{followed-project project=project}}

@@ -1,0 +1,34 @@
+<h2>Activities</h2>
+<div class="form-group">
+  {{date-picker date=view.currentDay}}
+</div>
+
+{{#if view.attendances}}
+  {{#each attendance in view.attendances}}
+    <table class="table">
+      <colgroup>
+        <col width="200">
+        <col>
+        <col width="120">
+      </colgroup>
+      <thead>
+        <tr>
+          <th colspan="3">
+            {{date-format attendance.from 'hh:mm'}} {{date-format attendance.to '- hh:mm'}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each activity in attendance.activities}}
+          <tr>
+            <td>{{activity.task.project.name}}</td>
+            <td>{{activity.task.name}}</td>
+            <td class="tar">
+              {{date-duration activity.from activity.to}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/each}}
+{{/if}}

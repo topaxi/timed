@@ -2,7 +2,8 @@ import DS from 'ember-data';
 import moment from 'moment';
 
 export default DS.Model.extend({
-  'activities': DS.hasMany('activity')
+  'user':       DS.belongsTo('user')
+, 'activities': DS.hasMany('activity')
 , 'from':       DS.attr('utc')
 , 'to':         DS.attr('utc')
 

@@ -5,13 +5,14 @@ export default Ember.ObjectController.extend({
   isNew: false
 , actions: {
     submit: function() {
-      this.model.save().then(function() {
+      this.model.save().then(() => {
         Notify.success('Customer successfully saved!')
 
         this.transitionToRoute('customer.edit', this.model)
-      }.bind(this), function(err) {
-        return Notify.error(err || 'Error while trying to save customer!')
       })
+      .catch(err =>
+        Notify.error(err || 'Error while trying to save customer!')
+      )
     }
   , delete: function() {
       this.model.deleteRecord()

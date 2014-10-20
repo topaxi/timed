@@ -25,10 +25,10 @@ function install_nginx() {
   # Fix weird caching behaviour - see http://stackoverflow.com/q/6236078/35189
   sed -i -e 's/sendfile\s\+on/sendfile off/' /etc/nginx/nginx.conf
 
-  ln -sf /vagrant/tools/vagrant/nginx/timed.conf /etc/nginx/conf.d/001-timed.conf
+  ln -sf /vagrant/tools/vagrant/nginx/timed.conf /etc/nginx/sites-enabled/001-timed.conf
 
   rm -f /etc/nginx/conf.d/default.conf
-  rm -f /etc/nginx/sites-enabled/default.conf
+  rm -f /etc/nginx/sites-enabled/default
 
   setup_nginx_ssl
 

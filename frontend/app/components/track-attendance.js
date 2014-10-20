@@ -31,12 +31,13 @@ export default Ember.Component.extend({
       , to        = attendance.get('to')
       , today     = moment().startOf('day')
       , fromToday = moment(from).startOf('day').diff(today)
-      , toToday   = moment(to).startOf('day').diff(today)
       , tformat   = 'hh:mm'
       , ntformat  = 'YYYY-MM-DD hh:mm'
       , label     = from.format(fromToday ? tformat : ntformat)
 
     if (to && to.isValid()) {
+      var toToday = moment(to).startOf('day').diff(today)
+
       label = `${label} - ${to.format(toToday ? tformat : ntformat)}`
     }
     else {

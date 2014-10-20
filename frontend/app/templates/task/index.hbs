@@ -1,0 +1,12 @@
+{{! TODO: Move tasks.new link to somewhere else }}
+{{#link-to 'task.new' tagName='button' class='btn btn-primary'}}New task{{/link-to}}
+
+<ul>
+  {{#each task in model}}
+    <li>
+      {{#link-to 'task.edit' task}}
+        {{task.name}}
+      {{/link-to}}
+    </li>
+  {{/each}}
+</ul>

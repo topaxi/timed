@@ -1,0 +1,32 @@
+<h1>Users</h1>
+
+<table class="table">
+  <colgroup>
+    <col width="300">
+    <col>
+    <col width="32">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th colspan="2">Fullname</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each user in model}}
+      <tr>
+        <td>
+          {{#link-to 'user.edit.edit' user}}{{user.name}}{{/link-to}}
+        </td>
+        <td>
+          {{user.fullName}}
+        </td>
+        <td>
+          {{#link-to 'user.edit.worktime' user tagName='button' class='btn btn-default tip' title='Edit worktime'}}
+            <span class="glyphicon glyphicon-stats"></span>
+          {{/link-to}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

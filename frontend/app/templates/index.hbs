@@ -1,0 +1,13 @@
+<div class="row">
+  {{attendance-list user=model class='col-md-8'}}
+
+  <div class="col-md-4">
+    {{#if projects}}
+      <h2>{{#link-to 'project'}}Followed Projects{{/link-to}}</h2>
+
+      {{#each project in projects}}
+        {{followed-project project=project}}
+      {{/each}}
+    {{/if}}
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<h1>Projects</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th width="32">Tasks</th>
+      <th width="32">Follow</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each project in model}}
+      <tr>
+        <td>
+          {{#link-to 'project.edit' project}}{{project.name}}{{/link-to}}
+        </td>
+        <td>
+          {{date-format project.from 'YYYY-MM-DD'}}{{#if project.to}} - {{date-format project.to 'YYYY-MM-DD'}}{{/if}}
+        </td>
+        <td>
+          {{#link-to 'task' project class="btn btn-default"}}
+            <span class="glyphicon glyphicon-tasks"></span>
+          {{/link-to}}
+        </td>
+        <td>
+          {{follow-project project=project}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -1,0 +1,62 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      {{#link-to 'index' class="navbar-brand"}}Timed{{/link-to}}
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav nav">
+        {{#link-to 'project' tagName='li'}}
+          {{#link-to 'project'}}Projects{{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'customer' tagName='li'}}
+          {{#link-to 'customer'}}Customers{{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'user' tagName='li'}}
+          {{#link-to 'user'}}Users{{/link-to}}
+        {{/link-to}}
+
+        {{#link-to 'about' tagName='li'}}
+          {{#link-to 'about'}}About{{/link-to}}
+        {{/link-to}}
+      </ul>
+      <ul class="navbar-nav nav navbar-right">
+        {{#if session.isAuthenticated}}
+          <li class="dropdown">
+            <a class="dropdown-toggle pointer" data-toggle="dropdown">
+              {{session.user.name}}
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              {{#link-to 'user.edit' session.user tagName='li'}}
+                {{#link-to 'user.edit' session.user}}Edit profile{{/link-to}}
+              {{/link-to}}
+              <li><a class="pointer" {{action 'invalidateSession'}}>Logout</a></li>
+            </ul>
+          </li>
+        {{else}}
+          {{#link-to 'login' tagName='li'}}
+            {{#link-to 'login'}}Login{{/link-to}}
+          {{/link-to}}
+        {{/if}}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div id="main" class="container">
+  {{#if session.isAuthenticated}}
+    {{track-bar user=session.user}}
+  {{/if}}
+
+  {{outlet}}
+</div>
+
+{{outlet modal}}

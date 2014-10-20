@@ -1,0 +1,20 @@
+<form class="form-horizontal" {{action 'submit' on='submit'}}>
+  {{#each weekday in weekdays}}
+    <div class="form-group">
+      <label class="col-sm-2 control-label">{{weekday}}</label>
+      <div class="col-sm-8 form-slider form-control-static">
+        <div class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"></div>
+      </div>
+      <div class="col-sm-1">8</div>
+    </div>
+  {{/each}}
+
+  <div class="form-group">
+    <button type="button" class="daterange btn btn-default">
+      <span class="glyphicon glyphicon-calendar"></span>
+      <span>{{date-format from 'MMMM Do YYYY'}} - {{date-format to 'MMMM Do YYYY'}}</span>
+      <span class="caret"></span>
+    </button>
+    <button class="btn btn-primary">Apply</button>
+  </div>
+</form>

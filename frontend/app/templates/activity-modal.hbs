@@ -1,0 +1,12 @@
+{{#modal-dialog title='Edit activity' ok='save' okText='Save' close='closeModal'}}
+  <form class="form" {{action 'ok' on='submit' target=view}}>
+    <div class="form-group">
+      <label for="from">From</label>
+      {{input id='from' value=from class='form-control'}}
+    </div>
+    <div class="form-group">
+      <label for="to">To</label>
+      {{input id='to' value=to class='form-control'}}
+    </div>
+  </form>
+{{/modal-dialog}}

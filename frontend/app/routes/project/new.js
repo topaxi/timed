@@ -11,6 +11,6 @@ export default Ember.Route.extend({
     this.render('project/edit/edit')
   }
 , deactivate: function() {
-    this.controllerFor('project.edit.edit').model.rollback()
+    this.modelFor('project.edit.edit').rollback()
   }
 })

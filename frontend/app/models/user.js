@@ -6,7 +6,7 @@ export default DS.Model.extend({
 , 'password':    DS.attr('string')
 , 'projects':    DS.hasMany('project', { 'async': true })
   // TODO: This should be async and needs its own backend route.
-, 'attendances': DS.hasMany('attendance', { 'embedded': true })
+, 'attendances': DS.hasMany('attendance')
 
   // TODO: We should probably sort the attendances by date
 , 'currentAttendance': function() {

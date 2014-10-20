@@ -43,12 +43,12 @@ export default Ember.Component.extend({
       // TODO: For some reason, if we remove either projects[action](project)
       //       call, the project won't get stored in the user.
       projects[action](this.get('project'))
-      user.then(user => {
+      user.then(user =>
         user.get('projects').then(projects => {
           projects[action](this.get('project'))
           user.save()
         })
-      })
+      )
     }
   }
 })

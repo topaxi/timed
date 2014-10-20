@@ -33,7 +33,7 @@ You need the following packages installed on your machine:
 
 Then run the following commands in this repository:
 <code><pre>
-$ sudo ln -sf $PWD/tools/vagrant/nginx/timed.conf \
+$ sudo ln -sf $PWD/tools/nginx/example.conf \
               /etc/nginx/sites-enabled/001-timed.conf
 $ sudo /etc/init.d/nginx restart
 $ sudo npm install ember-cli -g

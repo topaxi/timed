@@ -1,39 +1,15 @@
-<form class="form-horizontal" {{action 'submit' on='submit'}}>
-  <h1>
-    {{#if model.isNew}}
-      Create user
-    {{else}}
-      Edit {{name}}
-    {{/if}}
-  </h1>
+<h1>{{name}} - {{fullName}}</h1>
 
-  <div class="form-group">
-    <label for="name" class="col-sm-2 control-label">Username</label>
-    <div class="col-sm-10">
-      {{input id='name' placeholder='Username' value=name class='form-control' autocomplete='false'}}
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="password" class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-10">
-      {{input id='password' placeholder='Password' type='password' value=password class='form-control' autocomplete='false'}}
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">
-        {{#if model.isNew}}
-          Create user
-        {{else}}
-          Update user
-        {{/if}}
-      </button>
+<ul class="nav nav-tabs">
+  {{#link-to 'user.edit.edit' model tagName='li'}}
+    {{#link-to 'user.edit.edit' model}}Edit{{/link-to}}
+  {{/link-to}}
 
-      {{#unless model.isNew}}
-        <button type="button" {{action 'delete' on='doubleClick'}} class="btn btn-danger pull-right tip" title="Doubleclick to delete">
-          Delete user
-        </button>
-      {{/unless}}
-    </div>
-  </div>
-</form>
+  {{#link-to 'user.edit.worktime' tagName='li'}}
+    {{#link-to 'user.edit.worktime'}}Worktime{{/link-to}}
+  {{/link-to}}
+</ul>
+
+<br>
+
+{{outlet}}

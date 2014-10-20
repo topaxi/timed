@@ -4,6 +4,8 @@ var Schema     = require('mongoose').Schema
 
 var User = module.exports = new Schema({
     'name':        { type: String, required: true, index: { unique: true } }
+  , 'firstName':   String
+  , 'lastName':    String
   , 'password':    String
   , 'worktime':    {}
   , 'attendances': [ Attendance ]

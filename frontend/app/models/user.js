@@ -3,10 +3,17 @@ import moment from 'moment';
 
 export default DS.Model.extend({
   'name':        DS.attr('string')
+, 'firstName':   DS.attr('string')
+, 'lastName':    DS.attr('string')
 , 'password':    DS.attr('string')
+, 'worktime':    DS.attr('any', { 'defaultValue': {} })
 , 'projects':    DS.hasMany('project', { 'async': true })
   // TODO: This should be async and needs its own backend route.
 , 'attendances': DS.hasMany('attendance')
+
+, 'fullName': function() {
+    return `${this.get('firstName')||''} ${this.get('lastName')||''}`.trim()
+  }.property('firstName', 'lastName')
 
   // TODO: We should probably sort the attendances by date
 , 'currentAttendance': function() {

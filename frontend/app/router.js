@@ -26,7 +26,10 @@ Router.map(function() {
 
   this.resource('user', function() {
     this.route('new')
-    this.route('edit', { 'path': '/:user_id' })
+    this.route('edit', { 'path': '/:user_id' }, function() {
+      this.route('edit', { 'path': '/' })
+      this.route('worktime')
+    })
   })
 
   this.route('about')

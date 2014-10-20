@@ -26,11 +26,13 @@ module.exports = function(app) {
   })
 
   app.post('/api/v1/users', auth, function(req, res, next) {
-    var user = new User({ 'name':     req.body.user.name
-                        , 'quota':    req.body.user.quota
-                        , 'password': req.body.user.password
-                        , 'projects': req.body.user.projects
-                        , 'worktime': req.body.user.worktime
+    var user = new User({ 'name':      req.body.user.name
+                        , 'firstName': req.body.user.firstName
+                        , 'lastName':  req.body.user.lastName
+                        , 'quota':     req.body.user.quota
+                        , 'password':  req.body.user.password
+                        , 'projects':  req.body.user.projects
+                        , 'worktime':  req.body.user.worktime
                         })
 
     user.save(function(err) {
@@ -50,6 +52,8 @@ module.exports = function(app) {
       if (err) return next(err)
 
       user.name        = req.body.user.name        || user.name
+      user.firstName   = req.body.user.firstName   || user.firstName
+      user.lastName    = req.body.user.lastName    || user.lastName
       user.quota       = req.body.user.quota       || user.quota
       user.attendances = req.body.user.attendances || user.attendances
       user.projects    = req.body.user.projects    || user.projects

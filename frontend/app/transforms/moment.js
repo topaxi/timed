@@ -6,6 +6,6 @@ export default DS.Transform.extend({
     return value && value.isValid() ? value.toJSON() : null
   }
 , deserialize: function(value) {
-    return moment.utc(value)
+    return moment(value)
   }
 })

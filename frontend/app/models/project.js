@@ -7,7 +7,7 @@ export default DS.Model.extend({
   //       actual object / id
 , 'customer': DS.belongsTo('customer', { 'async': true })
 , 'tasks':    DS.hasMany('task', { 'async': true })
-, 'from':     DS.attr('utc')
-, 'to':       DS.attr('utc')
+, 'from':     DS.attr('moment')
+, 'to':       DS.attr('moment')
 , 'done':     DS.attr('boolean')
 })

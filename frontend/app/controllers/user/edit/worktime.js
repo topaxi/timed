@@ -4,8 +4,8 @@ import moment from 'moment';
 
 export default Ember.Controller.extend({
   init: function() {
-    this.set('from', moment.utc())
-    this.set('to',   moment.utc())
+    this.set('from', moment())
+    this.set('to',   moment())
   }
 , weekdays: function() {
     return moment.weekdays()

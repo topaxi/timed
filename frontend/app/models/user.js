@@ -25,7 +25,7 @@ export default DS.Model.extend({
     return attendance ? attendance.get('activities').get('lastObject') : null
   }.property('currentAttendance.activities')
 
-, 'startAttendance': function(from = moment.utc(), to = null) {
+, 'startAttendance': function(from = moment(), to = null) {
     var attendance = this.store.createRecord('attendance', { 'user': this
                                                            , 'from': from
                                                            , 'to':   to
@@ -35,7 +35,7 @@ export default DS.Model.extend({
 
     return attendance
   }
-, 'startActivity': function(task, from = moment.utc(), to = null) {
+, 'startActivity': function(task, from = moment(), to = null) {
     this.endCurrentActivity()
 
     var attendance = this.get('currentAttendance')
@@ -69,7 +69,7 @@ export default DS.Model.extend({
       activity.end()
     }
   }
-, 'getAttendancesByDay': function(day = moment.utc().startOf('day')) {
+, 'getAttendancesByDay': function(day = moment().startOf('day')) {
     return this.get('attendances').filter(attendance =>
       !moment(attendance.get('from')).startOf('day').diff(day)
     )

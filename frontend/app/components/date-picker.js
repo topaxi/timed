@@ -19,7 +19,7 @@ export default Ember.TextField.extend({
     this.set('value', date.format(this.format))
   }.observes('date')
 , 'updateDate': function() {
-    var date = moment.utc(this.get('value'), this.format).startOf('day')
+    var date = moment(this.get('value'), this.format).startOf('day')
 
     if (!date.isValid()) {
       return this.set('date', null)

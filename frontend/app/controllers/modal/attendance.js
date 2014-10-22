@@ -9,20 +9,14 @@ export default Ember.ObjectController.extend({
 , to: function() {
     return this.get('model.to').format(this.dateFormat)
   }.property('model.to')
-, updateAttendance: function() {
-    var attendance = this.get('model')
-
-    attendance.set('from', moment(this.get('from'), this.dateFormat))
-    attendance.set('to',   moment(this.get('to'),   this.dateFormat))
-  }.observes('from', 'to')
 , actions: {
     save: function() {
-      this.get('model.user').save()
-    }
-  , closeModal: function() {
-      this.get('model').rollback()
+      var attendance = this.get('model')
 
-      return true
+      attendance.set('from', moment(this.get('from'), this.dateFormat))
+      attendance.set('to',   moment(this.get('to'),   this.dateFormat))
+
+      attendance.get('user').save()
     }
   }
 })

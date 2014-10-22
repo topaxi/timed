@@ -18,7 +18,7 @@
             {{date-format attendance.from 'hh:mm'}} {{date-format attendance.to '- hh:mm'}}
           </th>
           <th>
-            <button {{action 'openModal' 'attendance-modal' attendance}} class="btn btn-sm btn-default tip" title="Edit attendance">
+            <button {{action 'openModal' 'attendance' attendance}} class="btn btn-sm btn-default tip" title="Edit attendance">
               <span class="glyphicon glyphicon-edit"></span>
             </button>
           </th>
@@ -39,7 +39,7 @@
               {{date-duration activity.from activity.to}}
             </td>
             <td>
-              <button {{action 'openModal' 'activity-modal' activity}} class="btn btn-sm btn-default tip" title="Edit activity">
+              <button {{action 'openModal' 'activity' activity}} class="btn btn-sm btn-default tip" title="Edit activity">
                 <span class="glyphicon glyphicon-edit"></span>
               </button>
             </td>

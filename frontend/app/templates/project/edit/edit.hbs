@@ -17,8 +17,8 @@
       {{view Ember.Select
              id              = 'customer'
              class           = 'form-control'
-             content         = customers
-             valueBinding    = 'customer'
+             content         = customers.content
+             value           = customer.content
              optionLabelPath = 'content.name'
              optionValuePath = 'content'
              }}

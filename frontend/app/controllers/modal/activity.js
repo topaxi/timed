@@ -3,11 +3,25 @@ import moment from 'moment';
 
 export default Ember.ObjectController.extend({
   dateFormat: 'YYYY-MM-DD hh:mm'
+, init: function() {
+    this.set('tasks', this.store.find('task'))
+  }
+, createActivityForAttendance: function() {
+    if (this.get('model.activities')) {
+      this.set('model', this.store.createRecord('activity', {
+        'attendance': this.get('model')
+      }))
+    }
+  }.observes('model')
 , from: function() {
-    return this.get('model.from').format(this.dateFormat)
+    var from = this.get('model.from')
+
+    return from && from.format(this.dateFormat)
   }.property('model.from')
 , to: function() {
-    return this.get('model.to').format(this.dateFormat)
+    var to = this.get('model.to')
+
+    return to && to.format(this.dateFormat)
   }.property('model.to')
 , actions: {
     save: function() {

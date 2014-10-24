@@ -16,6 +16,7 @@ var App = Ember.Application.extend({
 DS.RESTSerializer.reopen({ 'primaryKey': '_id' })
 DS.RESTAdapter.reopen({
   'namespace': 'api/v1'
+, 'coalesceFindRequests': true
 , 'ajaxError': function(xhr) {
     var error
 

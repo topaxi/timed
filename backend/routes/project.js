@@ -4,8 +4,8 @@ var Project = require('../models/project')
 
 module.exports = function(app) {
   app.get('/api/v1/projects', auth, function(req, res, next) {
-    if (req.query.id && req.query.id.length) {
-      Project.find({ '_id': { '$in': req.query.id } }, function(err, projects) {
+    if (req.query.ids && req.query.ids.length) {
+      Project.find({ '_id': { '$in': req.query.ids } }, function(err, projects) {
         if (err) return next(err)
 
         res.send({ projects: projects })

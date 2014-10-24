@@ -5,8 +5,9 @@
       {{view Ember.Select
              id              = 'task'
              class           = 'form-control'
-             content         = tasks.content
+             content         = sortedTasks
              value           = task.content
+             optionGroupPath = 'project.name'
              optionLabelPath = 'content.name'
              optionValuePath = 'content'
              }}

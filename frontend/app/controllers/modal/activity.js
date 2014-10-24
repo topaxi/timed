@@ -6,6 +6,13 @@ export default Ember.ObjectController.extend({
 , init: function() {
     this.set('tasks', this.store.find('task'))
   }
+, sortedTasks: function() {
+    return Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
+      content:        this.get('tasks')
+    , sortProperties: [ 'project.name' ]
+    , sortAscending: false
+    })
+  }.property('tasks')
 , createActivityForAttendance: function() {
     if (this.get('model.activities')) {
       this.set('model', this.store.createRecord('activity', {

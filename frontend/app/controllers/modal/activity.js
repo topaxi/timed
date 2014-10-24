@@ -10,7 +10,7 @@ export default Ember.ObjectController.extend({
     return Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
       content:        this.get('tasks')
     , sortProperties: [ 'project.name' ]
-    , sortAscending: false
+    , sortAscending:  false
     })
   }.property('tasks')
 , createActivityForAttendance: function() {

@@ -3,23 +3,13 @@ import moment from 'moment';
 
 export default Ember.Component.extend({
   tagName: 'span'
-, polling: true
 , init: function() {
     this._super()
     this.session = this.container.lookup('simple-auth-session:main')
-
-    this.pollLabel()
   }
 , title: function() {
     return this.get('isTracking') ? 'Stop tracking attendance' : 'Track attendance'
   }.property('isTracking')
-, pollLabel: function() {
-    if (this.polling) {
-      // Set refresh to NaN as NaN is always unequal to itsef, which will
-      // always "change" the refreshLabel property to update the actual label.
-      Ember.run.later(() => this.set('refreshLabel', NaN), 5000)
-    }
-  }.observes('refreshLabel')
 , label: function() {
     var attendance = this.session.get('user.currentAttendance')
 
@@ -41,7 +31,8 @@ export default Ember.Component.extend({
       label = `${label} - ${to.format(toToday ? ntformat : tformat)}`
     }
     else {
-      label = `${label} - ${from.fromNow(true)}`
+      label = `${label} - <span data-from-now="true" data-from="${from}">${from.fromNow(true)}</span>`
+      label = new Ember.Handlebars.SafeString(label)
     }
 
     return label
@@ -74,9 +65,6 @@ export default Ember.Component.extend({
 
         user.save()
       })
-    }
-  , willDestroy: function() {
-      this.set('polling', false)
     }
   }
 })

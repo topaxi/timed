@@ -1,12 +1,27 @@
-{{! TODO: Move tasks.new link to somewhere else }}
-{{#link-to 'task.new' tagName='button' class='btn btn-primary'}}New task{{/link-to}}
-
-<ul>
-  {{#each task in model}}
-    <li>
-      {{#link-to 'task.edit' task}}
-        {{task.name}}
-      {{/link-to}}
-    </li>
-  {{/each}}
-</ul>
+<table class="table">
+  <colgroup>
+    <col>
+    <col width="32">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>
+        {{#link-to 'task.new' tagName='button' class='btn btn-sm btn-default tip' title='Create task'}}
+          <span class="glyphicon glyphicon-plus"></span>
+        {{/link-to}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each task in model}}
+      <tr>
+        <td colspan="2">
+          {{#link-to 'task.edit' task}}
+            {{task.name}}
+          {{/link-to}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -2,7 +2,7 @@
   <form class="form" {{action 'ok' on='submit' target=view}}>
     <div class="form-group">
       <label for="task">Task</label>
-      {{view Ember.Select
+      {{view 'select'
              id              = 'task'
              class           = 'form-control'
              content         = sortedTasks

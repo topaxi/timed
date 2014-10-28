@@ -39,8 +39,6 @@ Router.map(function() {
   })
 
   this.route('about')
-  this.route('team/edit/edit');
-  this.route('team/edit/new');
 })
 
 export default Router

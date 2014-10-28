@@ -3,7 +3,7 @@
 <table class="table">
   <colgroup>
     <col>
-    <col width="32">
+    <col class="table-button-col">
   </colgroup>
   <tbody>
     <tr>
@@ -26,11 +26,11 @@
   {{#each attendance in view.attendances}}
     <table class="table">
       <colgroup>
-        <col width="200">
         <col>
-        <col width="120">
-        <col width="32">
-        <col width="32">
+        <col>
+        <col>
+        <col class="table-button-col">
+        <col class="table-button-col">
       </colgroup>
       <thead>
         <tr>
@@ -47,6 +47,12 @@
               <span class="glyphicon glyphicon-edit"></span>
             </button>
           </th>
+        </tr>
+        <tr>
+          <th>Project</th>
+          <th>Task</th>
+          <th colspan="2" class="tar">Duration</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

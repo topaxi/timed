@@ -26,7 +26,7 @@ Router.map(function() {
     this.route('new')
     this.route('edit', { 'path': '/:team_id' }, function() {
       this.route('edit', { 'path': '/' })
-      //this.route('manage')
+      this.route('manage')
     })
   })
 
@@ -39,8 +39,6 @@ Router.map(function() {
   })
 
   this.route('about')
-  this.route('team/edit/edit');
-  this.route('team/edit/new');
 })
 
 export default Router

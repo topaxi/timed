@@ -4,11 +4,13 @@
   <colgroup>
     <col>
     <col class="table-button-col">
+    <col class="table-button-col">
   </colgroup>
   <thead>
     <tr>
       <th>Name</th>
       <th>Members</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -17,8 +19,13 @@
         <td>
           {{#link-to 'team.edit' team}}{{team.name}}{{/link-to}}
         </td>
-        <td>
+        <td class="tar">
           {{team.users.length}}
+        </td>
+        <td>
+          {{#link-to 'team.edit.manage' team tagName='button' class='btn btn-default tip' title='Manage team'}}
+            <span class="glyphicon glyphicon-tasks"></span>
+          {{/link-to}}
         </td>
       </tr>
     {{/each}}

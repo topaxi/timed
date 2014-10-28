@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { Timeline } from 'vis';
 
 export default Ember.View.extend({
   'visOptions': {
@@ -10,14 +11,20 @@ export default Ember.View.extend({
   , 'zoomable':    0
   }
 , 'renderTimeline': function() {
-    this.set('timeline', new window.vis.Timeline(
-      this.$('#timeline')[0])
+    var options = Ember.$.extend({}, this.get('visOptions'), {
+      'onAdd':    (...args) => this.add(...args)
+    , 'onUpdate': (...args) => this.update(...args)
+    , 'onMove':   (...args) => this.move(...args)
+    })
+
+    this.set('timeline', new Timeline(
+      this.$('#timeline')[0]
     , this.get('visData')
-    , Ember.$.extend({}, this.get('visOptions'), {
-        'onAdd':    (...args) => this.add(...args)
-      , 'onUpdate': (...args) => this.update(...args)
-      , 'onMove':   (...args) => this.move(...args)
-      })
-    )
+    , options
+    ))
+
+    this.get('timeline').setGroups(this.get('controller.users').map(user => {
+      return { 'id': user.id, 'content': user.get('longName') }
+    }))
   }.on('didInsertElement').observes('visData', 'visOptions')
 })

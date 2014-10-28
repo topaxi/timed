@@ -34,6 +34,15 @@ DS.RESTAdapter.reopen({
 /* jshint ignore:start */
 // Fix momentjs
 define('moment', function() { return { 'default': window.moment } })
+
+define('vis', function() {
+  var vis = window.vis
+
+  return {
+    'default':  vis
+  , 'Timeline': vis.Timeline
+  }
+})
 /* jshint ignore:end */
 
 window.addEventListener('error', function(err) {

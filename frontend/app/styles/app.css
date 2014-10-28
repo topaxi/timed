@@ -25,6 +25,9 @@ body { padding-top: 60px }
 /* Text algnment */
 .tar { text-align: right }
 
+/* Borders */
+.b0 { border: 0 !important }
+
 /* spacing helpers from oocss
 p,m = padding,margin
 a,t,r,b,l,h,v = all,top,right,bottom,left,horizontal,vertical

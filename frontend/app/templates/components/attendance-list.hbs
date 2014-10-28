@@ -1,7 +1,26 @@
 <h2>Activities</h2>
-<div class="form-group">
-  {{date-picker date=view.currentDay}}
-</div>
+
+<table class="table">
+  <colgroup>
+    <col>
+    <col width="32">
+  </colgroup>
+  <tbody>
+    <tr>
+      <td class="b0">
+        {{date-picker date=view.currentDay class='input-sm'}}
+      </td>
+      <td class="b0">
+        {{! TODO: Get component actions right, this won't work without #if... }}
+        {{#if view.user}}
+          <button {{action 'openModal' 'attendance' view.currentDay}} class="btn btn-sm btn-default tip" title="Add attendance">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+        {{/if}}
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 {{#if view.attendances}}
   {{#each attendance in view.attendances}}

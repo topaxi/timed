@@ -1,4 +1,5 @@
-import DS from 'ember-data';
+import Ember  from 'ember';
+import DS     from 'ember-data';
 import moment from 'moment';
 
 export default DS.Model.extend({
@@ -11,14 +12,18 @@ export default DS.Model.extend({
   // TODO: This should be async and needs its own backend route.
 , 'attendances': DS.hasMany('attendance')
 
+, 'attendancesSortingDesc': [ 'from:desc' ]
+, 'sortedAttendances': Ember.computed.sort('attendances', 'attendancesSortingDesc')
+
 , 'fullName': function() {
     return `${this.get('firstName')||''} ${this.get('lastName')||''}`.trim()
   }.property('firstName', 'lastName')
 
-  // TODO: We should probably sort the attendances by date
 , 'currentAttendance': function() {
-    return this.get('attendances').get('lastObject')
-  }.property('attendances')
+    return this.get('sortedAttendances').find(attendance =>
+      !moment(attendance.get('to')).isValid()
+    )
+  }.property('sortedAttendances')
 , 'currentActivity': function() {
     var attendance = this.get('currentAttendance')
 

@@ -1,0 +1,26 @@
+<h1>Teams</h1>
+
+<table class="table">
+  <colgroup>
+    <col>
+    <col class="table-button-col">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Members</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each team in model}}
+      <tr>
+        <td>
+          {{#link-to 'team.edit' team}}{{team.name}}{{/link-to}}
+        </td>
+        <td>
+          {{team.users.length}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

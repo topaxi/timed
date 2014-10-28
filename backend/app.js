@@ -81,10 +81,11 @@ app.use(function(req, res, next) {
   next()
 })
 
-require('./routes/user')(app)
 require('./routes/project')(app)
 require('./routes/task')(app)
 require('./routes/customer')(app)
+require('./routes/team')(app)
+require('./routes/user')(app)
 require('./routes/login')(app)
 
 app.use(function(err, req, res, next) {

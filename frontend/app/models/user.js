@@ -9,6 +9,7 @@ export default DS.Model.extend({
 , 'password':    DS.attr('string')
 , 'worktime':    DS.attr('any', { 'defaultValue': {} })
 , 'projects':    DS.hasMany('project', { 'async': true })
+, 'teams':       DS.hasMany('team', { 'inverse': 'users' })
   // TODO: This should be async and needs its own backend route.
 , 'attendances': DS.hasMany('attendance')
 
@@ -18,6 +19,10 @@ export default DS.Model.extend({
 , 'fullName': function() {
     return `${this.get('firstName')||''} ${this.get('lastName')||''}`.trim()
   }.property('firstName', 'lastName')
+
+, 'longName': function() {
+    return `${this.get('fullName')} (${this.get('name')})`.trim()
+  }.property('name', 'fullName')
 
 , 'currentAttendance': function() {
     return this.get('sortedAttendances').find(attendance =>

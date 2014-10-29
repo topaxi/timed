@@ -57,6 +57,7 @@ module.exports = function(app) {
       user.quota       = req.body.user.quota       || user.quota
       user.attendances = req.body.user.attendances || user.attendances
       user.projects    = req.body.user.projects    || user.projects
+      user.assignments = req.body.user.assignments || user.assignments
       user.worktime    = req.body.user.worktime    || user.worktime
 
       if (!req.body.user.password) {

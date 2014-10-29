@@ -1,0 +1,43 @@
+{{#modal-dialog title=title ok='save' okText='Save' close='closeModal'}}
+  <form class="form" {{action 'ok' on='submit' target=view}}>
+    <div class="form-group">
+      <label for="project">Project</label>
+      {{view 'select'
+             id               = 'project'
+             class            = 'form-control'
+             content          = allProjects
+             value            = project.content
+             optionLabelPath  = 'content.name'
+             optionValuePath  = 'content'
+             }}
+    </div>
+
+    {{#if project.tasks}}
+      <div class="form-group">
+        <label for="tasks">Tasks <span class="text-muted">(Optional)</span></label>
+        {{view 'select'
+               id               = 'task'
+               class            = 'form-control'
+               contentBinding   = 'project.tasks'
+               selectionBinding = 'tasks'
+               multiple         = true
+               optionLabelPath  = 'content.name'
+               optionValuePath  = 'content'
+               }}
+      </div>
+    {{/if}}
+
+    <div class="form-group">
+      <label for="from">From</label>
+      {{date-picker id='from' date=from}}
+    </div>
+    <div class="form-group">
+      <label for="to">To</label>
+      {{date-picker id='to' date=to}}
+    </div>
+    <div class="form-group">
+      <label for="duration">Duration <span class="text-muted">(Optional)</span></label>
+      {{input id='duration' value=duration class='form-control'}}
+    </div>
+  </form>
+{{/modal-dialog}}

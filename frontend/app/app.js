@@ -41,6 +41,7 @@ define('vis', function() {
   return {
     'default':  vis
   , 'Timeline': vis.Timeline
+  , 'DataSet':  vis.DataSet
   }
 })
 /* jshint ignore:end */

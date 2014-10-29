@@ -1,5 +1,6 @@
 var Schema     = require('mongoose').Schema
   , Attendance = require('./attendance')
+  , Assignment = require('./assignment')
   , bcrypt     = require('bcrypt')
 
 var User = module.exports = new Schema({
@@ -10,6 +11,7 @@ var User = module.exports = new Schema({
   , 'worktime':    {}
   , 'attendances': [ Attendance ]
   , 'projects':    [{ type: Schema.Types.ObjectId, ref: 'Project' }]
+  , 'assignments': [ Assignment ]
 })
 
 User.methods.setPassword = function(password, cb) {

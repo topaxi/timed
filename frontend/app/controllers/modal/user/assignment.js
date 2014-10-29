@@ -11,7 +11,7 @@ export default Ember.ObjectController.extend({
   }.property('model.user')
 , 'actions': {
     'save': function() {
-      this.get('model.user').save().then(() => window._rerenderMe && window._rerenderMe())
+      this.get('model').save()
     }
   , 'closeModal': function() {
       this.get('model').rollback()

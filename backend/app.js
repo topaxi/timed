@@ -85,6 +85,7 @@ require('./routes/project')(app)
 require('./routes/task')(app)
 require('./routes/customer')(app)
 require('./routes/team')(app)
+require('./routes/assignment')(app)
 require('./routes/user')(app)
 require('./routes/login')(app)
 

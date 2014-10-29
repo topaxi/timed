@@ -10,7 +10,7 @@ export default DS.Model.extend({
 , 'worktime':    DS.attr('any', { 'defaultValue': {} })
 , 'projects':    DS.hasMany('project', { 'async': true })
 , 'teams':       DS.hasMany('team', { 'inverse': 'users' })
-, 'assignments': DS.hasMany('assignment')
+, 'assignments': DS.hasMany('assignment', { 'async': true })
   // TODO: This should be async and needs its own backend route.
 , 'attendances': DS.hasMany('attendance')
 

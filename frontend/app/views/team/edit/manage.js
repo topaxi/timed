@@ -34,19 +34,13 @@ export default Ember.View.extend({
     }))
   }.property('controller.users')
 , 'visItems': function() {
-    return this.get('flatAssignments').map(assignment => {
-      if (!assignment.get('user.id')) {
-        console.error('assignment has no user', assignment)
-      }
-
-      return {
-        'id':      assignment.id
-      , 'content': assignment.get('project.name')
-      , 'start':   assignment.get('from').toDate()
-      , 'end':     assignment.get('to') && assignment.get('to').toDate()
-      , 'group':   assignment.get('user.id')
-      }
-    })
+    return this.get('flatAssignments').map(assignment => ({
+      'id':      assignment.id
+    , 'content': assignment.get('project.name')
+    , 'start':   assignment.get('from').toDate()
+    , 'end':     assignment.get('to') && assignment.get('to').toDate()
+    , 'group':   assignment.get('user.id')
+    }))
   }.property(
     'flatAssignments.@each.from'
   , 'flatAssignments.@each.to'
@@ -80,16 +74,9 @@ export default Ember.View.extend({
 
       assignment.set('from', moment(item.start))
       assignment.set('to',   moment(item.end))
+      assignment.set('user', user)
 
-      var oldUser = assignment.get('user')
-
-      if (oldUser.id !== user.id) {
-        assignment.set('user', null)
-        oldUser.save()
-        assignment.set('user', user)
-      }
-
-      user.save()
+      assignment.save()
     })
   }
 , 'remove': function(item, callback) {

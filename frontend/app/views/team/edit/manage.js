@@ -83,10 +83,8 @@ export default Ember.View.extend({
     var assignment = this.get('store').find('assignment', item.id)
 
     assignment.then(assignment => {
-      var user = assignment.get('user')
-
-      assignment.set('user', null)
-      user.save().then(() => callback(true))
+      assignment.deleteRecord()
+      assignment.save().then(() => callback(true))
     })
   }
 , 'renderTimeline': function() {

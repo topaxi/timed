@@ -2,6 +2,9 @@ import Ember from 'ember';
 import moment from 'moment';
 import { Timeline } from 'vis';
 
+// TODO: There is a lot of logic in this view which we should
+//       move into the team.edit.manage controller.
+
 export default Ember.View.extend({
   'visOptions': {
     'stack':       false

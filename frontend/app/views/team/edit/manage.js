@@ -5,6 +5,8 @@ import { Timeline } from 'vis';
 // TODO: There is a lot of logic in this view which we should
 //       move into the team.edit.manage controller.
 
+var ZOOM = 1000 * 60 * 60 * 24 * 7 * 2 // Show ~2 weeks
+
 export default Ember.View.extend({
   'visOptions': {
     'stack':       false
@@ -13,7 +15,8 @@ export default Ember.View.extend({
   , 'width':       '100%'
   , 'autoResize':  false
   , 'zoomable':    0
-  , 'zoomMin':     1000 * 60 * 60 * 24 * 7 * 2 // Show ~2 weeks
+  , 'zoomMin':     ZOOM
+  , 'zoomMax':     ZOOM
   }
 , 'store':       Ember.computed.alias('controller.store')
 , 'assignments': Ember.computed.alias('controller.model.users.@each.assignments')

@@ -26,7 +26,7 @@ Router.map(function() {
     this.route('new')
     this.route('edit', { 'path': '/:team_id' }, function() {
       this.route('edit', { 'path': '/' })
-      //this.route('manage')
+      this.route('manage')
     })
   })
 

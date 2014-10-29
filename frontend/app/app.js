@@ -15,6 +15,16 @@ var App = Ember.Application.extend({
 /* jshint ignore:start */
 // Fix momentjs
 define('moment', function() { return { 'default': window.moment } })
+
+define('vis', function() {
+  var vis = window.vis
+
+  return {
+    'default':  vis
+  , 'Timeline': vis.Timeline
+  , 'DataSet':  vis.DataSet
+  }
+})
 /* jshint ignore:end */
 
 window.addEventListener('error', function(err) {

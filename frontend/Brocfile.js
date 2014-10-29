@@ -31,4 +31,7 @@ app.import('bower_components/bootstrap-datepicker/css/datepicker3.css')
 app.import('bower_components/bootstrap-daterangepicker/daterangepicker.js')
 app.import('bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css')
 
+app.import('bower_components/vis/dist/vis.js', { 'exports': { 'vis': [ 'default' ] } })
+app.import('bower_components/vis/dist/vis.css')
+
 module.exports = app.toTree()

@@ -1,0 +1,15 @@
+<h1>{{name}}</h1>
+
+<ul class="nav nav-tabs">
+  {{#link-to 'team.edit.edit' model tagName='li'}}
+    {{#link-to 'team.edit.edit' model}}Edit{{/link-to}}
+  {{/link-to}}
+
+  {{#link-to 'team.edit.manage' tagName='li'}}
+    {{#link-to 'team.edit.manage'}}Manage{{/link-to}}
+  {{/link-to}}
+</ul>
+
+<br>
+
+{{outlet}}

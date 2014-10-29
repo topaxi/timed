@@ -95,10 +95,10 @@ export default Ember.View.extend({
   }.observes('visGroups', 'visItems')
 , 'setupTimeline': function() {
     var options = Ember.$.extend({}, this.get('visOptions'), {
-      'onAdd':    (...args) => this.add(...args)
-    , 'onUpdate': (...args) => this.update(...args)
-    , 'onMove':   (...args) => this.move(...args)
-    , 'onRemove': (...args) => this.remove(...args)
+      'onAdd':    (item, callback) => this.add(item, callback)
+    , 'onUpdate': (item, callback) => this.update(item, callback)
+    , 'onMove':   (item, callback) => this.move(item, callback)
+    , 'onRemove': (item, callback) => this.remove(item, callback)
     })
 
     this.set('timeline', new Timeline(

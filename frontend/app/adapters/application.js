@@ -14,7 +14,6 @@ export default DS.RESTAdapter.extend({
       error = xhr.responseText
     }
 
-    console.log(error, xhr)
     Notify.error(error)
   }
 })

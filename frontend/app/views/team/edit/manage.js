@@ -18,13 +18,7 @@ export default Ember.View.extend({
 , 'store':       Ember.computed.alias('controller.store')
 , 'assignments': Ember.computed.alias('controller.model.users.@each.assignments')
 , 'flatAssignments': function() {
-    var assignments = this.get('assignments')
-
-    if (!assignments) {
-      return []
-    }
-
-    return assignments.reduce((all, assignments) => {
+    return this.get('assignments').reduce((all, assignments) => {
       assignments.forEach(assignment => all.push(assignment))
 
       return all

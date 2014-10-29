@@ -14,13 +14,7 @@ export default Ember.View.extend({
   }
 , 'store':       Ember.computed.alias('controller.store')
 , 'assignments': Ember.computed.alias('controller.model.users.@each.assignments')
-, 'visGroups': function() {
-    return this.get('controller.users').map(user => ({
-      'id':      user.id
-    , 'content': user.get('longName')
-    }))
-  }.property('controller.users')
-, 'visItems': function() {
+, 'flatAssignments': function() {
     var assignments = this.get('assignments')
 
     if (!assignments) {
@@ -28,26 +22,35 @@ export default Ember.View.extend({
     }
 
     return assignments.reduce((all, assignments) => {
-      assignments.forEach(assignment => {
-        if (!assignment.get('user.id')) {
-          console.error('assignment has no user', assignment)
-        }
-
-        all.push({
-          'id':      assignment.id
-        , 'content': assignment.get('project.name')
-        , 'start':   assignment.get('from').toDate()
-        , 'end':     assignment.get('to') && assignment.get('to').toDate()
-        , 'group':   assignment.get('user.id')
-        })
-      })
+      assignments.forEach(assignment => all.push(assignment))
 
       return all
     }, [])
+  }.property('assignments.@each')
+, 'visGroups': function() {
+    return this.get('controller.users').map(user => ({
+      'id':      user.id
+    , 'content': user.get('longName')
+    }))
+  }.property('controller.users')
+, 'visItems': function() {
+    return this.get('flatAssignments').map(assignment => {
+      if (!assignment.get('user.id')) {
+        console.error('assignment has no user', assignment)
+      }
+
+      return {
+        'id':      assignment.id
+      , 'content': assignment.get('project.name')
+      , 'start':   assignment.get('from').toDate()
+      , 'end':     assignment.get('to') && assignment.get('to').toDate()
+      , 'group':   assignment.get('user.id')
+      }
+    })
   }.property(
-    'assignments.@each.from'
-  , 'assignments.@each.to'
-  , 'assignments.@each.project'
+    'flatAssignments.@each.from'
+  , 'flatAssignments.@each.to'
+  , 'flatAssignments.@each.project'
   )
 , 'add': function(item) {
     var store = this.get('store')

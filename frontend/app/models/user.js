@@ -35,6 +35,9 @@ export default DS.Model.extend({
 
     return attendance ? attendance.get('activities').get('lastObject') : null
   }.property('currentAttendance.activities')
+, 'currentAssignments': function() {
+    return this.getAssignmentsByWeek()
+  }.property('assignments')
 
 , 'startAttendance': function(from = moment(), to = null) {
     var attendance = this.store.createRecord('attendance', { 'user': this
@@ -83,6 +86,11 @@ export default DS.Model.extend({
 , 'getAttendancesByDay': function(day = moment().startOf('day')) {
     return this.get('attendances').filter(attendance =>
       !moment(attendance.get('from')).startOf('day').diff(day)
+    )
+  }
+, 'getAssignmentsByWeek': function(week = moment().startOf('week')) {
+    return this.get('assignments').filter(assignment =>
+      !moment(assignment.get('from')).startOf('week').diff(week)
     )
   }
 })

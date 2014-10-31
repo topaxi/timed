@@ -2,6 +2,14 @@
   {{attendance-list user=model class='col-md-8'}}
 
   <div class="col-md-4">
+    {{#if currentAssignments}}
+      <h2>Assigned Projects</h2>
+
+      {{#each assignment in currentAssignments}}
+        {{assigned-project assignment=assignment}}
+      {{/each}}
+    {{/if}}
+
     {{#if projects}}
       <h2>{{#link-to 'project'}}Followed Projects{{/link-to}}</h2>
 

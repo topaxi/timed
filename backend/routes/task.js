@@ -3,11 +3,20 @@ var Task = require('../models/task')
 
 module.exports = function(app) {
   app.get('/api/v1/tasks', auth, function(req, res, next) {
-    Task.find(req.query, function(err, tasks) {
-      if (err) return next(err)
+    if (req.query.ids && req.query.ids.length) {
+      Task.find({ '_id': { '$in': req.query.ids } }, function(err, tasks) {
+        if (err) return next(err)
 
-      res.send({ tasks: tasks })
-    })
+        res.send({ tasks: tasks })
+      })
+    }
+    else {
+      Task.find(req.query, function(err, tasks) {
+        if (err) return next(err)
+
+        res.send({ tasks: tasks })
+      })
+    }
   })
 
   app.get('/api/v1/tasks/:id', auth, function(req, res, next) {

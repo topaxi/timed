@@ -95,7 +95,8 @@ export default DS.Model.extend({
   }
 , 'getAssignmentsByWeek': function(week = moment().startOf('week')) {
     return this.get('assignments').filter(assignment =>
-      !moment(assignment.get('from')).startOf('week').diff(week)
+      !moment(assignment.get('from')).startOf('week').diff(week) ||
+      !moment(assignment.get('to'))  .startOf('week').diff(week)
     )
   }
 })

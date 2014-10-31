@@ -22,6 +22,10 @@ export default DS.Model.extend({
   }.property('firstName', 'lastName')
 
 , 'longName': function() {
+    if (!this.get('fullName')) {
+      return this.get('name')
+    }
+
     return `${this.get('fullName')} (${this.get('name')})`.trim()
   }.property('name', 'fullName')
 

@@ -37,12 +37,7 @@ export default DS.Model.extend({
   }.property('currentAttendance.activities')
 , 'currentAssignments': function() {
     return this.getAssignmentsByWeek()
-  }.property(
-    'assignments.@each.from'
-  , 'assignments.@each.to'
-  , 'assignments.@each.project'
-  , 'assignments.@each.tasks.@each'
-  )
+  }.property('assignments.@each.from', 'assignments.@each.to')
 
 , 'startAttendance': function(from = moment(), to = null) {
     var attendance = this.store.createRecord('attendance', { 'user': this

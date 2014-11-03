@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import ProtectedRoute from 'timed/routes/protected';
 
 export default ProtectedRoute.extend({
@@ -5,8 +6,10 @@ export default ProtectedRoute.extend({
     return this.session.get('user')
   }
 , afterModel: function() {
-    return this.store.find('assignment', {
-      'user': this.get('session.user.id')
-    })
+    var user        = this.get('session.user.id')
+    var assignments = this.store.find('assignment', { user })
+    var attendances = this.store.find('attendance', { user })
+
+    return Ember.RSVP.all([ assignments, attendances ])
   }
 })

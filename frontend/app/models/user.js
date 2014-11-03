@@ -11,8 +11,7 @@ export default DS.Model.extend({
 , 'projects':    DS.hasMany('project', { 'async': true })
 , 'teams':       DS.hasMany('team', { 'inverse': 'users' })
 , 'assignments': DS.hasMany('assignment', { 'async': true })
-  // TODO: This should be async and needs its own backend route.
-, 'attendances': DS.hasMany('attendance')
+, 'attendances': DS.hasMany('attendance', { 'async': true })
 
 , 'attendancesSortingDesc': [ 'from:desc' ]
 , 'sortedAttendances': Ember.computed.sort('attendances', 'attendancesSortingDesc')
@@ -49,8 +48,6 @@ export default DS.Model.extend({
                                                            , 'to':   to
                                                            })
 
-    this.get('attendances').addObject(attendance)
-
     return attendance
   }
 , 'startActivity': function(task, from = moment(), to = null) {
@@ -62,10 +59,10 @@ export default DS.Model.extend({
       attendance = this.startAttendance(from)
     }
 
-    var activity = this.store.createRecord('activity', { 'attendance': attendance
-                                                       , 'task':       task
-                                                       , 'from':       from
-                                                       , 'to':         to
+    var activity = this.store.createRecord('activity', { attendance
+                                                       , task
+                                                       , from
+                                                       , to
                                                        })
 
     attendance.get('activities').addObject(activity)
@@ -79,6 +76,8 @@ export default DS.Model.extend({
       this.endCurrentActivity()
       attendance.end()
     }
+
+    return attendance
   }
 , 'endCurrentActivity': function() {
     var activity = this.get('currentActivity')

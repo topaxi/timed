@@ -40,7 +40,7 @@ export default Ember.Component.extend({
           user.startActivity(this.get('task'))
         }
 
-        user.save()
+        user.get('currentAttendance').save()
       })
     }
   }

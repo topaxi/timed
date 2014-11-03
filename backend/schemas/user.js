@@ -1,15 +1,13 @@
 var Schema     = require('mongoose').Schema
-  , Attendance = require('./attendance')
   , bcrypt     = require('bcrypt')
 
 var User = module.exports = new Schema({
-    'name':        { type: String, required: true, index: { unique: true } }
-  , 'firstName':   String
-  , 'lastName':    String
-  , 'password':    String
-  , 'worktime':    {}
-  , 'attendances': [ Attendance ]
-  , 'projects':    [{ type: Schema.Types.ObjectId, ref: 'Project' }]
+    'name':      { type: String, required: true, index: { unique: true } }
+  , 'firstName': String
+  , 'lastName':  String
+  , 'password':  String
+  , 'worktime':  {}
+  , 'projects':  [{ type: Schema.Types.ObjectId, ref: 'Project' }]
 })
 
 User.methods.setPassword = function(password, cb) {

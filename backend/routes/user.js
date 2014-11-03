@@ -51,13 +51,12 @@ module.exports = function(app) {
     User.findById(req.params.id, function(err, user) {
       if (err) return next(err)
 
-      user.name        = req.body.user.name        || user.name
-      user.firstName   = req.body.user.firstName   || user.firstName
-      user.lastName    = req.body.user.lastName    || user.lastName
-      user.quota       = req.body.user.quota       || user.quota
-      user.attendances = req.body.user.attendances || user.attendances
-      user.projects    = req.body.user.projects    || user.projects
-      user.worktime    = req.body.user.worktime    || user.worktime
+      user.name      = req.body.user.name      || user.name
+      user.firstName = req.body.user.firstName || user.firstName
+      user.lastName  = req.body.user.lastName  || user.lastName
+      user.quota     = req.body.user.quota     || user.quota
+      user.projects  = req.body.user.projects  || user.projects
+      user.worktime  = req.body.user.worktime  || user.worktime
 
       if (!req.body.user.password) {
         save()

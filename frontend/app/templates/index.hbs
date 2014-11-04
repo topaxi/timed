@@ -1,7 +1,5 @@
 <div class="row">
-  {{attendance-list user=model class='col-md-8'}}
-
-  <div class="col-md-4">
+  <div class="col-md-4 col-md-push-8">
     {{#if currentAssignments}}
       <h2>Assigned Projects</h2>
 
@@ -18,4 +16,6 @@
       {{/each}}
     {{/if}}
   </div>
+
+  {{attendance-list user=model class='col-md-8 col-md-pull-4'}}
 </div>

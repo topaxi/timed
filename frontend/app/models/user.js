@@ -91,10 +91,12 @@ export default DS.Model.extend({
       !moment(attendance.get('from')).startOf('day').diff(day)
     )
   }
-, 'getAssignmentsByWeek': function(week = moment().startOf('week')) {
-    return this.get('assignments').filter(assignment =>
-      !moment(assignment.get('from')).startOf('week').diff(week) ||
-      !moment(assignment.get('to'))  .startOf('week').diff(week)
-    )
+, 'getAssignmentsByWeek': function(day = moment()) {
+    return this.get('assignments').filter(assignment => {
+      var from = moment(assignment.get('from').startOf('week'))
+      var to   = moment(assignment.get('to').endOf('week'))
+
+      return day.within(moment.range(from, to))
+    })
   }
 })

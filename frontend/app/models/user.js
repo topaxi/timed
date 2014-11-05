@@ -85,6 +85,8 @@ export default DS.Model.extend({
     if (activity) {
       activity.end()
     }
+
+    return activity
   }
 , 'getAttendancesByDay': function(day = moment().startOf('day')) {
     return this.get('attendances').filter(attendance =>

@@ -9,5 +9,7 @@ export default DS.Model.extend({
 
 , 'end': function() {
     this.set('to', moment())
+
+    return this
   }
 })

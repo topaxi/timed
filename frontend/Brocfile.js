@@ -1,7 +1,10 @@
 /* global require, module */
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app')
-  , app      = new EmberApp()
+var app      = new EmberApp({
+  'es3Safe':   false
+, 'minifyCSS': { 'enabled': true }
+})
 
 // Use `app.import` to add additional libraries to the generated
 // output files.

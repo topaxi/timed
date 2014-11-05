@@ -13,7 +13,7 @@ export default {
         this._super(xhr)
 
         if (xhr.status === 401) {
-          applicationRoute.transitionTo('/login')
+          session.invalidate()
         }
       }
     })

@@ -8,8 +8,9 @@ export default DS.Model.extend({
 , 'lastName':    DS.attr('string')
 , 'password':    DS.attr('string')
 , 'worktime':    DS.attr('any', { 'defaultValue': {} })
-, 'projects':    DS.hasMany('project', { 'async': true })
-, 'teams':       DS.hasMany('team', { 'inverse': 'users' })
+
+, 'projects':    DS.hasMany('project',    { 'async': true })
+, 'teams':       DS.hasMany('team',       { 'async': true, 'inverse': 'users' })
 , 'assignments': DS.hasMany('assignment', { 'async': true })
 , 'attendances': DS.hasMany('attendance', { 'async': true })
 

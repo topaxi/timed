@@ -3,7 +3,7 @@ import {
   test
 } from 'ember-qunit';
 
-moduleForComponent('assigned-projects', 'AssignedProjectsComponent', {
+moduleForComponent('assigned-project', 'AssignedProjectsComponent', {
   // specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
 });

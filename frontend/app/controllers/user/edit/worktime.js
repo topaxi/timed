@@ -4,8 +4,8 @@ import moment from 'moment';
 
 export default Ember.Controller.extend({
   init: function() {
-    this.set('from', moment())
-    this.set('to',   moment())
+    this.set('from', moment().startOf('month'))
+    this.set('to',   moment().endOf('month'))
   }
 , weekdays: function() {
     return moment.weekdays()
@@ -21,6 +21,8 @@ export default Ember.Controller.extend({
 
         wt[index] = value > 0 ? value : undefined
       }
+
+      this.model.set('worktime', wt)
 
       this.model.save().then(() =>
         Notify.success(`Worktime for ${this.model.get('name')} saved!`)

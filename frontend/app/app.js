@@ -23,6 +23,7 @@ define('vis', function() {
     'default':  vis
   , 'Timeline': vis.Timeline
   , 'DataSet':  vis.DataSet
+  , 'Graph2d':  vis.Graph2d
   }
 })
 /* jshint ignore:end */

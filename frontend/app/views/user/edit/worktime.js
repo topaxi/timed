@@ -59,7 +59,12 @@ export default Ember.View.extend({
     this.renderGraph2d()
   }.on('didInsertElement')
 , initDaterangePicker: function() {
-    this.$('.daterange').daterangepicker({}, (from, to) => {
+    var options = {
+      'startDate': this.get('controller.from')
+    , 'endDate':   this.get('controller.to')
+    }
+
+    this.$('.daterange').daterangepicker(options, (from, to) => {
       this.set('controller.from', from)
       this.set('controller.to',   to)
     })

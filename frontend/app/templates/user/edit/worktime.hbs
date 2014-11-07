@@ -1,8 +1,16 @@
-<div id="graph"></div>
-
-<br>
-
 <form class="form-horizontal" {{action 'submit' on='submit'}}>
+  <div id="graph"></div>
+
+  <br>
+
+  <button type="button" class="daterange btn btn-default">
+    <span class="glyphicon glyphicon-calendar"></span>
+    <span>{{date-format from 'MMMM Do YYYY'}} - {{date-format to 'MMMM Do YYYY'}}</span>
+    <span class="caret"></span>
+  </button>
+
+  <br>
+
   {{#each weekday in weekdays}}
     <div class="form-group">
       <label class="col-sm-2 control-label">{{weekday}}</label>
@@ -14,11 +22,8 @@
   {{/each}}
 
   <div class="form-group">
-    <button type="button" class="daterange btn btn-default">
-      <span class="glyphicon glyphicon-calendar"></span>
-      <span>{{date-format from 'MMMM Do YYYY'}} - {{date-format to 'MMMM Do YYYY'}}</span>
-      <span class="caret"></span>
-    </button>
-    <button class="btn btn-primary">Apply</button>
+    <div class="col-sm-offset-2 col-sm-10">
+      <button class="btn btn-primary">Apply</button>
+    </div>
   </div>
 </form>

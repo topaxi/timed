@@ -21,6 +21,6 @@
     "moment": "~2.8.3",
     "moment-range": "~1.0.5",
     "ember-simple-auth": "0.7.1",
-    "vis": "^3.6.3"
+    "vis": "^3.6.4"
   }
 }

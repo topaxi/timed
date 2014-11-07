@@ -27,13 +27,18 @@ export default Ember.View.extend({
     }))
   }.property('controller.users')
 , 'visItems': function() {
-    return this.get('flatAssignments').map(assignment => ({
-      'id':      assignment.id
-    , 'content': `${assignment.get('project.name')} (${assignment.get('potentialWorktime')} hours)`
-    , 'start':   assignment.get('from').toDate()
-    , 'end':     assignment.get('to') && assignment.get('to').toDate()
-    , 'group':   assignment.get('user.id')
-    }))
+    return this.get('flatAssignments').map(assignment => {
+      var title = `${assignment.get('project.name')} (${assignment.get('potentialWorktime')} hours)`
+
+      return {
+        'id':      assignment.id
+      , 'content': title
+      , 'title':   title
+      , 'start':   assignment.get('from').toDate()
+      , 'end':     assignment.get('to') && assignment.get('to').toDate()
+      , 'group':   assignment.get('user.id')
+      }
+    })
   }.property(
     'flatAssignments.@each.from'
   , 'flatAssignments.@each.to'

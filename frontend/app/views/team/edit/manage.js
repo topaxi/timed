@@ -8,7 +8,6 @@ export default Ember.View.extend({
     'stack':       false
   , 'editable':    true
   , 'orientation': 'top'
-  , 'width':       '100%'
   , 'autoResize':  false
   , 'zoomable':    0
   , 'zoomMin':     ZOOM

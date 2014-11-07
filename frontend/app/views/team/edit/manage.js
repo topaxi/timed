@@ -5,7 +5,7 @@ var ZOOM = 1000 * 60 * 60 * 24 * 7 * 2 // Show ~2 weeks
 
 export default Ember.View.extend({
   'visOptions': {
-    'stack':       false
+    'stack':       true
   , 'editable':    true
   , 'orientation': 'top'
   , 'autoResize':  false

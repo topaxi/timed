@@ -65,7 +65,12 @@
                 {{activity.task.project.name}}
               </small>
             </td>
-            <td>{{activity.task.name}}</td>
+            <td>
+              {{activity.task.name}}<br>
+              <small>
+                {{activity.comment}}
+              </small>
+            </td>
             <td class="tar" colspan="2">
               {{date-duration activity.from activity.to}}
             </td>

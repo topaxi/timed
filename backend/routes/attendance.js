@@ -3,6 +3,9 @@ var Attendance = require('../models/attendance')
 
 module.exports = function(app) {
   app.get('/api/v1/attendances', auth, function(req, res, next) {
+    if (req.query.from) req.query.from = { '$gte': new Date(+req.query.from) }
+    if (req.query.to)   req.query.to   = { '$lte': new Date(+req.query.to)   }
+
     Attendance.find(req.query, function(err, attendances) {
       if (err) return next(err)
 

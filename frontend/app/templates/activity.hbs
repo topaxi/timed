@@ -1,0 +1,54 @@
+<button type="button" class="daterange btn btn-default">
+  <span class="glyphicon glyphicon-calendar"></span>
+  <span>{{date-format momentFrom 'MMMM Do YYYY'}} - {{date-format momentTo 'MMMM Do YYYY'}}</span>
+  <span class="caret"></span>
+</button>
+
+<table class="table">
+  <colgroup>
+    <col width="1">
+    <col>
+    <col>
+    <col>
+    <col width="1">
+    <col class="table-button-col">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>User</th>
+      <th>Project</th>
+      <th>Task</th>
+      <th>Duration</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each activity in activities}}
+      <tr>
+        <td>{{date-format activity.from 'YYYY-MM-DD'}}</td>
+        <td>
+          {{activity.attendance.user.longName}}
+        </td>
+        <td>
+          <small>
+            {{activity.task.project.customer.name}}
+            <br>
+            {{activity.task.project.name}}
+          </small>
+        </td>
+        <td>
+          {{activity.task.name}}
+        </td>
+        <td class="tar">
+          {{date-duration activity.from activity.to}}
+        </td>
+        <td>
+          <button {{action 'openModal' 'activity' activity}} class="btn btn-sm btn-default tip" title="Edit activity">
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

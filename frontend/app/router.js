@@ -38,6 +38,7 @@ Router.map(function() {
     })
   })
 
+  this.route('activity')
   this.route('about')
 })
 

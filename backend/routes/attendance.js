@@ -14,7 +14,7 @@ module.exports = function(app) {
     Attendance.findById(req.params.id, function(err, attendance) {
       if (err) return next(err)
 
-      res.send({ attendance: attendance })
+      res.send({ attendances: attendances })
     })
   })
 

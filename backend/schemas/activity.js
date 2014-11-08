@@ -5,4 +5,5 @@ var Activity = module.exports = new Schema({
 , 'to':      Date
 , 'task':    { type: Schema.Types.ObjectId, ref: 'Task' }
 , 'comment': String
+, 'review':  Boolean
 })

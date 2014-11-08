@@ -25,7 +25,7 @@
   </thead>
   <tbody>
     {{#each activity in activities}}
-      <tr>
+      <tr {{bind-attr class='activity.review:danger'}}>
         <td>{{date-format activity.from 'YYYY-MM-DD'}}</td>
         <td>
           {{activity.attendance.user.longName}}

@@ -57,7 +57,7 @@
       </thead>
       <tbody>
         {{#each activity in attendance.activities}}
-          <tr>
+          <tr {{bind-attr class='activity.review:danger'}}>
             <td>
               <small>
                 {{activity.task.project.customer.name}}

@@ -5,6 +5,7 @@ export default DS.Model.extend({
   'attendance': DS.belongsTo('attendance')
 , 'task':       DS.belongsTo('task', { 'async': true })
 , 'comment':    DS.attr('string')
+, 'review':     DS.attr('boolean')
 , 'from':       DS.attr('moment')
 , 'to':         DS.attr('moment')
 

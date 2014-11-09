@@ -9,6 +9,11 @@ body { padding-top: 60px }
 .timeline .undertime  { background: rgba(255, 156, 156, .9) }
 .timeline .worktime   { width: 100%; height: 6px; top: 7px; border-right: 1px solid #000 }
 
+/* Fix /tests scrollbar */
+body.modal-open {
+  overflow: auto;
+}
+
 /* Bugfixes */
 .datepicker, .daterangepicker { z-index: 9999999 }
 .controls .slider { vertical-align: sub; display: inline-block; width: 100% }

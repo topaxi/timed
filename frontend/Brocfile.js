@@ -38,4 +38,7 @@ app.import('bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css')
 app.import('bower_components/vis/dist/vis.js', { 'exports': { 'vis': [ 'default' ] } })
 app.import('bower_components/vis/dist/vis.css')
 
+app.import('bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js')
+app.import('bower_components/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css')
+
 module.exports = app.toTree()

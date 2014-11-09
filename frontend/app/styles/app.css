@@ -16,8 +16,9 @@ body.modal-open {
 
 /* Bugfixes */
 .datepicker, .daterangepicker { z-index: 9999999 }
-.controls .slider { vertical-align: sub; display: inline-block; width: 100% }
 .tooltip { white-space: nowrap }
+.editableform-loading { background-image: url('img/loading.gif') }
+.editable-clear-x { background-image: url('img/clear.png') }
 
 /* Display */
 .di  { display: inline       }

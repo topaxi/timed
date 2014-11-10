@@ -12,5 +12,9 @@ export default Ember.Component.extend({
       this.$().modal('hide')
       this.sendAction('ok')
     }
+  , delete: function() {
+      this.$().modal('hide')
+      this.sendAction('delete')
+    }
   }
 })

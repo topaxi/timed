@@ -34,14 +34,14 @@ export default ProtectedRoute.extend({
   }
 
 , 'afterModel': function(model) {
-    var taskIds = []
+    var ids = []
 
     model.forEach(attendance =>
       attendance.get('activities').forEach(activity =>
-        taskIds.push(activity.get('task.id'))
+        ids.push(activity.get('task.id'))
       )
     )
 
-    return this.store.find('task', { 'ids': taskIds })
+    return this.store.find('task', { ids })
   }
 })

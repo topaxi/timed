@@ -28,6 +28,7 @@ app.import('bower_components/bootstrap/dist/js/bootstrap.js')
 
 app.import('bower_components/moment/moment.js', { 'exports': { 'moment': [ 'default' ] } })
 app.import('bower_components/moment-range/lib/moment-range.js')
+app.import('bower_components/moment-duration-format/lib/moment-duration-format.js')
 
 app.import('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js')
 app.import('bower_components/bootstrap-datepicker/css/datepicker3.css')

@@ -1,15 +1,24 @@
 import Ember from 'ember';
 import moment from 'moment';
 
-export default Ember.Handlebars.makeBoundHelper(function(date1, date2) {
+export default Ember.Handlebars.makeBoundHelper(function(date1, date2, format) {
    if (!date1) {
      return ''
    }
 
    if (!date2 || !date2.isValid()) {
-     return new Ember.Handlebars.SafeString(
-       `<span data-from-now="true" data-from="${date1}">${date1.fromNow(true)}</span>`)
+     var html = `<span data-from-now="true" data-from="${date1}">${date1.fromNow(true)}</span>`
+
+     return new Ember.Handlebars.SafeString(html)
    }
 
-   return moment.duration(moment(date1).diff(moment(date2))).humanize()
+   if (typeof format !== 'string') {
+     format = 'h[h] mm[m]'
+   }
+
+   var diff      = Math.abs(moment(date1).diff(moment(date2)))
+   var duration  = moment.duration(diff)
+   var formatted = duration.format(format)
+
+   return formatted
 })

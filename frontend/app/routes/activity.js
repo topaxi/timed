@@ -30,4 +30,16 @@ export default ProtectedRoute.extend({
 , 'model': function({ from, to, user }) {
     return this.store.find('attendance',  { from, to, user })
   }
+
+, 'afterModel': function(model) {
+    var taskIds = []
+
+    model.forEach(attendance =>
+      attendance.get('activities').forEach(activity =>
+        taskIds.push(activity.get('task.id'))
+      )
+    )
+
+    return this.store.find('task', { 'ids': taskIds })
+  }
 })

@@ -27,6 +27,7 @@ export default Ember.ArrayController.extend({
 
     return activities
   }.property('attendances.@each')
+
 , filteredActivities: function() {
     var activities = this.get('activities')
 
@@ -44,4 +45,15 @@ export default Ember.ArrayController.extend({
 
     return activities
   }.property('activities', 'project', 'customer')
+
+, filteredProjects: function() {
+    var customerId = this.get('customer')
+    var projects   = this.get('projects')
+
+    if (customerId) {
+      return projects.filter(project => project.get('customer.id') === customerId)
+    }
+
+    return projects
+  }.property('projects', 'customer')
 })

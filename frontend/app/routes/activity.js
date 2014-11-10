@@ -7,7 +7,6 @@ export default ProtectedRoute.extend({
     'from': { 'refreshModel': true, 'replace': true }
   , 'to':   { 'refreshModel': true, 'replace': true }
   , 'user': { 'refreshModel': true, 'replace': true }
-  , 'team': { 'refreshModel': true, 'replace': true }
   }
 
 , 'setupController': function(controller, model) {
@@ -28,7 +27,7 @@ export default ProtectedRoute.extend({
       this.set('customers', args[1])
     })
   }
-, 'model': function({ from, to, user, team }) {
-    return this.store.find('attendance',  { from, to, user, team })
+, 'model': function({ from, to, user }) {
+    return this.store.find('attendance',  { from, to, user })
   }
 })

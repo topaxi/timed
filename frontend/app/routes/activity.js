@@ -37,9 +37,13 @@ export default ProtectedRoute.extend({
     var ids = []
 
     model.forEach(attendance =>
-      attendance.get('activities').forEach(activity =>
-        ids.push(activity.get('task.id'))
-      )
+      attendance.get('activities').forEach(activity => {
+        var id = activity.get('task.id')
+
+        if (!~ids.indexOf(id)) {
+          ids.push(id)
+        }
+      })
     )
 
     return this.store.find('task', { ids })

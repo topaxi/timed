@@ -3,12 +3,20 @@ import moment from 'moment';
 import ProtectedRoute from './protected';
 
 export default ProtectedRoute.extend({
-  'setupController': function(controller) {
+  'queryParams': {
+    'from': { 'refreshModel': true, 'replace': true }
+  , 'to':   { 'refreshModel': true, 'replace': true }
+  , 'user': { 'refreshModel': true, 'replace': true }
+  , 'team': { 'refreshModel': true, 'replace': true }
+  }
+
+, 'setupController': function(controller, model) {
     controller.setProperties({
       'momentFrom': +moment().startOf('month')
     , 'momentTo':   +moment().endOf('month')
     , 'projects':   this.get('projects')
     , 'customers':  this.get('customers')
+    , 'model':      model
     })
   }
 , 'beforeModel': function() {
@@ -19,5 +27,8 @@ export default ProtectedRoute.extend({
       this.set('projects',  args[0])
       this.set('customers', args[1])
     })
+  }
+, 'model': function({ from, to, user, team }) {
+    return this.store.find('attendance',  { from, to, user, team })
   }
 })

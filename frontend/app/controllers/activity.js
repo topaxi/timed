@@ -2,14 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   // TODO: Implement user and team filter.
-  queryParams: [ 'from', 'to', 'user', 'team', 'project', 'customer' ]
+  'queryParams': [ 'from', 'to', 'user', 'team', 'project', 'customer' ]
 
-, updateDateFilter: function() {
+, 'updateDateFilter': function() {
     this.set('from', +this.get('momentFrom'))
     this.set('to',   +this.get('momentTo'))
   }.observes('momentFrom', 'momentTo')
 
-, activities: function() {
+, 'activities': function() {
     var activities = []
 
     this.get('model').forEach(attendance =>
@@ -21,7 +21,7 @@ export default Ember.Controller.extend({
     return activities
   }.property('model.@each')
 
-, filteredActivities: function() {
+, 'filteredActivities': function() {
     var activities = this.get('activities')
 
     if (this.get('customer')) {
@@ -39,7 +39,7 @@ export default Ember.Controller.extend({
     return activities
   }.property('activities', 'project', 'customer')
 
-, filteredProjects: function() {
+, 'filteredProjects': function() {
     var customerId = this.get('customer')
     var projects   = this.get('projects')
 

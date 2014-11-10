@@ -30,7 +30,7 @@ export default ProtectedRoute.extend({
   }
 
 , 'model': function({ from, to, user }) {
-    return this.store.find('attendance',  { from, to, user })
+    return this.store.find('attendance', { from, to, user })
   }
 
 , 'afterModel': function(model) {

@@ -34,18 +34,12 @@ export default ProtectedRoute.extend({
   }
 
 , 'afterModel': function(model) {
-    var ids = []
+    return Ember.RSVP.all(model.reduce((promises, attendance) => {
+      attendance.get('activities').forEach(activity =>
+        promises.push(activity.get('task'))
+      )
 
-    model.forEach(attendance =>
-      attendance.get('activities').forEach(activity => {
-        var id = activity.get('task.id')
-
-        if (!~ids.indexOf(id)) {
-          ids.push(id)
-        }
-      })
-    )
-
-    return this.store.find('task', { ids })
+      return promises
+    }, []))
   }
 })

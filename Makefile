@@ -1,4 +1,7 @@
-all:
+all: build
+
+build:
+	cd ./frontend && ember build --environment=production
 
 user:
 	@vagrant ssh -c 'node /vagrant/backend/bin/user.js'

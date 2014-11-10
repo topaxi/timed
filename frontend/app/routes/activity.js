@@ -34,12 +34,14 @@ export default ProtectedRoute.extend({
   }
 
 , 'afterModel': function(model) {
-    return Ember.RSVP.all(model.reduce((promises, attendance) => {
+    var promises = model.reduce((promises, attendance) => {
       attendance.get('activities').forEach(activity =>
         promises.push(activity.get('task'))
       )
 
       return promises
-    }, []))
+    }, [])
+
+    return Ember.RSVP.all(promises)
   }
 })

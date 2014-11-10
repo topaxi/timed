@@ -12,9 +12,11 @@ export default Ember.Controller.extend({
 , activities: function() {
     var activities = []
 
-    this.get('model').forEach(attendance => {
-      attendance.get('activities').forEach(activity => activities.push(activity))
-    })
+    this.get('model').forEach(attendance =>
+      attendance.get('activities').forEach(
+        activity => activities.push(activity)
+      )
+    )
 
     return activities
   }.property('model.@each')
@@ -42,7 +44,9 @@ export default Ember.Controller.extend({
     var projects   = this.get('projects')
 
     if (customerId) {
-      return projects.filter(project => project.get('customer.id') === customerId)
+      return projects.filter(project =>
+        project.get('customer.id') === customerId
+      )
     }
 
     return projects

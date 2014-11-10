@@ -30,7 +30,7 @@ export default Ember.ObjectController.extend({
       attendance.set('from', moment(this.get('from'), this.dateFormat))
       attendance.set('to',   moment(this.get('to'),   this.dateFormat))
 
-      attendance.get('user').save()
+      attendance.save()
     }
   }
 })

@@ -18,6 +18,7 @@ export default ProtectedRoute.extend({
     , 'model':      model
     })
   }
+
 , 'beforeModel': function() {
     var projects  = this.store.find('project')
     var customers = this.store.find('customer')
@@ -27,6 +28,7 @@ export default ProtectedRoute.extend({
       this.set('customers', args[1])
     })
   }
+
 , 'model': function({ from, to, user }) {
     return this.store.find('attendance',  { from, to, user })
   }

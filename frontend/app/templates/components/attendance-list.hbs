@@ -35,7 +35,9 @@
       <thead>
         <tr>
           <th colspan="3">
-            {{date-format attendance.from 'hh:mm'}} {{date-format attendance.to '- hh:mm'}}
+            {{date-format attendance.from 'hh:mm'}}
+            {{date-format attendance.to '- hh:mm'}}
+            | {{date-duration attendance.from attendance.to 'h[h] mm[m]'}}
           </th>
           <th>
             <button {{action 'openModal' 'activity' attendance}} class="btn btn-sm btn-default tip" title="Add activity">

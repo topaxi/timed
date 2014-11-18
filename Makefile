@@ -40,3 +40,6 @@ install-frontend:
 
 install-backend:
 	cd backend && npm install
+
+test:
+	cd frontend && ember test --server

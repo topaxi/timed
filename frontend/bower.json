@@ -18,7 +18,7 @@
     "ember-qunit": "0.1.8",
     "ember-qunit-notifications": "0.0.4",
     "qunit": "~1.15.0",
-    "moment": "~2.8.3",
+    "moment": "~2.8.4",
     "moment-range": "~1.0.5",
     "moment-duration-format": "^1.3.0",
     "ember-simple-auth": "0.7.1",

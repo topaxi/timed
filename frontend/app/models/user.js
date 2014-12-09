@@ -74,6 +74,7 @@ export default DS.Model.extend({
     var attendance = this.get('currentAttendance')
 
     if (attendance) {
+      console.log('ending attendance', attendance)
       this.endCurrentActivity()
       attendance.end()
     }
@@ -84,6 +85,7 @@ export default DS.Model.extend({
     var activity = this.get('currentActivity')
 
     if (activity) {
+      console.log('ending activity', activity)
       activity.end()
     }
 

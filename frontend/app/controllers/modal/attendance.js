@@ -2,8 +2,9 @@ import Ember from 'ember';
 import moment from 'moment';
 
 export default Ember.ObjectController.extend({
-  dateFormat: 'YYYY-MM-DD hh:mm'
-, createAttendance: function() {
+  'dateFormat': 'L LT'
+
+, 'createAttendance': function() {
     var model = this.get('model')
 
     if (moment.isMoment(model)) {
@@ -13,18 +14,21 @@ export default Ember.ObjectController.extend({
       }))
     }
   }.observes('model')
-, from: function() {
+
+, 'from': function() {
     var from = this.get('model.from')
 
     return from && from.format(this.dateFormat)
   }.property('model.from')
-, to: function() {
+
+, 'to': function() {
     var to = this.get('model.to')
 
     return to && to.format(this.dateFormat)
   }.property('model.to')
-, actions: {
-    save: function() {
+
+, 'actions': {
+    'save': function() {
       var attendance = this.get('model')
 
       attendance.set('from', moment(this.get('from'), this.dateFormat))
@@ -32,7 +36,7 @@ export default Ember.ObjectController.extend({
 
       attendance.save()
     }
-  , delete: function() {
+  , 'delete': function() {
       this.get('model').destroyRecord()
     }
   }

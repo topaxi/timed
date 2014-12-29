@@ -2,7 +2,7 @@ import Ember from 'ember';
 import moment from 'moment';
 
 export default Ember.ObjectController.extend({
-  'dateFormat': 'YYYY-MM-DD hh:mm'
+  'dateFormat': 'L LT'
 
 , 'init': function() {
     this.set('tasks', this.store.find('task'))

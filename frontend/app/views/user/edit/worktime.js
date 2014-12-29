@@ -43,7 +43,7 @@ export default Ember.View.extend({
       var start = this.get('controller.from')
       var end   = this.get('controller.to')
 
-      this.get('graph2d').setOptions({ start, end })
+      graph2d.setOptions({ start, end })
     }
   }.observes('controller.from', 'controller.to')
 

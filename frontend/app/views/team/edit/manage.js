@@ -12,7 +12,9 @@ export default Ember.View.extend({
   , 'autoResize':  false
   , 'zoomMin':     ZOOM
   }
+
 , 'assignments': Ember.computed.alias('controller.model.users.@each.assignments')
+
 , 'flatAssignments': function() {
     return this.get('assignments').reduce((all, assignments) => {
       assignments.forEach(assignment => all.push(assignment))
@@ -20,12 +22,14 @@ export default Ember.View.extend({
       return all
     }, [])
   }.property('assignments.@each')
+
 , 'visGroups': function() {
     return this.get('controller.users').map(user => ({
       'id':      user.id
     , 'content': user.get('longName')
     }))
   }.property('controller.users')
+
 , 'visItems': function() {
     return this.get('flatAssignments').map(assignment => {
       var title = `${assignment.get('project.name')} (${assignment.get('potentialWorktime')} hours)`
@@ -44,12 +48,14 @@ export default Ember.View.extend({
   , 'flatAssignments.@each.to'
   , 'flatAssignments.@each.project'
   )
+
 , 'renderTimeline': function() {
     var timeline = this.get('timeline')
 
     timeline.setGroups(this.get('visGroups'))
     timeline.setItems(this.get('visItems'))
   }.observes('visGroups', 'visItems')
+
 , 'setupTimeline': function() {
     var options = Ember.$.extend({}, this.get('visOptions'), {
       'start':    moment().subtract(1, 'month').startOf('month')

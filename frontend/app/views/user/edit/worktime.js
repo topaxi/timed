@@ -18,6 +18,7 @@ export default Ember.View.extend({
   , 'orientation': 'top'
   , 'zoomMin':     ZOOM
   }
+
 , 'visItems': function() {
     var items = [ ]
       , wt    = this.get('controller.model.worktime')
@@ -30,9 +31,11 @@ export default Ember.View.extend({
 
     return items;
   }.property('controller.model.worktime')
+
 , 'renderGraph2d': function() {
     this.get('graph2d').setItems(this.get('visItems'))
   }.observes('visItems')
+
 , 'updateGraph2dRange': function() {
     var graph2d = this.get('graph2d')
 
@@ -43,6 +46,7 @@ export default Ember.View.extend({
       this.get('graph2d').setOptions({ start, end })
     }
   }.observes('controller.from', 'controller.to')
+
 , 'setupGraph2d': function() {
     var start = this.get('controller.from')
     var end   = this.get('controller.to')
@@ -53,6 +57,7 @@ export default Ember.View.extend({
 
     this.renderGraph2d()
   }.on('didInsertElement')
+
 , initDaterangePicker: function() {
     var options = {
       'startDate': this.get('controller.from')
@@ -64,6 +69,7 @@ export default Ember.View.extend({
       this.set('controller.to',   to)
     })
   }.on('didInsertElement')
+
 , initSliders: function() {
     this.$('.ui-slider').slider({
       'min':    0

@@ -34,8 +34,8 @@ export default Ember.View.extend({
         'id':      assignment.id
       , 'content': title
       , 'title':   title
-      , 'start':   assignment.get('from').toDate()
-      , 'end':     assignment.get('to') && assignment.get('to').toDate()
+      , 'start':   assignment.get('from')
+      , 'end':     assignment.get('to')
       , 'group':   assignment.get('user.id')
       }
     })
@@ -52,8 +52,8 @@ export default Ember.View.extend({
   }.observes('visGroups', 'visItems')
 , 'setupTimeline': function() {
     var options = Ember.$.extend({}, this.get('visOptions'), {
-      'start':    moment().subtract(1, 'month').startOf('month').toDate()
-    , 'end':      moment().add(1, 'month').endOf('month').toDate()
+      'start':    moment().subtract(1, 'month').startOf('month')
+    , 'end':      moment().add(1, 'month').endOf('month')
     , 'onAdd':    (item, callback) => this.controller.send('add',    item, callback)
     , 'onUpdate': (item, callback) => this.controller.send('update', item, callback)
     , 'onMove':   (item, callback) => this.controller.send('move',   item, callback)

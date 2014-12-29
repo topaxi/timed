@@ -34,25 +34,20 @@ export default Ember.View.extend({
     this.get('graph2d').setItems(this.get('visItems'))
   }.observes('visItems')
 , 'updateGraph2dRange': function() {
-    var from    = this.get('controller.from')
-    var to      = this.get('controller.to')
     var graph2d = this.get('graph2d')
 
     if (graph2d) {
-      this.get('graph2d').setOptions({
-        'start': from && from.toDate()
-      , 'end':   to   && to.toDate()
-      })
+      var start = this.get('controller.from')
+      var end   = this.get('controller.to')
+
+      this.get('graph2d').setOptions({ start, end })
     }
   }.observes('controller.from', 'controller.to')
 , 'setupGraph2d': function() {
-    var from = this.get('controller.from')
-    var to   = this.get('controller.to')
+    var start = this.get('controller.from')
+    var end   = this.get('controller.to')
 
-    var options = Ember.$.extend({}, this.get('visOptions'), {
-      'start': from && from.toDate()
-    , 'end':   to   && to.toDate()
-    })
+    var options = Ember.$.extend({}, this.get('visOptions'), { start, end })
 
     this.set('graph2d', new Graph2d(this.$('#graph')[0], null, options))
 

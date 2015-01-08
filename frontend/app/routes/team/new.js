@@ -13,7 +13,7 @@ export default Ember.Route.extend({
 , 'renderTemplate': function() {
     this.render('team/edit/edit')
   }
-, 'deactivate': function() {
+, 'rollback': function() {
     this.controllerFor('team.edit.edit').get('model').rollback()
-  }
+  }.on('deactivate')
 })

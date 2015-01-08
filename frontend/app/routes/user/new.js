@@ -10,7 +10,7 @@ export default Ember.Route.extend({
 , renderTemplate: function() {
     this.render('user/edit/edit')
   }
-, deactivate: function() {
+, rollback: function() {
     this.controllerFor('user.edit.edit').get('model').rollback()
-  }
+  }.on('deactivate')
 })

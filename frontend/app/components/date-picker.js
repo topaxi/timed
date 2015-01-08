@@ -9,6 +9,7 @@ export default Ember.TextField.extend({
 , 'format':     'YYYY-MM-DD'
 , 'classNames': [ 'form-control', 'pointer' ]
 , 'options':    { 'autoclose': true, 'todayHighlight': true, 'format': 'yyyy-mm-dd' }
+
 , 'updateValue': function() {
     var date = this.get('date')
 
@@ -18,6 +19,7 @@ export default Ember.TextField.extend({
 
     this.set('value', date.format(this.format))
   }.observes('date')
+
 , 'updateDate': function() {
     var date = moment(this.get('value'), this.format).startOf('day')
 
@@ -27,6 +29,7 @@ export default Ember.TextField.extend({
 
     this.set('date', date)
   }.observes('value')
+
 , 'updatePicker': function() {
     var date = this.get('date')
 
@@ -34,6 +37,7 @@ export default Ember.TextField.extend({
       this.$().datepicker('update', date.toDate())
     }
   }.observes('date')
+
 , 'didInsertElement': function() {
     var $datepicker = this.$().datepicker(Ember.$.extend({}, this.options))
       , $icon       = Ember.$(ICON)

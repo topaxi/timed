@@ -39,25 +39,15 @@ export default Ember.Component.extend({
     track() {
       this.session.get('user').then(user => {
         var activity
-        var bugworkaround
 
         if (this.get('isTracking')) {
           activity = user.endCurrentActivity()
         }
         else {
-          bugworkaround = true
-          activity      = user.startActivity(this.get('task'))
+          activity = user.startActivity(this.get('task'))
         }
 
-        activity.get('attendance').save().then(() => {
-          // Remove record, ember-data has a bug which duplicates
-          // embedded records on saving the parent record, as it
-          // does not know how to map the new record.
-          // See https://github.com/emberjs/data/issues/1829
-          if (bugworkaround) {
-            activity.deleteRecord()
-          }
-        })
+        activity.save()
       })
     }
   }

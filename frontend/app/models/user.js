@@ -66,8 +66,6 @@ export default DS.Model.extend({
                                                        , to
                                                        })
 
-    attendance.get('activities').addObject(activity)
-
     return activity
   }
 , 'endCurrentAttendance': function() {

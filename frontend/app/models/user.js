@@ -4,8 +4,8 @@ import moment from 'moment';
 
 export default DS.Model.extend({
   'name':        DS.attr('string')
-, 'firstName':   DS.attr('string')
-, 'lastName':    DS.attr('string')
+, 'firstName':   DS.attr('string', { 'defaultValue': '' })
+, 'lastName':    DS.attr('string', { 'defaultValue': '' })
 , 'password':    DS.attr('string')
 , 'worktime':    DS.attr('any', { 'defaultValue': {} })
 
@@ -18,7 +18,7 @@ export default DS.Model.extend({
 , 'sortedAttendances': Ember.computed.sort('attendances', 'attendancesSortingDesc')
 
 , 'fullName': function() {
-    return `${this.get('firstName')||''} ${this.get('lastName')||''}`.trim()
+    return `${this.get('firstName')} ${this.get('lastName')}`.trim()
   }.property('firstName', 'lastName')
 
 , 'longName': function() {

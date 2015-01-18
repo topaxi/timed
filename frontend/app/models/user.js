@@ -101,10 +101,10 @@ export default DS.Model.extend({
 
 , 'getAssignmentsByWeek': function(day = moment()) {
     return this.get('assignments').filter(assignment => {
-      var from = moment(assignment.get('from').startOf('week'))
-      var to   = moment(assignment.get('to').endOf('week'))
+      var from = moment(assignment.get('from'))
+      var to   = moment(assignment.get('to'))
 
-      return day.within(moment.range(from, to))
+      return day.within(moment.range(from.startOf('week'), to.endOf('week')))
     })
   }
 })

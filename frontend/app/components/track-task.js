@@ -2,13 +2,16 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   tagName: 'span'
+
 , init: function() {
     this._super()
     this.session = this.container.lookup('simple-auth-session:main')
   }
+
 , title: function() {
     return `${this.get('isTracking') ? 'Stop tracking' : 'Track'} ${this.get('task.name')}`
   }.property('task.name', 'isTracking')
+
 , fixTooltip: function() {
     var tooltip = this.$('.tip')
 
@@ -19,6 +22,7 @@ export default Ember.Component.extend({
       tooltip.tooltip('show')
     }
   }.observes('title')
+
 , isTracking: function() {
     var activity = this.session.get('user.currentActivity')
 
@@ -30,8 +34,9 @@ export default Ember.Component.extend({
 
     return false
   }.property('task.id', 'session.user.currentActivity.to')
+
 , actions: {
-    track: function() {
+    track() {
       this.session.get('user').then(user => {
         var activity
         var bugworkaround

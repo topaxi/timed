@@ -34,11 +34,13 @@ export default DS.Model.extend({
       !moment(attendance.get('to')).isValid()
     )
   }.property('sortedAttendances')
+
 , 'currentActivity': function() {
     var attendance = this.get('currentAttendance')
 
     return attendance ? attendance.get('activities').get('lastObject') : null
   }.property('currentAttendance.activities')
+
 , 'currentAssignments': function() {
     return this.getAssignmentsByWeek()
   }.property('assignments.@each.from', 'assignments.@each.to')
@@ -51,6 +53,7 @@ export default DS.Model.extend({
 
     return attendance
   }
+
 , 'startActivity': function(task, from = moment(), to = null) {
     this.endCurrentActivity()
 
@@ -68,6 +71,7 @@ export default DS.Model.extend({
 
     return activity
   }
+
 , 'endCurrentAttendance': function() {
     var attendance = this.get('currentAttendance')
 
@@ -78,6 +82,7 @@ export default DS.Model.extend({
 
     return attendance
   }
+
 , 'endCurrentActivity': function() {
     var activity = this.get('currentActivity')
 
@@ -87,11 +92,13 @@ export default DS.Model.extend({
 
     return activity
   }
+
 , 'getAttendancesByDay': function(day = moment().startOf('day')) {
     return this.get('attendances').filter(attendance =>
       !moment(attendance.get('from')).startOf('day').diff(day)
     )
   }
+
 , 'getAssignmentsByWeek': function(day = moment()) {
     return this.get('assignments').filter(assignment => {
       var from = moment(assignment.get('from').startOf('week'))

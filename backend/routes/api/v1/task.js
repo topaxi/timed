@@ -6,7 +6,7 @@ var auth       = require('../../../middleware/auth')
 
 module.exports = function(app) {
   var router = new Router
-  router.use('/', auth)
+  router.use(auth)
 
   router.get('/', (req, res, next) => {
     var { ids } = req.query

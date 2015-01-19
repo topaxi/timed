@@ -5,7 +5,7 @@ var auth   = require('../../../middleware/auth')
 
 module.exports = function(router) {
   var router = new Router
-  router.use('/', auth)
+  router.use(auth)
 
   router.get('/', (req, res, next) => {
     Team.find((err, teams) => {

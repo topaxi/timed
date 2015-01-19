@@ -4,7 +4,7 @@ var auth       = require('../../../middleware/auth')
 
 module.exports = function(app, route) {
   var router = new Router
-  router.use('/', auth)
+  router.use(auth)
 
   router.get('/', (req, res, next) => {
     if (req.query.from) req.query.from = { '$gte': new Date(+req.query.from) }

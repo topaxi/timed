@@ -33,5 +33,5 @@ export default DS.Model.extend({
     }
 
     return this.get('progress') / duration * 100
-  }.property('progress')
+  }.property('duration', 'progress')
 })

@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Notify from 'ember-notify';
 import moment from 'moment';
 
 export default Ember.Controller.extend({
@@ -25,7 +24,7 @@ export default Ember.Controller.extend({
       this.model.set('worktime', wt)
 
       this.model.save().then(() =>
-        Notify.success(`Worktime for ${this.model.get('name')} saved!`)
+        this.notify.success(`Worktime for ${this.model.get('name')} saved!`)
       )
     }
   }

@@ -1,5 +1,7 @@
-var Task = require('../models/task')
-  , auth = require('../middleware/auth')
+var Task       = require('../models/task')
+var Attendance = require('../models/attendance')
+var mongoose   = require('mongoose')
+var auth       = require('../middleware/auth')
 
 module.exports = function(app) {
   app.get('/api/v1/tasks', auth, function(req, res, next) {
@@ -27,10 +29,24 @@ module.exports = function(app) {
     })
   })
 
+  app.get('/api/v1/tasks/:id/progress', auth, function(req, res, next) {
+    var id = new mongoose.Types.ObjectId(req.params.id)
+
+    Attendance.aggregate([
+      { $unwind: '$activities' }
+    , { $match: { 'activities.task': id } }
+    , { $project: { _id: false, duration: { $subtract: [ '$activities.to', '$activities.from' ] } } }
+    , { $group: { _id: null, progress: { $sum: '$duration' } } }
+    ], function(err, result) {
+      var progress = result && result[0] && result[0].progress
+
+      res.send({ progress: progress })
+    })
+  })
+
   app.post('/api/v1/tasks', auth, function(req, res, next) {
     var task = new Task({ 'name':     req.body.task.name
-                        // Project may be an id or an object
-                        , 'project':  req.body.task.project._id || req.body.task.project
+                        , 'project':  req.body.task.project
                         , 'duration': req.body.task.duration
                         , 'from':     req.body.task.from
                         , 'to':       req.body.task.to
@@ -54,7 +70,7 @@ module.exports = function(app) {
       if (err) return next(err)
 
       task.name     = req.body.task.name
-      task.project  = req.body.task.project._id || req.body.task.project
+      task.project  = req.body.task.project
       task.duration = req.body.task.duration
       task.tasks    = req.body.task.tasks
       task.from     = req.body.task.from

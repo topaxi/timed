@@ -20,6 +20,12 @@ body.modal-open {
 .editableform-loading { background-image: url('img/loading.gif') }
 .editable-clear-x { background-image: url('img/clear.png') }
 
+/* borders */
+.bt0 { border-top: 0 !important }
+
+/* paddings */
+.pt0 { padding-top: 0 !important }
+
 /* Display */
 .di  { display: inline       }
 .db  { display: block        }
@@ -30,6 +36,8 @@ body.modal-open {
 
 /* Text algnment */
 .tar { text-align: right }
+
+.nowrap { white-space: nowrap }
 
 /* Borders */
 .b0 { border: 0 !important }

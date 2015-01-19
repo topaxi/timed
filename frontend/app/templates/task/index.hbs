@@ -1,11 +1,12 @@
 <table class="table">
   <colgroup>
     <col>
+    <col width="100%">
     <col width="32">
   </colgroup>
   <thead>
     <tr>
-      <th>Name</th>
+      <th colspan="2">Name</th>
       <th>
         {{#link-to 'task.new' tagName='button' class='btn btn-sm btn-default tip' title='Create task'}}
           <span class="glyphicon glyphicon-plus"></span>
@@ -16,10 +17,13 @@
   <tbody>
     {{#each task in model}}
       <tr>
-        <td colspan="2">
+        <td class="nowrap">
           {{#link-to 'task.edit' task}}
             {{task.name}}
           {{/link-to}}
+        </td>
+        <td colspan="2">
+          {{task-progressbar task=task}}
         </td>
       </tr>
     {{/each}}

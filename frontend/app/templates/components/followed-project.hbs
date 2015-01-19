@@ -23,5 +23,12 @@
         {{/link-to}}
       </td>
     </tr>
+    {{#if task.duration}}
+      <tr>
+        <td class="bt0 pt0" colspan="3">
+          {{task-progressbar task=task}}
+        </td>
+      </tr>
+    {{/if}}
   {{/each}}
 </tbody>

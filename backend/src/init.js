@@ -61,14 +61,7 @@ app.use(expressSession({ 'secret':            config.cookieSecret
 app.use(passport.initialize())
 app.use(passport.session())
 
-require('../routes/project')(app)
-require('../routes/task')(app)
-require('../routes/customer')(app)
-require('../routes/team')(app)
-require('../routes/assignment')(app)
-require('../routes/attendance')(app)
-require('../routes/user')(app)
-require('../routes/login')(app)
+require('../routes')(app)
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500)

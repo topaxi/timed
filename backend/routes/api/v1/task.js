@@ -1,10 +1,14 @@
-var Task       = require('../models/task')
-var Attendance = require('../models/attendance')
+var Router     = require('express').Router
 var mongoose   = require('mongoose')
-var auth       = require('../middleware/auth')
+var Task       = require('../../../models/task')
+var Attendance = require('../../../models/attendance')
+var auth       = require('../../../middleware/auth')
 
 module.exports = function(app) {
-  app.get('/api/v1/tasks', auth, (req, res, next) => {
+  var router = new Router
+  router.use('/', auth)
+
+  router.get('/', (req, res, next) => {
     var { ids } = req.query
 
     if (ids && ids.length) {
@@ -23,7 +27,7 @@ module.exports = function(app) {
     }
   })
 
-  app.get('/api/v1/tasks/:id', auth, (req, res, next) => {
+  router.get('/:id', (req, res, next) => {
     Task.findById(req.params.id, (err, task) => {
       if (err) return next(err)
 
@@ -31,7 +35,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get('/api/v1/tasks/:id/progress', auth, (req, res, next) => {
+  router.get('/:id/progress', (req, res, next) => {
     var id = new mongoose.Types.ObjectId(req.params.id)
 
     Attendance.aggregate([
@@ -46,7 +50,7 @@ module.exports = function(app) {
     })
   })
 
-  app.post('/api/v1/tasks', auth, (req, res, next) => {
+  router.post('/', (req, res, next) => {
     var task = new Task({ 'name':     req.body.task.name
                         , 'project':  req.body.task.project
                         , 'duration': req.body.task.duration
@@ -65,9 +69,9 @@ module.exports = function(app) {
   })
 
   // todo
-  // app.put('/api/v1/tasks', auth, fun...
+  // router.put('/', fun...
 
-  app.put('/api/v1/tasks/:id', auth, (req, res, next) => {
+  router.put('/:id', (req, res, next) => {
     Task.findById(req.params.id, (err, task) => {
       if (err) return next(err)
 
@@ -88,7 +92,7 @@ module.exports = function(app) {
     })
   })
 
-  app.delete('/api/v1/tasks/:id', auth, (req, res, next) => {
+  router.delete('/:id', (req, res, next) => {
     Task.findById(req.params.id, (err, task) => {
       if (err) return next(err)
 
@@ -99,4 +103,6 @@ module.exports = function(app) {
       })
     })
   })
+
+  return router
 }

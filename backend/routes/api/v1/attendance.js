@@ -1,8 +1,12 @@
-var Attendance = require('../models/attendance')
-  , auth = require('../middleware/auth')
+var Router     = require('express').Router
+var Attendance = require('../../../models/attendance')
+var auth       = require('../../../middleware/auth')
 
-module.exports = function(app) {
-  app.get('/api/v1/attendances', auth, (req, res, next) => {
+module.exports = function(app, route) {
+  var router = new Router
+  router.use('/', auth)
+
+  router.get('/', (req, res, next) => {
     if (req.query.from) req.query.from = { '$gte': new Date(+req.query.from) }
     if (req.query.to)   req.query.to   = { '$lte': new Date(+req.query.to)   }
 
@@ -13,15 +17,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get('/api/v1/attendances/:id', auth, (req, res, next) => {
-    Attendance.findById(req.params.id, (err, attendance) => {
-      if (err) return next(err)
-
-      res.send({ attendances })
-    })
-  })
-
-  app.post('/api/v1/attendances', auth, (req, res, next) => {
+  router.post('/', (req, res, next) => {
     var attendance = new Attendance(req.body.attendance)
 
     attendance.save(err => {
@@ -31,10 +27,18 @@ module.exports = function(app) {
     })
   })
 
-  // todo
-  // app.put('/api/v1/attendances', auth, fun...
+  router.get('/:id', (req, res, next) => {
+    Attendance.findById(req.params.id, (err, attendance) => {
+      if (err) return next(err)
 
-  app.put('/api/v1/attendances/:id', auth, (req, res, next) => {
+      res.send({ attendances })
+    })
+  })
+
+  // todo
+  // router.put('/', fun...
+
+  router.put('/:id', (req, res, next) => {
     Attendance.findById(req.params.id, (err, attendance) => {
       if (err) return next(err)
 
@@ -51,7 +55,7 @@ module.exports = function(app) {
     })
   })
 
-  app.delete('/api/v1/attendances/:id', auth, (req, res, next) => {
+  router.delete('/:id', (req, res, next) => {
     Attendance.findById(req.params.id, (err, attendance) => {
       if (err) return next(err)
 
@@ -62,4 +66,6 @@ module.exports = function(app) {
       })
     })
   })
+
+  return router
 }

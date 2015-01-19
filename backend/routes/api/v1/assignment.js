@@ -1,8 +1,12 @@
-var Assignment = require('../models/assignment')
-  , auth = require('../middleware/auth')
+var Router     = require('express').Router
+var Assignment = require('../../../models/assignment')
+var auth       = require('../../../middleware/auth')
 
-module.exports = function(app) {
-  app.get('/api/v1/assignments', auth, (req, res, next) => {
+module.exports = function(app, router) {
+  var router = new Router
+  router.use('/', auth)
+
+  router.get('/', (req, res, next) => {
     Assignment.find(req.query, (err, assignments) => {
       if (err) return next(err)
 
@@ -10,15 +14,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get('/api/v1/assignments/:id', auth, (req, res, next) => {
-    Assignment.findById(req.params.id, (err, assignment) => {
-      if (err) return next(err)
-
-      res.send({ assignment })
-    })
-  })
-
-  app.post('/api/v1/assignments', auth, (req, res, next) => {
+  router.post('/', auth, (req, res, next) => {
     var assignment = new Assignment(req.body.assignment)
 
     assignment.save(err => {
@@ -28,10 +24,18 @@ module.exports = function(app) {
     })
   })
 
-  // todo
-  // app.put('/api/v1/assignments', auth, fun...
+  router.get('/:id', (req, res, next) => {
+    Assignment.findById(req.params.id, (err, assignment) => {
+      if (err) return next(err)
 
-  app.put('/api/v1/assignments/:id', auth, (req, res, next) => {
+      res.send({ assignment })
+    })
+  })
+
+  // todo
+  // router.put('/', fun...
+
+  router.put('/:id', (req, res, next) => {
     Assignment.findById(req.params.id, (err, assignment) => {
       if (err) return next(err)
 
@@ -50,7 +54,7 @@ module.exports = function(app) {
     })
   })
 
-  app.delete('/api/v1/assignments/:id', auth, (req, res, next) => {
+  router.delete('/:id', (req, res, next) => {
     Assignment.findById(req.params.id, (err, assignment) => {
       if (err) return next(err)
 
@@ -61,4 +65,6 @@ module.exports = function(app) {
       })
     })
   })
+
+  return router
 }

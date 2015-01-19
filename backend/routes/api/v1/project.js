@@ -1,10 +1,14 @@
-var Project = require('../models/project')
-  , Task    = require('../models/task')
-  , auth    = require('../middleware/auth')
+var Router  = require('express').Router
+var Project = require('../../../models/project')
+var Task    = require('../../../models/task')
+var auth    = require('../../../middleware/auth')
 
 module.exports = function(app) {
-  app.get('/api/v1/projects', auth, (req, res, next) => {
-    var { ids } = req.query.ids
+  var router = new Router
+  router.use('/', auth)
+
+  router.get('/', (req, res, next) => {
+    var { ids } = req.query
 
     if (ids && ids.length) {
       Project.find({ '_id': { '$in': ids } }, (err, projects) => {
@@ -22,7 +26,7 @@ module.exports = function(app) {
     }
   })
 
-  app.get('/api/v1/projects/:id', auth, (req, res, next) => {
+  router.get('/:id', (req, res, next) => {
     Project.findById(req.params.id, (err, project) => {
       if (err) return next(err)
 
@@ -30,7 +34,7 @@ module.exports = function(app) {
     })
   })
 
-  app.post('/api/v1/projects', auth, (req, res, next) => {
+  router.post('/', (req, res, next) => {
     var project = new Project({ 'name':     req.body.project.name
                               , 'customer': req.body.project.customer
                               , 'from':     req.body.project.from
@@ -46,9 +50,9 @@ module.exports = function(app) {
   })
 
   // todo
-  // app.put('/api/v1/projects', auth, fun...
+  // router.put('/', fun...
 
-  app.put('/api/v1/projects/:id', auth, (req, res, next) => {
+  router.put('/:id', (req, res, next) => {
     Project.findById(req.params.id, (err, project) => {
       if (err) return next(err)
 
@@ -66,7 +70,7 @@ module.exports = function(app) {
     })
   })
 
-  app.delete('/api/v1/projects/:id', auth, (req, res, next) => {
+  router.delete('/:id', (req, res, next) => {
     Project.findById(req.params.id, (err, project) => {
       if (err) return next(err)
 
@@ -81,4 +85,6 @@ module.exports = function(app) {
       })
     })
   })
+
+  return router
 }

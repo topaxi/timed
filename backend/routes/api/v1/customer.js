@@ -1,8 +1,12 @@
-var Customer = require('../models/customer')
-  , auth     = require('../middleware/auth')
+var Router   = require('express').Router
+var Customer = require('../../../models/customer')
+var auth     = require('../../../middleware/auth')
 
 module.exports = function(app) {
-  app.get('/api/v1/customers', auth, (req, res, next) => {
+  var router = new Router
+  router.use('/', auth)
+
+  router.get('/', (req, res, next) => {
     var { name } = req.query
 
     if (name) {
@@ -21,15 +25,7 @@ module.exports = function(app) {
     }
   })
 
-  app.get('/api/v1/customers/:id', auth, (req, res, next) => {
-    Customer.findById(req.params.id, (err, customer) => {
-      if (err) return next(err)
-
-      res.send({ customer })
-    })
-  })
-
-  app.post('/api/v1/customers', auth, (req, res, next) => {
+  router.post('/', (req, res, next) => {
     var customer = new Customer({ 'name': req.body.customer.name })
 
     customer.save(err => {
@@ -39,10 +35,18 @@ module.exports = function(app) {
     })
   })
 
-  // todo
-  // app.put('/api/v1/customers', auth, fun...
+  router.get('/:id', (req, res, next) => {
+    Customer.findById(req.params.id, (err, customer) => {
+      if (err) return next(err)
 
-  app.put('/api/v1/customers/:id', auth, (req, res, next) => {
+      res.send({ customer })
+    })
+  })
+
+  // todo
+  // router.put('/', fun...
+
+  router.put('/:id', (req, res, next) => {
     Customer.findById(req.params.id, (err, customer) => {
       if (err) return next(err)
 
@@ -56,7 +60,7 @@ module.exports = function(app) {
     })
   })
 
-  app.delete('/api/v1/customers/:id', auth, (req, res, next) => {
+  router.delete('/:id', (req, res, next) => {
     Customer.findById(req.params.id, (err, customer) => {
       if (err) return next(err)
 
@@ -67,4 +71,6 @@ module.exports = function(app) {
       })
     })
   })
+
+  return router
 }

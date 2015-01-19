@@ -1,11 +1,15 @@
-var User    = require('../models/user')
-  , Task    = require('../models/task')
-  , Project = require('../models/project')
-  , auth    = require('../middleware/auth')
-  , bcrypt  = require('bcrypt')
+var Router  = require('express').Router
+var bcrypt  = require('bcrypt')
+var User    = require('../../../models/user')
+var Task    = require('../../../models/task')
+var Project = require('../../../models/project')
+var auth    = require('../../../middleware/auth')
 
 module.exports = function(app) {
-  app.get('/api/v1/users', auth, (req, res, next) => {
+  var router = new Router
+  router.use('/', auth)
+
+  router.get('/', (req, res, next) => {
     User.find(function(err, users) {
       if (err) return next(err)
 
@@ -15,7 +19,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get('/api/v1/users/:id', auth, (req, res, next) => {
+  router.get('/:id', (req, res, next) => {
     User.findById(req.params.id, (err, user) => {
       if (err) return next(err)
 
@@ -25,7 +29,7 @@ module.exports = function(app) {
     })
   })
 
-  app.post('/api/v1/users', auth, (req, res, next) => {
+  router.post('/', (req, res, next) => {
     var user = new User({ 'name':      req.body.user.name
                         , 'firstName': req.body.user.firstName
                         , 'lastName':  req.body.user.lastName
@@ -45,9 +49,9 @@ module.exports = function(app) {
   })
 
   // todo
-  // app.put('/api/v1/users', auth, fun...
+  // router.put('/', fun...
 
-  app.put('/api/v1/users/:id', auth, (req, res, next) => {
+  router.put('/:id', (req, res, next) => {
     User.findById(req.params.id, (err, user) => {
       if (err) return next(err)
 
@@ -94,7 +98,7 @@ module.exports = function(app) {
     })
   })
 
-  app.delete('/api/v1/users/:id', auth, (req, res, next) => {
+  router.delete('/:id', (req, res, next) => {
     User.findById(req.params.id, (err, user) => {
       if (err) return next(err)
 
@@ -105,6 +109,8 @@ module.exports = function(app) {
       })
     })
   })
+
+  return router
 }
 
 function deletePasswordForResponse(user) {

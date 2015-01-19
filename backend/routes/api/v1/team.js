@@ -1,9 +1,13 @@
-var Team    = require('../models/team')
-  , User    = require('../models/user')
-  , auth    = require('../middleware/auth')
+var Router = require('express').Router
+var Team   = require('../../../models/team')
+var User   = require('../../../models/user')
+var auth   = require('../../../middleware/auth')
 
-module.exports = function(app) {
-  app.get('/api/v1/teams', auth, (req, res, next) => {
+module.exports = function(router) {
+  var router = new Router
+  router.use('/', auth)
+
+  router.get('/', (req, res, next) => {
     Team.find((err, teams) => {
       if (err) return next(err)
 
@@ -11,7 +15,7 @@ module.exports = function(app) {
     })
   })
 
-  app.get('/api/v1/teams/:id', auth, (req, res, next) => {
+  router.get('/:id', (req, res, next) => {
     Team.findById(req.params.id, (err, team) => {
       if (err) return next(err)
 
@@ -19,7 +23,7 @@ module.exports = function(app) {
     })
   })
 
-  app.post('/api/v1/teams', auth, (req, res, next) => {
+  router.post('/', (req, res, next) => {
     var team = new Team({ 'name':  req.body.team.name
                         , 'users': req.body.team.users
                         })
@@ -32,9 +36,9 @@ module.exports = function(app) {
   })
 
   // todo
-  // app.put('/api/v1/teams', auth, fun...
+  // router.put('/', fun...
 
-  app.put('/api/v1/teams/:id', auth, (req, res, next) => {
+  router.put('/:id', (req, res, next) => {
     Team.findById(req.params.id, (err, team) => {
       if (err) return next(err)
 
@@ -49,7 +53,7 @@ module.exports = function(app) {
     })
   })
 
-  app.delete('/api/v1/teams/:id', auth, (req, res, next) => {
+  router.delete('/:id', (req, res, next) => {
     Team.findById(req.params.id, (err, team) => {
       if (err) return next(err)
 
@@ -60,4 +64,6 @@ module.exports = function(app) {
       })
     })
   })
+
+  return router
 }

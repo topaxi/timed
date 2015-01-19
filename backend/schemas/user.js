@@ -11,19 +11,17 @@ var User = module.exports = new Schema({
 })
 
 User.methods.setPassword = function(password, cb) {
-  var user = this
-
-  encryptPassword(password, function(err, hash) {
+  encryptPassword(password, (err, hash) => {
     if (err) return cb(err)
 
-    user.password = hash
+    this.password = hash
 
     cb(null)
   })
 }
 
 function encryptPassword(password, cb) {
-  bcrypt.genSalt(10, function(err, salt) {
+  bcrypt.genSalt(10, (err, salt) => {
     if (err) return cb(err)
 
     bcrypt.hash(password, salt, cb)

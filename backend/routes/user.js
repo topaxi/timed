@@ -5,27 +5,27 @@ var User    = require('../models/user')
   , bcrypt  = require('bcrypt')
 
 module.exports = function(app) {
-  app.get('/api/v1/users', auth, function(req, res, next) {
+  app.get('/api/v1/users', auth, (req, res, next) => {
     User.find(function(err, users) {
       if (err) return next(err)
 
       users.forEach(deletePasswordForResponse)
 
-      res.send({ users: users })
+      res.send({ users })
     })
   })
 
-  app.get('/api/v1/users/:id', auth, function(req, res, next) {
-    User.findById(req.params.id, function(err, user) {
+  app.get('/api/v1/users/:id', auth, (req, res, next) => {
+    User.findById(req.params.id, (err, user) => {
       if (err) return next(err)
 
       deletePasswordForResponse(user)
 
-      res.send({ user: user })
+      res.send({ user })
     })
   })
 
-  app.post('/api/v1/users', auth, function(req, res, next) {
+  app.post('/api/v1/users', auth, (req, res, next) => {
     var user = new User({ 'name':      req.body.user.name
                         , 'firstName': req.body.user.firstName
                         , 'lastName':  req.body.user.lastName
@@ -35,20 +35,20 @@ module.exports = function(app) {
                         , 'worktime':  req.body.user.worktime
                         })
 
-    user.save(function(err) {
+    user.save(err => {
       if (err) return next(err)
 
       deletePasswordForResponse(user)
 
-      res.send({ user: user })
+      res.send({ user })
     })
   })
 
   // todo
   // app.put('/api/v1/users', auth, fun...
 
-  app.put('/api/v1/users/:id', auth, function(req, res, next) {
-    User.findById(req.params.id, function(err, user) {
+  app.put('/api/v1/users/:id', auth, (req, res, next) => {
+    User.findById(req.params.id, (err, user) => {
       if (err) return next(err)
 
       user.name      = req.body.user.name      || user.name
@@ -62,7 +62,7 @@ module.exports = function(app) {
         save()
       }
       else if (user.password) {
-        bcrypt.compare(req.body.user.password, user.password, function(err, equal) {
+        bcrypt.compare(req.body.user.password, user.password, (err, equal) => {
           if (err) return next(err)
 
           if (equal) {
@@ -80,7 +80,7 @@ module.exports = function(app) {
       function save(err) {
         if (err) return next(err)
 
-        user.save(function(err) {
+        user.save(err => {
           if (err) return next(err)
 
           // Update currently logged in user
@@ -88,17 +88,17 @@ module.exports = function(app) {
 
           deletePasswordForResponse(user)
 
-          res.send({ user: user })
+          res.send({ user })
         })
       }
     })
   })
 
-  app.delete('/api/v1/users/:id', auth, function(req, res, next) {
-    User.findById(req.params.id, function(err, user) {
+  app.delete('/api/v1/users/:id', auth, (req, res, next) => {
+    User.findById(req.params.id, (err, user) => {
       if (err) return next(err)
 
-      user.remove(function(err) {
+      user.remove(err => {
         if (err) return next(err)
 
         return res.send(true)

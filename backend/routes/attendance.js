@@ -2,40 +2,40 @@ var Attendance = require('../models/attendance')
   , auth = require('../middleware/auth')
 
 module.exports = function(app) {
-  app.get('/api/v1/attendances', auth, function(req, res, next) {
+  app.get('/api/v1/attendances', auth, (req, res, next) => {
     if (req.query.from) req.query.from = { '$gte': new Date(+req.query.from) }
     if (req.query.to)   req.query.to   = { '$lte': new Date(+req.query.to)   }
 
-    Attendance.find(req.query, function(err, attendances) {
+    Attendance.find(req.query, (err, attendances) => {
       if (err) return next(err)
 
-      res.send({ attendances: attendances })
+      res.send({ attendances })
     })
   })
 
-  app.get('/api/v1/attendances/:id', auth, function(req, res, next) {
-    Attendance.findById(req.params.id, function(err, attendance) {
+  app.get('/api/v1/attendances/:id', auth, (req, res, next) => {
+    Attendance.findById(req.params.id, (err, attendance) => {
       if (err) return next(err)
 
-      res.send({ attendances: attendances })
+      res.send({ attendances })
     })
   })
 
-  app.post('/api/v1/attendances', auth, function(req, res, next) {
+  app.post('/api/v1/attendances', auth, (req, res, next) => {
     var attendance = new Attendance(req.body.attendance)
 
-    attendance.save(function(err) {
+    attendance.save(err => {
       if (err) return next(err)
 
-      res.send({ attendance: attendance })
+      res.send({ attendance })
     })
   })
 
   // todo
   // app.put('/api/v1/attendances', auth, fun...
 
-  app.put('/api/v1/attendances/:id', auth, function(req, res, next) {
-    Attendance.findById(req.params.id, function(err, attendance) {
+  app.put('/api/v1/attendances/:id', auth, (req, res, next) => {
+    Attendance.findById(req.params.id, (err, attendance) => {
       if (err) return next(err)
 
       attendance.user       = req.body.attendance.user
@@ -43,19 +43,19 @@ module.exports = function(app) {
       attendance.to         = req.body.attendance.to
       attendance.activities = req.body.attendance.activities
 
-      attendance.save(function(err) {
+      attendance.save(err => {
         if (err) return next(err)
 
-        res.send({ attendance: attendance })
+        res.send({ attendance })
       })
     })
   })
 
-  app.delete('/api/v1/attendances/:id', auth, function(req, res, next) {
-    Attendance.findById(req.params.id, function(err, attendance) {
+  app.delete('/api/v1/attendances/:id', auth, (req, res, next) => {
+    Attendance.findById(req.params.id, (err, attendance) => {
       if (err) return next(err)
 
-      attendance.remove(function(err) {
+      attendance.remove(err => {
         if (err) return next(err)
 
         return res.send(true)

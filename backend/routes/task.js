@@ -4,47 +4,49 @@ var mongoose   = require('mongoose')
 var auth       = require('../middleware/auth')
 
 module.exports = function(app) {
-  app.get('/api/v1/tasks', auth, function(req, res, next) {
-    if (req.query.ids && req.query.ids.length) {
-      Task.find({ '_id': { '$in': req.query.ids } }, function(err, tasks) {
+  app.get('/api/v1/tasks', auth, (req, res, next) => {
+    var { ids } = req.query
+
+    if (ids && ids.length) {
+      Task.find({ '_id': { '$in': ids } }, (err, tasks) => {
         if (err) return next(err)
 
-        res.send({ tasks: tasks })
+        res.send({ tasks })
       })
     }
     else {
-      Task.find(req.query, function(err, tasks) {
+      Task.find(req.query, (err, tasks) => {
         if (err) return next(err)
 
-        res.send({ tasks: tasks })
+        res.send({ tasks })
       })
     }
   })
 
-  app.get('/api/v1/tasks/:id', auth, function(req, res, next) {
-    Task.findById(req.params.id, function(err, task) {
+  app.get('/api/v1/tasks/:id', auth, (req, res, next) => {
+    Task.findById(req.params.id, (err, task) => {
       if (err) return next(err)
 
-      res.send({ task: task })
+      res.send({ task })
     })
   })
 
-  app.get('/api/v1/tasks/:id/progress', auth, function(req, res, next) {
+  app.get('/api/v1/tasks/:id/progress', auth, (req, res, next) => {
     var id = new mongoose.Types.ObjectId(req.params.id)
 
     Attendance.aggregate([
-      { $unwind: '$activities' }
-    , { $match: { 'activities.task': id } }
+      { $unwind:  '$activities' }
+    , { $match:   { 'activities.task': id } }
     , { $project: { _id: false, duration: { $subtract: [ '$activities.to', '$activities.from' ] } } }
-    , { $group: { _id: null, progress: { $sum: '$duration' } } }
+    , { $group:   { _id: null, progress: { $sum: '$duration' } } }
     ], function(err, result) {
       var progress = result && result[0] && result[0].progress
 
-      res.send({ progress: progress })
+      res.send({ progress })
     })
   })
 
-  app.post('/api/v1/tasks', auth, function(req, res, next) {
+  app.post('/api/v1/tasks', auth, (req, res, next) => {
     var task = new Task({ 'name':     req.body.task.name
                         , 'project':  req.body.task.project
                         , 'duration': req.body.task.duration
@@ -55,18 +57,18 @@ module.exports = function(app) {
                         , 'done':     !!req.body.task.done
                         })
 
-    task.save(function(err) {
+    task.save(err => {
       if (err) return next(err)
 
-      res.send({ task: task })
+      res.send({ task })
     })
   })
 
   // todo
   // app.put('/api/v1/tasks', auth, fun...
 
-  app.put('/api/v1/tasks/:id', auth, function(req, res, next) {
-    Task.findById(req.params.id, function(err, task) {
+  app.put('/api/v1/tasks/:id', auth, (req, res, next) => {
+    Task.findById(req.params.id, (err, task) => {
       if (err) return next(err)
 
       task.name     = req.body.task.name
@@ -78,19 +80,19 @@ module.exports = function(app) {
       task.priority = req.body.task.priority
       task.done     = req.body.task.done
 
-      task.save(function(err) {
+      task.save(err => {
         if (err) return next(err)
 
-        res.send({ task: task })
+        res.send({ task })
       })
     })
   })
 
-  app.delete('/api/v1/tasks/:id', auth, function(req, res, next) {
-    Task.findById(req.params.id, function(err, task) {
+  app.delete('/api/v1/tasks/:id', auth, (req, res, next) => {
+    Task.findById(req.params.id, (err, task) => {
       if (err) return next(err)
 
-      task.remove(function(err) {
+      task.remove(err => {
         if (err) return next(err)
 
         return res.send(true)

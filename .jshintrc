@@ -4,6 +4,8 @@
 
   "node" : true,
   "es5" : true,
+  "es6" : true,
+  "esnext" : true,
   "browser" : true,
   "jquery": true,
 

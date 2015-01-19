@@ -3,32 +3,34 @@ var Project = require('../models/project')
   , auth    = require('../middleware/auth')
 
 module.exports = function(app) {
-  app.get('/api/v1/projects', auth, function(req, res, next) {
-    if (req.query.ids && req.query.ids.length) {
-      Project.find({ '_id': { '$in': req.query.ids } }, function(err, projects) {
+  app.get('/api/v1/projects', auth, (req, res, next) => {
+    var { ids } = req.query.ids
+
+    if (ids && ids.length) {
+      Project.find({ '_id': { '$in': ids } }, (err, projects) => {
         if (err) return next(err)
 
-        res.send({ projects: projects })
+        res.send({ projects })
       })
     }
     else {
-      Project.find(function(err, projects) {
+      Project.find((err, projects) => {
         if (err) return next(err)
 
-        res.send({ projects: projects })
+        res.send({ projects })
       })
     }
   })
 
-  app.get('/api/v1/projects/:id', auth, function(req, res, next) {
-    Project.findById(req.params.id, function(err, project) {
+  app.get('/api/v1/projects/:id', auth, (req, res, next) => {
+    Project.findById(req.params.id, (err, project) => {
       if (err) return next(err)
 
-      res.send({ project: project })
+      res.send({ project })
     })
   })
 
-  app.post('/api/v1/projects', auth, function(req, res, next) {
+  app.post('/api/v1/projects', auth, (req, res, next) => {
     var project = new Project({ 'name':     req.body.project.name
                               , 'customer': req.body.project.customer
                               , 'from':     req.body.project.from
@@ -36,18 +38,18 @@ module.exports = function(app) {
                               , 'done':     req.body.project.done
                               })
 
-    project.save(function(err) {
+    project.save(err => {
       if (err) return next(err)
 
-      res.send({ project: project })
+      res.send({ project })
     })
   })
 
   // todo
   // app.put('/api/v1/projects', auth, fun...
 
-  app.put('/api/v1/projects/:id', auth, function(req, res, next) {
-    Project.findById(req.params.id, function(err, project) {
+  app.put('/api/v1/projects/:id', auth, (req, res, next) => {
+    Project.findById(req.params.id, (err, project) => {
       if (err) return next(err)
 
       project.name     = req.body.project.name
@@ -56,22 +58,22 @@ module.exports = function(app) {
       project.to       = req.body.project.to
       project.done     = req.body.project.done
 
-      project.save(function(err) {
+      project.save(err => {
         if (err) return next(err)
 
-        res.send({ project: project })
+        res.send({ project })
       })
     })
   })
 
-  app.delete('/api/v1/projects/:id', auth, function(req, res, next) {
-    Project.findById(req.params.id, function(err, project) {
+  app.delete('/api/v1/projects/:id', auth, (req, res, next) => {
+    Project.findById(req.params.id, (err, project) => {
       if (err) return next(err)
 
-      Task.remove({ 'project': project }, function(err) {
+      Task.remove({ project }, err => {
         if (err) return next(err)
 
-        project.remove(function(err) {
+        project.remove(err => {
           if (err) return next(err)
 
           return res.send(true)

@@ -1,10 +1,11 @@
 var express  = require('express')
-  , http     = require('http')
-  , path     = require('path')
-  , mongoose = require('mongoose')
-  , passport = require('passport')
-  , config   = require('../config.json')
-  , User     = require('../models/user')
+var morgan   = require('morgan')
+var http     = require('http')
+var path     = require('path')
+var mongoose = require('mongoose')
+var passport = require('passport')
+var config   = require('../config.json')
+var User     = require('../models/user')
 
 mongoose.connect(config.mongodb)
 
@@ -16,6 +17,8 @@ if (config.title) {
 else {
   app.set('title', 'Timed')
 }
+
+app.use(morgan('dev'))
 
 // Passport session setup.
 // To support persistent login sessions, Passport needs to be able to

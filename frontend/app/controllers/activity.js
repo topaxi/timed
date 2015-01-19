@@ -15,6 +15,11 @@ export default Ember.Controller.extend({
 , 'project': function() {
     var projectId = this.get('projectId')
 
+    // TODO: How does this happen?
+    if (projectId === 'null') {
+      projectId = null
+    }
+
     return projectId && this.store.find('project', projectId)
   }.property('projectId')
 

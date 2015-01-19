@@ -60,11 +60,6 @@ app.use(expressSession({ 'secret':            config.cookieSecret
                        }))
 app.use(passport.initialize())
 app.use(passport.session())
-app.use((req, res, next) => {
-  res.locals.user = req.user
-  res.locals.req  = req
-  next()
-})
 
 require('../routes/project')(app)
 require('../routes/task')(app)

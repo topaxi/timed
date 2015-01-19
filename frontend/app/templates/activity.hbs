@@ -13,7 +13,7 @@
            id              = 'customer'
            class           = 'form-control'
            content         = customers.content
-           value           = customer
+           value           = customerId
            optionLabelPath = 'content.name'
            optionValuePath = 'content.id'
            }}
@@ -25,11 +25,25 @@
            id              = 'project'
            class           = 'form-control'
            content         = filteredProjects
-           value           = project
+           value           = projectId
            optionLabelPath = 'content.name'
            optionValuePath = 'content.id'
            }}
   </div>
+
+  {{#if project}}
+    <div class="form-group">
+      {{view 'select'
+             prompt          = 'Filter task'
+             id              = 'task'
+             class           = 'form-control'
+             content         = project.tasks
+             value           = taskId
+             optionLabelPath = 'content.name'
+             optionValuePath = 'content.id'
+             }}
+    </div>
+  {{/if}}
 </form>
 
 <table class="table">

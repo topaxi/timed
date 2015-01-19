@@ -2,7 +2,21 @@ import Ember from 'ember';
 
 export default Ember.Controller.extend({
   // TODO: Implement user and team filter.
-  'queryParams': [ 'from', 'to', 'user', 'team', 'project', 'customer' ]
+  'queryParams': [
+    'from'
+  , 'to'
+  , { 'userId':     'user'     }
+  , { 'teamId':     'team'     }
+  , { 'projectId':  'project'  }
+  , { 'taskId':     'task'     }
+  , { 'customerId': 'customer' }
+  ]
+
+, 'project': function() {
+    var projectId = this.get('projectId')
+
+    return projectId && this.store.find('project', projectId)
+  }.property('projectId')
 
 , 'updateDateFilter': function() {
     this.set('from', +this.get('momentFrom'))
@@ -24,23 +38,28 @@ export default Ember.Controller.extend({
 , 'filteredActivities': function() {
     var activities = this.get('activities')
 
-    if (this.get('customer')) {
+    if (this.get('customerId')) {
       activities = activities.filter(activity =>
-        activity.get('task.project.customer.id') === this.get('customer')
+        activity.get('task.project.customer.id') === this.get('customerId')
       )
     }
 
-    if (this.get('project')) {
+    if (this.get('taskId')) {
       activities = activities.filter(activity =>
-        activity.get('task.project.id') === this.get('project')
+        activity.get('task.id') === this.get('taskId')
+      )
+    }
+    else if (this.get('projectId')) {
+      activities = activities.filter(activity =>
+        activity.get('task.project.id') === this.get('projectId')
       )
     }
 
     return activities
-  }.property('activities', 'project', 'customer')
+  }.property('activities', 'projectId', 'taskId', 'customerId')
 
 , 'filteredProjects': function() {
-    var customerId = this.get('customer')
+    var customerId = this.get('customerId')
     var projects   = this.get('projects')
 
     if (customerId) {
@@ -50,5 +69,5 @@ export default Ember.Controller.extend({
     }
 
     return projects
-  }.property('projects', 'customer')
+  }.property('projects', 'customerId')
 })

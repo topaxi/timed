@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+require('6to5/register')
+
 var config   = require('../config.json')
   , mongoose = require('mongoose')
   , read     = require('read')

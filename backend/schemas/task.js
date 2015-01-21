@@ -1,6 +1,6 @@
-var Schema = require('mongoose').Schema
+import { Schema } from 'mongoose'
 
-var Task = module.exports = new Schema
+var Task = new Schema
 
 Task.add({ 'name':     String
          , 'project':  { type: Schema.Types.ObjectId, ref: 'Project', required: true }
@@ -13,3 +13,5 @@ Task.add({ 'name':     String
          })
 
 Task.index({ 'name': 1, 'project': 1 }, { unique: true })
+
+export default Task

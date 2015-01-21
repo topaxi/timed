@@ -1,9 +1,9 @@
-var Schema   = require('mongoose').Schema
-  , Activity = require('./activity')
+import { Schema } from 'mongoose'
+import Activity   from './activity'
 
-var Attendance = module.exports = new Schema({
-    'from':       { type: Date, required: true }
-  , 'to':         Date
-  , 'user':       { type: Schema.Types.ObjectId, ref: 'User' }
-  , 'activities': [ Activity ]
+export default new Schema({
+  'from':       { type: Date, required: true }
+, 'to':         Date
+, 'user':       { type: Schema.Types.ObjectId, ref: 'User' }
+, 'activities': [ Activity ]
 })

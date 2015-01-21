@@ -1,6 +1,6 @@
-var Schema = require('mongoose').Schema
+import { Schema } from 'mongoose'
 
-var Assignment = module.exports = new Schema({
+export default new Schema({
   'from':     { type: Date, required: true }
 , 'to':       Date
 , 'duration': Number

@@ -1,9 +1,9 @@
-var Router  = require('express').Router
-var Project = require('../../../models/project')
-var Task    = require('../../../models/task')
-var auth    = require('../../../middleware/auth')
+import { Router } from 'express'
+import Project    from '../../../models/project'
+import Task       from '../../../models/task'
+import auth       from '../../../middleware/auth'
 
-module.exports = function(app) {
+export default function(app) {
   var router = new Router
   router.use(auth)
 

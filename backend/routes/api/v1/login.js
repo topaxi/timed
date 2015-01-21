@@ -1,8 +1,8 @@
-var Router   = require('express').Router
-var passport = require('passport')
-  , User     = require('../../../models/user')
+import { Router } from 'express'
+import passport   from 'passport'
+import User       from '../../../models/user'
 
-module.exports = function(app) {
+export default function(app) {
   var router = new Router
 
   router.post('/login', passport.authenticate('local'), (req, res) => {

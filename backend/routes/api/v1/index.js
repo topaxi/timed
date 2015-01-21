@@ -1,6 +1,6 @@
-var Router = require('express').Router
+import { Router } from 'express'
 
-module.exports = function(app) {
+export default function(app) {
   var router = new Router
 
   router.use('/projects',    require('./project')(app))

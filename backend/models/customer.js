@@ -1,3 +1,4 @@
-var mongoose = require('mongoose')
+import mongoose       from 'mongoose'
+import CustomerSchema from '../schemas/customer'
 
-var Customer = module.exports = mongoose.model('Customer', require('../schemas/customer'))
+export default mongoose.model('Customer', CustomerSchema)

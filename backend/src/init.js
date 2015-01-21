@@ -1,11 +1,11 @@
-var express  = require('express')
-var morgan   = require('morgan')
-var http     = require('http')
-var path     = require('path')
-var mongoose = require('mongoose')
-var passport = require('passport')
-var config   = require('../config.json')
-var User     = require('../models/user')
+import express  from 'express'
+import http     from 'http'
+import path     from 'path'
+import bcrypt   from 'bcrypt'
+import mongoose from 'mongoose'
+import passport from 'passport'
+import config   from '../config.json'
+import User     from '../models/user'
 
 mongoose.connect(config.mongodb)
 
@@ -18,7 +18,7 @@ else {
   app.set('title', 'Timed')
 }
 
-app.use(morgan('dev'))
+app.use(require('morgan')('dev'))
 
 // Passport session setup.
 // To support persistent login sessions, Passport needs to be able to
@@ -29,7 +29,6 @@ passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) => User.findById(id, done))
 
 var LocalStrategy = require('passport-local').Strategy
-  , bcrypt        = require('bcrypt')
 
 passport.use(new LocalStrategy((name, password, done) => {
   User.findOne({ name }, (err, user) => {

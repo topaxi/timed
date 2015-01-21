@@ -1,3 +1,4 @@
-var mongoose = require('mongoose')
+import mongoose       from 'mongoose'
+import ActivitySchema from '../schemas/activity'
 
-var Activity = module.exports = mongoose.model('Activity', require('../schemas/activity'))
+export default mongoose.model('Activity', ActivitySchema)

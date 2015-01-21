@@ -1,3 +1,4 @@
-var mongoose = require('mongoose')
+import mongoose         from 'mongoose'
+import AttendanceSchema from '../schemas/attendance'
 
-var Attendance = module.exports = mongoose.model('Attendance', require('../schemas/attendance'))
+export default mongoose.model('Attendance', AttendanceSchema)

@@ -1,3 +1,4 @@
-var mongoose = require('mongoose')
+import mongoose      from 'mongoose'
+import SettingSchema from '../schemas/setting'
 
-var Setting = module.exports = mongoose.model('Setting', require('../schemas/setting'))
+export default mongoose.model('Setting', SettingSchema)

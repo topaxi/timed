@@ -1,11 +1,11 @@
-var Router  = require('express').Router
-var bcrypt  = require('bcrypt')
-var User    = require('../../../models/user')
-var Task    = require('../../../models/task')
-var Project = require('../../../models/project')
-var auth    = require('../../../middleware/auth')
+import { Router } from 'express'
+import bcrypt     from 'bcrypt'
+import User       from '../../../models/user'
+import Task       from '../../../models/task'
+import Project    from '../../../models/project'
+import auth       from '../../../middleware/auth'
 
-module.exports = function(app) {
+export default function(app) {
   var router = new Router
   router.use(auth)
 

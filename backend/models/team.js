@@ -1,3 +1,4 @@
-var mongoose = require('mongoose')
+import mongoose   from 'mongoose'
+import TeamSchema from '../schemas/team'
 
-var Team = module.exports = mongoose.model('Team', require('../schemas/team'))
+export default mongoose.model('Team', TeamSchema)

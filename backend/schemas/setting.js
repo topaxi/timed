@@ -1,3 +1,3 @@
-var Schema = require('mongoose').Schema
+import { Schema } from 'mongoose'
 
-var Setting = module.exports = new Schema({ 'name': String, 'value': String })
+export default new Schema({ 'name': String, 'value': String })

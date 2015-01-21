@@ -1,14 +1,16 @@
-var Schema     = require('mongoose').Schema
-  , bcrypt     = require('bcrypt')
+import { Schema } from 'mongoose'
+import bcrypt     from 'bcrypt'
 
-var User = module.exports = new Schema({
-    'name':      { type: String, required: true, index: { unique: true } }
-  , 'firstName': String
-  , 'lastName':  String
-  , 'password':  String
-  , 'worktime':  {}
-  , 'projects':  [{ type: Schema.Types.ObjectId, ref: 'Project' }]
+var User = new Schema({
+  'name':      { type: String, required: true, index: { unique: true } }
+, 'firstName': String
+, 'lastName':  String
+, 'password':  String
+, 'worktime':  {}
+, 'projects':  [{ type: Schema.Types.ObjectId, ref: 'Project' }]
 })
+
+export default User
 
 User.methods.setPassword = function(password, cb) {
   encryptPassword(password, (err, hash) => {

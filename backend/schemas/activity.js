@@ -1,6 +1,6 @@
-var Schema = require('mongoose').Schema
+import { Schema } from 'mongoose'
 
-var Activity = module.exports = new Schema({
+export default new Schema({
   'from':    { type: Date, required: true }
 , 'to':      Date
 , 'task':    { type: Schema.Types.ObjectId, ref: 'Task' }

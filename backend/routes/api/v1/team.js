@@ -1,9 +1,9 @@
-var Router = require('express').Router
-var Team   = require('../../../models/team')
-var User   = require('../../../models/user')
-var auth   = require('../../../middleware/auth')
+import { Router } from 'express'
+import Team       from '../../../models/team'
+import User       from '../../../models/user'
+import auth       from '../../../middleware/auth'
 
-module.exports = function(router) {
+export default function(app) {
   var router = new Router
   router.use(auth)
 

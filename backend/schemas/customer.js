@@ -1,5 +1,5 @@
-var Schema  = require('mongoose').Schema
+import { Schema  } from 'mongoose'
 
-var Customer = module.exports = new Schema({
-    'name': { type: String, required: true, index: { unique: true } }
+export default new Schema({
+  'name': { type: String, required: true, index: { unique: true } }
 })

@@ -1,3 +1,4 @@
-var mongoose = require('mongoose')
+import mongoose   from 'mongoose'
+import TaskSchema from '../schemas/task'
 
-var Task = module.exports = mongoose.model('Task', require('../schemas/task'))
+export default mongoose.model('Task', TaskSchema)

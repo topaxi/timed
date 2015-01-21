@@ -1,8 +1,8 @@
-var Router     = require('express').Router
-var Attendance = require('../../../models/attendance')
-var auth       = require('../../../middleware/auth')
+import { Router } from 'express'
+import Attendance from '../../../models/attendance'
+import auth       from '../../../middleware/auth'
 
-module.exports = function(app, route) {
+export default function(app) {
   var router = new Router
   router.use(auth)
 

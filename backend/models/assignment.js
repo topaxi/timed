@@ -1,3 +1,4 @@
-var mongoose = require('mongoose')
+import mongoose         from 'mongoose'
+import AssignmentSchema from '../schemas/assignment'
 
-var Assignment = module.exports = mongoose.model('Assignment', require('../schemas/assignment'))
+export default mongoose.model('Assignment', AssignmentSchema)

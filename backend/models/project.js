@@ -1,3 +1,4 @@
-var mongoose = require('mongoose')
+import mongoose      from 'mongoose'
+import ProjectSchema from '../schemas/project'
 
-var Project = module.exports = mongoose.model('Project', require('../schemas/project'))
+export default mongoose.model('Project', ProjectSchema)

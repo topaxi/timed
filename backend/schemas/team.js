@@ -1,7 +1,6 @@
-var Schema = require('mongoose').Schema
-  , User   = require('./user')
+import { Schema } from 'mongoose'
 
-var Team = module.exports = new Schema({
+export default new Schema({
   'name':  { type: String, required: true, index: { unique: true } }
 , 'users': [{ type: Schema.Types.ObjectId, ref: 'User' }]
 })

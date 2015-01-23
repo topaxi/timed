@@ -18,6 +18,7 @@ else {
   app.set('title', 'Timed')
 }
 
+app.set('trust proxy', config.trustProxy)
 app.use(require('morgan')('dev'))
 
 // Passport session setup.

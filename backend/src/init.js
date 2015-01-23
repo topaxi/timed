@@ -1,11 +1,16 @@
-import express  from 'express'
-import http     from 'http'
-import path     from 'path'
-import bcrypt   from 'bcrypt'
-import mongoose from 'mongoose'
-import passport from 'passport'
-import config   from '../config.json'
-import User     from '../models/user'
+import express       from 'express'
+import bodyParser    from 'body-parser'
+import cookieParser  from 'cookie-parser'
+import session       from 'express-session'
+import http          from 'http'
+import path          from 'path'
+import bcrypt        from 'bcrypt'
+import mongoose      from 'mongoose'
+import connectMongo  from 'connect-mongo'
+import passport      from 'passport'
+import LocalStrategy from 'passport-local'
+import config        from '../config.json'
+import User          from '../models/user'
 
 mongoose.connect(config.mongodb)
 
@@ -29,8 +34,6 @@ app.use(require('morgan')('dev'))
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) => User.findById(id, done))
 
-var LocalStrategy = require('passport-local').Strategy
-
 passport.use(new LocalStrategy((name, password, done) => {
   User.findOne({ name }, (err, user) => {
     if (err)   return done(err)
@@ -47,20 +50,18 @@ passport.use(new LocalStrategy((name, password, done) => {
 
 app.set('port', process.env.PORT || config.port || 3000)
 
-var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ 'extended': false }))
 app.use(bodyParser.json())
 //app.use(require('serve-favicon')())
 
-app.use(require('cookie-parser')(config.cookieSecret))
+app.use(cookieParser(config.cookieSecret))
 
-var expressSession = require('express-session')
-  , MongoStore     = require('connect-mongo')(expressSession)
-app.use(expressSession({ 'secret':            config.cookieSecret
-                       , 'resave':            false
-                       , 'saveUninitialized': true
-                       , 'store':             new MongoStore({ 'url': config.mongodb })
-                       }))
+var MongoStore = connectMongo(session)
+app.use(session({ 'secret':            config.cookieSecret
+                , 'resave':            false
+                , 'saveUninitialized': true
+                , 'store':             new MongoStore({ 'url': config.mongodb })
+                }))
 app.use(passport.initialize())
 app.use(passport.session())
 

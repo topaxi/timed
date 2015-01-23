@@ -56,6 +56,7 @@ function install_timed() {
 
   npm install npm       -g
   npm install bower     -g
+  npm install nodemon   -g
   npm install ember-cli -g
 
   rm -rf /root/.npm

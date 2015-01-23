@@ -16,12 +16,13 @@ var Authenticator = AuthBase.extend({
   authenticate: function(credentials) {
     return new Ember.RSVP.Promise((resolve, reject) =>
       Ember.$.ajax({
-        url:      '/api/v1/login'
-      , type:     'POST'
-      , dataType: 'json'
-      , data:     { 'username': credentials.identification
-                  , 'password': credentials.password
-                  }
+        url:         '/api/v1/login'
+      , type:        'POST'
+      , dataType:    'json'
+      , contentType: 'application/json'
+      , data:        JSON.stringify({ 'username': credentials.identification
+                                    , 'password': credentials.password
+                                    })
       })
       .then(res => Ember.run(() => resolve(res)))
       .fail(xhr => Ember.run(() => {

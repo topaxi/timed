@@ -17,8 +17,6 @@ app.set('port',        process.env.PORT || config.port || 3000)
 
 app.use(require('morgan')('dev'))
 app.use(bodyParser.json())
-//app.use(require('serve-favicon')())
-
 app.use(cookieParser(config.cookieSecret))
 
 require('./session')(app)

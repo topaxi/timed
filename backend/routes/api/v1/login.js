@@ -3,10 +3,6 @@ import passport   from 'passport'
 import auth       from '../../../middleware/auth'
 import User       from '../../../models/user'
 
-function login(err, user, info, status) {
-  console.log(...args)
-}
-
 export default function(app) {
   var router = new Router
 

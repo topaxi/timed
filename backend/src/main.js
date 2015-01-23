@@ -22,13 +22,7 @@ app.use(cookieParser(config.cookieSecret))
 require('./session')(app)
 require('./auth')(app)
 require('../routes')(app)
-
-app.use((err, req, res, next) => {
-  var status = err.status || 500
-
-  res.status(status)
-  res.send({ message: err.message, status, error: true })
-})
+require('./error')(app)
 
 http.createServer(app).listen(app.get('port'), () =>
   console.log('Express server listening on port %d', app.get('port'))

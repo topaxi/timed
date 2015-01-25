@@ -1,4 +1,3 @@
-import mongoose      from 'mongoose'
-import SettingSchema from '../schemas/setting'
+import mongoose from 'mongoose'
 
-export default mongoose.model('Setting', SettingSchema)
+export default mongoose.model('Setting', { 'name': String, 'value': String })

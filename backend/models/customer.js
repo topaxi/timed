@@ -1,4 +1,5 @@
-import mongoose       from 'mongoose'
-import CustomerSchema from '../schemas/customer'
+import mongoose from 'mongoose'
 
-export default mongoose.model('Customer', CustomerSchema)
+export default mongoose.model('Customer', {
+  'name': { type: String, required: true, index: { unique: true } }
+})

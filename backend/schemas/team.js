@@ -1,6 +1,8 @@
 import { Schema } from 'mongoose'
+import ShortId    from 'mongoose-shortid'
 
 export default new Schema({
-  'name':  { type: String, required: true, index: { unique: true } }
-, 'users': [{ type: Schema.Types.ObjectId, ref: 'User' }]
+  '_id':   ShortId
+, 'name':  { type: String, required: true, index: { unique: true } }
+, 'users': [{ type: ShortId, ref: 'User' }]
 })

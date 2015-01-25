@@ -1,9 +1,11 @@
 import { Schema } from 'mongoose'
+import ShortId    from 'mongoose-shortid'
 import Activity   from './activity'
 
 export default new Schema({
-  'from':       { type: Date, required: true }
+  '_id':        ShortId
+, 'from':       { type: Date, required: true }
 , 'to':         Date
-, 'user':       { type: Schema.Types.ObjectId, ref: 'User' }
+, 'user':       { type: ShortId, ref: 'User' }
 , 'activities': [ Activity ]
 })

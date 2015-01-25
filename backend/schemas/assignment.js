@@ -1,10 +1,12 @@
 import { Schema } from 'mongoose'
+import ShortId    from 'mongoose-shortid'
 
 export default new Schema({
-  'from':     { type: Date, required: true }
+  '_id':      ShortId
+, 'from':     { type: Date, required: true }
 , 'to':       Date
 , 'duration': Number
-, 'user':     { type: Schema.Types.ObjectId, ref: 'User' }
-, 'project':  { type: Schema.Types.ObjectId, ref: 'Project' }
-, 'tasks':    [{ type: Schema.Types.ObjectId, ref: 'Task' }]
+, 'user':     { type: ShortId, ref: 'User' }
+, 'project':  { type: ShortId, ref: 'Project' }
+, 'tasks':    [{ type: ShortId, ref: 'Task' }]
 })

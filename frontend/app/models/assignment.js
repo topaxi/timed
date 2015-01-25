@@ -1,7 +1,8 @@
-import DS from 'ember-data';
-import moment from 'moment';
+import DS     from 'ember-data'
+import moment from 'moment'
+import Model  from './model'
 
-export default DS.Model.extend({
+export default Model.extend({
   'from':     DS.attr('moment')
 , 'to':       DS.attr('moment')
 , 'duration': DS.attr('number')

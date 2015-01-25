@@ -1,7 +1,8 @@
-import Ember from 'ember';
-import DS from 'ember-data';
+import Ember from 'ember'
+import DS    from 'ember-data'
+import Model from './model'
 
-export default DS.Model.extend({
+export default Model.extend({
   'name':     DS.attr('string')
 , 'project':  DS.belongsTo('project', { 'async': true })
 , 'duration': DS.attr('number')

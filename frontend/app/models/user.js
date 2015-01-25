@@ -1,8 +1,9 @@
-import Ember  from 'ember';
-import DS     from 'ember-data';
-import moment from 'moment';
+import Ember  from 'ember'
+import DS     from 'ember-data'
+import moment from 'moment'
+import Model  from './model'
 
-export default DS.Model.extend({
+export default Model.extend({
   'name':        DS.attr('string')
 , 'firstName':   DS.attr('string', { 'defaultValue': '' })
 , 'lastName':    DS.attr('string', { 'defaultValue': '' })

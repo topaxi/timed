@@ -1,7 +1,8 @@
-import DS from 'ember-data';
-import moment from 'moment';
+import DS     from 'ember-data'
+import moment from 'moment'
+import Model  from './model'
 
-export default DS.Model.extend({
+export default Model.extend({
   'attendance': DS.belongsTo('attendance')
 , 'task':       DS.belongsTo('task', { 'async': true })
 , 'comment':    DS.attr('string')

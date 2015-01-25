@@ -1,6 +1,7 @@
-import DS from 'ember-data';
+import DS    from 'ember-data'
+import Model from './model'
 
-export default DS.Model.extend({
+export default Model.extend({
   'name':     DS.attr('string')
 , 'customer': DS.belongsTo('customer', { 'async': true })
 , 'tasks':    DS.hasMany('task', { 'async': true })

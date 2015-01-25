@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import moment from 'moment';
+import Ember  from 'ember'
+import moment from 'moment'
 
 export default Ember.ObjectController.extend({
   'dateFormat': 'L LT'
@@ -43,13 +43,11 @@ export default Ember.ObjectController.extend({
       activity.set('from', moment(this.get('from'), this.dateFormat))
       activity.set('to',   moment(this.get('to'),   this.dateFormat))
 
-      activity.get('attendance').save()
+      activity.save()
     }
 
-  , 'closeModal': function() {
-      this.get('model').rollback()
-
-      return true
+  , 'delete': function() {
+      this.get('model').destroyRecord()
     }
   }
 })

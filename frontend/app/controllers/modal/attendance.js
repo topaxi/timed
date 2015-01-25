@@ -36,6 +36,7 @@ export default Ember.ObjectController.extend({
 
       attendance.save()
     }
+
   , 'delete': function() {
       this.get('model').destroyRecord()
     }

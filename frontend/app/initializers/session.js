@@ -1,6 +1,6 @@
-import Ember from 'ember';
-import Session from 'simple-auth/session';
-import AuthBase from 'simple-auth/authenticators/base';
+import Ember    from 'ember'
+import Session  from 'simple-auth/session'
+import AuthBase from 'simple-auth/authenticators/base'
 
 Session.reopen({
   user: function() {
@@ -13,7 +13,7 @@ Session.reopen({
 })
 
 var Authenticator = AuthBase.extend({
-  authenticate: function(credentials) {
+  authenticate(credentials) {
     return new Ember.RSVP.Promise((resolve, reject) =>
       Ember.$.ajax({
         url:         '/api/v1/login'
@@ -39,7 +39,7 @@ var Authenticator = AuthBase.extend({
       }))
     )
   }
-, restore: function(data) {
+, restore(data) {
     return new Ember.RSVP.Promise((resolve, reject) => {
       if (!Ember.isEmpty(data.sessionId)) {
         resolve(data)

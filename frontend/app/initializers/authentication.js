@@ -1,5 +1,5 @@
-import Notify from 'ember-notify';
-import ApplicationAdapter from 'timed/adapters/application';
+import Notify             from 'ember-notify'
+import ApplicationAdapter from 'timed/adapters/application'
 
 export default {
   name: 'authentication'
@@ -18,7 +18,7 @@ export default {
       }
     })
 
-    session.on('sessionAuthenticationFailed', function(err) {
+    session.on('sessionAuthenticationFailed', err => {
       Notify.error(err ? err.message : 'Authentication error!')
 
       applicationRoute.transitionTo('/login')

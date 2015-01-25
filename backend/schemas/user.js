@@ -1,15 +1,13 @@
 import { Schema } from 'mongoose'
-import ShortId    from 'mongoose-shortid'
 import bcrypt     from 'bcrypt'
 
 var User = new Schema({
-  '_id':       ShortId
-, 'name':      { type: String, required: true, index: { unique: true } }
+  'name':      { type: String, required: true, index: { unique: true } }
 , 'firstName': String
 , 'lastName':  String
 , 'password':  String
 , 'worktime':  {}
-, 'projects':  [{ type: ShortId, ref: 'Project' }]
+, 'projects':  [{ type: Schema.Types.ObjectId, ref: 'Project' }]
 })
 
 export default User

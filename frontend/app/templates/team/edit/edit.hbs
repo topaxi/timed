@@ -14,15 +14,14 @@
   <div class="form-group">
     <label for="users" class="col-sm-2 control-label">Users</label>
     <div class="col-sm-10">
-      {{view 'select'
-             id               = 'users'
-             class            = 'form-control'
-             content          = allUsers.content
-             selectionBinding = 'users'
-             multiple         = true
-             optionLabelPath  = 'content.longName'
-             optionValuePath  = 'content'
-             }}
+      {{ember-selectize
+        id               = 'users'
+        content          = allUsers
+        selection        = users
+        multiple         = true
+        optionLabelPath  = 'content.longName'
+        optionValuePath  = 'content.id'
+        }}
     </div>
   </div>
   <div class="form-group">

@@ -2,28 +2,27 @@
   <form class="form" {{action 'ok' on='submit' target=view}}>
     <div class="form-group">
       <label for="project">Project</label>
-      {{view 'select'
-             id               = 'project'
-             class            = 'form-control'
-             content          = allProjects
-             value            = project.content
-             optionLabelPath  = 'content.name'
-             optionValuePath  = 'content'
-             }}
+      {{ember-selectize
+        id               = 'project'
+        content          = allProjects
+        selection        = project
+        optionLabelPath  = 'content.name'
+        optionValuePath  = 'content.id'
+        }}
     </div>
 
     {{#if project.tasks}}
       <div class="form-group">
         <label for="tasks">Tasks <span class="text-muted">(Optional)</span></label>
-        {{view 'select'
-               id               = 'task'
-               class            = 'form-control'
-               contentBinding   = 'project.tasks'
-               selectionBinding = 'tasks'
-               multiple         = true
-               optionLabelPath  = 'content.name'
-               optionValuePath  = 'content'
-               }}
+        {{ember-selectize
+          id               = 'task'
+          class            = 'form-control'
+          contentBinding   = 'project.tasks'
+          selection        = tasks
+          multiple         = true
+          optionLabelPath  = 'content.name'
+          optionValuePath  = 'content.id'
+          }}
       </div>
     {{/if}}
 

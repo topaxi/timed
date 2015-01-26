@@ -1,6 +1,6 @@
 all: build
 
-build:
+build: install-frontend
 	cd ./frontend && ember build --environment=production
 
 user:

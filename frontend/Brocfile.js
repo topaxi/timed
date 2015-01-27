@@ -27,7 +27,12 @@ app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.s
 app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot',   { 'destDir': 'fonts' })
 app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',  { 'destDir': 'fonts' })
 app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2', { 'destDir': 'fonts' })
-app.import('bower_components/bootstrap/dist/js/bootstrap.js')
+app.import('bower_components/bootstrap/js/transition.js')
+app.import('bower_components/bootstrap/js/tooltip.js')
+app.import('bower_components/bootstrap/js/dropdown.js')
+app.import('bower_components/bootstrap/js/collapse.js')
+app.import('bower_components/bootstrap/js/popover.js') // x-editable needs popover
+app.import('bower_components/bootstrap/js/modal.js')
 
 app.import('bower_components/moment/moment.js', { 'exports': { 'moment': [ 'default' ] } })
 app.import('bower_components/moment-range/lib/moment-range.js')

@@ -23,7 +23,6 @@ app.import('bower_components/jquery-ui/jquery-ui.js')
 app.import('bower_components/jqueryuibootstrap/css/custom-theme/jquery-ui-1.10.3.custom.css')
 app.import('bower_components/jqueryuibootstrap/css/custom-theme/jquery-ui-1.10.3.theme.css')
 
-app.import('bower_components/bootstrap/dist/css/bootstrap.css')
 app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf',   { 'destDir': 'fonts' })
 app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg',   { 'destDir': 'fonts' })
 app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot',   { 'destDir': 'fonts' })

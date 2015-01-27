@@ -36,5 +36,10 @@
     "ember-notify": "^3.0.10",
     "express": "^4.10.7",
     "glob": "^4.0.5"
+  },
+  "ember-addon": {
+    "paths": [
+      "lib/customise-bootstrap"
+    ]
   }
 }

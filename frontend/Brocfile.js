@@ -49,7 +49,7 @@ app.import('bower_components/vis/dist/vis.css')
 
 app.import('bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js')
 app.import('bower_components/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css')
-app.import('bower_components/x-editable/dist/bootstrap3-editable/img/clear.png', { 'destDir': 'assets/img' })
+app.import('bower_components/x-editable/dist/bootstrap3-editable/img/clear.png',   { 'destDir': 'assets/img' })
 app.import('bower_components/x-editable/dist/bootstrap3-editable/img/loading.gif', { 'destDir': 'assets/img' })
 
 module.exports = app.toTree()

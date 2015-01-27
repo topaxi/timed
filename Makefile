@@ -11,11 +11,13 @@ run:
 
 run-server:
 	tmux new-session -n timed -d 'make run-backend'
+	tmux set remain-on-exit on
 	tmux split-window -v 'make run-frontend'
 	tmux -2 attach-session -d
 
 run-server-polling:
 	tmux new-session -n timed -d 'make run-backend'
+	tmux set remain-on-exit on
 	tmux split-window -v 'make run-frontend-polling'
 	tmux -2 attach-session -d
 

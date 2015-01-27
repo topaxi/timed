@@ -1,0 +1,99 @@
+@import 'variables.less';
+
+html { height: 100% }
+
+body {
+  min-height: 100%;
+  padding-top: @navbar-height + 10px
+}
+
+.ember-application { display: flex }
+.ember-application > .ember-view {
+  position: relative;
+  width: 100%
+}
+
+.app-version {
+  color: @body-bg;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  pointer-events: none
+}
+
+/* Fix /tests scrollbar */
+body.modal-open {
+  overflow: auto;
+}
+
+/* Bugfixes */
+.datepicker, .daterangepicker { z-index: @zindex-modal + 1 }
+.tooltip { white-space: nowrap }
+.editableform-loading { background-image: url('img/loading.gif') }
+.editable-clear-x { background-image: url('img/clear.png') }
+.selectize-input { padding-right: 32px; overflow: visible }
+.selectize-input input { font-size: @font-size-base }
+
+/* borders */
+.bt0 { border-top: 0 !important }
+
+/* paddings */
+.pt0 { padding-top: 0 !important }
+
+/* Display */
+.di  { display: inline       }
+.db  { display: block        }
+.dib { display: inline-block }
+
+/* Cursors */
+.pointer { cursor: pointer !important }
+
+/* Text algnment */
+.tar { text-align: right }
+
+.nowrap { white-space: nowrap }
+
+/* Borders */
+.b0 { border: 0 !important }
+
+/* Button column */
+.table-button-col {
+  width: 50px;
+}
+
+/* spacing helpers from oocss
+*/
+
+.ptn,.pvn,.pan { padding-top: 0 !important }
+.pts,.pvs,.pas { padding-top: @padding-small-vertical !important }
+.ptm,.pvm,.pam { padding-top: @padding-base-vertical  !important }
+.ptl,.pvl,.pal { padding-top: @padding-large-vertical !important }
+.prn,.phn,.pan { padding-right: 0 !important }
+.prs,.phs,.pas { padding-right: @padding-small-horizontal !important }
+.prm,.phm,.pam { padding-right: @padding-base-horizontal  !important }
+.prl,.phl,.pal { padding-right: @padding-large-horizontal !important }
+.pbn,.pvn,.pan { padding-bottom: 0 !important }
+.pbs,.pvs,.pas { padding-bottom: @padding-small-vertical !important }
+.pbm,.pvm,.pam { padding-bottom: @padding-base-vertical  !important }
+.pbl,.pvl,.pal { padding-bottom: @padding-large-vertical !important }
+.pln,.phn,.pan { padding-left: 0 !important }
+.pls,.phs,.pas { padding-left: @padding-small-horizontal !important }
+.plm,.phm,.pam { padding-left: @padding-base-horizontal  !important }
+.pll,.phl,.pal { padding-left: @padding-large-horizontal !important }
+.mtn,.mvn,.man { margin-top: 0 !important }
+.mts,.mvs,.mas { margin-top: @padding-small-vertical !important }
+.mtm,.mvm,.mam { margin-top: @padding-base-vertical  !important }
+.mtl,.mvl,.mal { margin-top: @padding-large-vertical !important }
+.mrn,.mhn,.man { margin-right: 0 !important }
+.mrs,.mhs,.mas { margin-right: @padding-small-horizontal !important }
+.mrm,.mhm,.mam { margin-right: @padding-base-horizontal  !important }
+.mrl,.mhl,.mal { margin-right: @padding-large-horizontal !important }
+.mbn,.mvn,.man { margin-bottom: 0 !important }
+.mbs,.mvs,.mas { margin-bottom: @padding-small-vertical !important }
+.mbm,.mvm,.mam { margin-bottom: @padding-base-vertical  !important }
+.mbl,.mvl,.mal { margin-bottom: @padding-large-vertical !important }
+.mln,.mhn,.man { margin-left: 0 !important }
+.mls,.mhs,.mas { margin-left: @padding-small-horizontal !important }
+.mlm,.mhm,.mam { margin-left: @padding-base-horizontal  !important }
+.mll,.mhl,.mal { margin-left: @padding-large-horizontal !important }

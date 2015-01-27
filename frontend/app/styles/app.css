@@ -1,14 +1,5 @@
 html { height: 100% }
 body { min-height: 100%; padding-top: 60px }
-.mono { font-family: monospace }
-.timeline { list-style: none; margin: 0 }
-.timeline li { position: relative; width: 50% }
-.timeline .attendance, .timeline .activity, .timeline .worktime { position: absolute; height: 4px; left: 28px; top: 8px }
-.timeline .attendance { background: rgba(196, 196, 196, .7) }
-.timeline .activity   { background: rgba(156, 172, 238, .9) }
-.timeline .overtime   { background: rgba(196, 172, 238, .9) }
-.timeline .undertime  { background: rgba(255, 156, 156, .9) }
-.timeline .worktime   { width: 100%; height: 6px; top: 7px; border-right: 1px solid #000 }
 
 .ember-application { display: flex }
 .ember-application > .ember-view {

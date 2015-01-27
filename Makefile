@@ -3,6 +3,11 @@ all: build
 build: install-frontend
 	cd ./frontend && ember build --environment=production
 
+pull:
+	git pull
+
+update: pull build
+
 user:
 	@vagrant ssh -c 'node /vagrant/backend/bin/user.js'
 

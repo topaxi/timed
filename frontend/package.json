@@ -1,6 +1,6 @@
 {
   "name": "timed",
-  "version": "0.0.0",
+  "version": "0.0.0+",
   "description": "Timed - Timetracking software",
   "private": true,
   "directories": {

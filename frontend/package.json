@@ -36,7 +36,7 @@
     "ember-cli-simple-auth": "^0.7.1",
     "ember-data": "1.0.0-beta.14.1",
     "ember-export-application-global": "^1.0.0",
-    "ember-notify": "^3.0.10",
+    "ember-notify": "^3.0.14",
     "express": "^4.10.7",
     "glob": "^4.0.5"
   },

@@ -1,4 +1,6 @@
+// vi: set ft=json :
 {
+  "asi": true,
   "predef": [
     "document",
     "window",
@@ -47,7 +49,7 @@
     "currentRouteName"
   ],
   "node": false,
-  "browser": false,
+  "browser": true,
   "boss": true,
   "curly": false,
   "debug": false,
@@ -57,6 +59,7 @@
   "forin": false,
   "immed": false,
   "laxbreak": false,
+  "laxcomma": true,
   "newcap": true,
   "noarg": true,
   "noempty": false,

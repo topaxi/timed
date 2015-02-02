@@ -1,12 +1,16 @@
 all: build
 
-build: install-frontend
+build: cache-clean install-frontend
 	cd ./frontend && ember build --environment=production
 
 pull:
 	git pull
 
 update: pull build
+
+cache-clean:
+	npm cache clean
+	bower cache clean
 
 user:
 	@vagrant ssh -c 'node /vagrant/backend/bin/user.js'
@@ -41,13 +45,15 @@ run-frontend-polling:
 mongo:
 	@vagrant ssh -c mongo
 
-install: install-frontend install-backend
+install: cache-clean install-frontend install-backend
 
 install-frontend:
+	rm -rf frontend/tmp frontend/node_modules frontend/bower_components
 	cd frontend && npm install
 	cd frontend && bower install
 
 install-backend:
+	rm -rf backend/node_modules
 	cd backend && npm install
 
 test:

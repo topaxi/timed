@@ -6,7 +6,7 @@
     "start": "node app"
   },
   "dependencies": {
-    "6to5": "^3.3.4",
+    "6to5": "^3.5.3",
     "bcrypt": "^0.8.1",
     "body-parser": "^1.10.2",
     "connect-mongo": "^0.7.0",

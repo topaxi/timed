@@ -1,7 +1,25 @@
 import Ember from 'ember';
 
-export default Ember.ObjectController.extend({
+export default Ember.Controller.extend({
   isNew: false
+
+, issues:      null
+, issueFilter: null
+
+, fetchIssues: function() {
+    this.get('model.project').then(project =>
+      project.searchIssues(this.get('issueFilter'))
+    )
+    .then(issues =>
+      this.set('issues', issues)
+    )
+    .catch(e => {
+      this.set('issues', [])
+
+      console.error(e)
+    })
+  }.observes('issueFilter')
+
 , actions: {
     submit: function() {
       this.model.save().then(() => {

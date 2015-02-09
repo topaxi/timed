@@ -37,6 +37,7 @@ export default function(app) {
   router.post('/', (req, res, next) => {
     var project = new Project({ 'name':     req.body.project.name
                               , 'customer': req.body.project.customer
+                              , 'tracker':  req.body.project.tracker
                               , 'from':     req.body.project.from
                               , 'to':       req.body.project.to
                               , 'done':     req.body.project.done
@@ -58,6 +59,7 @@ export default function(app) {
 
       project.name     = req.body.project.name
       project.customer = req.body.project.customer
+      project.tracker  = req.body.project.tracker
       project.from     = req.body.project.from
       project.to       = req.body.project.to
       project.done     = req.body.project.done

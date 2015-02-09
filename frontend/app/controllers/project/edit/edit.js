@@ -1,10 +1,17 @@
 import Ember from 'ember';
 
-export default Ember.ObjectController.extend({
+export default Ember.Controller.extend({
   isNew: false
+, trackers: [ 'github', 'redmine' ]
+
 , init: function() {
     this.set('customers', this.store.find('customer'))
   }
+
+, trackerPartial: function() {
+    return `project/edit/${this.get('model.tracker.type')}`
+  }.property('model.tracker.type')
+
 , actions: {
     submit: function() {
       this.model.save().then(() => {

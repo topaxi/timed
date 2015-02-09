@@ -4,6 +4,9 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app')
 var app      = new EmberApp({
   'es3Safe':             false
 , 'ember-cli-selectize': { 'theme': 'bootstrap3' }
+, '6to5': {
+    'blacklist': [ 'react' ]
+  }
 })
 
 // Use `app.import` to add additional libraries to the generated

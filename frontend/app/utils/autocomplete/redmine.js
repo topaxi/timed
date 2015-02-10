@@ -19,8 +19,7 @@ export default Ember.Object.extend({
   // See: http://www.redmine.org/issues/6277
 , _fetch(offset = 0, issues = []) {
     let data = this.project.get('tracker.data')
-
-    return Ember.$.ajax({
+    let req = {
       url: `${data.url}/issues.json`
     , data: {
         'project_id': data.projectId
@@ -31,8 +30,13 @@ export default Ember.Object.extend({
     , headers: {
         'X-Redmine-API-Key': data.apikey
       }
-    })
-    .then(res => {
+    }
+
+    if (data.datatype === 'jsonp') {
+      req.data.key = data.apikey
+    }
+
+    return Ember.$.ajax(req).then(res => {
       issues.push.apply(issues, res.issues)
 
       return res

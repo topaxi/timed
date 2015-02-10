@@ -27,6 +27,7 @@ export default Ember.Object.extend({
       , 'limit':      LIMIT
       , offset
       }
+    , dataType: data.datatype
     , headers: {
         'X-Redmine-API-Key': data.apikey
       }

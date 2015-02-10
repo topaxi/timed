@@ -3,10 +3,12 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   isNew: false
 
-, issues:      null
-, issueFilter: null
+, issues:         null
+, issueFilter:    null
+, fetchingIssues: false
 
 , fetchIssues: function() {
+    this.set('fetchingIssues', true)
     this.get('model.project').then(project =>
       project.searchIssues(this.get('issueFilter'))
     )
@@ -18,6 +20,9 @@ export default Ember.Controller.extend({
 
       console.error(e)
     })
+    .finally(() =>
+      this.set('fetchingIssues', false)
+    )
   }.observes('issueFilter')
 
 , actions: {

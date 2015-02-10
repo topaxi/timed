@@ -16,6 +16,7 @@
           value       = model.name
           content     = issues
           filter      = issueFilter
+          loading     = fetchingIssues
           }}
       {{else}}
         {{input id='name' placeholder='Task name' value=model.name class='form-control' autocomplete='false'}}

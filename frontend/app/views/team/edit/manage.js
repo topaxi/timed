@@ -57,13 +57,14 @@ export default Ember.View.extend({
   }.observes('visGroups', 'visItems')
 
 , 'setupTimeline': function() {
-    var options = Ember.$.extend({}, this.get('visOptions'), {
+    let controller = this.get('controller')
+    let options    = Ember.$.extend({}, this.get('visOptions'), {
       'start':    moment().subtract(1, 'month').startOf('month')
     , 'end':      moment().add(1, 'month').endOf('month')
-    , 'onAdd':    (item, callback) => this.controller.send('add',    item, callback)
-    , 'onUpdate': (item, callback) => this.controller.send('update', item, callback)
-    , 'onMove':   (item, callback) => this.controller.send('move',   item, callback)
-    , 'onRemove': (item, callback) => this.controller.send('remove', item, callback)
+    , 'onAdd':    (item, callback) => controller.send('add',    item, callback)
+    , 'onUpdate': (item, callback) => controller.send('update', item, callback)
+    , 'onMove':   (item, callback) => controller.send('move',   item, callback)
+    , 'onRemove': (item, callback) => controller.send('remove', item, callback)
     })
 
     this.set('timeline', new Timeline(

@@ -19,7 +19,11 @@
       <tr>
         <td class="nowrap">
           {{#link-to 'task.edit' task}}
-            {{task.name}}
+            {{#if task.done}}
+              <del>{{task.name}}</del>
+            {{else}}
+              {{task.name}}
+            {{/if}}
           {{/link-to}}
         </td>
         <td colspan="2">

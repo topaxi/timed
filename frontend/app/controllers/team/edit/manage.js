@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import moment from 'moment';
 
-export default Ember.ObjectController.extend({
+export default Ember.Controller.extend({
   'actions': {
     add(item) {
       var user = this.store.find('user', item.group)

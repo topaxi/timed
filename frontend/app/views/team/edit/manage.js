@@ -24,7 +24,7 @@ export default Ember.View.extend({
   }.property('assignments.@each')
 
 , 'visGroups': function() {
-    return this.get('controller.users').map(user => ({
+    return this.get('controller.model.users').map(user => ({
       'id':      user.id
     , 'content': user.get('longName')
     }))

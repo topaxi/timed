@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export default Ember.ObjectController.extend({
+export default Ember.Controller.extend({
   isNew: false
 , init: function() {
     this.set('allUsers', this.store.find('user'))

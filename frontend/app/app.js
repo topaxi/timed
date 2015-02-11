@@ -1,8 +1,10 @@
-import Ember from 'ember';
-import Resolver from 'ember/resolver';
-import loadInitializers from 'ember/load-initializers';
-import config from './config/environment';
-import Notify from 'ember-notify';
+/* globals define, moment, vis */
+
+import Ember            from 'ember'
+import Resolver         from 'ember/resolver'
+import loadInitializers from 'ember/load-initializers'
+import config           from './config/environment'
+import Notify           from 'ember-notify'
 
 Ember.MODEL_FACTORY_INJECTIONS = true
 
@@ -12,25 +14,18 @@ var App = Ember.Application.extend({
 , 'Resolver':        Resolver
 })
 
-/* jshint ignore:start */
-// Fix momentjs
-define('moment', function() { return { 'default': window.moment } })
+define('moment', () => ({
+  'default': moment
+}))
 
-define('vis', function() {
-  var vis = window.vis
+define('vis', () => ({
+  'default':  vis
+, 'Timeline': vis.Timeline
+, 'DataSet':  vis.DataSet
+, 'Graph2d':  vis.Graph2d
+}))
 
-  return {
-    'default':  vis
-  , 'Timeline': vis.Timeline
-  , 'DataSet':  vis.DataSet
-  , 'Graph2d':  vis.Graph2d
-  }
-})
-/* jshint ignore:end */
-
-window.addEventListener('error', function(err) {
-  Notify.error(err.message)
-}, false)
+Ember.$(window).on('error', err => Notify.error(err.message))
 
 loadInitializers(App, config.modulePrefix)
 

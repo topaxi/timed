@@ -5,7 +5,7 @@
       {{ember-selectize
         id              = 'task'
         content         = sortedTasks
-        selection       = task
+        selection       = model.task
         optionGroupPath = 'project.name'
         optionLabelPath = 'content.name'
         optionValuePath = 'content.id'
@@ -13,19 +13,19 @@
     </div>
     <div class="form-group">
       <label for="comment">Comment</label>
-      {{textarea id='comment' value=comment class='form-control'}}
+      {{textarea id='comment' value=model.comment class='form-control'}}
     </div>
     <div class="form-group">
       <label for="from">From</label>
-      {{input id='from' value=from class='form-control' placeholder=dateFormat}}
+      {{input id='from' value=model.from class='form-control' placeholder=dateFormat}}
     </div>
     <div class="form-group">
       <label for="to">To</label>
-      {{input id='to' value=to class='form-control' placeholder=dateFormat}}
+      {{input id='to' value=model.to class='form-control' placeholder=dateFormat}}
     </div>
     <div class="form-group">
       <label for="review">Review</label>
-      {{input id='review' type='checkbox' checked=review class='form-control'}}
+      {{input id='review' type='checkbox' checked=model.review class='form-control'}}
     </div>
   </form>
 {{/modal-dialog}}

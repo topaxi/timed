@@ -25,7 +25,7 @@ define('vis', () => ({
 , 'Graph2d':  vis.Graph2d
 }))
 
-Ember.$(window).on('error', err => Notify.error(err.message))
+Ember.$(window).on('error', err => Notify.error(err.message || err))
 
 loadInitializers(App, config.modulePrefix)
 

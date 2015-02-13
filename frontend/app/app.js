@@ -25,7 +25,12 @@ define('vis', () => ({
 , 'Graph2d':  vis.Graph2d
 }))
 
-Ember.$(window).on('error', err => Notify.error(err.message || err))
+Ember.$(window).on('error', ({ originalEvent: { error: err } }) =>
+  Notify.error({
+    raw: `<pre><strong>${err.name}:</strong> ${err.message}\n${err.stack}</pre>`
+  , closeAfter: null
+  })
+)
 
 loadInitializers(App, config.modulePrefix)
 

@@ -20,13 +20,21 @@ export default Ember.Controller.extend({
 
       console.error(e)
     })
-    .finally(() =>
+    .finally(() => {
+      let issues    = this.get('issues')
+      let modelName = this.get('model.name')
+
+      // Make sure our existing modelName is in the resultset
+      if (modelName && issues.indexOf(modelName) > -1) {
+        issues.unshift(modelName)
+      }
+
       this.set('fetchingIssues', false)
-    )
+    })
   }.observes('issueFilter')
 
 , actions: {
-    submit: function() {
+    submit() {
       this.model.save().then(() => {
         this.notify.success('Task successfully saved!')
 
@@ -36,9 +44,16 @@ export default Ember.Controller.extend({
         this.notify.error(err || 'Error while trying to save task!')
       )
     }
-  , delete: function() {
+  , delete() {
       this.model.deleteRecord()
       this.send('submit')
+    }
+
+  , createTaskName(name) {
+      // TODO: This seems hackish, find out how we can use selectize
+      //       as a proper autocomplete.
+      this.set('issues', [ name ])
+      this.set('model.name', name)
     }
   }
 })

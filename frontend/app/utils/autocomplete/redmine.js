@@ -6,7 +6,7 @@ export default Ember.Object.extend({
 
   issues: null
 
-, searchIssues(term = '') {
+, searchIssues(/*term = ''*/) {
     if (this.get('issues')) {
       return this.get('issues')
     }

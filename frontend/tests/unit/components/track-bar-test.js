@@ -3,6 +3,7 @@ import { moduleForComponent, test } from 'ember-qunit';
 moduleForComponent('track-bar', 'TrackBarComponent', {
   // specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
+  needs: [ 'component:track-attendance' ]
 });
 
 test('it renders', function(assert) {

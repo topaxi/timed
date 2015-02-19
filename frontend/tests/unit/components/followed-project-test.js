@@ -1,19 +1,31 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import Ember                        from 'ember'
+import startApp                     from '../../../helpers/start-app'
+import { moduleForComponent, test } from 'ember-qunit'
+
+let App
+let store
 
 moduleForComponent('followed-project', 'FollowedProjectComponent', {
-  // specify the other units that are required for this test
-  // needs: ['component:foo', 'helper:bar']
-  needs: [ 'component:follow-project' ]
-});
+  needs: [ 'component:follow-project', 'model:project' ]
+, setup() {
+    App   = startApp()
+    store = App.__container__.lookup('store:main')
+  }
+, teardown() {
+    Ember.run(() => App.destroy())
+  }
+})
 
 test('it renders', function(assert) {
-  assert.expect(2);
+  assert.expect(2)
+
+  let project = store.createRecord('project')
 
   // creates the component instance
-  var component = this.subject();
-  assert.equal(component._state, 'preRender');
+  var component = this.subject({ project })
+  assert.equal(component._state, 'preRender')
 
   // appends the component to the page
-  this.render();
-  assert.equal(component._state, 'inDOM');
-});
+  this.render()
+  assert.equal(component._state, 'inDOM')
+})

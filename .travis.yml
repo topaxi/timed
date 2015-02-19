@@ -1,0 +1,21 @@
+---
+language: node_js
+
+sudo: false
+
+cache:
+  directories:
+    - frontend/node_modules
+    - backend/node_modules
+
+before_install:
+  - "npm config set spin false"
+  - "npm install -g npm@^2"
+
+install:
+  - npm install -g bower --prefix ./frontend
+  - npm install --prefix ./frontend
+  - bower install --config.cwd=frontend
+
+script:
+  - npm test --prefix ./frontend

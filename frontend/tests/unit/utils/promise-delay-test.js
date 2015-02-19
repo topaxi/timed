@@ -1,9 +1,10 @@
-import promiseDelay from 'timed/utils/promise-delay';
+import promiseDelay from '../../../utils/promise-delay';
+import { module, test } from 'qunit';
 
 module('promiseDelay');
 
 // Replace this with your real tests.
-test('it works', function() {
+test('it works', function(assert) {
   var result = promiseDelay();
-  ok(result);
+  assert.ok(result);
 });

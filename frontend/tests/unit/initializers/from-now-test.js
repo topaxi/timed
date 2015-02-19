@@ -1,23 +1,23 @@
 import Ember from 'ember';
-import { initialize } from 'timed/initializers/from-now';
+import { initialize } from '../../../initializers/from-now';
+import { module, test } from 'qunit';
 
 var container, application;
 
 module('FromNowInitializer', {
-  setup: function() {
+  beforeEach: function() {
     Ember.run(function() {
-      container = new Ember.Container();
       application = Ember.Application.create();
+      container = application.__container__;
       application.deferReadiness();
     });
   }
 });
 
 // Replace this with your real tests.
-test('it works', function() {
+test('it works', function(assert) {
   initialize(container, application);
 
   // you would normally confirm the results of the initializer here
-  ok(true);
+  assert.ok(true);
 });
-

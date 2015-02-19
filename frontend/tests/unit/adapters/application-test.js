@@ -1,7 +1,4 @@
-import {
-  moduleFor,
-  test
-} from 'ember-qunit';
+import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('adapter:application', 'ApplicationAdapter', {
   // Specify the other units that are required for this test.
@@ -9,7 +6,7 @@ moduleFor('adapter:application', 'ApplicationAdapter', {
 });
 
 // Replace this with your real tests.
-test('it exists', function() {
+test('it exists', function(assert) {
   var adapter = this.subject();
-  ok(adapter);
+  assert.ok(adapter);
 });

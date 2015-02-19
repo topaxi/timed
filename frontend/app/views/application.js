@@ -2,12 +2,13 @@ import Ember from 'ember'
 
 export default Ember.View.extend({
   collapseMenuItems: function() {
-    let $navbar   = this.$('.navbar')
-    let $collapse = $navbar.find('.navbar-collapse')
-    let $toggle   = this.$('.navbar-toggle')
+    let $navbar    = this.$('.navbar')
+    let $collapse  = $navbar.find('.navbar-collapse')
+    let $toggle    = this.$('.navbar-toggle')
+    let isExpanded = () => $collapse.attr('aria-expanded') !== 'true'
 
     $navbar.on('click', '[href]', e => {
-      if ($collapse.attr('aria-expanded') === 'false') {
+      if (isExpanded()) {
         return
       }
 

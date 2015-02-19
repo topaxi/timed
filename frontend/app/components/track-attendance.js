@@ -3,10 +3,6 @@ import moment from 'moment';
 
 export default Ember.Component.extend({
   tagName: 'span'
-, init: function() {
-    this._super()
-    this.session = this.container.lookup('simple-auth-session:main')
-  }
 , title: function() {
     return this.get('isTracking') ? 'Stop tracking attendance' : 'Track attendance'
   }.property('isTracking')

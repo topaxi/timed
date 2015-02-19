@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import moment from 'moment';
 
-export default Ember.Handlebars.makeBoundHelper(function(date1, date2, format) {
+export function dateDuration(date1, date2, format) {
   if (!date1) {
     return ''
   }
@@ -21,4 +21,6 @@ export default Ember.Handlebars.makeBoundHelper(function(date1, date2, format) {
   var formatted = duration.format(format)
 
   return formatted
-})
+}
+
+export default Ember.Handlebars.makeBoundHelper(dateDuration)

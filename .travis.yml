@@ -13,7 +13,7 @@ before_install:
   - "npm install -g npm@^2"
 
 install:
-  - npm install -g bower --prefix ./frontend
+  - npm install -g bower
   - npm install --prefix ./frontend
   - bower install --config.cwd=frontend
 

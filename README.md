@@ -1,6 +1,8 @@
 Timed
 =====
 
+[![Build Status](https://travis-ci.org/topaxi/timed.svg)](https://travis-ci.org/topaxi/timed)
+
 node.js Timetracking Software
 
 Installation

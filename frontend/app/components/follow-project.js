@@ -3,10 +3,6 @@ import Notify from 'ember-notify';
 
 export default Ember.Component.extend({
   tagName: 'span'
-, init: function() {
-    this._super()
-    this.session = this.container.lookup('simple-auth-session:main')
-  }
 , title: function() {
     return `${this.get('isFollowing') ? 'Unfollow' : 'Follow'} ${this.get('project.name')}`
   }.property('project.name', 'isFollowing')

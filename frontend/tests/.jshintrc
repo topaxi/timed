@@ -23,6 +23,7 @@
     "currentPath",
     "currentRouteName"
   ],
+  "asi": true,
   "node": false,
   "browser": false,
   "boss": true,
@@ -34,6 +35,7 @@
   "forin": false,
   "immed": false,
   "laxbreak": false,
+  "laxcomma": true,
   "newcap": true,
   "noarg": true,
   "noempty": false,

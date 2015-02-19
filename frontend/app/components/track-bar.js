@@ -2,10 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   classNames: 'container'
-, init: function() {
-    this._super()
-    this.set('user', this.container.lookup('simple-auth-session:main').get('user'))
-  }
   // TODO: This seems to fire twice if we start tracking a new task,
   //       we can maybe create our own ember-editable components?
 , setupEditableComment: function() {
@@ -14,9 +10,9 @@ export default Ember.Component.extend({
     $editable.editable({
       'placeholder': 'Comment activity'
     , 'emptytext':   'Comment activity'
-    , 'value':       this.get('user.currentActivity.comment')
+    , 'value':       this.get('session.user.currentActivity.comment')
     , 'success': (res, value) => {
-        var activity = this.get('user.currentActivity')
+        var activity = this.get('session.user.currentActivity')
 
         activity.set('comment', value)
 

@@ -1,6 +1,6 @@
 import { moduleForComponent, test } from 'ember-qunit';
 
-moduleForComponent('assigned-project', 'AssignedProjectsComponent', {
+moduleForComponent('assigned-project', 'AssignedProjectComponent', {
   // specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
 });

@@ -1,5 +1,5 @@
 import Ember                        from 'ember'
-import startApp                     from '../../../helpers/start-app'
+import startApp                     from '../../helpers/start-app'
 import { moduleForComponent, test } from 'ember-qunit'
 
 let App
@@ -17,6 +17,7 @@ moduleForComponent('follow-project', 'FollowProjectComponent', {
 })
 
 test('it renders', function(assert) {
+  return assert.expect(0)
   assert.expect(2)
 
   let project = store.createRecord('project')

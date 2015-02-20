@@ -3,11 +3,6 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   tagName: 'span'
 
-, init: function() {
-    this._super()
-    this.session = this.container.lookup('simple-auth-session:main')
-  }
-
 , title: function() {
     return `${this.get('isTracking') ? 'Stop tracking' : 'Track'} ${this.get('task.name')}`
   }.property('task.name', 'isTracking')
@@ -24,7 +19,7 @@ export default Ember.Component.extend({
   }.observes('title')
 
 , isTracking: function() {
-    var activity = this.session.get('user.currentActivity')
+    var activity = this.get('session.user.currentActivity')
 
     if (activity && activity.get('task.id') === this.get('task.id')) {
       var to = activity.get('to')
@@ -37,7 +32,7 @@ export default Ember.Component.extend({
 
 , actions: {
     track() {
-      this.session.get('user').then(user => {
+      this.get('session.user').then(user => {
         var activity
 
         if (this.get('isTracking')) {

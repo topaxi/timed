@@ -7,7 +7,7 @@ export default Ember.Component.extend({
     return this.get('isTracking') ? 'Stop tracking attendance' : 'Track attendance'
   }.property('isTracking')
 , label: function() {
-    var attendance = this.session.get('user.currentAttendance')
+    var attendance = this.get('session.user.currentAttendance')
 
     if (!attendance) {
       return ''
@@ -44,14 +44,14 @@ export default Ember.Component.extend({
     }
   }.observes('title')
 , isTracking: function() {
-    var attendance = this.session.get('user.currentAttendance')
+    var attendance = this.get('session.user.currentAttendance')
       , to         = attendance && attendance.get('to')
 
     return to && !to.isValid()
   }.property('session.user.currentAttendance.to')
 , actions: {
     track: function() {
-      this.session.get('user').then(user => {
+      this.get('session.user').then(user => {
         var attendance = this.get('isTracking') ?
           user.endCurrentAttendance() :
           user.startAttendance()

@@ -37,8 +37,6 @@ export default Ember.Component.extend({
     let isTracking = !to || !to.isValid()
     let hasTask    = this.get('task.content')
 
-    console.log(to, isTracking, hasTask)
-
     return isTracking || hasTask
   }.property('user.currentActivity.to', 'task')
 

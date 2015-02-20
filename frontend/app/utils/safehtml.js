@@ -5,7 +5,7 @@ export default function safehtml(pieces, ...subs) {
   }
 }
 
-function escape(s) {
+export function escape(s) {
   return s.replace(/&/g, '&amp;')
           .replace(/</g, '&lt;')
           .replace(/>/g, '&gt;')

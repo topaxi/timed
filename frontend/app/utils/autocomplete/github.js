@@ -49,12 +49,12 @@ export default Ember.Object.extend({
     let html = safehtml`<div class="option media">
       ${avatar}
       <div class="media-body">
-        <div>
-          <small><strong>Author</strong>: ${option.data.raw.user.login}</small>
-          <small><strong>Created</strong>: ${option.data.created.format('YYYY-MM-DD')}</small>
-          <small><strong>Updated</strong>: ${option.data.updated.format('YYYY-MM-DD')}</small>
-        </div>
         <div><strong>${option.label}</strong></div>
+        <div>
+          <small class="nowrap"><strong>Author</strong>: ${option.data.raw.user.login}</small>
+          <small class="nowrap"><strong>Created</strong>: ${option.data.created.format('YYYY-MM-DD')}</small>
+          <small class="nowrap"><strong>Updated</strong>: ${option.data.updated.format('YYYY-MM-DD')}</small>
+        </div>
       </div>
     </div>`
 

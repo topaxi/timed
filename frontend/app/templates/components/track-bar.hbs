@@ -9,20 +9,23 @@
 
   {{#if task}}
     {{track-task task=task}}
-
-    {{task.name}}
-  {{else}}
-    {{! TODO: task selectize }}
   {{/if}}
 
-  {{#if showCommentField}}
-    {{x-editable
-      tagName='span'
-      class='pointer'
-      placeholder='Comment activity'
-      emptytext='Comment activity'
-      value=activity.comment
-      setValue='setActivityComment'
-      }}
-  {{/if}}
+  <div class="dib vam">
+    {{#if task}}
+      {{task.name}}
+    {{else}}
+      {{! TODO: task selectize }}
+    {{/if}}
+
+    {{#if showCommentField}}
+      {{x-editable
+        class='pointer small'
+        placeholder='Comment activity'
+        emptytext='Comment activity'
+        value=activity.comment
+        setValue='setActivityComment'
+        }}
+    {{/if}}
+  </div>
 </div>

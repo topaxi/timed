@@ -4,6 +4,7 @@
       <label for="project">Project</label>
       {{ember-selectize
         id               = 'project'
+        plugins          = null
         content          = allProjects
         selection        = model.project
         optionLabelPath  = 'content.name'

@@ -16,6 +16,7 @@
     <div class="col-sm-10">
       {{ember-selectize
         id              = 'customer'
+        plugins         = null
         content         = customers
         selection       = model.customer
         optionLabelPath = 'content.name'
@@ -27,9 +28,10 @@
     <label for="tracker" class="col-sm-2 control-label">Bugtracker</label>
     <div class="col-sm-10">
       {{ember-selectize
-        id        = 'tracker'
-        content   = trackers
-        value     = model.tracker.type
+        id      = 'tracker'
+        plugins = null
+        content = trackers
+        value   = model.tracker.type
         }}
     </div>
   </div>

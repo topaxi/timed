@@ -4,6 +4,7 @@
       <label for="task">Task</label>
       {{ember-selectize
         id              = 'task'
+        plugins         = null
         content         = sortedTasks
         selection       = model.task
         optionGroupPath = 'project.name'

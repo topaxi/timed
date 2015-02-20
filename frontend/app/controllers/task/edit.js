@@ -4,34 +4,7 @@ export default Ember.Controller.extend({
   isNew: false
 
 , issues:         null
-, issueFilter:    null
 , fetchingIssues: false
-
-, fetchIssues: function() {
-    this.set('fetchingIssues', true)
-    this.get('model.project').then(project =>
-      project.searchIssues(this.get('issueFilter'))
-    )
-    .then(issues =>
-      this.set('issues', issues)
-    )
-    .catch(e => {
-      this.set('issues', [])
-
-      console.error(e)
-    })
-    .finally(() => {
-      let issues    = this.get('issues')
-      let modelName = this.get('model.name')
-
-      // Make sure our existing modelName is in the resultset
-      if (modelName && issues.indexOf(modelName) > -1) {
-        issues.unshift(modelName)
-      }
-
-      this.set('fetchingIssues', false)
-    })
-  }.observes('issueFilter')
 
 , actions: {
     submit() {
@@ -50,10 +23,27 @@ export default Ember.Controller.extend({
     }
 
   , createTaskName(name) {
-      // TODO: This seems hackish, find out how we can use selectize
-      //       as a proper autocomplete.
-      this.set('issues', [ name ])
+      this.set('issues', [ { label: name, value: name, data: name } ])
       this.set('model.name', name)
     }
+
+  , fetchIssues(filter) {
+      this.set('fetchingIssues', true)
+      this.get('model.project').then(project =>
+        project.searchIssues(filter)
+      )
+      .then(issues =>
+        this.set('issues', issues)
+      )
+      .catch(e => {
+        this.set('issues', [])
+
+        console.error(e)
+      })
+      .finally(() =>
+        this.set('fetchingIssues', false)
+      )
+    }
+
   }
 })

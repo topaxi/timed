@@ -43,7 +43,7 @@ function setup_nginx_ssl() {
   openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out server.key
   chmod 600 server.key
   openssl req -new -key server.key -out server.csr -subj "/C=CH/ST=Bern/L=Bern/O=timed/CN=timed.vm"
-  openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+  openssl x509 -sha256 -req -days 365 -in server.csr -signkey server.key -out server.crt
 }
 
 function install_node() {

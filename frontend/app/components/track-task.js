@@ -4,7 +4,10 @@ export default Ember.Component.extend({
   tagName: 'span'
 
 , title: function() {
-    return `${this.get('isTracking') ? 'Stop tracking' : 'Track'} ${this.get('task.name')}`
+    let trackingLabel = this.get('isTracking') ? 'Stop tracking' : 'Track'
+    let taskName      = this.get('task.name') || ''
+
+    return `${trackingLabel} ${taskName}`.trim()
   }.property('task.name', 'isTracking')
 
 , fixTooltip: function() {
@@ -18,17 +21,38 @@ export default Ember.Component.extend({
     }
   }.observes('title')
 
-, isTracking: function() {
+, isCurrentTask: function() {
     var activity = this.get('session.user.currentActivity')
 
-    if (activity && activity.get('task.id') === this.get('task.id')) {
-      var to = activity.get('to')
+    return activity && activity.get('task.id') === this.get('task.id')
+  }
+
+, isTracking: function() {
+    if (this.isCurrentTask()) {
+      let to = this.get('session.user.currentActivity.to')
 
       return to && !to.isValid()
     }
 
     return false
   }.property('task.id', 'session.user.currentActivity.to')
+
+, glyphicon: function() {
+    let isTracking = this.get('isTracking')
+    let icon
+
+    if (isTracking) {
+      icon = 'record'
+    }
+    else if (this.isCurrentTask()) {
+      icon = 'repeat'
+    }
+    else {
+      icon = 'play'
+    }
+
+    return `glyphicon-${icon}`
+  }.property('isTracking')
 
 , actions: {
     track() {

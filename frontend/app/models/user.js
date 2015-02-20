@@ -47,28 +47,34 @@ export default Model.extend({
   }.property('assignments.@each.from', 'assignments.@each.to')
 
 , 'startAttendance': function(from = moment(), to = null) {
-    var attendance = this.store.createRecord('attendance', { 'user': this
-                                                           , 'from': from
-                                                           , 'to':   to
-                                                           })
+    var attendance = this.store.createRecord('attendance', {
+      'user': this
+    , from
+    , to
+    })
 
     return attendance
   }
 
-, 'startActivity': function(task, from = moment(), to = null) {
+, 'startActivity': function(task = null, from = moment(), to = null) {
     this.endCurrentActivity()
 
-    var attendance = this.get('currentAttendance')
+    let attendance            = this.get('currentAttendance')
+    let shouldStartAttendance = () =>
+      !attendance ||
+      attendance.get('to') &&
+      attendance.get('to').isValid()
 
-    if (!attendance || attendance.get('to') && attendance.get('to').isValid()) {
+    if (shouldStartAttendance()) {
       attendance = this.startAttendance(from)
     }
 
-    var activity = this.store.createRecord('activity', { attendance
-                                                       , task
-                                                       , from
-                                                       , to
-                                                       })
+    let activity = this.store.createRecord('activity', {
+      attendance
+    , task
+    , from
+    , to
+    })
 
     return activity
   }

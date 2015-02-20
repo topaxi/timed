@@ -2,12 +2,20 @@
   {{track-attendance user=user}}
 </div>
 
-{{#if user.currentActivity.task}}
-  <div class="activity mbm">
-    {{track-task task=user.currentActivity.task}}
+<div class="activity mbm">
+  <button {{action 'startNewTask'}} class="btn btn-default tip" title="Start new task">
+    <span class="glyphicon glyphicon-plus"></span>
+  </button>
 
-    {{user.currentActivity.task.name}}
+  {{#if task}}
+    {{track-task task=task}}
 
+    {{task.name}}
+  {{else}}
+    {{! TODO: task selectize }}
+  {{/if}}
+
+  {{#if showCommentField}}
     <span class="edit-comment pointer"></span>
-  </div>
-{{/if}}
+  {{/if}}
+</div>

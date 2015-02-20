@@ -1,5 +1,8 @@
-import Ember  from 'ember'
-import moment from 'moment'
+import Ember    from 'ember'
+import moment   from 'moment'
+/* jshint ignore:start */
+import safehtml from 'timed/utils/safehtml'
+/* jshint ignore:end */
 
 export default Ember.Object.extend({
 
@@ -59,20 +62,3 @@ export default Ember.Object.extend({
   }
 /* jshint ignore:end */
 })
-
-/* jshint ignore:start */
-function safehtml(pieces, ...subs) {
-  return {
-    safehtml: subs.reduce((html, sub, i) =>
-      html + (sub.safehtml || escape(sub)) + pieces[i + 1], pieces[0])
-  }
-}
-
-function escape(s) {
-  return s.replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/'/g, '&#39;')
-          .replace(/"/g, '&quot;')
-}
-/* jshint ignore:end */

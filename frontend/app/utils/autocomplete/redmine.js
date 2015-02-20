@@ -1,4 +1,8 @@
-import Ember from 'ember'
+import Ember    from 'ember'
+import moment   from 'moment'
+/* jshint ignore:start */
+import safehtml from 'timed/utils/safehtml'
+/* jshint ignore:end */
 
 const LIMIT = 100 // Maximum limit is 100
 
@@ -11,8 +15,44 @@ export default Ember.Object.extend({
       return this.get('issues')
     }
 
-    this.set('issues', this._fetch().then(issues => issues.map(i => i.subject)))
+    this.set('issues', this._fetch().then(issues =>
+      issues.map(i => this.mapIssueToSelectize(i))
+    ))
   }
+
+, mapIssueToSelectize(data) {
+    return {
+      id:      data.id
+    , type:    'redmine'
+    , label:   data.subject
+    , value:   data.subject
+    , created: moment(data.created_on)
+    , updated: moment(data.updated_on)
+    , raw:     data
+    }
+  }
+
+/* No support for tagged templates in jshint :/ */
+/* jshint ignore:start */
+, selectizeOptionTemplate(option) {
+    let avatar = ''
+
+    if (option.data.type !== 'redmine') {
+      return safehtml`<div class="option">${option.label}</div>`.safehtml
+    }
+
+    let html = safehtml`<div class="option">
+      <div>
+        <small><strong>Author</strong>: ${option.data.raw.author.name}</small>
+        <small><strong>Created</strong>: ${option.data.created.format('YYYY-MM-DD')}</small>
+        <small><strong>Updated</strong>: ${option.data.updated.format('YYYY-MM-DD')}</small>
+      </div>
+      <div><strong>${option.label}</strong></div>
+    </div>`
+
+    return html.safehtml
+  }
+/* jshint ignore:end */
 
   // Redmine API does not allow to search for issues.
   // For now, we fetch all issues for a project...

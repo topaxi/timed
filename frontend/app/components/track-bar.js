@@ -1,33 +1,14 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  classNames: 'container'
+  elementId:  'track-bar'
+, classNames: 'container'
 
-, task: Ember.computed.alias('user.currentActivity.task')
-
-  // TODO: This seems to fire twice if we start tracking a new task,
-  //       we can maybe create our own ember-editable components?
-, setupEditableComment: function() {
-    var $editable = Ember.$('<a>')
-
-    $editable.editable({
-      'placeholder': 'Comment activity'
-    , 'emptytext':   'Comment activity'
-    , 'value':       this.get('user.currentActivity.comment')
-    , 'success': (res, value) => {
-        var activity = this.get('user.currentActivity')
-
-        activity.set('comment', value)
-
-        activity.get('attendance').save()
-      }
-    })
-
-    this.$('.edit-comment').html($editable)
-  }.on('didInsertElement').observes('user.currentActivity.comment')
+, activity: Ember.computed.alias('user.currentActivity')
+, task:     Ember.computed.alias('activity.task')
 
 , showCommentField: function() {
-    let activity = this.get('user.currentActivity')
+    let activity = this.get('activity')
 
     if (!activity) {
       return false
@@ -38,11 +19,19 @@ export default Ember.Component.extend({
     let hasTask    = this.get('task.content')
 
     return isTracking || hasTask
-  }.property('user.currentActivity.to', 'task')
+  }.property('activity.to', 'task')
 
 , actions: {
-    startNewTask() {
-      this.get('user').then(user => user.startActivity().save())
+    startNewActivity() {
+      this.get('user').then(user =>
+        user.startActivity().save()
+      )
+    }
+  , setActivityComment(value) {
+      var activity = this.get('activity')
+
+      activity.set('comment', value)
+      activity.save()
     }
   }
 })

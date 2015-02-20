@@ -3,7 +3,7 @@
 </div>
 
 <div class="activity mbm">
-  <button {{action 'startNewTask'}} class="btn btn-default tip" title="Start new task">
+  <button {{action 'startNewActivity'}} class="btn btn-default tip" title="Start new activity">
     <span class="glyphicon glyphicon-plus"></span>
   </button>
 
@@ -16,6 +16,13 @@
   {{/if}}
 
   {{#if showCommentField}}
-    <span class="edit-comment pointer"></span>
+    {{x-editable
+      tagName='span'
+      class='pointer'
+      placeholder='Comment activity'
+      emptytext='Comment activity'
+      value=activity.comment
+      setValue='setActivityComment'
+      }}
   {{/if}}
 </div>

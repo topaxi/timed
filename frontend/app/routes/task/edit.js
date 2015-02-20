@@ -1,7 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  rollback: function() {
+  setupController(controller, model) {
+    this._super(controller, model)
+
+    controller.set('issues', [])
+  }
+
+, rollback: function() {
     this.modelFor('task.edit').rollback()
   }.on('deactivate')
 })

@@ -1,6 +1,7 @@
 import Ember                        from 'ember'
 import startApp                     from '../../helpers/start-app'
 import { moduleForComponent, test } from 'ember-qunit'
+import { skip }                     from 'qunit'
 
 let App
 let store
@@ -16,8 +17,7 @@ moduleForComponent('followed-project', 'FollowedProjectComponent', {
   }
 })
 
-test('it renders', function(assert) {
-  return assert.expect(0)
+skip('it renders', function(assert) {
   assert.expect(2)
 
   let project = store.createRecord('project')

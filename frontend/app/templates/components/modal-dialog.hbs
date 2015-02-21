@@ -9,9 +9,9 @@
     </div>
     <div class="modal-footer">
       {{#if delete}}
-        <button type="button" {{action 'delete' on='doubleClick'}} class="btn btn-danger pull-left tip" title="Doubleclick to delete">
+        {{#delete-button class='pull-left' action='delete'}}
           Delete
-        </button>
+        {{/delete-button}}
       {{/if}}
 
       <button type="button" class="btn btn-default" data-dismiss="modal">{{closeText}}</button>

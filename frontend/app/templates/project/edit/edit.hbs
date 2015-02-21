@@ -71,9 +71,9 @@
       </button>
 
       {{#unless model.isNew}}
-        <button type="button" {{action 'delete' on='doubleClick'}} class="btn btn-danger pull-right tip" title="Doubleclick to delete">
+        {{#delete-button class='pull-right' action='delete'}}
           Delete project
-        </button>
+        {{/delete-button}}
       {{/unless}}
     </div>
   </div>

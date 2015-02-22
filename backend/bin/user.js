@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-require('6to5/register')
+require('babel/register')
 
 var config      = require('../config.json')
 var RSVP        = require('rsvp')
+var co          = require('co')
 var mongoose    = require('mongoose')
 var read        = RSVP.denodeify(require('read'))
 var User        = require('../models/user')
@@ -13,21 +14,19 @@ var setPassword = RSVP.denodeify(user.setPassword.bind(user))
 
 mongoose.connect(config.mongodb)
 
-read({ 'prompt': 'Username: ' })
-  .then(function(username) {
-    user.name = username
+co(function*() {
+  try {
+    user.name = yield read({ 'prompt': 'Username: ' })
 
-    return read({ 'prompt': 'Password: ', 'silent': true }).then(setPassword)
-  })
-  .then(function() {
-    return save()
-  })
-  .then(function() {
+    yield setPassword(yield read({ 'prompt': 'Password: ', 'silent': true }))
+
+    yield save()
     console.log('User', user.name, 'created')
-  })
-  .catch(function(err) {
+  }
+  catch (err) {
     console.error('Error %s: %s', err.code, err.message)
-  })
-  .finally(function() {
+  }
+  finally {
     process.exit()
-  })
+  }
+})

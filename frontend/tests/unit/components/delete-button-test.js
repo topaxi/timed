@@ -30,3 +30,15 @@ test('it changes text to "Sure? on first click"', function(assert) {
 
   assert.equal(component.$().text(), 'Sure?')
 })
+
+test('it supports a custom confirm text', function(assert) {
+  assert.expect(1)
+
+  let component = this.subject({ confirmText: 'Foobar' })
+
+  this.render()
+
+  component.click()
+
+  assert.equal(component.$().text(), 'Foobar')
+})

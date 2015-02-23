@@ -32,7 +32,7 @@ router.get('/:id', (req, res, next) => {
   Attendance.findById(req.params.id, (err, attendance) => {
     if (err) return next(err)
 
-    res.send({ attendances })
+    res.send({ attendance })
   })
 })
 

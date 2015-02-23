@@ -70,6 +70,14 @@ export default Ember.View.extend({
     })
   }.on('didInsertElement')
 
+, removeDaterangePicker: function() {
+    let picker = this.$('.daterange').data('daterangepicker')
+
+    if (picker) {
+      picker.remove()
+    }
+  }.on('willDestroyElement')
+
 , initSliders: function() {
     this.$('.ui-slider').slider({
       'min':    0

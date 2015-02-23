@@ -12,4 +12,12 @@ export default Ember.View.extend({
       this.set('controller.momentTo',   to)
     })
   }.on('didInsertElement')
+
+, 'removeDaterangePicker': function() {
+    let picker = this.$('.daterange').data('daterangepicker')
+
+    if (picker) {
+      picker.remove()
+    }
+  }.on('willDestroyElement')
 })

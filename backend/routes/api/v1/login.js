@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import passport   from 'passport'
 import auth       from '../../../middleware/auth'
-import User       from '../../../models/user'
 
 export default function(app) {
   var router = new Router

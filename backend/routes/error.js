@@ -1,6 +1,24 @@
+import app from '../src/main'
+
+let env = app.get('env')
+
 export default function(err, req, res, next) {
   var status = err.status || 500
 
   res.status(status)
-  res.send({ message: err.message, status, error: true })
+  res.send({
+    message: err.message
+  , status
+  , error: formatError(err)
+  })
+}
+
+function formatError(err) {
+  if (env !== 'development') {
+    return {}
+  }
+
+  let { name, message, stack } = err
+
+  return { name, message, stack }
 }

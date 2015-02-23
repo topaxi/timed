@@ -8,6 +8,7 @@ import config       from '../config.json'
 mongoose.connect(config.mongodb)
 
 var app = express()
+export default app
 
 app.set('title',       config.title ? `Timed - ${config.title}` : 'Timed')
 app.set('trust proxy', config.trustProxy)

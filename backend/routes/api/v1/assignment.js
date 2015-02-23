@@ -2,20 +2,50 @@ import { Router } from 'express'
 import Assignment from '../../../models/assignment'
 import auth       from '../../../middleware/auth'
 
-export default function(app) {
-  var router = new Router
-  router.use(auth)
+var router = new Router
+export default router
 
-  router.get('/', (req, res, next) => {
-    Assignment.find(req.query, (err, assignments) => {
-      if (err) return next(err)
+router.use(auth)
 
-      res.send({ assignments })
-    })
+router.get('/', (req, res, next) => {
+  Assignment.find(req.query, (err, assignments) => {
+    if (err) return next(err)
+
+    res.send({ assignments })
   })
+})
 
-  router.post('/', auth, (req, res, next) => {
-    var assignment = new Assignment(req.body.assignment)
+router.post('/', auth, (req, res, next) => {
+  var assignment = new Assignment(req.body.assignment)
+
+  assignment.save(err => {
+    if (err) return next(err)
+
+    res.send({ assignment })
+  })
+})
+
+router.get('/:id', (req, res, next) => {
+  Assignment.findById(req.params.id, (err, assignment) => {
+    if (err) return next(err)
+
+    res.send({ assignment })
+  })
+})
+
+// todo
+// router.put('/', fun...
+
+router.put('/:id', (req, res, next) => {
+  Assignment.findById(req.params.id, (err, assignment) => {
+    if (err) return next(err)
+
+    assignment.user     = req.body.assignment.user
+    assignment.from     = req.body.assignment.from
+    assignment.to       = req.body.assignment.to
+    assignment.duration = req.body.assignment.duration
+    assignment.project  = req.body.assignment.project
+    assignment.tasks    = req.body.assignment.tasks
 
     assignment.save(err => {
       if (err) return next(err)
@@ -23,48 +53,16 @@ export default function(app) {
       res.send({ assignment })
     })
   })
+})
 
-  router.get('/:id', (req, res, next) => {
-    Assignment.findById(req.params.id, (err, assignment) => {
+router.delete('/:id', (req, res, next) => {
+  Assignment.findById(req.params.id, (err, assignment) => {
+    if (err) return next(err)
+
+    assignment.remove(err => {
       if (err) return next(err)
 
-      res.send({ assignment })
+      return res.send(true)
     })
   })
-
-  // todo
-  // router.put('/', fun...
-
-  router.put('/:id', (req, res, next) => {
-    Assignment.findById(req.params.id, (err, assignment) => {
-      if (err) return next(err)
-
-      assignment.user     = req.body.assignment.user
-      assignment.from     = req.body.assignment.from
-      assignment.to       = req.body.assignment.to
-      assignment.duration = req.body.assignment.duration
-      assignment.project  = req.body.assignment.project
-      assignment.tasks    = req.body.assignment.tasks
-
-      assignment.save(err => {
-        if (err) return next(err)
-
-        res.send({ assignment })
-      })
-    })
-  })
-
-  router.delete('/:id', (req, res, next) => {
-    Assignment.findById(req.params.id, (err, assignment) => {
-      if (err) return next(err)
-
-      assignment.remove(err => {
-        if (err) return next(err)
-
-        return res.send(true)
-      })
-    })
-  })
-
-  return router
-}
+})

@@ -20,7 +20,7 @@ app.use(cookieParser(config.cookieSecret))
 app.use(require('./session'))
 app.use(require('./auth'))
 
-require('../routes')(app)
+require('../routes')
 
 http.createServer(app).listen(app.get('port'), () =>
   console.log('Express server listening on port %d', app.get('port'))

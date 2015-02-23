@@ -1,16 +1,13 @@
 import { Router } from 'express'
 
-export default function(app) {
-  var router = new Router
+var router = new Router
+export default router
 
-  router.use('/projects',    require('./project')(app))
-  router.use('/tasks',       require('./task')(app))
-  router.use('/customers',   require('./customer')(app))
-  router.use('/teams',       require('./team')(app))
-  router.use('/assignments', require('./assignment')(app))
-  router.use('/attendances', require('./attendance')(app))
-  router.use('/users',       require('./user')(app))
-  router.use('/',            require('./login')(app))
-
-  return router
-}
+router.use('/projects',    require('./project'))
+router.use('/tasks',       require('./task'))
+router.use('/customers',   require('./customer'))
+router.use('/teams',       require('./team'))
+router.use('/assignments', require('./assignment'))
+router.use('/attendances', require('./attendance'))
+router.use('/users',       require('./user'))
+router.use('/',            require('./login'))

@@ -3,30 +3,48 @@ import Team       from '../../../models/team'
 import User       from '../../../models/user'
 import auth       from '../../../middleware/auth'
 
-export default function(app) {
-  var router = new Router
-  router.use(auth)
+var router = new Router
+export default router
 
-  router.get('/', (req, res, next) => {
-    Team.find((err, teams) => {
-      if (err) return next(err)
+router.use(auth)
 
-      res.send({ teams })
-    })
+router.get('/', (req, res, next) => {
+  Team.find((err, teams) => {
+    if (err) return next(err)
+
+    res.send({ teams })
   })
+})
 
-  router.get('/:id', (req, res, next) => {
-    Team.findById(req.params.id, (err, team) => {
-      if (err) return next(err)
+router.get('/:id', (req, res, next) => {
+  Team.findById(req.params.id, (err, team) => {
+    if (err) return next(err)
 
-      res.send({ team })
-    })
+    res.send({ team })
   })
+})
 
-  router.post('/', (req, res, next) => {
-    var team = new Team({ 'name':  req.body.team.name
-                        , 'users': req.body.team.users
-                        })
+router.post('/', (req, res, next) => {
+  var team = new Team({ 'name':  req.body.team.name
+                      , 'users': req.body.team.users
+                      })
+
+  team.save(err => {
+    if (err) return next(err)
+
+    res.send({ team })
+  })
+})
+
+// todo
+// router.put('/', fun...
+
+router.put('/:id', (req, res, next) => {
+  Team.findById(req.params.id, (err, team) => {
+    if (err) return next(err)
+
+    team.name  = req.body.team.name  || team.name
+    team.users = req.body.team.users || team.users
 
     team.save(err => {
       if (err) return next(err)
@@ -34,36 +52,16 @@ export default function(app) {
       res.send({ team })
     })
   })
+})
 
-  // todo
-  // router.put('/', fun...
+router.delete('/:id', (req, res, next) => {
+  Team.findById(req.params.id, (err, team) => {
+    if (err) return next(err)
 
-  router.put('/:id', (req, res, next) => {
-    Team.findById(req.params.id, (err, team) => {
+    team.remove(err => {
       if (err) return next(err)
 
-      team.name  = req.body.team.name  || team.name
-      team.users = req.body.team.users || team.users
-
-      team.save(err => {
-        if (err) return next(err)
-
-        res.send({ team })
-      })
+      return res.send(true)
     })
   })
-
-  router.delete('/:id', (req, res, next) => {
-    Team.findById(req.params.id, (err, team) => {
-      if (err) return next(err)
-
-      team.remove(err => {
-        if (err) return next(err)
-
-        return res.send(true)
-      })
-    })
-  })
-
-  return router
-}
+})

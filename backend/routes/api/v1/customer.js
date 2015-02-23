@@ -2,31 +2,56 @@ import { Router } from 'express'
 import Customer   from '../../../models/customer'
 import auth       from '../../../middleware/auth'
 
-export default function(app) {
-  var router = new Router
-  router.use(auth)
+var router = new Router
+export default router
 
-  router.get('/', (req, res, next) => {
-    var { name } = req.query
+router.use(auth)
 
-    if (name) {
-      Customer.find({ name }, (err, customers) => {
-        if (err) return next(err)
+router.get('/', (req, res, next) => {
+  var { name } = req.query
 
-        res.send({ customers })
-      })
-    }
-    else {
-      Customer.find((err, customers) => {
-        if (err) return next(err)
+  if (name) {
+    Customer.find({ name }, (err, customers) => {
+      if (err) return next(err)
 
-        res.send({ customers })
-      })
-    }
+      res.send({ customers })
+    })
+  }
+  else {
+    Customer.find((err, customers) => {
+      if (err) return next(err)
+
+      res.send({ customers })
+    })
+  }
+})
+
+router.post('/', (req, res, next) => {
+  var customer = new Customer({ 'name': req.body.customer.name })
+
+  customer.save(err => {
+    if (err) return next(err)
+
+    res.send({ customer })
   })
+})
 
-  router.post('/', (req, res, next) => {
-    var customer = new Customer({ 'name': req.body.customer.name })
+router.get('/:id', (req, res, next) => {
+  Customer.findById(req.params.id, (err, customer) => {
+    if (err) return next(err)
+
+    res.send({ customer })
+  })
+})
+
+// todo
+// router.put('/', fun...
+
+router.put('/:id', (req, res, next) => {
+  Customer.findById(req.params.id, (err, customer) => {
+    if (err) return next(err)
+
+    customer.name = req.body.customer.name
 
     customer.save(err => {
       if (err) return next(err)
@@ -34,43 +59,16 @@ export default function(app) {
       res.send({ customer })
     })
   })
+})
 
-  router.get('/:id', (req, res, next) => {
-    Customer.findById(req.params.id, (err, customer) => {
+router.delete('/:id', (req, res, next) => {
+  Customer.findById(req.params.id, (err, customer) => {
+    if (err) return next(err)
+
+    customer.remove(err => {
       if (err) return next(err)
 
-      res.send({ customer })
+      return res.send(true)
     })
   })
-
-  // todo
-  // router.put('/', fun...
-
-  router.put('/:id', (req, res, next) => {
-    Customer.findById(req.params.id, (err, customer) => {
-      if (err) return next(err)
-
-      customer.name = req.body.customer.name
-
-      customer.save(err => {
-        if (err) return next(err)
-
-        res.send({ customer })
-      })
-    })
-  })
-
-  router.delete('/:id', (req, res, next) => {
-    Customer.findById(req.params.id, (err, customer) => {
-      if (err) return next(err)
-
-      customer.remove(err => {
-        if (err) return next(err)
-
-        return res.send(true)
-      })
-    })
-  })
-
-  return router
-}
+})

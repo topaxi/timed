@@ -16,6 +16,20 @@ body {
   width: 100%
 }
 
+.navbar li::before {
+  opacity: 0;
+  content: url('loading16i.png');
+  position: absolute;
+  height: 16px;
+  top: calc(~'50% - 8px');
+  left: 0;
+  transition: opacity 0.3s ease 0.05s
+}
+
+.navbar li.ember-transitioning-in::before {
+  opacity: 1;
+}
+
 .app-version {
   color: @body-bg;
   position: absolute;

@@ -23,6 +23,7 @@
     "ember-simple-auth": "0.7.3",
     "vis": "^3.9.1",
     "x-editable": "^1.5.1",
-    "selectize": "^0.12.0"
+    "selectize": "^0.12.0",
+    "blanket": "~1.1.5"
   }
 }

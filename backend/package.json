@@ -6,7 +6,7 @@
     "start": "node app"
   },
   "dependencies": {
-    "babel": "^4.4.3",
+    "babel": "^4.6.1",
     "bcrypt": "^0.8.1",
     "body-parser": "^1.10.2",
     "co": "^4.4.0",

@@ -42,6 +42,6 @@ $ sudo ln -sf $PWD/tools/nginx/example.conf \
 $ sudo /etc/init.d/nginx restart
 $ sudo npm install ember-cli -g
 $ make install
-$ backend/bin/user.js # create your first user
-$ make run-server     # you might need to install tmux to run this command
+$ node --harmony backend/bin/user.js # create your first user
+$ make run-server                    # you might need to install tmux to run this command
 ```

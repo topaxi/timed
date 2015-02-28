@@ -2,7 +2,7 @@ import Ember from 'ember';
 import moment from 'moment';
 import { Timeline } from 'vis';
 
-var ZOOM = 1000 * 60 * 60 * 24 * 7 * 2 // Show ~2 weeks
+const ZOOM = 1000 * 60 * 60 * 24 * 7 * 2 // Show ~2 weeks
 
 export default Ember.View.extend({
   'visOptions': {
@@ -32,7 +32,7 @@ export default Ember.View.extend({
 
 , 'visItems': function() {
     return this.get('flatAssignments').map(assignment => {
-      var title = `${assignment.get('project.name')} (${assignment.get('potentialWorktime')} hours)`
+      let title = `${assignment.get('project.name')} (${assignment.get('potentialWorktime')} hours)`
 
       return {
         'id':      assignment.id
@@ -50,7 +50,7 @@ export default Ember.View.extend({
   )
 
 , 'renderTimeline': function() {
-    var timeline = this.get('timeline')
+    let timeline = this.get('timeline')
 
     timeline.setGroups(this.get('visGroups'))
     timeline.setItems(this.get('visItems'))

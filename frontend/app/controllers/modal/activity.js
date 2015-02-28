@@ -25,20 +25,20 @@ export default Ember.Controller.extend({
   }.observes('model')
 
 , 'from': function() {
-    var from = this.get('model.from')
+    let from = this.get('model.from')
 
     return from && from.format(this.dateFormat)
   }.property('model.from')
 
 , 'to': function() {
-    var to = this.get('model.to')
+    let to = this.get('model.to')
 
     return to && to.format(this.dateFormat)
   }.property('model.to')
 
 , 'actions': {
     'save': function() {
-      var activity = this.get('model')
+      let activity = this.get('model')
 
       activity.set('from', moment(this.get('from'), this.dateFormat))
       activity.set('to',   moment(this.get('to'),   this.dateFormat))

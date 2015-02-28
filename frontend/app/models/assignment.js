@@ -11,8 +11,8 @@ export default Model.extend({
 , 'tasks':    DS.hasMany('tasks',     { 'async': true })
 
 , 'potentialWorktime': function() {
-    var worktime     = 0
-    var userWorktime = this.get('user.worktime')
+    let worktime     = 0
+    let userWorktime = this.get('user.worktime')
 
     moment.range(this.get('from'), this.get('to')).by('days', day => {
       worktime += userWorktime[day.format('YYYY-MM-DD')] || 0

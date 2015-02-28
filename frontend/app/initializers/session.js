@@ -4,7 +4,7 @@ import AuthBase from 'simple-auth/authenticators/base'
 
 Session.reopen({
   user: function() {
-    var userId = this.get('userId')
+    let userId = this.get('userId')
 
     if (userId) {
       return this.container.lookup('store:main').find('user', userId)
@@ -12,7 +12,7 @@ Session.reopen({
   }.property('userId')
 })
 
-var Authenticator = AuthBase.extend({
+let Authenticator = AuthBase.extend({
   authenticate(credentials) {
     return new Ember.RSVP.Promise((resolve, reject) =>
       Ember.$.ajax({
@@ -26,7 +26,7 @@ var Authenticator = AuthBase.extend({
       })
       .then(res => Ember.run(() => resolve(res)))
       .fail(xhr => Ember.run(() => {
-        var error
+        let error
 
         try {
           error = JSON.parse(xhr.responseText)

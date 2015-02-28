@@ -7,13 +7,13 @@ export default Ember.Component.extend({
     return this.get('isTracking') ? 'Stop tracking attendance' : 'Track attendance'
   }.property('isTracking')
 , label: function() {
-    var attendance = this.get('session.user.currentAttendance')
+    let attendance = this.get('session.user.currentAttendance')
 
     if (!attendance) {
       return ''
     }
 
-    var from      = attendance.get('from')
+    let from      = attendance.get('from')
       , to        = attendance.get('to')
       , today     = moment().startOf('day')
       , fromToday = moment(from).startOf('day').diff(today)
@@ -22,7 +22,7 @@ export default Ember.Component.extend({
       , label     = from.format(fromToday ? ntformat : tformat)
 
     if (to && to.isValid()) {
-      var toToday = moment(to).startOf('day').diff(today)
+      let toToday = moment(to).startOf('day').diff(today)
 
       label = `${label} - ${to.format(toToday ? ntformat : tformat)}`
     }
@@ -34,7 +34,7 @@ export default Ember.Component.extend({
     return label
   }.property('session.user.currentAttendance.from', 'session.user.currentAttendance.to', 'refreshLabel')
 , fixTooltip: function() {
-    var tooltip = this.$('.tip')
+    let tooltip = this.$('.tip')
 
     tooltip.prop('title', this.get('title'))
     tooltip.tooltip('fixTitle')
@@ -44,7 +44,7 @@ export default Ember.Component.extend({
     }
   }.observes('title')
 , isTracking: function() {
-    var attendance = this.get('session.user.currentAttendance')
+    let attendance = this.get('session.user.currentAttendance')
       , to         = attendance && attendance.get('to')
 
     return to && !to.isValid()
@@ -52,7 +52,7 @@ export default Ember.Component.extend({
 , actions: {
     track: function() {
       this.get('session.user').then(user => {
-        var attendance = this.get('isTracking') ?
+        let attendance = this.get('isTracking') ?
           user.endCurrentAttendance() :
           user.startAttendance()
 

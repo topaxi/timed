@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.View.extend({
   'setupDaterangePicker': function() {
-    var options = {
+    let options = {
       'startDate': this.get('controller.momentFrom')
     , 'endDate':   this.get('controller.momentTo')
     }

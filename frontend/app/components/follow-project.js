@@ -7,7 +7,7 @@ export default Ember.Component.extend({
     return `${this.get('isFollowing') ? 'Unfollow' : 'Follow'} ${this.get('project.name')}`
   }.property('project.name', 'isFollowing')
 , fixTooltip: function() {
-    var tooltip = this.$('.tip')
+    let tooltip = this.$('.tip')
 
     tooltip.prop('title', this.get('title'))
     tooltip.tooltip('fixTitle')
@@ -17,7 +17,7 @@ export default Ember.Component.extend({
     }
   }.observes('title')
 , isFollowing: function() {
-    var projects = this.session.get('user.projects')
+    let projects = this.session.get('user.projects')
 
     if (!projects) {
       return false
@@ -27,14 +27,14 @@ export default Ember.Component.extend({
   }.property('session.user.projects.@each')
 , actions: {
     follow: function() {
-      var user     = this.session.get('user')
+      let user     = this.session.get('user')
         , projects = user.get('projects')
 
       if (!projects) {
         Notify.error('Something went wrong!')
       }
 
-      var action = this.get('isFollowing') ? 'removeObject' : 'addObject'
+      let action = this.get('isFollowing') ? 'removeObject' : 'addObject'
 
       // TODO: For some reason, if we remove either projects[action](project)
       //       call, the project won't get stored in the user.

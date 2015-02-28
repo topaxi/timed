@@ -5,7 +5,7 @@ export default DS.RESTAdapter.extend({
   'namespace': 'api/v1'
 , 'coalesceFindRequests': true
 , 'ajaxError': function(xhr) {
-    var error
+    let error
 
     try {
       error = JSON.parse(xhr.responseText)

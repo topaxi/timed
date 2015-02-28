@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
     this.set('allProjects', this.store.find('project'))
   }
 , 'title': function() {
-    var action = this.get('model.isNew') ? 'Add' : 'Edit'
+    let action = this.get('model.isNew') ? 'Add' : 'Edit'
     return `${action} assignment for ${this.get('model.user.longName')}`
   }.property('model.user')
 , 'actions': {

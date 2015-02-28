@@ -27,7 +27,7 @@ export default Model.extend({
   }.property()
 
 , 'percent': function() {
-    var duration = this.get('duration')
+    let duration = this.get('duration')
 
     if (!duration) {
       return 0

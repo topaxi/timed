@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
   ]
 
 , 'project': function() {
-    var projectId = this.get('projectId')
+    let projectId = this.get('projectId')
 
     // TODO: How does this happen?
     if (projectId === 'null') {
@@ -29,7 +29,7 @@ export default Ember.Controller.extend({
   }.observes('momentFrom', 'momentTo')
 
 , 'activities': function() {
-    var activities = []
+    let activities = []
 
     this.get('model').forEach(attendance =>
       attendance.get('activities').forEach(
@@ -41,7 +41,7 @@ export default Ember.Controller.extend({
   }.property('model.@each')
 
 , 'filteredActivities': function() {
-    var activities = this.get('activities')
+    let activities = this.get('activities')
 
     if (this.get('customerId')) {
       activities = activities.filter(activity =>
@@ -64,8 +64,8 @@ export default Ember.Controller.extend({
   }.property('activities', 'projectId', 'taskId', 'customerId')
 
 , 'filteredProjects': function() {
-    var customerId = this.get('customerId')
-    var projects   = this.get('projects')
+    let customerId = this.get('customerId')
+    let projects   = this.get('projects')
 
     if (customerId) {
       return projects.filter(project =>

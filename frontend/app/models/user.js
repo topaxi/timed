@@ -37,7 +37,7 @@ export default Model.extend({
   }.property('sortedAttendances')
 
 , 'currentActivity': function() {
-    var attendance = this.get('currentAttendance')
+    let attendance = this.get('currentAttendance')
 
     return attendance ? attendance.get('activities').get('lastObject') : null
   }.property('currentAttendance.activities')
@@ -47,7 +47,7 @@ export default Model.extend({
   }.property('assignments.@each.from', 'assignments.@each.to')
 
 , 'startAttendance': function(from = moment(), to = null) {
-    var attendance = this.store.createRecord('attendance', {
+    let attendance = this.store.createRecord('attendance', {
       'user': this
     , from
     , to
@@ -80,7 +80,7 @@ export default Model.extend({
   }
 
 , 'endCurrentAttendance': function() {
-    var attendance = this.get('currentAttendance')
+    let attendance = this.get('currentAttendance')
 
     if (attendance) {
       this.endCurrentActivity()
@@ -91,7 +91,7 @@ export default Model.extend({
   }
 
 , 'endCurrentActivity': function() {
-    var activity = this.get('currentActivity')
+    let activity = this.get('currentActivity')
 
     if (activity) {
       activity.end()
@@ -108,8 +108,8 @@ export default Model.extend({
 
 , 'getAssignmentsByWeek': function(day = moment()) {
     return this.get('assignments').filter(assignment => {
-      var from = moment(assignment.get('from'))
-      var to   = moment(assignment.get('to'))
+      let from = moment(assignment.get('from'))
+      let to   = moment(assignment.get('to'))
 
       return day.within(moment.range(from.startOf('week'), to.endOf('week')))
     })

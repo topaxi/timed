@@ -5,7 +5,7 @@ export default Ember.Controller.extend({
   'dateFormat': 'L LT'
 
 , 'createAttendance': function() {
-    var model = this.get('model')
+    let model = this.get('model')
 
     if (moment.isMoment(model)) {
       this.set('model', this.store.createRecord('attendance', {
@@ -16,20 +16,20 @@ export default Ember.Controller.extend({
   }.observes('model')
 
 , 'from': function() {
-    var from = this.get('model.from')
+    let from = this.get('model.from')
 
     return from && from.format(this.dateFormat)
   }.property('model.from')
 
 , 'to': function() {
-    var to = this.get('model.to')
+    let to = this.get('model.to')
 
     return to && to.format(this.dateFormat)
   }.property('model.to')
 
 , 'actions': {
     'save': function() {
-      var attendance = this.get('model')
+      let attendance = this.get('model')
 
       attendance.set('from', moment(this.get('from'), this.dateFormat))
       attendance.set('to',   moment(this.get('to'),   this.dateFormat))

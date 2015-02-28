@@ -28,7 +28,7 @@ export default Ember.Component.extend({
       )
     }
   , setActivityComment(value) {
-      var activity = this.get('activity')
+      let activity = this.get('activity')
 
       activity.set('comment', value)
       activity.save()

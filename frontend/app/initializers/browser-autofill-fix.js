@@ -5,7 +5,7 @@ export default {
 , initialize: function() {
     Ember.TextField.reopen({
       fetchAutofilledValue: function() {
-        var $textField = this.$()
+        let $textField = this.$()
 
         setTimeout(function() {
           $textField.trigger('change')

@@ -20,8 +20,8 @@ export default ProtectedRoute.extend({
   }
 
 , 'beforeModel': function() {
-    var projects  = this.store.find('project')
-    var customers = this.store.find('customer')
+    let projects  = this.store.find('project')
+    let customers = this.store.find('customer')
 
     return new Ember.RSVP.all([ projects, customers ]).then(args => {
       this.set('projects',  args[0])
@@ -34,7 +34,7 @@ export default ProtectedRoute.extend({
   }
 
 , 'afterModel': function(model) {
-    var promises = model.reduce((promises, attendance) => {
+    let promises = model.reduce((promises, attendance) => {
       attendance.get('activities').forEach(activity =>
         promises.push(activity.get('task'))
       )

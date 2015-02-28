@@ -5,8 +5,8 @@ export default {
   name: 'authentication'
 , after: 'simple-auth'
 , initialize: function(container) {
-    var applicationRoute = container.lookup('route:application')
-    var session          = container.lookup('simple-auth-session:main')
+    let applicationRoute = container.lookup('route:application')
+    let session          = container.lookup('simple-auth-session:main')
 
     ApplicationAdapter.reopen({
       'ajaxError': function(xhr) {

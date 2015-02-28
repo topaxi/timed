@@ -11,12 +11,12 @@ export default Ember.Controller.extend({
   }.property()
 , actions: {
     submit: function() {
-      var wt       = this.model.get('worktime') || {}
-        , $sliders = Ember.$('.ui-slider') // TODO: We shouldn't access DOM stuff from our controller...
+      let wt       = this.model.get('worktime') || {}
+      let $sliders = Ember.$('.ui-slider') // TODO: We shouldn't access DOM stuff from our controller...
 
       moment.range(this.get('from'), this.get('to')).by('days', day => {
-        var value = $sliders.eq(day.day()).slider('value')
-          , index = day.format('YYYY-MM-DD')
+        let value = $sliders.eq(day.day()).slider('value')
+        let index = day.format('YYYY-MM-DD')
 
         wt[index] = value > 0 ? value : undefined
       })

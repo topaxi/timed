@@ -12,7 +12,7 @@ export default Ember.Component.extend({
   }.property('percent')
 
 , info: function() {
-    var percent = this.get('percent')
+    let percent = this.get('percent')
 
     if (percent > 100) {
       return 100 / percent * 100
@@ -22,10 +22,10 @@ export default Ember.Component.extend({
   }.property('percent')
 
 , warning: function() {
-    var percent = this.get('percent')
+    let percent = this.get('percent')
 
     if (percent > 100) {
-      var warning = percent - 100
+      let warning = percent - 100
 
       return warning / percent * 100
     }
@@ -43,7 +43,7 @@ export default Ember.Component.extend({
   }.observes('task.duration').on('didInsertElement')
 
 , fetchProgress: function() {
-    var $progressbar = this.$('.progress-bar')
+    let $progressbar = this.$('.progress-bar')
 
     $progressbar.addClass('active')
 

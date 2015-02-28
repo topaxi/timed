@@ -11,7 +11,7 @@ export default Ember.Component.extend({
   }.property('task.name', 'isTracking')
 
 , fixTooltip: function() {
-    var tooltip = this.$('.tip')
+    let tooltip = this.$('.tip')
 
     tooltip.prop('title', this.get('title'))
     tooltip.tooltip('fixTitle')
@@ -22,7 +22,7 @@ export default Ember.Component.extend({
   }.observes('title')
 
 , isCurrentTask: function() {
-    var activity = this.get('session.user.currentActivity')
+    let activity = this.get('session.user.currentActivity')
 
     return activity && activity.get('task.id') === this.get('task.id')
   }
@@ -57,7 +57,7 @@ export default Ember.Component.extend({
 , actions: {
     track() {
       this.get('session.user').then(user => {
-        var activity
+        let activity
 
         if (this.get('isTracking')) {
           activity = user.endCurrentActivity()

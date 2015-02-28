@@ -20,7 +20,7 @@ export default Model.extend({
   }.property('tracker.type')
 
 , 'searchIssues': function(term = '') {
-    var tracker = this.get('_tracker')
+    let tracker = this.get('_tracker')
 
     return tracker.searchIssues(term)
   }

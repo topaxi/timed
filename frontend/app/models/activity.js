@@ -11,7 +11,7 @@ export default Model.extend({
 , 'to':         DS.attr('moment')
 
 , save() {
-    var isNew = this.get('isNew')
+    let isNew = this.get('isNew')
 
     this.get('attendance').save().then(() => {
       // Remove record, ember-data has a bug which duplicates

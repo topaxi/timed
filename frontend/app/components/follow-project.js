@@ -17,7 +17,7 @@ export default Ember.Component.extend({
     }
   }.observes('title')
 , isFollowing: function() {
-    let projects = this.session.get('user.projects')
+    let projects = this.get('session.user.projects')
 
     if (!projects) {
       return false

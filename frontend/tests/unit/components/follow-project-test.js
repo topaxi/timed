@@ -1,7 +1,6 @@
 import Ember                        from 'ember'
 import startApp                     from '../../helpers/start-app'
 import { moduleForComponent, test } from 'ember-qunit'
-import { skip }                     from 'qunit'
 
 let App
 let store
@@ -17,16 +16,19 @@ moduleForComponent('follow-project', 'FollowProjectComponent', {
   }
 })
 
-skip('it renders', function(assert) {
+test('it renders', function(assert) {
   assert.expect(2)
 
-  let project = store.createRecord('project')
+  Ember.run(() => {
+    let project = store.createRecord('project')
+    let session = { user: Ember.Object.create() }
 
-  // creates the component instance
-  var component = this.subject({ project })
-  assert.equal(component._state, 'preRender')
+    // creates the component instance
+    var component = this.subject({ project, session })
+    assert.equal(component._state, 'preRender')
 
-  // appends the component to the page
-  this.render()
-  assert.equal(component._state, 'inDOM')
+    // appends the component to the page
+    this.render()
+    assert.equal(component._state, 'inDOM')
+  })
 })

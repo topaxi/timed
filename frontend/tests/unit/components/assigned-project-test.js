@@ -7,7 +7,11 @@ let App
 let store
 
 moduleForComponent('assigned-project', 'AssignedProjectComponent', {
-  needs: [ 'model:assignment' ]
+  needs: [
+    'model:assignment'
+  , 'component:track-task'
+  , 'component:task-progressbar'
+  ]
 , setup() {
     App   = startApp()
     store = App.__container__.lookup('store:main')
@@ -20,13 +24,15 @@ moduleForComponent('assigned-project', 'AssignedProjectComponent', {
 skip('it renders', function(assert) {
   assert.expect(2)
 
-  let assignment = store.createRecord('assignment')
+  Ember.run(() => {
+    let assignment = store.createRecord('assignment')
 
-  // creates the component instance
-  var component = this.subject({ assignment })
-  assert.equal(component._state, 'preRender')
+    // creates the component instance
+    var component = this.subject({ assignment })
+    assert.equal(component._state, 'preRender')
 
-  // appends the component to the page
-  this.render()
-  assert.equal(component._state, 'inDOM')
+    // appends the component to the page
+    this.render()
+    assert.equal(component._state, 'inDOM')
+  })
 })

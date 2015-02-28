@@ -1,17 +1,17 @@
-import { default as safehtml, escape } from '../../../utils/safehtml';
-import { module, test }                from 'qunit';
+import { default as safehtml, escape } from '../../../utils/safehtml'
+import { module, test }                from 'qunit'
 
-module('safehtml');
+module('safehtml')
 
 // Replace this with your real tests.
 test('it works', function(assert) {
   assert.expect(2)
 
-  var result = safehtml([ 'bar', 'baz' ], '<&foo\'>"');
-  assert.equal(result, 'bar&lt;&amp;foo&#39;&gt;&quot;baz');
+  var result = safehtml([ 'bar', 'baz' ], '<&foo\'>"')
+  assert.equal(result, 'bar&lt;&amp;foo&#39;&gt;&quot;baz')
 
-  assert.equal(escape('<&foo\'>"'), '&lt;&amp;foo&#39;&gt;&quot;');
-});
+  assert.equal(escape('<&foo\'>"'), '&lt;&amp;foo&#39;&gt;&quot;')
+})
 
 test('it is an instance of String', function(assert) {
   assert.expect(1)

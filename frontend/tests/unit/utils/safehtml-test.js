@@ -65,3 +65,9 @@ test('it can nest itself', function(assert) {
 
   assert.equal(resultB, '<blah><foo>&lt;&gt;<bar><blah>')
 })
+
+test('it can be called as a tagged template string', function(assert) {
+  assert.expect(1)
+
+  assert.equal(safehtml`foo>${'<bar>'}<baz`, 'foo>&lt;bar&gt;<baz')
+})

@@ -6,7 +6,7 @@ export default ProtectedRoute.extend({
     return this.session.get('user')
   }
 , afterModel: function() {
-    var user        = this.get('session.user.id')
+    var user        = this.get('model.id')
     var assignments = this.store.find('assignment', { user })
     var attendances = this.store.find('attendance', { user })
 

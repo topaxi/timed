@@ -1,7 +1,6 @@
 import Ember                        from 'ember'
 import startApp                     from '../../helpers/start-app'
 import { moduleForComponent, test } from 'ember-qunit'
-import { skip }                     from 'qunit'
 
 let App
 let store
@@ -12,23 +11,28 @@ moduleForComponent('assigned-project', 'AssignedProjectComponent', {
   , 'component:track-task'
   , 'component:task-progressbar'
   ]
-, setup() {
+, beforeEach() {
     App   = startApp()
     store = App.__container__.lookup('store:main')
   }
-, teardown() {
+, afterEach() {
     Ember.run(() => App.destroy())
   }
 })
 
-skip('it renders', function(assert) {
+test('it renders', function(assert) {
   assert.expect(2)
 
-  Ember.run(() => {
-    let assignment = store.createRecord('assignment')
+  let assignment
+  let component
 
+  Ember.run(() => {
+    assignment = store.createRecord('assignment')
+    component  = this.subject({ assignment })
+  })
+
+  andThen(() => {
     // creates the component instance
-    var component = this.subject({ assignment })
     assert.equal(component._state, 'preRender')
 
     // appends the component to the page

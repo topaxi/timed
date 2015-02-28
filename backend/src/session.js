@@ -2,7 +2,7 @@ import session      from 'express-session'
 import connectMongo from 'connect-mongo'
 import config       from '../config.json'
 
-var MongoStore = connectMongo(session)
+let MongoStore = connectMongo(session)
 
 export default session({
   'secret':            config.cookieSecret

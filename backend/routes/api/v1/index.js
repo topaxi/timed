@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-var router = new Router
+let router = new Router
 export default router
 
 router.use('/projects',    require('./project'))

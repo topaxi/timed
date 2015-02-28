@@ -3,7 +3,7 @@ import app from '../src/main'
 let env = app.get('env')
 
 export default function(err, req, res, next) {
-  var status = err.status || 500
+  let status = err.status || 500
 
   res.status(status)
   res.send({

@@ -3,7 +3,7 @@ import bcrypt               from 'bcrypt'
 
 const PASSWORD_ROUNDS = 10
 
-var UserSchema = new Schema({
+let UserSchema = new Schema({
   'name':      { type: String, required: true, index: { unique: true } }
 , 'firstName': String
 , 'lastName':  String

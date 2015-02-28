@@ -11,7 +11,7 @@ import { User }      from '../models'
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) => User.findById(id, done))
 
-var strategy = new LocalStrategy(co.wrap(function*(name, password, done) {
+let strategy = new LocalStrategy(co.wrap(function*(name, password, done) {
   try {
     let user = yield User.findOne({ name }).exec()
 

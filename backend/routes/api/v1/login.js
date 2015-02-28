@@ -2,7 +2,7 @@ import { Router } from 'express'
 import passport   from 'passport'
 import auth       from '../../../middleware/auth'
 
-var router = new Router
+let router = new Router
 export default router
 
 router.post('/login', (req, res, next) =>
@@ -19,8 +19,8 @@ router.post('/login', (req, res, next) =>
 )
 
 router.get('/whoami', auth, (req, res) => {
-  var [ ip ]         = req.ips
-  var { id: userId } = req.user
+  let [ ip ]         = req.ips
+  let { id: userId } = req.user
 
   res.send({ userId, ip })
 })

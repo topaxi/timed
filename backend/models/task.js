@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose'
 import Task                 from './task'
 
-var TaskSchema = new Schema
+let TaskSchema = new Schema
 
 TaskSchema.add({
   'name':     String

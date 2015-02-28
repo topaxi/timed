@@ -2,12 +2,11 @@ import express      from 'express'
 import bodyParser   from 'body-parser'
 import cookieParser from 'cookie-parser'
 import http         from 'http'
-import mongoose     from 'mongoose'
+import session      from './session'
+import auth         from './auth'
 import config       from '../config.json'
 
-mongoose.connect(config.mongodb)
-
-var app = express()
+let app = express()
 export default app
 
 app.set('title',       config.title ? `Timed - ${config.title}` : 'Timed')
@@ -17,8 +16,8 @@ app.set('port',        process.env.PORT || config.port || 3000)
 app.use(require('morgan')('dev'))
 app.use(bodyParser.json())
 app.use(cookieParser(config.cookieSecret))
-app.use(require('./session'))
-app.use(require('./auth'))
+app.use(session)
+app.use(auth)
 
 require('../routes')
 

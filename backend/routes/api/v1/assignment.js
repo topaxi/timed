@@ -1,68 +1,55 @@
-import { Router } from 'express'
-import Assignment from '../../../models/assignment'
-import auth       from '../../../middleware/auth'
+import { Router }     from 'express'
+import { async }      from '../../../src/async-route'
+import { Assignment } from '../../../models'
+import auth           from '../../../middleware/auth'
 
-var router = new Router
+let router = new Router
 export default router
 
 router.use(auth)
 
-router.get('/', (req, res, next) => {
-  Assignment.find(req.query, (err, assignments) => {
-    if (err) return next(err)
+router.get('/', async(function*(req, res, next) {
+  let assignments = yield Assignment.find(req.query).exec()
 
-    res.send({ assignments })
-  })
-})
+  res.send({ assignments })
+}))
 
-router.post('/', auth, (req, res, next) => {
-  var assignment = new Assignment(req.body.assignment)
+router.post('/', auth, async(function*(req, res, next) {
+  let assignment = new Assignment(req.body.assignment)
 
-  assignment.save(err => {
-    if (err) return next(err)
+  yield assignment.saveAsync()
 
-    res.send({ assignment })
-  })
-})
+  res.send({ assignment })
+}))
 
-router.get('/:id', (req, res, next) => {
-  Assignment.findById(req.params.id, (err, assignment) => {
-    if (err) return next(err)
+router.get('/:id', async(function*(req, res, next) {
+  let assignment = yield Assignment.findById(req.params.id).exec()
 
-    res.send({ assignment })
-  })
-})
+  res.send({ assignment })
+}))
 
 // todo
 // router.put('/', fun...
 
-router.put('/:id', (req, res, next) => {
-  Assignment.findById(req.params.id, (err, assignment) => {
-    if (err) return next(err)
+router.put('/:id', async(function*(req, res, next) {
+  let assignment = yield Assignment.findById(req.params.id).exec()
 
-    assignment.user     = req.body.assignment.user
-    assignment.from     = req.body.assignment.from
-    assignment.to       = req.body.assignment.to
-    assignment.duration = req.body.assignment.duration
-    assignment.project  = req.body.assignment.project
-    assignment.tasks    = req.body.assignment.tasks
+  assignment.user     = req.body.assignment.user
+  assignment.from     = req.body.assignment.from
+  assignment.to       = req.body.assignment.to
+  assignment.duration = req.body.assignment.duration
+  assignment.project  = req.body.assignment.project
+  assignment.tasks    = req.body.assignment.tasks
 
-    assignment.save(err => {
-      if (err) return next(err)
+  yield assignment.saveAsync()
 
-      res.send({ assignment })
-    })
-  })
-})
+  res.send({ assignment })
+}))
 
-router.delete('/:id', (req, res, next) => {
-  Assignment.findById(req.params.id, (err, assignment) => {
-    if (err) return next(err)
+router.delete('/:id', async(function*(req, res, next) {
+  let assignment = yield Assignment.findById(req.params.id).exec()
 
-    assignment.remove(err => {
-      if (err) return next(err)
+  yield assignment.removeAsync()
 
-      return res.send(true)
-    })
-  })
-})
+  res.send(true)
+}))

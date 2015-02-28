@@ -1,69 +1,56 @@
-import { Router } from 'express'
-import Attendance from '../../../models/attendance'
-import auth       from '../../../middleware/auth'
+import { Router }     from 'express'
+import { async }      from '../../../src/async-route'
+import { Attendance } from '../../../models'
+import auth           from '../../../middleware/auth'
 
-var router = new Router
+let router = new Router
 export default router
 
 router.use(auth)
 
-router.get('/', (req, res, next) => {
+router.get('/', async(function*(req, res, next) {
   if (req.query.from) req.query.from = { '$gte': new Date(+req.query.from) }
   if (req.query.to)   req.query.to   = { '$lte': new Date(+req.query.to)   }
 
-  Attendance.find(req.query, (err, attendances) => {
-    if (err) return next(err)
+  let attendances = yield Attendance.find(req.query).exec()
 
-    res.send({ attendances })
-  })
-})
+  res.send({ attendances })
+}))
 
-router.post('/', (req, res, next) => {
-  var attendance = new Attendance(req.body.attendance)
+router.post('/', async(function*(req, res, next) {
+  let attendance = new Attendance(req.body.attendance)
 
-  attendance.save(err => {
-    if (err) return next(err)
+  yield attendance.saveAsync()
 
-    res.send({ attendance })
-  })
-})
+  res.send({ attendance })
+}))
 
-router.get('/:id', (req, res, next) => {
-  Attendance.findById(req.params.id, (err, attendance) => {
-    if (err) return next(err)
+router.get('/:id', async(function*(req, res, next) {
+  let attendance = yield Attendance.findById(req.params.id).exec()
 
-    res.send({ attendance })
-  })
-})
+  res.send({ attendance })
+}))
 
 // todo
 // router.put('/', fun...
 
-router.put('/:id', (req, res, next) => {
-  Attendance.findById(req.params.id, (err, attendance) => {
-    if (err) return next(err)
+router.put('/:id', async(function*(req, res, next) {
+  let attendance = Attendance.findById(req.params.id).exec()
 
-    attendance.user       = req.body.attendance.user
-    attendance.from       = req.body.attendance.from
-    attendance.to         = req.body.attendance.to
-    attendance.activities = req.body.attendance.activities
+  attendance.user       = req.body.attendance.user
+  attendance.from       = req.body.attendance.from
+  attendance.to         = req.body.attendance.to
+  attendance.activities = req.body.attendance.activities
 
-    attendance.save(err => {
-      if (err) return next(err)
+  yield attendance.saveAsync()
 
-      res.send({ attendance })
-    })
-  })
-})
+  res.send({ attendance })
+}))
 
-router.delete('/:id', (req, res, next) => {
-  Attendance.findById(req.params.id, (err, attendance) => {
-    if (err) return next(err)
+router.delete('/:id', async(function*(req, res, next) {
+  let attendance = Attendance.findById(req.params.id).exec()
 
-    attendance.remove(err => {
-      if (err) return next(err)
+  yield attendance.removeAsync()
 
-      return res.send(true)
-    })
-  })
-})
+  res.send(true)
+}))

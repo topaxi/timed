@@ -1,74 +1,50 @@
-import { Router } from 'express'
-import Customer   from '../../../models/customer'
-import auth       from '../../../middleware/auth'
+import { Router }   from 'express'
+import { async }    from '../../../src/async-route'
+import { Customer } from '../../../models'
+import auth         from '../../../middleware/auth'
 
-var router = new Router
+let router = new Router
 export default router
 
 router.use(auth)
 
-router.get('/', (req, res, next) => {
-  var { name } = req.query
+router.get('/', async(function*(req, res, next) {
+  let customers = yield Customer.find(req.query).exec()
 
-  if (name) {
-    Customer.find({ name }, (err, customers) => {
-      if (err) return next(err)
+  res.send({ customers })
+}))
 
-      res.send({ customers })
-    })
-  }
-  else {
-    Customer.find((err, customers) => {
-      if (err) return next(err)
+router.post('/', async(function*(req, res, next) {
+  let customer = new Customer({ 'name': req.body.customer.name })
 
-      res.send({ customers })
-    })
-  }
-})
+  yield customer.saveAsync()
 
-router.post('/', (req, res, next) => {
-  var customer = new Customer({ 'name': req.body.customer.name })
+  res.send({ customer })
+}))
 
-  customer.save(err => {
-    if (err) return next(err)
+router.get('/:id', async(function*(req, res, next) {
+  let customer = yield Customer.findById(req.params.id).exec()
 
-    res.send({ customer })
-  })
-})
-
-router.get('/:id', (req, res, next) => {
-  Customer.findById(req.params.id, (err, customer) => {
-    if (err) return next(err)
-
-    res.send({ customer })
-  })
-})
+  res.send({ customer })
+}))
 
 // todo
 // router.put('/', fun...
 
-router.put('/:id', (req, res, next) => {
-  Customer.findById(req.params.id, (err, customer) => {
-    if (err) return next(err)
+router.put('/:id', async(function*(req, res, next) {
+  let customer = Customer.findById(req.params.id).exec()
 
-    customer.name = req.body.customer.name
+  customer.name = req.body.customer.name
 
-    customer.save(err => {
-      if (err) return next(err)
+  yield customer.saveAsync()
 
-      res.send({ customer })
-    })
-  })
-})
+  res.send({ customer })
+}))
 
-router.delete('/:id', (req, res, next) => {
-  Customer.findById(req.params.id, (err, customer) => {
-    if (err) return next(err)
+router.delete('/:id', async(function*(req, res, next) {
+  let customer = Customer.findById(req.params.id).exec()
 
-    customer.remove(err => {
-      if (err) return next(err)
+  yield customer.removeAsync()
 
-      return res.send(true)
-    })
-  })
-})
+  res.send(true)
+}))

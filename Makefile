@@ -13,7 +13,7 @@ cache-clean:
 	bower cache clean
 
 user:
-	@vagrant ssh -c 'node /vagrant/backend/bin/user.js'
+	@vagrant ssh -c 'node --harmony /vagrant/backend/bin/user.js'
 
 run:
 	@vagrant ssh -c 'cd /vagrant && make run-server-polling'

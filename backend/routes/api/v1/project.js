@@ -1,42 +1,29 @@
-import { Router } from 'express'
-import Project    from '../../../models/project'
-import Task       from '../../../models/task'
-import auth       from '../../../middleware/auth'
+import { Router }        from 'express'
+import { async }         from '../../../src/async-route'
+import { Project, Task } from '../../../models'
+import auth              from '../../../middleware/auth'
 
-var router = new Router
+let router = new Router
 export default router
 
 router.use(auth)
 
-router.get('/', (req, res, next) => {
-  var { ids } = req.query
+router.get('/', async(function*(req, res, next) {
+  let { ids }  = req.query
+  let query    = ids && ids.length ? { '_id': { '$in': ids } } : req.query
+  let projects = yield Project.find(query).exec()
 
-  if (ids && ids.length) {
-    Project.find({ '_id': { '$in': ids } }, (err, projects) => {
-      if (err) return next(err)
+  res.send({ projects })
+}))
 
-      res.send({ projects })
-    })
-  }
-  else {
-    Project.find((err, projects) => {
-      if (err) return next(err)
+router.get('/:id', async(function*(req, res, next) {
+  let project = yield Project.findById(req.params.id).exec()
 
-      res.send({ projects })
-    })
-  }
-})
+  res.send({ project })
+}))
 
-router.get('/:id', (req, res, next) => {
-  Project.findById(req.params.id, (err, project) => {
-    if (err) return next(err)
-
-    res.send({ project })
-  })
-})
-
-router.post('/', (req, res, next) => {
-  var project = new Project({ 'name':     req.body.project.name
+router.post('/', async(function*(req, res, next) {
+  let project = new Project({ 'name':     req.body.project.name
                             , 'customer': req.body.project.customer
                             , 'tracker':  req.body.project.tracker
                             , 'from':     req.body.project.from
@@ -44,47 +31,34 @@ router.post('/', (req, res, next) => {
                             , 'done':     req.body.project.done
                             })
 
-  project.save(err => {
-    if (err) return next(err)
+  yield project.saveAsync()
 
-    res.send({ project })
-  })
-})
+  res.send({ project })
+}))
 
 // todo
 // router.put('/', fun...
 
-router.put('/:id', (req, res, next) => {
-  Project.findById(req.params.id, (err, project) => {
-    if (err) return next(err)
+router.put('/:id', async(function*(req, res, next) {
+  let project = yield Project.findById(req.params.id).exec()
 
-    project.name     = req.body.project.name
-    project.customer = req.body.project.customer
-    project.tracker  = req.body.project.tracker
-    project.from     = req.body.project.from
-    project.to       = req.body.project.to
-    project.done     = req.body.project.done
+  project.name     = req.body.project.name
+  project.customer = req.body.project.customer
+  project.tracker  = req.body.project.tracker
+  project.from     = req.body.project.from
+  project.to       = req.body.project.to
+  project.done     = req.body.project.done
 
-    project.save(err => {
-      if (err) return next(err)
+  yield project.saveAsync()
 
-      res.send({ project })
-    })
-  })
-})
+  res.send({ project })
+}))
 
-router.delete('/:id', (req, res, next) => {
-  Project.findById(req.params.id, (err, project) => {
-    if (err) return next(err)
+router.delete('/:id', async(function*(req, res, next) {
+  let project = yield Project.findById(req.params.id).exec()
 
-    Task.remove({ project }, err => {
-      if (err) return next(err)
+  yield Task.removeAsync({ project })
+  yield project.removeAsync()
 
-      project.remove(err => {
-        if (err) return next(err)
-
-        return res.send(true)
-      })
-    })
-  })
-})
+  res.send(true)
+}))

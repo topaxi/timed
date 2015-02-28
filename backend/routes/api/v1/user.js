@@ -1,37 +1,31 @@
 import { Router } from 'express'
-import bcrypt     from 'bcrypt'
-import User       from '../../../models/user'
-import Task       from '../../../models/task'
-import Project    from '../../../models/project'
+import { async }  from '../../../src/async-route'
+import { User }   from '../../../models'
 import auth       from '../../../middleware/auth'
 
-var router = new Router
+let router = new Router
 export default router
 
 router.use(auth)
 
-router.get('/', (req, res, next) => {
-  User.find(function(err, users) {
-    if (err) return next(err)
+router.get('/', async(function*(req, res, next) {
+  let users = yield User.find(req.query).exec()
 
-    users.forEach(deletePasswordForResponse)
+  users.forEach(deletePasswordForResponse)
 
-    res.send({ users })
-  })
-})
+  res.send({ users })
+}))
 
-router.get('/:id', (req, res, next) => {
-  User.findById(req.params.id, (err, user) => {
-    if (err) return next(err)
+router.get('/:id', async(function*(req, res, next) {
+  let user = yield User.findById(req.params.id).exec()
 
-    deletePasswordForResponse(user)
+  deletePasswordForResponse(user)
 
-    res.send({ user })
-  })
-})
+  res.send({ user })
+}))
 
-router.post('/', (req, res, next) => {
-  var user = new User({ 'name':      req.body.user.name
+router.post('/', async(function*(req, res, next) {
+  let user = new User({ 'name':      req.body.user.name
                       , 'firstName': req.body.user.firstName
                       , 'lastName':  req.body.user.lastName
                       , 'quota':     req.body.user.quota
@@ -40,76 +34,56 @@ router.post('/', (req, res, next) => {
                       , 'worktime':  req.body.user.worktime
                       })
 
-  user.save(err => {
-    if (err) return next(err)
+  yield user.saveAsync()
 
-    deletePasswordForResponse(user)
+  deletePasswordForResponse(user)
 
-    res.send({ user })
-  })
-})
+  res.send({ user })
+}))
 
 // todo
 // router.put('/', fun...
 
-router.put('/:id', (req, res, next) => {
-  User.findById(req.params.id, (err, user) => {
-    if (err) return next(err)
+router.put('/:id', async(function*(req, res, next) {
+  let user = yield User.findById(req.params.id).exec()
 
-    user.name      = req.body.user.name      || user.name
-    user.firstName = req.body.user.firstName || user.firstName
-    user.lastName  = req.body.user.lastName  || user.lastName
-    user.quota     = req.body.user.quota     || user.quota
-    user.projects  = req.body.user.projects  || user.projects
-    user.worktime  = req.body.user.worktime  || user.worktime
+  user.name      = req.body.user.name      || user.name
+  user.firstName = req.body.user.firstName || user.firstName
+  user.lastName  = req.body.user.lastName  || user.lastName
+  user.quota     = req.body.user.quota     || user.quota
+  user.projects  = req.body.user.projects  || user.projects
+  user.worktime  = req.body.user.worktime  || user.worktime
 
-    if (!req.body.user.password) {
-      save()
-    }
-    else if (user.password) {
-      bcrypt.compare(req.body.user.password, user.password, (err, equal) => {
-        if (err) return next(err)
-
-        if (equal) {
-          save()
-        }
-        else {
-          user.setPassword(req.body.user.password, save)
-        }
-      })
+  if (req.body.user.password) {
+    if (user.password) {
+      if (!(yield user.comparePassword(req.body.user.password))) {
+        yield user.setPassword(req.body.user.password)
+      }
     }
     else {
-      user.setPassword(req.body.user.password, save)
+      yield user.setPassword(req.body.user.password)
     }
+  }
 
-    function save(err) {
-      if (err) return next(err)
+  yield user.saveAsync()
 
-      user.save(err => {
-        if (err) return next(err)
+  // Update currently logged in user
+  if (user._id == req.user._id) {
+    req.user = user
+  }
 
-        // Update currently logged in user
-        if (req.user._id == user._id) req.user = user
+  deletePasswordForResponse(user)
 
-        deletePasswordForResponse(user)
+  res.send({ user })
+}))
 
-        res.send({ user })
-      })
-    }
-  })
-})
+router.delete('/:id', async(function*(req, res, next) {
+  let user = yield User.findById(req.params.id).exec()
 
-router.delete('/:id', (req, res, next) => {
-  User.findById(req.params.id, (err, user) => {
-    if (err) return next(err)
+  yield user.removeAsync()
 
-    user.remove(err => {
-      if (err) return next(err)
-
-      return res.send(true)
-    })
-  })
-})
+  res.send(true)
+}))
 
 function deletePasswordForResponse(user) {
   user.password = undefined

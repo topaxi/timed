@@ -1,67 +1,53 @@
 import { Router } from 'express'
-import Team       from '../../../models/team'
-import User       from '../../../models/user'
+import { async }  from '../../../src/async-route'
+import { Team }   from '../../../models'
 import auth       from '../../../middleware/auth'
 
-var router = new Router
+let router = new Router
 export default router
 
 router.use(auth)
 
-router.get('/', (req, res, next) => {
-  Team.find((err, teams) => {
-    if (err) return next(err)
+router.get('/', async(function*(req, res, next) {
+  let teams = yield Team.find(req.query).exec()
 
-    res.send({ teams })
-  })
-})
+  res.send({ teams })
+}))
 
-router.get('/:id', (req, res, next) => {
-  Team.findById(req.params.id, (err, team) => {
-    if (err) return next(err)
+router.get('/:id', async(function*(req, res, next) {
+  let team = yield Team.findById(req.params.id).exec()
 
-    res.send({ team })
-  })
-})
+  res.send({ team })
+}))
 
-router.post('/', (req, res, next) => {
-  var team = new Team({ 'name':  req.body.team.name
+router.post('/', async(function*(req, res, next) {
+  let team = new Team({ 'name':  req.body.team.name
                       , 'users': req.body.team.users
                       })
 
-  team.save(err => {
-    if (err) return next(err)
+  yield team.saveAsync()
 
-    res.send({ team })
-  })
-})
+  res.send({ team })
+}))
 
 // todo
 // router.put('/', fun...
 
-router.put('/:id', (req, res, next) => {
-  Team.findById(req.params.id, (err, team) => {
-    if (err) return next(err)
+router.put('/:id', async(function*(req, res, next) {
+  let team = yield Team.findById(req.params.id).exec()
 
-    team.name  = req.body.team.name  || team.name
-    team.users = req.body.team.users || team.users
+  team.name  = req.body.team.name  || team.name
+  team.users = req.body.team.users || team.users
 
-    team.save(err => {
-      if (err) return next(err)
+  yield team.saveAsync()
 
-      res.send({ team })
-    })
-  })
-})
+  res.send({ team })
+}))
 
-router.delete('/:id', (req, res, next) => {
-  Team.findById(req.params.id, (err, team) => {
-    if (err) return next(err)
+router.delete('/:id', async(function*(req, res, next) {
+  let team = yield Team.findById(req.params.id).exec()
 
-    team.remove(err => {
-      if (err) return next(err)
+  yield team.removeAsync()
 
-      return res.send(true)
-    })
-  })
-})
+  res.send(true)
+}))

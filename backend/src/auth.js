@@ -1,7 +1,7 @@
+import co            from 'co'
 import passport      from 'passport'
 import LocalStrategy from 'passport-local'
-import bcrypt        from 'bcrypt'
-import User          from '../models/user'
+import { User }      from '../models'
 
 // Passport session setup.
 // To support persistent login sessions, Passport needs to be able to
@@ -11,19 +11,20 @@ import User          from '../models/user'
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) => User.findById(id, done))
 
-var strategy = new LocalStrategy((name, password, done) => {
-  User.findOne({ name }, (err, user) => {
-    if (err)   return done(err)
-    if (!user) return done(new Error('Invalid login!'))
+var strategy = new LocalStrategy(co.wrap(function*(name, password, done) {
+  try {
+    let user = yield User.findOne({ name }).exec()
 
-    bcrypt.compare(password, user.password, (err, equal) => {
-      if (err)    return done(err)
-      if (!equal) return done(new Error('Invalid login!'))
+    if (!user || !(yield user.comparePassword(password))) {
+      throw new Error('Invalid login!')
+    }
 
-      return done(null, user)
-    })
-  })
-})
+    done(null, user)
+  }
+  catch (err) {
+    done(err)
+  }
+}))
 
 passport.use(strategy)
 

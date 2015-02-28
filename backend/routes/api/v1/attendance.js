@@ -35,7 +35,7 @@ router.get('/:id', async(function*(req, res, next) {
 // router.put('/', fun...
 
 router.put('/:id', async(function*(req, res, next) {
-  let attendance = Attendance.findById(req.params.id).exec()
+  let attendance = yield Attendance.findById(req.params.id).exec()
 
   attendance.user       = req.body.attendance.user
   attendance.from       = req.body.attendance.from

@@ -1,8 +1,6 @@
 import Ember    from 'ember'
 import moment   from 'moment'
-/* jshint ignore:start */
 import safehtml from 'timed/utils/safehtml'
-/* jshint ignore:end */
 
 const LIMIT = 100 // Maximum limit is 100
 
@@ -32,13 +30,9 @@ export default Ember.Object.extend({
     }
   }
 
-/* No support for tagged templates in jshint :/ */
-/* jshint ignore:start */
 , selectizeOptionTemplate(option) {
-    let avatar = ''
-
     if (option.data.type !== 'redmine') {
-      return safehtml`<div class="option">${option.label}</div>`.safehtml
+      return safehtml`<div class="option">${option.label}</div>`
     }
 
     let html = safehtml`<div class="option">
@@ -50,9 +44,8 @@ export default Ember.Object.extend({
       </div>
     </div>`
 
-    return html.safehtml
+    return html
   }
-/* jshint ignore:end */
 
   // Redmine API does not allow to search for issues.
   // For now, we fetch all issues for a project...

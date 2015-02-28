@@ -1,8 +1,6 @@
 import Ember    from 'ember'
 import moment   from 'moment'
-/* jshint ignore:start */
 import safehtml from 'timed/utils/safehtml'
-/* jshint ignore:end */
 
 export default Ember.Object.extend({
 
@@ -31,13 +29,11 @@ export default Ember.Object.extend({
     }
   }
 
-/* No support for tagged templates in jshint :/ */
-/* jshint ignore:start */
 , selectizeOptionTemplate(option) {
     let avatar = ''
 
     if (option.data.type !== 'github') {
-      return safehtml`<div class="option">${option.label}</div>`.safehtml
+      return safehtml`<div class="option">${option.label}</div>`
     }
 
     if (option.data.raw.user.avatar_url) {
@@ -58,7 +54,6 @@ export default Ember.Object.extend({
       </div>
     </div>`
 
-    return html.safehtml
+    return html
   }
-/* jshint ignore:end */
 })

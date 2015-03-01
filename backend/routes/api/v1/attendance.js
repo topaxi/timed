@@ -48,7 +48,7 @@ router.put('/:id', async(function*(req, res, next) {
 }))
 
 router.delete('/:id', async(function*(req, res, next) {
-  let attendance = Attendance.findById(req.params.id).exec()
+  let attendance = yield Attendance.findById(req.params.id).exec()
 
   yield attendance.removeAsync()
 

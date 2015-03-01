@@ -32,7 +32,7 @@ router.get('/:id', async(function*(req, res, next) {
 // router.put('/', fun...
 
 router.put('/:id', async(function*(req, res, next) {
-  let customer = Customer.findById(req.params.id).exec()
+  let customer = yield Customer.findById(req.params.id).exec()
 
   customer.name = req.body.customer.name
 
@@ -42,7 +42,7 @@ router.put('/:id', async(function*(req, res, next) {
 }))
 
 router.delete('/:id', async(function*(req, res, next) {
-  let customer = Customer.findById(req.params.id).exec()
+  let customer = yield Customer.findById(req.params.id).exec()
 
   yield customer.removeAsync()
 

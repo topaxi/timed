@@ -13,7 +13,7 @@
 </thead>
 <tbody>
   {{#each task in tasks}}
-    <tr>
+    <tr class="assigned-project-task">
       <td>{{track-task btnClass='btn-xs' task=task}}</td>
       <td>
         {{#link-to 'task.edit' assignment.project task}}

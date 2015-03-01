@@ -9,13 +9,12 @@ export default Ember.Component.extend({
       return this.assignment.get('tasks')
     }
 
-    return this.assignment.store.find('task', {
-      'project': this.assignment.get('project.id')
-    , 'done':    false
-    })
+    return this.assignment.get('project.tasks')
   }.property('assignment.tasks.@each', 'assignment.project.tasks.@each')
 
 , 'tasks': function() {
-    return this.get('assignedTasks').filter(t => !t.get('done'))
+    let tasks = this.get('assignedTasks') || []
+
+    return tasks.filter(t => !t.get('done'))
   }.property('assignedTasks', 'assignedTasks.@each.isDone')
 })

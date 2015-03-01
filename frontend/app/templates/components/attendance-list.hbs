@@ -20,7 +20,7 @@
 </table>
 
 {{#each attendance in view.attendances}}
-  <table class="table">
+  <table class="table attendance-list-attendance">
     <colgroup>
       <col>
       <col>
@@ -55,7 +55,7 @@
     </thead>
     <tbody>
       {{#each activity in attendance.activities}}
-        <tr {{bind-attr class='activity.review:danger'}}>
+        <tr {{bind-attr class=':attendance-list-activity activity.review:danger'}}>
           <td>
             <small>
               {{activity.task.project.customer.name}}

@@ -5,8 +5,8 @@ export default Ember.Component.extend({
   currentDay: null
 
 , init: function() {
-    this._super()
     this.set('currentDay', moment().startOf('day'))
+    this._super()
   }
 
 , attendances: function() {

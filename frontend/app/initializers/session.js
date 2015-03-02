@@ -14,18 +14,18 @@ Session.reopen({
 
 let Authenticator = AuthBase.extend({
   authenticate(credentials) {
+    let { identification: username, password } = credentials
+
     return new Ember.RSVP.Promise((resolve, reject) =>
       Ember.$.ajax({
         url:         '/api/v1/login'
       , type:        'POST'
       , dataType:    'json'
       , contentType: 'application/json'
-      , data:        JSON.stringify({ 'username': credentials.identification
-                                    , 'password': credentials.password
-                                    })
+      , data:        JSON.stringify({ username, password })
       })
-      .then(res => Ember.run(() => resolve(res)))
-      .fail(xhr => Ember.run(() => {
+      .then(resolve)
+      .fail(xhr => {
         let error
 
         try {
@@ -36,7 +36,7 @@ let Authenticator = AuthBase.extend({
         }
 
         reject(error)
-      }))
+      })
     )
   }
 , restore(data) {
@@ -48,6 +48,9 @@ let Authenticator = AuthBase.extend({
         reject()
       }
     })
+  }
+, invalidate() {
+    return Ember.$.post('/api/v1/logout')
   }
 })
 

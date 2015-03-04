@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import passport   from 'passport'
-import app        from '../../../src/main'
+import app        from '../../../src/app'
 import auth       from '../../../middleware/auth'
 
 let router = new Router

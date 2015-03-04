@@ -57,5 +57,9 @@ install-backend:
 	rm -rf backend/node_modules
 	cd backend && npm install
 
-test:
+test-server:
 	cd frontend && ember test --server
+
+test:
+	npm test --prefix ./backend
+	npm test --prefix ./frontend

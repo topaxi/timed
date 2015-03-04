@@ -12,7 +12,9 @@ export { default as Task       } from './task'
 export { default as Team       } from './team'
 export { default as User       } from './user'
 
-mongoose.connect(config.mongodb)
+let env = process.env.NODE_ENV || 'development'
+
+mongoose.connect(env !== 'testing' ? config.mongodb : 'timed-testing')
 
 // Promisify Model.save, Model#save, Model.remove and Model#remove
 for (let method of [ 'save', 'remove' ]) {

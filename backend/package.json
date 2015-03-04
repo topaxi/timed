@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "test": "make test"
   },
   "dependencies": {
     "babel": "^4.6.1",
@@ -22,5 +23,9 @@
     "read": "1.0.x",
     "rsvp": "^3.0.16",
     "serve-favicon": "^2.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.1.0",
+    "supertest": "^0.15.0"
   }
 }

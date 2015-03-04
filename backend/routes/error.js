@@ -1,4 +1,4 @@
-import app from '../src/main'
+import app from '../src/app'
 
 let env = app.get('env')
 

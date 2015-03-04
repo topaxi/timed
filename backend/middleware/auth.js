@@ -1,11 +1,12 @@
-import app from '../src/app'
+import app                    from '../src/app'
+import { NotAuthorizedError } from '../src/error'
 
 export default app.get('env') !== 'testing' ? auth : testAuth
 
 export function auth(req, res, next) {
   if (req.isAuthenticated()) return next()
 
-  next({ 'status': 401, 'message': 'Not authenticated!' })
+  next(new NotAuthorizedError('Not authenticated!'))
 }
 
 export function testAuth(req, res, next) {

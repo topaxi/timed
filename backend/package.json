@@ -25,7 +25,10 @@
     "serve-favicon": "^2.2.0"
   },
   "devDependencies": {
+    "chai": "^2.1.0",
     "mocha": "^2.1.0",
+    "mocha-mongoose": "^1.0.3",
+    "mongodb": "^1.4.33",
     "supertest": "^0.15.0"
   }
 }

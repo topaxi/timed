@@ -1,7 +1,8 @@
-import { Router }     from 'express'
-import { async }      from '../../../src/async-route'
-import { Assignment } from '../../../models'
-import auth           from '../../../middleware/auth'
+import { Router }        from 'express'
+import { async }         from '../../../src/async-route'
+import { NotFoundError } from '../../../src/error'
+import { Assignment }    from '../../../models'
+import auth              from '../../../middleware/auth'
 
 let router = new Router
 export default router
@@ -25,6 +26,10 @@ router.post('/', auth, async(function*(req, res, next) {
 router.get('/:id', async(function*(req, res, next) {
   let assignment = yield Assignment.findById(req.params.id).exec()
 
+  if (!assignment) {
+    throw new NotFoundError
+  }
+
   res.send({ assignment })
 }))
 
@@ -32,24 +37,15 @@ router.get('/:id', async(function*(req, res, next) {
 // router.put('/', fun...
 
 router.put('/:id', async(function*(req, res, next) {
-  let assignment = yield Assignment.findById(req.params.id).exec()
-
-  assignment.user     = req.body.assignment.user
-  assignment.from     = req.body.assignment.from
-  assignment.to       = req.body.assignment.to
-  assignment.duration = req.body.assignment.duration
-  assignment.project  = req.body.assignment.project
-  assignment.tasks    = req.body.assignment.tasks
-
-  yield assignment.saveAsync()
+  let { id }                 = req.params
+  let { assignment: update } = req.body
+  let assignment             = yield Assignment.findByIdAndUpdate(id, update).exec()
 
   res.send({ assignment })
 }))
 
 router.delete('/:id', async(function*(req, res, next) {
-  let assignment = yield Assignment.findById(req.params.id).exec()
-
-  yield assignment.removeAsync()
+  yield Assignment.findByIdAndRemove(req.params.id).exec()
 
   res.send(true)
 }))

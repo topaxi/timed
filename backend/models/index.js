@@ -14,10 +14,10 @@ export { default as User       } from './user'
 
 let env = process.env.NODE_ENV || 'development'
 
-mongoose.connect(env !== 'testing' ? config.mongodb : 'timed-testing')
+mongoose.connect(env !== 'testing' ? config.mongodb : 'mongodb://127.0.0.1/timed-testing')
 
 // Promisify Model.save, Model#save, Model.remove and Model#remove
-for (let method of [ 'save', 'remove' ]) {
+for (let method of [ 'save', 'remove', 'create' ]) {
   let name = `${method}Async`
   let fn   = function(...args) {
     return new Promise((resolve, reject) =>

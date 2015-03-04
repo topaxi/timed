@@ -1,7 +1,8 @@
-import { Router }     from 'express'
-import { async }      from '../../../src/async-route'
-import { Attendance } from '../../../models'
-import auth           from '../../../middleware/auth'
+import { Router }        from 'express'
+import { async }         from '../../../src/async-route'
+import { NotFoundError } from '../../../src/error'
+import { Attendance }    from '../../../models'
+import auth              from '../../../middleware/auth'
 
 let router = new Router
 export default router
@@ -28,6 +29,10 @@ router.post('/', async(function*(req, res, next) {
 router.get('/:id', async(function*(req, res, next) {
   let attendance = yield Attendance.findById(req.params.id).exec()
 
+  if (!attendance) {
+    throw new NotFoundError
+  }
+
   res.send({ attendance })
 }))
 
@@ -35,22 +40,15 @@ router.get('/:id', async(function*(req, res, next) {
 // router.put('/', fun...
 
 router.put('/:id', async(function*(req, res, next) {
-  let attendance = yield Attendance.findById(req.params.id).exec()
-
-  attendance.user       = req.body.attendance.user
-  attendance.from       = req.body.attendance.from
-  attendance.to         = req.body.attendance.to
-  attendance.activities = req.body.attendance.activities
-
-  yield attendance.saveAsync()
+  let { id }                 = req.params.id
+  let { attendance: update } = req.body
+  let attendance             = yield Attendance.findByIdAndUpdate(id, update).exec()
 
   res.send({ attendance })
 }))
 
 router.delete('/:id', async(function*(req, res, next) {
-  let attendance = yield Attendance.findById(req.params.id).exec()
-
-  yield attendance.removeAsync()
+  yield Attendance.findByIdAndRemove(req.params.id).exec()
 
   res.send(true)
 }))

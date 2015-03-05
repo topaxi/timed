@@ -65,21 +65,28 @@ describe('GET /api/v1/login', () => {
 })
 
 describe('GET /api/v1/whoami', () => {
+  let agent = request.agent(app)
+  let userId
 
   beforeEach(co.wrap(function*() {
-    let users = [
-      { name: 'Foo', password: '123456' }
-    , { name: 'Bar', password: '123456' }
-    ]
+    let user = new User({ name: 'Foo' })
 
-    for (let data of users) {
-      let user = new User
+    yield user.setPassword('123456')
+    yield user.saveAsync()
 
-      user.name = data.name
+    userId = user.id
 
-      yield user.setPassword(data.password)
-      yield user.saveAsync()
-    }
+    return new Promise((resolve, reject) =>
+      agent.post('/api/v1/login')
+        .send({ username: 'Foo', password: '123456' })
+        .end((err, res) => {
+          if (err) {
+            return reject(err)
+          }
+
+          resolve()
+        })
+    )
   }))
 
   it('needs authentication', done => {
@@ -88,31 +95,93 @@ describe('GET /api/v1/whoami', () => {
       .expect(401, done)
   })
 
-  it.skip('responds with the current userId', done => {
-    //
+  it('responds with the current userId', done => {
+    agent.get('/api/v1/whoami')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        expect(res.body.userId).to.equal(userId)
+        done()
+      })
   })
 
-  it.skip('responds with the current version', done => {
-    //
+  it('responds with the current version', done => {
+    agent.get('/api/v1/whoami')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        expect(res.body.version).to.be.a('string')
+        done()
+      })
   })
 
   it.skip('responds with the users request ip', done => {
-    //
+    // Requests supertest don't produce any remote addr...
   })
-
 })
 
-describe.skip('GET /api/v1/logout', () => {
+describe('GET /api/v1/logout', () => {
+  let agent = request.agent(app)
+  let cookie
+  let userId
 
-  it.skip('logout works', done => {
-    //
+  beforeEach(co.wrap(function*() {
+    let user = new User({ name: 'Foo' })
+
+    yield user.setPassword('123456')
+    yield user.saveAsync()
+
+    userId = user.id
+
+    return new Promise((resolve, reject) =>
+      agent.post('/api/v1/login')
+        .send({ username: 'Foo', password: '123456' })
+        .end((err, res) => {
+          if (err) {
+            return reject(err)
+          }
+
+          cookie = res.headers['set-cookie']
+
+          resolve()
+        })
+    )
+  }))
+
+  it('logout works', done => {
+    agent.post('/api/v1/logout')
+      .expect('Location', '/')
+      .expect(302, done)
   })
 
-  it.skip('logout removes cookies', done => {
-    //
+  it('logout removes cookies', done => {
+    agent.post('/api/v1/logout')
+      .expect(302)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        expect(res.headers['set-cookie']).to.be.undefined
+        done()
+      })
   })
 
-  it.skip('requests after logout are unauthenticated', done => {
-    //
+  it('requests after logout are unauthenticated', done => {
+    agent.post('/api/v1/logout').end(test)
+
+    function test() {
+      agent.get('/api/v1/whoami')
+        .expect('Content-Type', /json/)
+        .expect(401, done)
+    }
   })
 })

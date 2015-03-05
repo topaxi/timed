@@ -31,5 +31,6 @@ router.get('/logout', logout)
 
 function logout(req, res) {
   req.logout()
+  req.session.destroy()
   res.redirect('/')
 }

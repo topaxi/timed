@@ -1,6 +1,7 @@
 import { Router }           from 'express'
 import mongoose             from 'mongoose'
 import { async }            from '../../../src/async-route'
+import { NotFoundError }    from '../../../src/error'
 import { Task, Attendance } from '../../../models'
 import auth                 from '../../../middleware/auth'
 
@@ -25,6 +26,10 @@ router.get('/', async(function*(req, res, next) {
 
 router.get('/:id', async(function*(req, res, next) {
   let task = yield Task.findById(req.params.id).exec()
+
+  if (!task) {
+    throw new NotFoundError
+  }
 
   res.send({ task })
 }))
@@ -64,18 +69,7 @@ router.post('/', async(function*(req, res, next) {
 // router.put('/', fun...
 
 router.put('/:id', async(function*(req, res, next) {
-  let task = yield Task.findById(req.params.id).exec()
-
-  task.name     = req.body.task.name
-  task.project  = req.body.task.project
-  task.duration = req.body.task.duration
-  task.tasks    = req.body.task.tasks
-  task.from     = req.body.task.from
-  task.to       = req.body.task.to
-  task.priority = req.body.task.priority
-  task.done     = req.body.task.done
-
-  yield task.saveAsync()
+  let task = yield Task.findByIdAndUpdate(req.params.id, req.body.task).exec()
 
   res.send({ task })
 }))

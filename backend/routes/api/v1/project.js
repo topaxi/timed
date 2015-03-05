@@ -1,5 +1,6 @@
 import { Router }        from 'express'
 import { async }         from '../../../src/async-route'
+import { NotFoundError } from '../../../src/error'
 import { Project, Task } from '../../../models'
 import auth              from '../../../middleware/auth'
 
@@ -18,6 +19,10 @@ router.get('/', async(function*(req, res, next) {
 
 router.get('/:id', async(function*(req, res, next) {
   let project = yield Project.findById(req.params.id).exec()
+
+  if (!project) {
+    throw new NotFoundError
+  }
 
   res.send({ project })
 }))

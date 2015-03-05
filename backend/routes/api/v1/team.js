@@ -1,7 +1,8 @@
-import { Router } from 'express'
-import { async }  from '../../../src/async-route'
-import { Team }   from '../../../models'
-import auth       from '../../../middleware/auth'
+import { Router }        from 'express'
+import { async }         from '../../../src/async-route'
+import { NotFoundError } from '../../../src/error'
+import { Team }          from '../../../models'
+import auth              from '../../../middleware/auth'
 
 let router = new Router
 export default router
@@ -16,6 +17,10 @@ router.get('/', async(function*(req, res, next) {
 
 router.get('/:id', async(function*(req, res, next) {
   let team = yield Team.findById(req.params.id).exec()
+
+  if (!team) {
+    throw new NotFoundError
+  }
 
   res.send({ team })
 }))

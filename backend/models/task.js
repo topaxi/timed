@@ -4,7 +4,7 @@ import Task                 from './task'
 let TaskSchema = new Schema
 
 TaskSchema.add({
-  'name':     String
+  'name':     { type: String, required: true }
 , 'project':  { type: Schema.Types.ObjectId, ref: 'Project', required: true }
 , 'duration': Number
 , 'from':     Date

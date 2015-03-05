@@ -1,7 +1,8 @@
-import { Router } from 'express'
-import { async }  from '../../../src/async-route'
-import { User }   from '../../../models'
-import auth       from '../../../middleware/auth'
+import { Router }        from 'express'
+import { async }         from '../../../src/async-route'
+import { NotFoundError } from '../../../src/error'
+import { User }          from '../../../models'
+import auth              from '../../../middleware/auth'
 
 let router = new Router
 export default router
@@ -18,6 +19,10 @@ router.get('/', async(function*(req, res, next) {
 
 router.get('/:id', async(function*(req, res, next) {
   let user = yield User.findById(req.params.id).exec()
+
+  if (!user) {
+    throw new NotFoundError
+  }
 
   deletePasswordForResponse(user)
 
@@ -45,30 +50,20 @@ router.post('/', async(function*(req, res, next) {
 // router.put('/', fun...
 
 router.put('/:id', async(function*(req, res, next) {
-  let user = yield User.findById(req.params.id).exec()
+  let newPassword = req.body.user.password
 
-  user.name      = req.body.user.name      || user.name
-  user.firstName = req.body.user.firstName || user.firstName
-  user.lastName  = req.body.user.lastName  || user.lastName
-  user.quota     = req.body.user.quota     || user.quota
-  user.projects  = req.body.user.projects  || user.projects
-  user.worktime  = req.body.user.worktime  || user.worktime
+  delete req.body.user.password
 
-  if (req.body.user.password) {
-    if (user.password) {
-      if (!(yield user.comparePassword(req.body.user.password))) {
-        yield user.setPassword(req.body.user.password)
-      }
-    }
-    else {
-      yield user.setPassword(req.body.user.password)
-    }
+  let user = yield User.findByIdAndUpdate(req.params.id, req.body.user).exec()
+
+  if (newPassword) {
+    yield user.setPassword(newPassword)
   }
 
   yield user.saveAsync()
 
   // Update currently logged in user
-  if (user._id == req.user._id) {
+  if (req.user && user._id == req.user._id) {
     req.user = user
   }
 

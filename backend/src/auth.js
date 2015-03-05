@@ -1,7 +1,8 @@
-import co            from 'co'
-import passport      from 'passport'
-import LocalStrategy from 'passport-local'
-import { User }      from '../models'
+import co                  from 'co'
+import passport            from 'passport'
+import LocalStrategy       from 'passport-local'
+import { BadRequestError } from './error'
+import { User }            from '../models'
 
 // Passport session setup.
 // To support persistent login sessions, Passport needs to be able to
@@ -16,7 +17,7 @@ let strategy = new LocalStrategy(co.wrap(function*(name, password, done) {
     let user = yield User.findOne({ name }).exec()
 
     if (!user || !(yield user.comparePassword(password))) {
-      throw new Error('Invalid login!')
+      throw new BadRequestError('Invalid login!')
     }
 
     done(null, user)

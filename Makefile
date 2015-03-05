@@ -57,6 +57,11 @@ install-backend:
 	rm -rf backend/node_modules
 	cd backend && npm install
 
+outdated:
+	cd frontend && bower list
+	cd frontend && npm outdated -depth 0
+	cd backend && npm outdated -depth 0
+
 test-server:
 	cd frontend && ember test --server
 

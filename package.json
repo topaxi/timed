@@ -1,0 +1,13 @@
+{
+  "name": "timed",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "make run-server",
+    "test": "make test"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.2",
+    "lcov-result-merger": "^1.0.2"
+  }
+}

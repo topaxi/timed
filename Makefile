@@ -66,5 +66,11 @@ test-server:
 	cd frontend && ember test --server
 
 test:
-	npm test --prefix ./backend
+	make test -C ./backend
 	npm test --prefix ./frontend
+
+travis:
+	make travis -C ./backend
+	npm test --prefix ./frontend
+	# TODO: merge blanket lcov
+	./node_modules/.bin/lcov-result-merger ./backend/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

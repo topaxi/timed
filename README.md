@@ -2,6 +2,7 @@ Timed
 =====
 
 [![Build Status](https://travis-ci.org/topaxi/timed.svg)](https://travis-ci.org/topaxi/timed)
+[![Coverage Status](https://coveralls.io/repos/topaxi/timed/badge.svg?branch=master)](https://coveralls.io/r/topaxi/timed?branch=master)
 
 node.js Timetracking Software
 

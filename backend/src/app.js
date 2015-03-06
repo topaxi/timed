@@ -11,7 +11,7 @@ let app = express()
 export default app
 
 app.set('version',     version())
-app.set('title',       config.title ? `Timed - ${config.title}` : 'Timed')
+app.set('title',       config.title)
 app.set('trust proxy', config.trustProxy)
 app.set('port',        process.env.PORT || config.port || 3000)
 app.set('mongodb',     config.mongodb)

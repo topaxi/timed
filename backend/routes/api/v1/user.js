@@ -62,11 +62,6 @@ router.put('/:id', async(function*(req, res, next) {
 
   yield user.saveAsync()
 
-  // Update currently logged in user
-  if (req.user && user._id == req.user._id) {
-    req.user = user
-  }
-
   deletePasswordForResponse(user)
 
   res.send({ user })

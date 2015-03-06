@@ -7,7 +7,7 @@
     "test": "make test"
   },
   "dependencies": {
-    "babel": "^4.6.1",
+    "babel": "^4.7.0",
     "bcrypt": "^0.8.1",
     "body-parser": "^1.10.2",
     "co": "^4.4.0",

@@ -18,9 +18,9 @@ describe('GET /api/v1/tasks', () => {
     yield project.saveAsync()
 
     let tasks = [
-      { name: 'Task A', project }
-    , { name: 'Task B', project }
-    , { name: 'Task C', project }
+      { _id: 'a1'.repeat(12), name: 'Task A', project }
+    , { _id: 'a2'.repeat(12), name: 'Task B', project }
+    , { _id: 'a3'.repeat(12), name: 'Task C', project }
     ]
 
     yield Task.createAsync(tasks)
@@ -44,6 +44,22 @@ describe('GET /api/v1/tasks', () => {
         }
 
         expect(res.body.tasks).to.have.length(3)
+        done()
+      })
+  })
+
+  it('lists only selected tasks', done => {
+    request(app).get('/api/v1/tasks')
+      .query({ ids: [ 'a1'.repeat(12), 'a3'.repeat(12) ] })
+      .set('test-auth', true)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        expect(res.body.tasks).to.have.length(2)
         done()
       })
   })

@@ -11,15 +11,9 @@ export default router
 router.use(auth)
 
 router.get('/', async(function*(req, res, next) {
-  let { ids } = req.query
-  let tasks
-
-  if (ids && ids.length) {
-    tasks = yield Task.find({ '_id': { '$in': ids } }).exec()
-  }
-  else {
-    tasks = yield Task.find(req.query).exec()
-  }
+  let { ids }  = req.query
+  let query    = ids && ids.length ? { '_id': { '$in': ids } } : req.query
+  let tasks = yield Task.find(query).exec()
 
   res.send({ tasks })
 }))

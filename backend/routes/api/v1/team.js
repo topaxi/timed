@@ -39,20 +39,13 @@ router.post('/', async(function*(req, res, next) {
 // router.put('/', fun...
 
 router.put('/:id', async(function*(req, res, next) {
-  let team = yield Team.findById(req.params.id).exec()
-
-  team.name  = req.body.team.name  || team.name
-  team.users = req.body.team.users || team.users
-
-  yield team.saveAsync()
+  let team = yield Team.findByIdAndUpdate(req.params.id, req.body.team).exec()
 
   res.send({ team })
 }))
 
 router.delete('/:id', async(function*(req, res, next) {
-  let team = yield Team.findById(req.params.id).exec()
-
-  yield team.removeAsync()
+  yield Team.findByIdAndRemove(req.params.id).exec()
 
   res.send(true)
 }))

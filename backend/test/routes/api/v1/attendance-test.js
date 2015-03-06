@@ -6,15 +6,19 @@ import { Attendance }    from '../../../../models'
 import { clearDatabase } from '../../../helpers'
 
 describe('GET /api/v1/attendances', () => {
+  let base  = new Date('2015-03-06T12:10:27.312Z')
+  let date2 = new Date(base  + 1000 * 60 * 60)
+  let date3 = new Date(date3 + 1000 * 60 * 60)
+  let date4 = new Date(date4 + 1000 * 60 * 60)
 
   beforeEach(co.wrap(function*() {
     let attendances = [
-      { from: new Date, to: new Date, user: 'u1'.repeat(12), activities: [] }
-    , { from: new Date, to: new Date, user: 'u1'.repeat(12), activities: [] }
-    , { from: new Date, to: new Date, user: 'u2'.repeat(12), activities: [] }
-    , { from: new Date, to: new Date, user: 'u2'.repeat(12), activities: [] }
-    , { from: new Date, to: new Date, user: 'u3'.repeat(12), activities: [] }
-    , { from: new Date, to: new Date, user: 'u3'.repeat(12), activities: [] }
+      { from: base,  to: date2, user: 'u1'.repeat(12), activities: [] }
+    , { from: base,  to: date2, user: 'u1'.repeat(12), activities: [] }
+    , { from: date2, to: date3, user: 'u2'.repeat(12), activities: [] }
+    , { from: date2, to: date3, user: 'u2'.repeat(12), activities: [] }
+    , { from: date2, to: date3, user: 'u3'.repeat(12), activities: [] }
+    , { from: date3, to: date4, user: 'u3'.repeat(12), activities: [] }
     ]
 
     yield Attendance.createAsync(attendances)
@@ -46,6 +50,22 @@ describe('GET /api/v1/attendances', () => {
         }
 
         expect(res.body.attendances).to.have.length(6)
+        done()
+      })
+  })
+
+  it('filters by "from" and "to" query params', done => {
+    request(app).get('/api/v1/attendances')
+      .query({ from: date2.getTime(), to: date3.getTime() })
+      .set('test-auth', true)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        expect(res.body.attendances).to.have.length(3)
         done()
       })
   })

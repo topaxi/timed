@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import Model    from 'mongoose/lib/model'
 import config   from '../config.json'
+import app      from '../src/app'
 
 export { default as Activity   } from './activity'
 export { default as Assignment } from './assignment'
@@ -12,9 +13,7 @@ export { default as Task       } from './task'
 export { default as Team       } from './team'
 export { default as User       } from './user'
 
-let env = process.env.NODE_ENV || 'development'
-
-mongoose.connect(env !== 'testing' ? config.mongodb : 'mongodb://127.0.0.1/timed-testing')
+mongoose.connect(app.get('mongodb'))
 
 // Promisify Model.save, Model#save, Model.remove and Model#remove
 for (let method of [ 'save', 'remove', 'create' ]) {

@@ -2,7 +2,7 @@ import co                  from 'co'
 import passport            from 'passport'
 import LocalStrategy       from 'passport-local'
 import { BadRequestError } from './error'
-import { User }            from '../models'
+import User                from '../models/user'
 
 // Passport session setup.
 // To support persistent login sessions, Passport needs to be able to

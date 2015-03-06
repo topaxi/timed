@@ -14,12 +14,15 @@ app.set('version',     version())
 app.set('title',       config.title ? `Timed - ${config.title}` : 'Timed')
 app.set('trust proxy', config.trustProxy)
 app.set('port',        process.env.PORT || config.port || 3000)
+app.set('mongodb',     config.mongodb)
 
-if (app.get('env') === 'development') {
+if (app.get('env') === 'testing') {
+  app.set('mongodb', 'mongodb://127.0.0.1/timed-testing')
+}
+else if (app.get('env') === 'development') {
   app.use(require('morgan')('dev'))
 }
-
-if (app.get('env') === 'production') {
+else if (app.get('env') === 'production') {
   app.use(require('morgan')('combined'))
 }
 

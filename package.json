@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.2",
+    "isparta": "^2.2.0",
     "lcov-result-merger": "^1.0.2"
   }
 }

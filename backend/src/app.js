@@ -29,7 +29,6 @@ else if (app.get('env') === 'production') {
 app.use(bodyParser.json())
 app.use(cookieParser(config.cookieSecret))
 app.use(session)
-
 app.use(auth)
 
 require('../routes')

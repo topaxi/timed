@@ -9,9 +9,9 @@ describe('GET /api/v1/projects', () => {
 
   beforeEach(co.wrap(function*() {
     let projects = [
-      { name: 'Project A' }
-    , { name: 'Project B' }
-    , { name: 'Project C' }
+      { _id: 'a1'.repeat(12), name: 'Project A' }
+    , { _id: 'a2'.repeat(12), name: 'Project B' }
+    , { _id: 'a3'.repeat(12), name: 'Project C' }
     ]
 
     yield Project.createAsync(projects)
@@ -35,6 +35,22 @@ describe('GET /api/v1/projects', () => {
         }
 
         expect(res.body.projects).to.have.length(3)
+        done()
+      })
+  })
+
+  it('lists only selected projects', done => {
+    request(app).get('/api/v1/projects')
+      .query({ ids: [ 'a1'.repeat(12), 'a3'.repeat(12) ] })
+      .set('test-auth', true)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        expect(res.body.projects).to.have.length(2)
         done()
       })
   })

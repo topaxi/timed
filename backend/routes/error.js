@@ -1,9 +1,7 @@
 import app from '../src/app'
 
-let env = app.get('env')
-
 export default function(err, req, res, next) {
-  let status = err.status || 500
+  let { status = 500 } = err
 
   res.status(status)
   res.send({
@@ -14,7 +12,7 @@ export default function(err, req, res, next) {
 }
 
 function formatError(err) {
-  if (env !== 'development') {
+  if (app.get('env') !== 'development') {
     return {}
   }
 

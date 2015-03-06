@@ -1,32 +1,27 @@
 export class HttpError extends Error {
-  constructor(message = '', ...args) {
-    super(message, ...args)
+  constructor(message = 'Request Error', status = 500) {
+    super(message)
 
+    this.status  = status
     this.message = message
     this.stack   = (new Error).stack
   }
 }
 
 export class NotFoundError extends HttpError {
-  constructor(...args) {
-    super(...args)
-
-    this.status = 404
+  constructor(message = 'Not Found') {
+    super(message, 404)
   }
 }
 
 export class NotAuthorizedError extends HttpError {
-  constructor(...args) {
-    super(...args)
-
-    this.status = 401
+  constructor(message = 'Not Authorized') {
+    super(message, 401)
   }
 }
 
 export class BadRequestError extends HttpError {
-  constructor(...args) {
-    super(...args)
-
-    this.status = 400
+  constructor(message = 'Bad Request') {
+    super(message, 400)
   }
 }

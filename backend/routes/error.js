@@ -1,13 +1,16 @@
-import app from '../src/app'
+import app           from '../src/app'
+import { HttpError } from '../src/error'
 
 export default function(err, req, res, next) {
-  let { status = 500 } = err
+  if (!(err instanceof Error)) {
+    err = new HttpError(err.message, err.status)
+  }
 
-  res.status(status)
+  res.status(err.status)
   res.send({
     message: err.message
-  , status
-  , error: formatError(err)
+  , status:  err.status
+  , error:   formatError(err)
   })
 }
 

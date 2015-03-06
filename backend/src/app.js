@@ -13,7 +13,7 @@ export default app
 app.set('version',     version())
 app.set('title',       config.title)
 app.set('trust proxy', config.trustProxy)
-app.set('port',        process.env.PORT || config.port || 3000)
+app.set('port',        process.env.PORT || config.port)
 app.set('mongodb',     config.mongodb)
 
 if (app.get('env') === 'testing') {

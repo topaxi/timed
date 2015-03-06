@@ -6,7 +6,7 @@ export default app.get('env') !== 'testing' ? auth : testAuth
 export function auth(req, res, next) {
   if (req.isAuthenticated()) return next()
 
-  next(new NotAuthorizedError('Not authenticated!'))
+  next(new NotAuthorizedError)
 }
 
 export function testAuth(req, res, next) {

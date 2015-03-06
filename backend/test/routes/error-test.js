@@ -6,7 +6,7 @@ describe('Productive error route', () => {
   it('returns error response with empty error property', done => {
     request(app).post('/api/v1/projects')
       .expect('Content-Type', /json/)
-      .expect({ message: 'Not authenticated!', status: 401, error: {} })
+      .expect({ message: 'Not Authorized', status: 401, error: {} })
       .expect(401, done)
   })
 })

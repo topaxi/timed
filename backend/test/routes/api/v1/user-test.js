@@ -20,7 +20,7 @@ describe('GET /api/v1/users', () => {
   it('needs authentication', done => {
     request(app).get('/api/v1/users')
       .expect('Content-Type', /json/)
-      .expect({ message: 'Not authenticated!', status: 401, error: {} })
+      .expect({ message: 'Not Authorized', status: 401, error: {} })
       .expect(401, done)
   })
 
@@ -54,7 +54,7 @@ describe('GET /api/v1/users/1', () => {
   it('needs authentication', done => {
     request(app).get(`/api/v1/users/${'a1'.repeat(12)}`)
       .expect('Content-Type', /json/)
-      .expect({ message: 'Not authenticated!', status: 401, error: {} })
+      .expect({ message: 'Not Authorized', status: 401, error: {} })
       .expect(401, done)
   })
 
@@ -97,7 +97,7 @@ describe('POST /api/v1/users', () => {
   it('needs authentication', done => {
     request(app).post('/api/v1/users')
       .expect('Content-Type', /json/)
-      .expect({ message: 'Not authenticated!', status: 401, error: {} })
+      .expect({ message: 'Not Authorized', status: 401, error: {} })
       .expect(401, done)
   })
 
@@ -131,7 +131,7 @@ describe('PUT /api/v1/users/1', () => {
   it('needs authentication', done => {
     request(app).put('/api/v1/users/1')
       .expect('Content-Type', /json/)
-      .expect({ message: 'Not authenticated!', status: 401, error: {} })
+      .expect({ message: 'Not Authorized', status: 401, error: {} })
       .expect(401, done)
   })
 
@@ -166,7 +166,7 @@ describe('DELETE /api/v1/users/1', () => {
   it('needs authentication', done => {
     request(app).delete('/api/v1/users/1')
       .expect('Content-Type', /json/)
-      .expect({ message: 'Not authenticated!', status: 401, error: {} })
+      .expect({ message: 'Not Authorized', status: 401, error: {} })
       .expect(401, done)
   })
 

@@ -16,16 +16,18 @@ app.set('trust proxy', config.trustProxy)
 app.set('port',        process.env.PORT || config.port)
 app.set('mongodb',     config.mongodb)
 
-if (app.get('env') === 'testing') {
-  app.set('mongodb', 'mongodb://127.0.0.1/timed-testing')
+let morganConfig = {
+  'development': 'dev'
+, 'testing':     'tiny'
+, 'production':  'combined'
 }
-else {
-  let morganConfig = {
-    'development': 'dev'
-  , 'production':  'combined'
-  }
 
-  app.use(require('morgan')(morganConfig[app.get('env')]))
+app.use(require('morgan')(morganConfig[app.get('env')]))
+
+if (app.get('env') === 'testing') {
+  // Remove logger for testing instance
+  app._router.stack.pop()
+  app.set('mongodb', 'mongodb://127.0.0.1/timed-testing')
 }
 
 app.use(bodyParser.json())

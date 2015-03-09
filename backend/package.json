@@ -26,6 +26,10 @@
   },
   "devDependencies": {
     "chai": "^2.1.0",
+    "gulp": "^3.8.11",
+    "gulp-istanbul": "^0.6.0",
+    "gulp-istanbul-enforcer": "^1.0.3",
+    "gulp-mocha": "^2.0.0",
     "isparta": "^2.2.0",
     "mocha": "^2.1.0",
     "mocha-mongoose": "^1.0.3",

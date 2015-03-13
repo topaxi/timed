@@ -43,8 +43,8 @@ app.import('bower_components/moment/moment.js', { 'exports': { 'moment': [ 'defa
 app.import('bower_components/moment-range/lib/moment-range.js')
 app.import('bower_components/moment-duration-format/lib/moment-duration-format.js')
 
-app.import('bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js')
-app.import('bower_components/bootstrap-datepicker/css/datepicker3.css')
+app.import('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')
+app.import('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css')
 
 app.import('bower_components/bootstrap-daterangepicker/daterangepicker.js')
 app.import('bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css')

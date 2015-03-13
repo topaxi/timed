@@ -7,24 +7,33 @@ module('safehtml')
 test('it works', function(assert) {
   assert.expect(2)
 
-  var result = safehtml([ 'bar', 'baz' ], '<&foo\'>"')
+  let result = safehtml([ 'bar', 'baz' ], '<&foo\'>"')
   assert.equal(result, 'bar&lt;&amp;foo&#39;&gt;&quot;baz')
 
   assert.equal(escape('<&foo\'>"'), '&lt;&amp;foo&#39;&gt;&quot;')
 })
 
 test('it is an instance of String', function(assert) {
-  assert.expect(1)
+  assert.expect(3)
 
-  var result = safehtml([ 'foo', 'baz' ], 'bar')
+  let result   = safehtml([ 'foo', 'baz' ], 'bar')
+  let toString = {}.toString
 
   assert.ok(result instanceof String)
+  assert.equal(toString.call(result), toString.call(''))
+  assert.equal(toString.call(result), '[object String]')
+})
+
+test('it can call toString', function(assert) {
+  assert.expect(1)
+
+  assert.equal(safehtml([ 'foo', 'baz' ], 'bar').toString(), 'foobarbaz')
 })
 
 test('it has a correct length', function(assert) {
   assert.expect(1)
 
-  var result = safehtml([ 'foo', 'baz' ], 'bar')
+  let result = safehtml([ 'foo', 'baz' ], 'bar')
 
   assert.equal(result.length, 'foobarbaz'.length)
 })
@@ -32,19 +41,19 @@ test('it has a correct length', function(assert) {
 test('it accepts undefined or null', function(assert) {
   assert.expect(4)
 
-  var resultNull = safehtml([ 'foo', 'bar' ], null)
+  let resultNull = safehtml([ 'foo', 'bar' ], null)
 
   assert.equal(resultNull, 'foobar')
 
-  var resultUndefined = safehtml([ 'foo', 'bar' ], undefined)
+  let resultUndefined = safehtml([ 'foo', 'bar' ], undefined)
 
   assert.equal(resultUndefined, 'foobar')
 
-  var resultZero = safehtml([ 'foo', 'bar' ], 0)
+  let resultZero = safehtml([ 'foo', 'bar' ], 0)
 
   assert.equal(resultZero, 'foo0bar')
 
-  var resultFalse = safehtml([ 'foo', 'bar' ], false)
+  let resultFalse = safehtml([ 'foo', 'bar' ], false)
 
   assert.equal(resultFalse, 'foofalsebar')
 })
@@ -52,7 +61,7 @@ test('it accepts undefined or null', function(assert) {
 test('it equals to string', function(assert) {
   assert.expect(1)
 
-  var result = safehtml([ 'foo', 'baz' ], 'bar')
+  let result = safehtml([ 'foo', 'baz' ], 'bar')
 
   assert.equal(result, 'foobarbaz')
 })
@@ -60,8 +69,8 @@ test('it equals to string', function(assert) {
 test('it can nest itself', function(assert) {
   assert.expect(1)
 
-  var resultA = safehtml([ '<foo>', '<bar>' ], '<>')
-  var resultB = safehtml([ '<blah>', '<blah>' ], resultA)
+  let resultA = safehtml([ '<foo>', '<bar>' ], '<>')
+  let resultB = safehtml([ '<blah>', '<blah>' ], resultA)
 
   assert.equal(resultB, '<blah><foo>&lt;&gt;<bar><blah>')
 })

@@ -8,6 +8,9 @@ export class SafeHTML extends String {
 
     super(this.safehtml)
 
+    // Mimic string for Object.prototype.toString.call(new SafeHTML(''))
+    this[Symbol.toStringTag] = 'String'
+
     // Some engines are unable to properly extend
     // from String. This causes SafeHTML#length to be 0
     // Redefine length with the proper string length.
@@ -19,9 +22,15 @@ export class SafeHTML extends String {
       html + toSafeString(sub) + pieces[i + 1], pieces[0])
   }
 
+  // Fix to string cast in engines which don't properly
+  // support subclassing String.
   valueOf() {
-    // Fix to string cast in engines which don't properly
-    // support subclassing String.
+    return this.safehtml
+  }
+
+  // Overwrite toString or we get
+  // TypeError: Called toString on an incompatible object
+  toString() {
     return this.safehtml
   }
 }

@@ -124,7 +124,7 @@ describe('POST /api/v1/assignments', () => {
       .set('test-auth', true)
       .send({ 'assignment': { 'from': (new Date).toJSON(), 'duration': 1000 } })
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(201)
       .end((err, res) => {
         if (err) {
           return done(err)

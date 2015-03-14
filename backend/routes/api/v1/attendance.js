@@ -23,6 +23,7 @@ router.post('/', async(function*(req, res, next) {
 
   yield attendance.saveAsync()
 
+  res.status(201)
   res.send({ attendance })
 }))
 

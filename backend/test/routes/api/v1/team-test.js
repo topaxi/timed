@@ -106,7 +106,7 @@ describe('POST /api/v1/teams', () => {
       .set('test-auth', true)
       .send({ 'team': { name: 'Team D' } })
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(201)
       .end((err, res) => {
         if (err) {
           return done(err)

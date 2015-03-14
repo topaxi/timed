@@ -56,6 +56,7 @@ router.post('/', async(function*(req, res, next) {
 
   yield task.saveAsync()
 
+  res.status(201)
   res.send({ task })
 }))
 

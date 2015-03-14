@@ -43,6 +43,7 @@ router.post('/', async(function*(req, res, next) {
 
   deletePasswordForResponse(user)
 
+  res.status(201)
   res.send({ user })
 }))
 

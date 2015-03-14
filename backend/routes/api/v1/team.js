@@ -32,6 +32,7 @@ router.post('/', async(function*(req, res, next) {
 
   yield team.saveAsync()
 
+  res.status(201)
   res.send({ team })
 }))
 

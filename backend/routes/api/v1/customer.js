@@ -20,6 +20,7 @@ router.post('/', async(function*(req, res, next) {
 
   yield customer.saveAsync()
 
+  res.status(201)
   res.send({ customer })
 }))
 

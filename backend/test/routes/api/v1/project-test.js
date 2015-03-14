@@ -122,7 +122,7 @@ describe('POST /api/v1/projects', () => {
       .set('test-auth', true)
       .send({ 'project': { name: 'Project D' } })
       .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(201)
       .end((err, res) => {
         if (err) {
           return done(err)

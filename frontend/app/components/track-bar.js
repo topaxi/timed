@@ -17,20 +17,6 @@ export default Ember.Component.extend({
     this.store = this.container.lookup('store:main')
   }
 
-, showCommentField: function() {
-    let activity = this.get('activity')
-
-    if (!activity) {
-      return false
-    }
-
-    let to         = activity.get('to')
-    let isTracking = !to || !to.isValid()
-    let hasTask    = this.get('task.content')
-
-    return isTracking || hasTask
-  }.property('activity.to', 'task')
-
 , projects: function() {
     return this.store.find('project')
   }.property()

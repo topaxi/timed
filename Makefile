@@ -6,7 +6,7 @@ build: cache-clean install-frontend
 pull:
 	git pull
 
-update: pull build
+update: pull build install-backend
 
 cache-clean:
 	npm cache clean

@@ -49,6 +49,7 @@ export default Ember.Component.extend({
       Ember.run.next(() => {
         this.set('project', null)
         this.set('task',    value)
+        this.get('activity').save()
       })
     }
   }

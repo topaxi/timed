@@ -7,25 +7,46 @@
     <span class="glyphicon glyphicon-plus"></span>
   </button>
 
-  {{#if task}}
-    {{track-task task=task}}
-  {{/if}}
-
-  <div class="dib vam">
+  {{#unless activity}}
+    No activity started yet
+  {{else}}
     {{#if task}}
-      {{task.name}}
-    {{else}}
-      {{! TODO: task selectize }}
+      {{track-task task=task}}
     {{/if}}
 
-    {{#if showCommentField}}
-      {{x-editable
-        class='pointer small'
-        placeholder='Comment activity'
-        emptytext='Comment activity'
-        value=activity.comment
-        setValue='setActivityComment'
+    <div class="dib vam">
+      {{#if task}}
+        {{task.name}}
+      {{else}}
+        {{ember-selectize
+          plugins         = null
+          placeholder     = 'Select project'
+          optionLabelPath = 'content.name'
+          content         = projects
+          value           = project
+          optionFunction  = projectOption
         }}
-    {{/if}}
-  </div>
+
+        {{#if project}}
+          {{ember-selectize
+            plugins         = null
+            placeholder     = 'Select task'
+            content         = project.tasks
+            optionLabelPath = 'content.name'
+            action          = 'selectTask'
+          }}
+        {{/if}}
+      {{/if}}
+
+      {{#if showCommentField}}
+        {{x-editable
+          class       = 'pointer small'
+          placeholder = 'Comment activity'
+          emptytext   = 'Comment activity'
+          value       = activity.comment
+          setValue    = 'setActivityComment'
+          }}
+      {{/if}}
+    </div>
+  {{/unless}}
 </div>

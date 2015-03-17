@@ -68,13 +68,13 @@ test('it lists todays attendances', function(assert) {
   }
 
   Ember.run(() => {
-    let currentDay = moment('2014-02-01').startOf('day')
-    let user       = store.createRecord('user')
+    let day  = moment('2014-02-01').startOf('day')
+    let user = store.createRecord('user')
 
     createAttendances(user)
 
     component = this.subject({ user })
-    component.set('currentDay', currentDay)
+    component.set('day', day)
 
     assert.equal(component.get('attendances').length, 3)
 
@@ -107,13 +107,13 @@ test('it marks activities to report with a danger class', function(assert) {
   }
 
   Ember.run(() => {
-    let currentDay = moment('2014-02-01').startOf('day')
-    let user       = store.createRecord('user')
+    let day  = moment('2014-02-01').startOf('day')
+    let user = store.createRecord('user')
 
     createAttendances(user)
 
     component = this.subject({ user })
-    component.set('currentDay', currentDay)
+    component.set('day', day)
 
     this.render()
 

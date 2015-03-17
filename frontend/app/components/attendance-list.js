@@ -1,18 +1,18 @@
-import Ember from 'ember';
-import moment from 'moment';
+import Ember from 'ember'
 
 export default Ember.Component.extend({
-  currentDay: null
-
-, init: function() {
-    this.set('currentDay', moment().startOf('day'))
-    this._super()
-  }
+  day: null
 
 , attendances: function() {
-    return this.get('user').getAttendancesByDay(this.get('currentDay'))
-                           .sort((a, b) => b.get('from').diff(a.get('from')))
-  }.property('currentDay', 'user.attendances.@each')
+    let user = this.get('user')
+
+    if (!user) {
+      return []
+    }
+
+    return user.getAttendancesByDay(this.get('day'))
+               .sort((a, b) => b.get('from').diff(a.get('from')))
+  }.property('day', 'user.attendances.@each')
 
 , actions: {
     openModal(...args) {

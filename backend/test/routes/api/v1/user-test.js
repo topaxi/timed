@@ -123,6 +123,7 @@ describe('PUT /api/v1/users/1', () => {
   beforeEach(co.wrap(function*() {
     let users = [
       { _id: 'c1'.repeat(12), name: 'User A' }
+    , { _id: 'c2'.repeat(12), name: 'User C' }
     ]
 
     yield User.createAsync(users)
@@ -136,7 +137,7 @@ describe('PUT /api/v1/users/1', () => {
   })
 
   it('updates an existing record', done => {
-    let id = 'c1'.repeat(12)
+    let id = 'c2'.repeat(12)
 
     request(app).put(`/api/v1/users/${id}`)
       .set('test-auth', true)
@@ -148,6 +149,7 @@ describe('PUT /api/v1/users/1', () => {
           return done(err)
         }
 
+        expect(res.body.user._id,  'id').to.equal(id)
         expect(res.body.user.name, 'name').to.equal('User B')
         done()
       })

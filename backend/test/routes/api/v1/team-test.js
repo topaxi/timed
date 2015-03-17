@@ -123,6 +123,7 @@ describe('PUT /api/v1/teams/1', () => {
   beforeEach(co.wrap(function*() {
     let teams = [
       { _id: 'c1'.repeat(12), name: 'Team A' }
+    , { _id: 'c2'.repeat(12), name: 'Team C' }
     ]
 
     yield Team.createAsync(teams)
@@ -136,7 +137,7 @@ describe('PUT /api/v1/teams/1', () => {
   })
 
   it('updates an existing record', done => {
-    let id = 'c1'.repeat(12)
+    let id = 'c2'.repeat(12)
 
     request(app).put(`/api/v1/teams/${id}`)
       .set('test-auth', true)
@@ -148,6 +149,7 @@ describe('PUT /api/v1/teams/1', () => {
           return done(err)
         }
 
+        expect(res.body.team._id,  'id').to.equal(id)
         expect(res.body.team.name, 'name').to.equal('Team B')
         done()
       })

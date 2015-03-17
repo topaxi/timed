@@ -147,6 +147,7 @@ describe('PUT /api/v1/assignments/1', () => {
   beforeEach(co.wrap(function*() {
     let assignments = [
       { _id: 'a1'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
+    , { _id: 'a2'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
     ]
 
     yield Assignment.createAsync(assignments)
@@ -159,7 +160,7 @@ describe('PUT /api/v1/assignments/1', () => {
   })
 
   it('updates an existing record', done => {
-    let id = 'a1'.repeat(12)
+    let id = 'a2'.repeat(12)
 
     request(app).put(`/api/v1/assignments/${id}`)
       .set('test-auth', true)
@@ -171,6 +172,7 @@ describe('PUT /api/v1/assignments/1', () => {
           return done(err)
         }
 
+        expect(res.body.assignment._id,      'id').to.be.equal(id)
         expect(res.body.assignment.duration, 'duration').to.be.equal(1000)
         done()
       })

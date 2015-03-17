@@ -216,6 +216,7 @@ describe('PUT /api/v1/tasks/1', () => {
       { _id: 'a1'.repeat(12), name: 'Task A', project }
     , { _id: 'a2'.repeat(12), name: 'Task B', project }
     , { _id: 'a3'.repeat(12), name: 'Task C', project }
+    , { _id: 'a4'.repeat(12), name: 'Task E', project }
     ]
 
     yield Task.createAsync(tasks)
@@ -229,7 +230,7 @@ describe('PUT /api/v1/tasks/1', () => {
   })
 
   it('updates an existing record', done => {
-    let id = 'a1'.repeat(12)
+    let id = 'a4'.repeat(12)
 
     request(app).put(`/api/v1/tasks/${id}`)
       .set('test-auth', true)
@@ -241,7 +242,7 @@ describe('PUT /api/v1/tasks/1', () => {
           return done(err)
         }
 
-        expect(res.body.task._id,     'id')     .to.be.a('string')
+        expect(res.body.task._id,     'id')     .to.equal(id)
         expect(res.body.task.name,    'name')   .to.equal('Task D')
         expect(res.body.task.project, 'project').to.equal(projectId)
         done()

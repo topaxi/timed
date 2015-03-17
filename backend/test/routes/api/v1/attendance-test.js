@@ -165,6 +165,7 @@ describe('PUT /api/v1/attendances/1', () => {
   beforeEach(co.wrap(function*() {
     let attendances = [
       { _id: 'a1'.repeat(12), from: new Date, to: new Date, user: 'u1'.repeat(12), activties: [] }
+    , { _id: 'a2'.repeat(12), from: new Date, to: new Date, user: 'u1'.repeat(12), activties: [] }
     ]
 
     yield Attendance.createAsync(attendances)
@@ -177,7 +178,7 @@ describe('PUT /api/v1/attendances/1', () => {
   })
 
   it('updates an existing record', done => {
-    let id = 'a1'.repeat(12)
+    let id = 'a2'.repeat(12)
     let to = new Date
 
     request(app).put(`/api/v1/attendances/${id}`)
@@ -190,7 +191,8 @@ describe('PUT /api/v1/attendances/1', () => {
           return done(err)
         }
 
-        expect(res.body.attendance.to, 'to').to.be.equal(to.toJSON())
+        expect(res.body.attendance._id, 'id').to.be.equal(id)
+        expect(res.body.attendance.to,  'to').to.be.equal(to.toJSON())
         done()
       })
   })

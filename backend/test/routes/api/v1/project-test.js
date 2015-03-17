@@ -139,6 +139,7 @@ describe('PUT /api/v1/projects/1', () => {
   beforeEach(co.wrap(function*() {
     let projects = [
       { _id: 'c1'.repeat(12), name: 'Project A' }
+    , { _id: 'c2'.repeat(12), name: 'Project C' }
     ]
 
     yield Project.createAsync(projects)
@@ -164,6 +165,7 @@ describe('PUT /api/v1/projects/1', () => {
           return done(err)
         }
 
+        expect(res.body.project._id,  'id').to.equal(id)
         expect(res.body.project.name, 'name').to.equal('Project B')
         done()
       })

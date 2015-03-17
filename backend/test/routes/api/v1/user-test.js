@@ -2,7 +2,7 @@ import co                from 'co'
 import request           from 'supertest'
 import { expect }        from 'chai'
 import app               from '../../../../src/app'
-import { User }       from '../../../../models'
+import { User }          from '../../../../models'
 import { clearDatabase } from '../../../helpers'
 
 describe('GET /api/v1/users', () => {

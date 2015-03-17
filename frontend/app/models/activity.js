@@ -13,7 +13,7 @@ export default Model.extend({
 , save() {
     let isNew = this.get('isNew')
 
-    this.get('attendance').save().then(() => {
+    return this.get('attendance').save().then(() => {
       // Remove record, ember-data has a bug which duplicates
       // embedded records on saving the parent record, as it
       // does not know how to map the new record.
@@ -21,6 +21,8 @@ export default Model.extend({
       if (isNew) {
         this.deleteRecord()
       }
+
+      return this
     })
   }
 

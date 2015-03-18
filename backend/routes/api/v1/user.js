@@ -30,14 +30,7 @@ router.get('/:id', async(function*(req, res, next) {
 }))
 
 router.post('/', async(function*(req, res, next) {
-  let user = new User({ 'name':      req.body.user.name
-                      , 'firstName': req.body.user.firstName
-                      , 'lastName':  req.body.user.lastName
-                      , 'quota':     req.body.user.quota
-                      , 'password':  req.body.user.password
-                      , 'projects':  req.body.user.projects
-                      , 'worktime':  req.body.user.worktime
-                      })
+  let user = new User(req.body.user)
 
   yield user.saveAsync()
 

@@ -89,10 +89,10 @@ describe('GET /api/v1/whoami', () => {
     )
   }))
 
-  it('needs authentication', done => {
+  it('doesn\'t need authentication', done => {
     request(app).get('/api/v1/whoami')
       .expect('Content-Type', /json/)
-      .expect(401, done)
+      .expect(200, done)
   })
 
   it('responds with the current userId', done => {
@@ -179,7 +179,7 @@ describe('GET /api/v1/logout', () => {
     agent.post('/api/v1/logout').end(test)
 
     function test() {
-      agent.get('/api/v1/whoami')
+      agent.get('/api/v1/users')
         .expect('Content-Type', /json/)
         .expect(401, done)
     }

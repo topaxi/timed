@@ -26,9 +26,7 @@ router.get('/:id', async(function*(req, res, next) {
 }))
 
 router.post('/', async(function*(req, res, next) {
-  let team = new Team({ 'name':  req.body.team.name
-                      , 'users': req.body.team.users
-                      })
+  let team = new Team(req.body.team)
 
   yield team.saveAsync()
 

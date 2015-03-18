@@ -1,8 +1,7 @@
-import Ember from 'ember';
-import moment from 'moment';
-import ProtectedRoute from './protected';
+import Ember  from 'ember'
+import moment from 'moment'
 
-export default ProtectedRoute.extend({
+export default Ember.Route.extend({
   'queryParams': {
     'from': { 'refreshModel': true, 'replace': true }
   , 'to':   { 'refreshModel': true, 'replace': true }

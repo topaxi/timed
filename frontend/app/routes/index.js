@@ -1,8 +1,7 @@
-import Ember          from 'ember'
-import moment         from 'moment'
-import ProtectedRoute from 'timed/routes/protected'
+import Ember  from 'ember'
+import moment from 'moment'
 
-export default ProtectedRoute.extend({
+export default Ember.Route.extend({
   queryParams: { 'day': { 'refreshModel': true, 'replace': true } }
 
 , setupController(controller, model) {

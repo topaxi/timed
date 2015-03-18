@@ -28,13 +28,7 @@ router.get('/:id', async(function*(req, res, next) {
 }))
 
 router.post('/', async(function*(req, res, next) {
-  let project = new Project({ 'name':     req.body.project.name
-                            , 'customer': req.body.project.customer
-                            , 'tracker':  req.body.project.tracker
-                            , 'from':     req.body.project.from
-                            , 'to':       req.body.project.to
-                            , 'done':     req.body.project.done
-                            })
+  let project = new Project(req.body.project)
 
   yield project.saveAsync()
 
@@ -46,16 +40,9 @@ router.post('/', async(function*(req, res, next) {
 // router.put('/', fun...
 
 router.put('/:id', async(function*(req, res, next) {
-  let project = yield Project.findById(req.params.id).exec()
-
-  project.name     = req.body.project.name
-  project.customer = req.body.project.customer
-  project.tracker  = req.body.project.tracker
-  project.from     = req.body.project.from
-  project.to       = req.body.project.to
-  project.done     = req.body.project.done
-
-  yield project.saveAsync()
+  let { id }              = req.params
+  let { project: update } = req.body
+  let project             = yield Project.findByIdAndUpdate(id, update).exec()
 
   res.send({ project })
 }))

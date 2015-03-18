@@ -16,7 +16,7 @@ router.get('/', async(function*(req, res, next) {
 }))
 
 router.post('/', async(function*(req, res, next) {
-  let customer = new Customer({ 'name': req.body.customer.name })
+  let customer = new Customer(req.body.customer)
 
   yield customer.saveAsync()
 
@@ -38,11 +38,9 @@ router.get('/:id', async(function*(req, res, next) {
 // router.put('/', fun...
 
 router.put('/:id', async(function*(req, res, next) {
-  let customer = yield Customer.findById(req.params.id).exec()
-
-  customer.name = req.body.customer.name
-
-  yield customer.saveAsync()
+  let { id }               = req.params
+  let { customer: update } = req.body
+  let customer             = yield Customer.findByIdAndUpdate(id, update).exec()
 
   res.send({ customer })
 }))

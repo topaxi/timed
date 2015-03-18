@@ -52,9 +52,8 @@ router.put('/:id', async(function*(req, res, next) {
 
   if (newPassword) {
     yield user.setPassword(newPassword)
+    yield user.saveAsync()
   }
-
-  yield user.saveAsync()
 
   deletePasswordForResponse(user)
 

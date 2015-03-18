@@ -20,11 +20,18 @@
           content         = issues
           loading         = fetchingIssues
           optionFunction  = model.project._tracker.selectizeOptionTemplate
-          create          = 'createTaskName'
-          onType          = 'fetchIssues'
+          create          = true
+          create-item     = 'createTaskName'
+          update-filter   = 'fetchIssues'
           }}
       {{else}}
-        {{input id='name' placeholder='Task name' value=model.name class='form-control' autocomplete='false'}}
+        {{input
+          id           = 'name'
+          placeholder  = 'Task name'
+          value        = model.name
+          class        = 'form-control'
+          autocomplete = 'false'
+          }}
       {{/if}}
     </div>
   </div>

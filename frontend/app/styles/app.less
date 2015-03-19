@@ -22,7 +22,7 @@ body {
   padding-left: 45px
 }
 
-.navbar li::before {
+.navbar li a::before {
   opacity: 0;
   content: url('loading16i.png');
   position: absolute;
@@ -32,7 +32,7 @@ body {
   transition: opacity 0.3s ease 0.05s
 }
 
-.navbar li.ember-transitioning-in::before {
+.navbar li a.ember-transitioning-in::before {
   opacity: 1;
 }
 

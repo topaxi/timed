@@ -29,27 +29,33 @@ export default Ember.Object.extend({
     }
   }
 
-, selectizeOptionTemplate(option) {
+, selectizeOptionTemplate({ label, data }) {
     let avatar = ''
 
-    if (option.data.type !== 'github') {
-      return safehtml`<div class="option">${option.label}</div>`
+    if (data.type !== 'github') {
+      return safehtml`<div class="option">${label}</div>`
     }
 
-    if (option.data.raw.user.avatar_url) {
+    if (data.raw.user.avatar_url) {
       avatar = safehtml`<div class="media-left">
-        <img src="${option.data.raw.user.avatar_url}&s=40" width="40" height="40">
+        <img src="${data.raw.user.avatar_url}&s=40" width="40" height="40">
       </div>`
     }
 
     let html = safehtml`<div class="option media">
       ${avatar}
       <div class="media-body">
-        <div><strong>${option.label}</strong></div>
+        <div><strong>${label}</strong></div>
         <div>
-          <small class="nowrap"><strong>Author</strong>: ${option.data.raw.user.login}</small>
-          <small class="nowrap"><strong>Created</strong>: ${option.data.created.format('YYYY-MM-DD')}</small>
-          <small class="nowrap"><strong>Updated</strong>: ${option.data.updated.format('YYYY-MM-DD')}</small>
+          <small class="nowrap">
+            <strong>Author</strong>: ${data.raw.user.login}
+          </small>
+          <small class="nowrap">
+            <strong>Created</strong>: ${data.created.format('YYYY-MM-DD')}
+          </small>
+          <small class="nowrap">
+            <strong>Updated</strong>: ${data.updated.format('YYYY-MM-DD')}
+          </small>
         </div>
       </div>
     </div>`

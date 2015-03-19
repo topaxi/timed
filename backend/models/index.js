@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 import Model    from 'mongoose/lib/model'
-import config   from '../config.json'
 import app      from '../src/app'
 
 export { default as Activity   } from './activity'

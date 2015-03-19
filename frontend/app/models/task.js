@@ -33,6 +33,8 @@ export default Model.extend({
       return 0
     }
 
+    duration = duration * 1000 * 60 * 60
+
     return this.get('progress') / duration * 100
   }.property('duration', 'progress')
 })

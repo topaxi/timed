@@ -8,6 +8,16 @@ export default Ember.Object.extend({
 
   issues: null
 
+, url: function() {
+    let data = this.project.get('tracker.data')
+
+    return `${data.url}/projects/${data.projectId}`
+  }.property()
+
+, logo: function() {
+    return '/assets/tracker/redmine.png'
+  }.property()
+
 , searchIssues(/*term = ''*/) {
     if (this.get('issues')) {
       return this.get('issues')

@@ -6,6 +6,12 @@
 <thead>
   <tr>
     <th colspan="2">
+      {{#if project.autocomplete}}
+        <a href="{{project.autocomplete.url}}" target="_blank">
+          <img class="vam" src="{{project.autocomplete.logo}}" width="24" height="24">
+        </a>
+      {{/if}}
+
       {{#link-to 'project.edit' project}}
         {{project.name}}
       {{/link-to}}

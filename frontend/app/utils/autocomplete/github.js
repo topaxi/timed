@@ -4,7 +4,17 @@ import safehtml from 'timed/utils/safehtml'
 
 export default Ember.Object.extend({
 
-  searchIssues(term = '') {
+  url: function() {
+    let data = this.project.get('tracker.data')
+
+    return `https://github.com/${data.repo}`
+  }.property()
+
+, logo: function() {
+    return '/assets/tracker/github.png'
+  }.property()
+
+, searchIssues(term = '') {
     let data = this.project.get('tracker.data')
     let q    = `${term} repo:${data.repo}`
 

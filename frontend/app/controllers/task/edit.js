@@ -17,6 +17,7 @@ export default Ember.Controller.extend({
         this.notify.error(err || 'Error while trying to save task!')
       )
     }
+
   , delete() {
       this.model.deleteRecord()
       this.send('submit')
@@ -44,6 +45,5 @@ export default Ember.Controller.extend({
         this.set('fetchingIssues', false)
       )
     }
-
   }
 })

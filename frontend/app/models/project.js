@@ -12,7 +12,7 @@ export default Model.extend({
 , 'to':       DS.attr('moment')
 , 'done':     DS.attr('boolean')
 
-, '_tracker': function() {
+, 'autocomplete': function() {
     switch (this.get('tracker.type')) {
       case 'github':  return Github.create({ project: this })
       case 'redmine': return Redmine.create({ project: this })
@@ -20,8 +20,6 @@ export default Model.extend({
   }.property('tracker.type')
 
 , 'searchIssues': function(term = '') {
-    let tracker = this.get('_tracker')
-
-    return tracker.searchIssues(term)
+    return this.get('autocomplete').searchIssues(term)
   }
 })

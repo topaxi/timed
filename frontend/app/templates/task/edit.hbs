@@ -19,7 +19,7 @@
           value           = model.name
           content         = issues
           loading         = fetchingIssues
-          optionFunction  = model.project._tracker.selectizeOptionTemplate
+          optionFunction  = model.project.autocomplete.selectizeOptionTemplate
           create          = true
           createOnBlur    = true
           create-item     = 'createTaskName'

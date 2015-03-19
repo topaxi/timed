@@ -21,9 +21,7 @@
     {{#each project in model}}
       <tr>
         <td class="nowrap">
-          {{#link-to 'customer.edit' project.customer}}
-            {{project.customer.name}}
-          {{/link-to}}
+          {{project.customer.name}}
         </td>
         <td>
           {{#link-to 'project.edit' project}}{{project.name}}{{/link-to}}

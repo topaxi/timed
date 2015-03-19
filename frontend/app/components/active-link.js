@@ -2,6 +2,7 @@ import Ember from 'ember'
 
 export default Ember.Component.extend({
   tagName:           'li'
+, classNames:        [ 'active-link' ]
 , classNameBindings: [ 'active' ]
 
 , active: function() {

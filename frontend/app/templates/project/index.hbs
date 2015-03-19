@@ -3,12 +3,14 @@
 <table class="table">
   <colgroup>
     <col>
+    <col class="expand-col">
     <col>
     <col class="table-button-col">
     <col class="table-button-col">
   </colgroup>
   <thead>
     <tr>
+      <th>Customer</th>
       <th>Name</th>
       <th>Date</th>
       <th>Tasks</th>
@@ -18,6 +20,11 @@
   <tbody>
     {{#each project in model}}
       <tr>
+        <td>
+          {{#link-to 'customer.edit' project.customer}}
+            {{project.customer.name}}
+          {{/link-to}}
+        </td>
         <td>
           {{#link-to 'project.edit' project}}{{project.name}}{{/link-to}}
         </td>

@@ -63,19 +63,19 @@ export default Ember.Controller.extend({
 , 'filteredActivities': function() {
     let activities = this.get('activities')
 
-    if (this.get('customerId')) {
+    if (this.get('customerId') && this.get('customerId') !== 'null') {
       activities = activities.filter(activity =>
         activity.get('task.project.customer.id') === this.get('customerId')
       )
     }
 
     let taskId = this.get('taskId')
-    if (taskId && taskId.length) {
+    if (taskId && taskId !== 'null' && taskId.length) {
       activities = activities.filter(activity =>
         taskId.includes(activity.get('task.id'))
       )
     }
-    else if (this.get('projectId')) {
+    else if (this.get('projectId') && this.get('projectId') !== 'null') {
       activities = activities.filter(activity =>
         activity.get('task.project.id') === this.get('projectId')
       )

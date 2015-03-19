@@ -56,13 +56,13 @@ export default Ember.Component.extend({
 
 , actions: {
     track: function() {
-      this.get('session.user').then(user => {
-        let attendance = this.get('isTracking') ?
-          user.endCurrentAttendance() :
-          user.startAttendance()
+      let user = this.get('session.user')
 
-        attendance.save()
-      })
+      let attendance = this.get('isTracking') ?
+        user.endCurrentAttendance() :
+        user.startAttendance()
+
+      attendance.save()
     }
   }
 })

@@ -30,9 +30,7 @@ export default Ember.Component.extend({
 
 , actions: {
     startNewActivity() {
-      this.get('user').then(user =>
-        user.startActivity().save()
-      )
+      this.get('user').startActivity().save()
     }
   , setProject(value) {
       this.set('project', value)

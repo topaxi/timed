@@ -79,7 +79,7 @@ test('it updated the users projects', function(assert) {
 
   Ember.run(() => {
     let project = store.createRecord('project', { name: 'Project 1' })
-    user    = store.createRecord('user')
+    user        = store.createRecord('user')
     let session = Ember.Object.create({ user })
 
     component = this.subject({ project, session })

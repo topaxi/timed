@@ -35,7 +35,7 @@ export default Ember.Component.extend({
       let action   = this.get('isFollowing') ? 'removeObject' : 'addObject'
 
       projects[action](this.get('project'))
-      user.save()
+      user.then(user => user.save())
     }
   }
 })

@@ -4,7 +4,10 @@ export default Ember.Route.extend({
   setupController(controller, model) {
     this._super(controller, model)
 
-    controller.set('issues', [])
+    let name         = model.get('name')
+    let defaultIssue = { label: name, value: name, data: name }
+
+    controller.set('issues', [ defaultIssue ])
   }
 
 , rollback: function() {

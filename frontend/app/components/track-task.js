@@ -56,18 +56,12 @@ export default Ember.Component.extend({
 
 , actions: {
     track() {
-      this.get('session.user').then(user => {
-        let activity
+      let user     = this.get('session.user')
+      let activity = this.get('isTracking') ?
+        user.endCurrentActivity() :
+        user.startActivity(this.get('task'))
 
-        if (this.get('isTracking')) {
-          activity = user.endCurrentActivity()
-        }
-        else {
-          activity = user.startActivity(this.get('task'))
-        }
-
-        activity.save()
-      })
+      activity.save()
     }
   }
 })

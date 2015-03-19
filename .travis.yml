@@ -1,6 +1,10 @@
 ---
 language: node_js
 
+node_js:
+  - "0.12"
+  - "iojs-v1.5.1"
+
 services:
   - mongodb
 

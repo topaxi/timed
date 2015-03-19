@@ -7,7 +7,11 @@ Session.reopen({
     let userId = this.get('userId')
 
     if (userId) {
-      return this.container.lookup('store:main').find('user', userId)
+      let store = this.container.lookup('store:main')
+
+      return store.find('user', userId).then(user =>
+        this.set('user', user)
+      )
     }
   }.property('userId')
 })

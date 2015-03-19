@@ -1,21 +1,26 @@
 <div class="row">
   <div class="col-md-4 col-md-push-8">
-    {{#if model.currentAssignments}}
+    {{#if session.user.currentAssignments}}
       <h2>Assigned Projects</h2>
 
-      {{#each assignment in model.currentAssignments}}
+      {{#each assignment in session.user.currentAssignments}}
         {{assigned-project assignment=assignment}}
       {{/each}}
     {{/if}}
 
-    {{#if model.projects}}
+    {{#if session.user.projects}}
       <h2>{{#link-to 'project'}}Followed Projects{{/link-to}}</h2>
 
-      {{#each project in model.projects}}
+      {{#each project in session.user.projects}}
         {{followed-project project=project}}
       {{/each}}
     {{/if}}
   </div>
 
-  {{attendance-list user=model day=day class='col-md-8 col-md-pull-4' openModal='openModal'}}
+  {{attendance-list
+    user      = session.user
+    day       = day
+    class     = 'col-md-8 col-md-pull-4'
+    openModal = 'openModal'
+    }}
 </div>

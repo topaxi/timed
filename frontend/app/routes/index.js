@@ -9,12 +9,8 @@ export default Ember.Route.extend({
     controller.set('dateString', moment().format('YYYY-MM-DD'))
   }
 
-, model() {
-    return this.session.get('user')
-  }
-
 , afterModel() {
-    let user        = this.get('model.id')
+    let user        = this.get('session.user.id')
     let assignments = this.store.find('assignment', { user })
     let attendances = this.store.find('attendance', { user })
 

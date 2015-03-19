@@ -44,14 +44,11 @@ let Authenticator = AuthBase.extend({
     )
   }
 , restore(data) {
-    return new Ember.RSVP.Promise((resolve, reject) => {
-      if (!Ember.isEmpty(data.sessionId)) {
-        resolve(data)
-      }
-      else {
-        reject()
-      }
-    })
+    if (Ember.isEmpty(data.sessionId)) {
+      return Ember.RSVP.reject()
+    }
+
+    return Ember.RSVP.resolve(data)
   }
 , invalidate() {
     return Ember.$.post('/api/v1/logout')

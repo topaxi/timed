@@ -16,6 +16,7 @@
       value           = customerId
       optionLabelPath = 'content.name'
       optionValuePath = 'content.id'
+      select-item     = 'clearProject'
       }}
   </div>
 
@@ -28,6 +29,7 @@
       value           = projectId
       optionLabelPath = 'content.name'
       optionValuePath = 'content.id'
+      select-item     = 'clearTasks'
       }}
   </div>
 
@@ -38,7 +40,8 @@
         id              = 'task'
         class           = 'form-control'
         content         = project.tasks
-        value           = taskId
+        selection       = tasks
+        multiple        = true
         optionLabelPath = 'content.name'
         optionValuePath = 'content.id'
         }}

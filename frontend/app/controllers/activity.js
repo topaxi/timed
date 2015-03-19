@@ -12,6 +12,8 @@ export default Ember.Controller.extend({
   , { 'customerId': 'customer' }
   ]
 
+, 'taskId': []
+
 , 'project': function() {
     let projectId = this.get('projectId')
 
@@ -40,6 +42,24 @@ export default Ember.Controller.extend({
     return activities
   }.property('model.@each')
 
+, 'tasks': function(key, value) {
+    if (arguments.length === 2) {
+      return this.set('taskId', value.map(t => t.id))
+    }
+
+    let ids = this.get('taskId') || []
+
+    if (!Array.isArray(ids)) {
+      ids = [ ids ]
+    }
+
+    return ids.map(id => this.store.getById('task', id))
+  }.property('taskId')
+
+, 'updateTaskId': function() {
+    return this.set('taskId', this.get('tasks').map(t => t.id))
+  }.observes('tasks.@each')
+
 , 'filteredActivities': function() {
     let activities = this.get('activities')
 
@@ -49,9 +69,10 @@ export default Ember.Controller.extend({
       )
     }
 
-    if (this.get('taskId')) {
+    let taskId = this.get('taskId')
+    if (taskId && taskId.length) {
       activities = activities.filter(activity =>
-        activity.get('task.id') === this.get('taskId')
+        taskId.includes(activity.get('task.id'))
       )
     }
     else if (this.get('projectId')) {
@@ -61,7 +82,7 @@ export default Ember.Controller.extend({
     }
 
     return activities
-  }.property('activities', 'projectId', 'taskId', 'customerId')
+  }.property('activities', 'projectId', 'taskId', 'taskId.@each', 'customerId')
 
 , 'filteredProjects': function() {
     let customerId = this.get('customerId')
@@ -75,4 +96,18 @@ export default Ember.Controller.extend({
 
     return projects
   }.property('projects', 'customerId')
+
+, actions: {
+    clearProject() {
+      if (this.get('project.customer.id') !== this.get('customerId')) {
+        this.set('projectId', null)
+      }
+
+      this.send('clearTasks')
+    }
+
+  , clearTasks() {
+      this.set('taskId', null)
+    }
+  }
 })

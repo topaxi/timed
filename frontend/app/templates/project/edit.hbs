@@ -1,13 +1,13 @@
 <h1>{{follow-project project=model}} {{model.name}}</h1>
 
 <ul class="nav nav-tabs">
-  {{#link-to 'project.edit.edit' model tagName='li'}}
+  {{#active-link}}
     {{#link-to 'project.edit.edit' model}}Edit{{/link-to}}
-  {{/link-to}}
+  {{/active-link}}
 
-  {{#link-to 'task' tagName='li'}}
+  {{#active-link}}
     {{#link-to 'task'}}Tasks{{/link-to}}
-  {{/link-to}}
+  {{/active-link}}
 </ul>
 
 <br>

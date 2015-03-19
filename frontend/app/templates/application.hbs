@@ -18,29 +18,29 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav nav">
-        {{#link-to 'project' tagName='li'}}
+        {{#active-link}}
           {{#link-to 'project'}}Projects{{/link-to}}
-        {{/link-to}}
+        {{/active-link}}
 
-        {{#link-to 'customer' tagName='li'}}
+        {{#active-link}}
           {{#link-to 'customer'}}Customers{{/link-to}}
-        {{/link-to}}
+        {{/active-link}}
 
-        {{#link-to 'team' tagName='li'}}
+        {{#active-link}}
           {{#link-to 'team'}}Teams{{/link-to}}
-        {{/link-to}}
+        {{/active-link}}
 
-        {{#link-to 'user' tagName='li'}}
+        {{#active-link}}
           {{#link-to 'user'}}Users{{/link-to}}
-        {{/link-to}}
+        {{/active-link}}
 
-        {{#link-to 'activity' tagName='li'}}
+        {{#active-link}}
           {{#link-to 'activity'}}Activities{{/link-to}}
-        {{/link-to}}
+        {{/active-link}}
 
-        {{#link-to 'about' tagName='li'}}
+        {{#active-link}}
           {{#link-to 'about'}}About{{/link-to}}
-        {{/link-to}}
+        {{/active-link}}
       </ul>
       <ul class="navbar-nav nav navbar-right">
         {{#if session.isAuthenticated}}
@@ -50,16 +50,16 @@
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              {{#link-to 'user.edit' session.user tagName='li'}}
+              {{#active-link}}
                 {{#link-to 'user.edit' session.user}}Edit profile{{/link-to}}
-              {{/link-to}}
+              {{/active-link}}
               <li><a class="pointer" {{action 'invalidateSession'}}>Logout</a></li>
             </ul>
           </li>
         {{else}}
-          {{#link-to 'login' tagName='li'}}
+          {{#active-link}}
             {{#link-to 'login'}}Login{{/link-to}}
-          {{/link-to}}
+          {{/active-link}}
         {{/if}}
       </ul>
     </div>

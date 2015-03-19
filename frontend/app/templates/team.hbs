@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col-md-2">
-    <div class="nav nav-pills nav-stacked">
-      {{#link-to 'team.index' tagName='li'}}
+    <ul class="nav nav-pills nav-stacked">
+      {{#active-link}}
         {{#link-to 'team.index'}}Teams{{/link-to}}
-      {{/link-to}}
+      {{/active-link}}
 
-      {{#link-to 'team.new' tagName='li'}}
+      {{#active-link}}
         {{#link-to 'team.new'}}Create team{{/link-to}}
-      {{/link-to}}
-    </div>
+      {{/active-link}}
+    </ul>
   </div>
 
   <div class="col-md-10">

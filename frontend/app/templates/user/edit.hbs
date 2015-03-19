@@ -1,13 +1,13 @@
 <h1>{{model.name}} - {{model.fullName}}</h1>
 
 <ul class="nav nav-tabs">
-  {{#link-to 'user.edit.edit' model tagName='li'}}
+  {{#active-link}}
     {{#link-to 'user.edit.edit' model}}Edit{{/link-to}}
-  {{/link-to}}
+  {{/active-link}}
 
-  {{#link-to 'user.edit.worktime' tagName='li'}}
+  {{#active-link}}
     {{#link-to 'user.edit.worktime'}}Worktime{{/link-to}}
-  {{/link-to}}
+  {{/active-link}}
 </ul>
 
 <br>

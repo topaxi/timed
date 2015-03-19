@@ -9,7 +9,9 @@ export default Ember.Controller.extend({
   }
 
 , trackerPartial: function() {
-    return `project/edit/${this.get('model.tracker.type')}`
+    let type = this.get('model.tracker.type')
+
+    return type ? `project/edit/${type}` : null
   }.property('model.tracker.type')
 
 , actions: {

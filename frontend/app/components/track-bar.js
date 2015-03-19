@@ -24,7 +24,7 @@ export default Ember.Component.extend({
 , projectOption: function({ data: project }) {
     return safehtml`<div class="option">
       <div>${project.get('name')}</div>
-      <div>${project.get('customer.name')}</div>
+      <div><small>${project.get('customer.name')}</small></div>
     </div>`
   }
 

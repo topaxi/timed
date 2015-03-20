@@ -47,8 +47,10 @@ export default Ember.Object.extend({
     }
 
     if (data.raw.user.avatar_url) {
+      let url = safehtml`${data.raw.user.avatar_url}&s=40`
+
       avatar = safehtml`<div class="media-left">
-        <img src="${data.raw.user.avatar_url}&s=40" width="40" height="40">
+        <img src="${url}" width="40" height="40">
       </div>`
     }
 

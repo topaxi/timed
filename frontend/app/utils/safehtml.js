@@ -54,9 +54,11 @@ function toSafeString(s) {
 }
 
 export function escape(s) {
-  return String(s).replace(/&/g, '&amp;')
-                  .replace(/</g, '&lt;')
-                  .replace(/>/g, '&gt;')
-                  .replace(/'/g, '&#39;')
-                  .replace(/"/g, '&quot;')
+  // https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet
+  return String(s).replace(/&/g,  '&amp;')
+                  .replace(/</g,  '&lt;')
+                  .replace(/>/g,  '&gt;')
+                  .replace(/'/g,  '&#39;')
+                  .replace(/"/g,  '&quot;')
+                  .replace(/\//g, '&#x2f;')
 }

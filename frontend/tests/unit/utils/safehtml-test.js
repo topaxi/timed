@@ -7,10 +7,10 @@ module('safehtml')
 test('it works', function(assert) {
   assert.expect(2)
 
-  let result = safehtml([ 'bar', 'baz' ], '<&foo\'>"')
-  assert.equal(result, 'bar&lt;&amp;foo&#39;&gt;&quot;baz')
+  let result = safehtml([ 'bar', 'baz' ], '</&foo\'>"')
+  assert.equal(result, 'bar&lt;&#x2f;&amp;foo&#39;&gt;&quot;baz')
 
-  assert.equal(escape('<&foo\'>"'), '&lt;&amp;foo&#39;&gt;&quot;')
+  assert.equal(escape('</&foo\'>"'), '&lt;&#x2f;&amp;foo&#39;&gt;&quot;')
 })
 
 test('it is an instance of String', function(assert) {

@@ -59,8 +59,8 @@ export default Ember.View.extend({
 , 'setupTimeline': function() {
     let controller = this.get('controller')
     let options    = Ember.$.extend({}, this.get('visOptions'), {
-      'start':    moment().subtract(1, 'month').startOf('month')
-    , 'end':      moment().add(1, 'month').endOf('month')
+      'start':    moment().subtract(1, 'week')
+    , 'end':      moment().endOf('week').add(2, 'week')
     , 'onAdd':    (item, callback) => controller.send('add',    item, callback)
     , 'onUpdate': (item, callback) => controller.send('update', item, callback)
     , 'onMove':   (item, callback) => controller.send('move',   item, callback)

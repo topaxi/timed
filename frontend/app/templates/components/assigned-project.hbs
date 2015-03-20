@@ -6,10 +6,12 @@
   <tr>
     <th colspan="2">
       {{#if assignment.project.autocomplete}}
-        <a href="{{assignment.project.autocomplete.url}}" target="_blank">
-          <img class="vam" src="{{assignment.project.autocomplete.logo}}" width="24" height="24">
+        <a href="{{assignment.project.autocomplete.url}}" class="no-font vam" target="_blank">
+          <img src="{{assignment.project.autocomplete.logo}}" width="24" height="24">
         </a>
       {{/if}}
+
+      &nbsp;
 
       {{#link-to 'project.edit' assignment.project}}
         {{assignment.project.name}}

@@ -5,15 +5,20 @@ export default Ember.Controller.extend({
     this.set('allTasks',    this.store.find('task'))
     this.set('allProjects', this.store.find('project'))
   }
+
 , 'title': function() {
     let action = this.get('model.isNew') ? 'Add' : 'Edit'
-    return `${action} assignment for ${this.get('model.user.longName')}`
+    let name   = this.get('model.user.longName')
+
+    return `${action} assignment for ${name}`
   }.property('model.user')
-, 'actions': {
-    'save': function() {
+
+, actions: {
+    save() {
       this.get('model').save()
     }
-  , 'closeModal': function() {
+
+  , closeModal() {
       this.get('model').rollback()
 
       return true

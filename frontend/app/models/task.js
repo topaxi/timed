@@ -13,11 +13,9 @@ export default Model.extend({
 , 'done':     DS.attr('boolean')
 
 , 'updateProgress': function() {
-    return Ember.$.getJSON(`/api/v1/tasks/${this.id}/progress`).then(res => {
+    return Ember.$.getJSON(`/api/v1/tasks/${this.id}/progress`).then(res =>
       this.set('progress', res.progress)
-
-      return res.progress
-    })
+    )
   }
 
 , 'progress': function() {

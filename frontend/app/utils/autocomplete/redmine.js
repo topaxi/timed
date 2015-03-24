@@ -29,28 +29,30 @@ export default Ember.Object.extend({
   }
 
 , mapIssueToSelectize(data) {
+    let subject = `${data.tracker.name}: ${data.subject}`
+
     return {
       id:      data.id
     , type:    'redmine'
-    , label:   data.subject
-    , value:   data.subject
+    , label:   subject
+    , value:   subject
     , created: moment(data.created_on)
     , updated: moment(data.updated_on)
     , raw:     data
     }
   }
 
-, selectizeOptionTemplate(option) {
-    if (option.data.type !== 'redmine') {
-      return safehtml`<div class="option">${option.label}</div>`
+, selectizeOptionTemplate({ label, data }) {
+    if (data.type !== 'redmine') {
+      return safehtml`<div class="option">${label}</div>`
     }
 
     let html = safehtml`<div class="option">
-      <div><strong>${option.label}</strong></div>
+      <div><strong>${data.raw.tracker.name}</strong>: ${data.raw.subject}</div>
       <div>
-        <small class="nowrap"><strong>Author</strong>: ${option.data.raw.author.name}</small>
-        <small class="nowrap"><strong>Created</strong>: ${option.data.created.format('YYYY-MM-DD')}</small>
-        <small class="nowrap"><strong>Updated</strong>: ${option.data.updated.format('YYYY-MM-DD')}</small>
+        <small class="nowrap"><strong>Author</strong>: ${data.raw.author.name}</small>
+        <small class="nowrap"><strong>Created</strong>: ${data.created.format('YYYY-MM-DD')}</small>
+        <small class="nowrap"><strong>Updated</strong>: ${data.updated.format('YYYY-MM-DD')}</small>
       </div>
     </div>`
 

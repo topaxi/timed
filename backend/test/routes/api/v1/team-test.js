@@ -177,8 +177,7 @@ describe('DELETE /api/v1/teams/1', () => {
 
     request(app).delete(`/api/v1/teams/${id}`)
       .set('test-auth', true)
-      .expect('Content-Type', /json/)
-      .expect(200)
+      .expect(204)
       .end((err, res) => {
         if (err) {
           return done(err)

@@ -21,7 +21,7 @@ router.post('/', auth, async(function*(req, res, next) {
   yield assignment.saveAsync()
 
   res.status(201)
-  res.send({ assignment })
+  res.pushModel({ assignment })
 }))
 
 router.get('/:id', async(function*(req, res, next) {
@@ -42,11 +42,11 @@ router.put('/:id', async(function*(req, res, next) {
   let { assignment: update } = req.body
   let assignment             = yield Assignment.findByIdAndUpdate(id, update).exec()
 
-  res.send({ assignment })
+  res.pushModel({ assignment })
 }))
 
-router.delete('/:id', async(function*(req, res, next) {
-  yield Assignment.findByIdAndRemove(req.params.id).exec()
+router.delete('/:id', async(function*({ params: { id } }, res, next) {
+  yield Assignment.findByIdAndRemove(id).exec()
 
-  res.send(true)
+  res.unloadModel('attendance', id)
 }))

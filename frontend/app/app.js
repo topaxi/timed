@@ -1,4 +1,4 @@
-/* globals define, moment, vis */
+/* globals define, moment, vis, io */
 
 import Ember            from 'ember'
 import Resolver         from 'ember/resolver'
@@ -16,6 +16,10 @@ let App = Ember.Application.extend({
 
 define('moment', () => ({
   'default': moment
+}))
+
+define('socket.io', () => ({
+  'default': io
 }))
 
 define('vis', () => ({

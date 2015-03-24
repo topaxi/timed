@@ -21,7 +21,7 @@ router.post('/', async(function*(req, res, next) {
   yield customer.saveAsync()
 
   res.status(201)
-  res.send({ customer })
+  res.pushModel({ customer })
 }))
 
 router.get('/:id', async(function*(req, res, next) {
@@ -42,13 +42,11 @@ router.put('/:id', async(function*(req, res, next) {
   let { customer: update } = req.body
   let customer             = yield Customer.findByIdAndUpdate(id, update).exec()
 
-  res.send({ customer })
+  res.pushModel({ customer })
 }))
 
-router.delete('/:id', async(function*(req, res, next) {
-  let customer = yield Customer.findById(req.params.id).exec()
+router.delete('/:id', async(function*({ params: { id } }, res, next) {
+  yield Customer.findByIdAndRemove(id).exec()
 
-  yield customer.removeAsync()
-
-  res.send(true)
+  res.unloadModel('customer', id)
 }))

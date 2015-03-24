@@ -31,7 +31,7 @@ router.post('/', async(function*(req, res, next) {
   yield team.saveAsync()
 
   res.status(201)
-  res.send({ team })
+  res.pushModel({ team })
 }))
 
 // todo
@@ -40,11 +40,11 @@ router.post('/', async(function*(req, res, next) {
 router.put('/:id', async(function*(req, res, next) {
   let team = yield Team.findByIdAndUpdate(req.params.id, req.body.team).exec()
 
-  res.send({ team })
+  res.pushModel({ team })
 }))
 
-router.delete('/:id', async(function*(req, res, next) {
-  yield Team.findByIdAndRemove(req.params.id).exec()
+router.delete('/:id', async(function*({ params: { id } }, res, next) {
+  yield Team.findByIdAndRemove(id).exec()
 
-  res.send(true)
+  res.unloadModel('team', id)
 }))

@@ -37,7 +37,7 @@ router.post('/', async(function*(req, res, next) {
   deletePasswordForResponse(user)
 
   res.status(201)
-  res.send({ user })
+  res.pushModel({ user })
 }))
 
 // todo
@@ -57,15 +57,13 @@ router.put('/:id', async(function*(req, res, next) {
 
   deletePasswordForResponse(user)
 
-  res.send({ user })
+  res.pushModel({ user })
 }))
 
-router.delete('/:id', async(function*(req, res, next) {
-  let user = yield User.findById(req.params.id).exec()
+router.delete('/:id', async(function*({ params: { id } }, res, next) {
+  yield User.findByIdAndRemove(id).exec()
 
-  yield user.removeAsync()
-
-  res.send(true)
+  res.unloadModel('user', id)
 }))
 
 function deletePasswordForResponse(user) {

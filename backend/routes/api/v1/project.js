@@ -33,7 +33,7 @@ router.post('/', async(function*(req, res, next) {
   yield project.saveAsync()
 
   res.status(201)
-  res.send({ project })
+  res.pushModel({ project })
 }))
 
 // todo
@@ -44,14 +44,15 @@ router.put('/:id', async(function*(req, res, next) {
   let { project: update } = req.body
   let project             = yield Project.findByIdAndUpdate(id, update).exec()
 
-  res.send({ project })
+  res.pushModel({ project })
 }))
 
-router.delete('/:id', async(function*(req, res, next) {
-  let project = yield Project.findById(req.params.id).exec()
+router.delete('/:id', async(function*({ params: { id } }, res, next) {
+  let project = yield Project.findById(id).exec()
 
   yield Task.removeAsync({ project })
   yield project.removeAsync()
 
-  res.send(true)
+  // TODO: We should probably unload the project tasks on the clients too
+  res.unloadModel('project', id)
 }))

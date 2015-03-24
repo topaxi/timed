@@ -10,6 +10,10 @@ import config       from '../config.json'
 let app = express()
 export default app
 
+app.server = http.createServer(app)
+
+export { default as io } from './socket'
+
 app.set('version',     version())
 app.set('title',       config.title)
 app.set('trust proxy', config.trustProxy)
@@ -36,5 +40,3 @@ app.use(session)
 app.use(auth)
 
 require('../routes')
-
-app.server = http.createServer(app)

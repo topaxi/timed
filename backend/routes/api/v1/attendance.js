@@ -10,10 +10,12 @@ export default router
 router.use(auth)
 
 router.get('/', async(function*(req, res, next) {
-  if (req.query.from) req.query.from = { '$gte': new Date(+req.query.from) }
-  if (req.query.to)   req.query.to   = { '$lte': new Date(+req.query.to)   }
+  let { query } = req
 
-  let attendances = yield Attendance.find(req.query).exec()
+  if (query.from) query.from = { '$gte': new Date(+query.from) }
+  if (query.to)   query.to   = { '$lte': new Date(+query.to)   }
+
+  let attendances = yield Attendance.find(query).exec()
 
   res.send({ attendances })
 }))
@@ -24,7 +26,7 @@ router.post('/', async(function*(req, res, next) {
   yield attendance.saveAsync()
 
   res.status(201)
-  res.send({ attendance })
+  res.pushModel({ attendance })
 }))
 
 router.get('/:id', async(function*(req, res, next) {
@@ -45,11 +47,11 @@ router.put('/:id', async(function*(req, res, next) {
   let { attendance: update } = req.body
   let attendance             = yield Attendance.findByIdAndUpdate(id, update).exec()
 
-  res.send({ attendance })
+  res.pushModel({ attendance })
 }))
 
-router.delete('/:id', async(function*(req, res, next) {
-  yield Attendance.findByIdAndRemove(req.params.id).exec()
+router.delete('/:id', async(function*({ params: { id } }, res, next) {
+  yield Attendance.findByIdAndRemove(id).exec()
 
-  res.send(true)
+  res.unloadModel('attendance', id)
 }))

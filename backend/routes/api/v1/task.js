@@ -49,7 +49,7 @@ router.post('/', async(function*(req, res, next) {
   yield task.saveAsync()
 
   res.status(201)
-  res.send({ task })
+  res.pushModel({ task })
 }))
 
 // todo
@@ -58,13 +58,11 @@ router.post('/', async(function*(req, res, next) {
 router.put('/:id', async(function*(req, res, next) {
   let task = yield Task.findByIdAndUpdate(req.params.id, req.body.task).exec()
 
-  res.send({ task })
+  res.pushModel({ task })
 }))
 
-router.delete('/:id', async(function*(req, res, next) {
-  let task = yield Task.findById(req.params.id).exec()
+router.delete('/:id', async(function*({ params: { id } }, res, next) {
+  yield Task.findByIdAndRemove(id).exec()
 
-  yield task.removeAsync()
-
-  res.send(true)
+  res.unloadModel('task', id)
 }))

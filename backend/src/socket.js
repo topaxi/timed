@@ -1,8 +1,19 @@
 import socketio from 'socket.io'
+import session  from './session'
 import app      from './app'
 
 const io = socketio(app.server)
 export default io
+
+io.use((socket, next) => {
+  session(socket.request, socket, next)
+})
+
+io.on('connection', socket => {
+  if (!socket.request.session.passport) {
+    socket.disconnect()
+  }
+})
 
 app.use((req, res, next) => {
   let socketId = req.headers['x-timed-current-socket']

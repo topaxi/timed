@@ -30,8 +30,8 @@ gulp.task('test', function(done) {
           thresholds: {
             statements: 99
           , branches: 96
-          , lines: 100
-          , functions: 100
+          , lines: 99
+          , functions: 99
           }
         , coverageDirectory: 'coverage'
         , rootDirectory:     ''

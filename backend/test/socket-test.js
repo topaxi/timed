@@ -19,7 +19,7 @@ describe('Socket.io', () => {
     done()
   })
 
-  it('Runs', done => {
+  it('can connect', done => {
     let client = io.connect(`http://localhost:${TEST_PORT}`, options)
 
     client.once('connect', done)

@@ -1,4 +1,5 @@
 var gulp             = require('gulp')
+var jshint           = require('gulp-jshint')
 var istanbul         = require('gulp-istanbul')
 var mocha            = require('gulp-mocha')
 var coverageEnforcer = require('gulp-istanbul-enforcer');
@@ -14,7 +15,7 @@ var src = [
 var testFiles = [ 'test/**/*-test.js' ]
 var reports   = [ 'lcov', 'json', 'html', 'text', 'text-summary' ]
 
-gulp.task('test', function(done) {
+gulp.task('test', [ 'lint' ], function(done) {
   gulp.src(src)
     .pipe(istanbul({
       instrumenter:    isparta.Instrumenter
@@ -46,6 +47,12 @@ gulp.task('test', function(done) {
           process.exit()
         })
     })
+})
+
+gulp.task('lint', function() {
+  return gulp.src(src)
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
 })
 
 gulp.task('setup travis', function() {

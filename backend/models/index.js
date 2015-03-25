@@ -15,6 +15,7 @@ export { default as User       } from './user'
 mongoose.connect(app.get('mongodb'))
 
 // Promisify Model.save, Model#save, Model.remove and Model#remove
+/* jshint loopfunc:true */
 for (let method of [ 'save', 'remove', 'create' ]) {
   let name = `${method}Async`
   let fn   = function(...args) {

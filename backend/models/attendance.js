@@ -1,5 +1,5 @@
-import mongoose, { Schema }         from 'mongoose'
-import Activity, { ActivitySchema } from './activity'
+import mongoose, { Schema } from 'mongoose'
+import { ActivitySchema }   from './activity'
 
 export default mongoose.model('Attendance', {
   'from':       { type: Date, required: true }

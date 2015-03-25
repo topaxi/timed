@@ -3,8 +3,9 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   isNew: false
 
-, issues:         null
-, fetchingIssues: false
+, issues:           null
+, fetchingIssues:   false
+, selectizePlugins: [ 'restore_on_backspace' ]
 
 , actions: {
     submit() {

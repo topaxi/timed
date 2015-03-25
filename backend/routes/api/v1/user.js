@@ -32,6 +32,10 @@ router.get('/:id', async(function*(req, res, next) {
 router.post('/', async(function*(req, res, next) {
   let user = new User(req.body.user)
 
+  if (req.body.user.password) {
+    yield user.setPassword(req.body.user.password)
+  }
+
   yield user.saveAsync()
 
   deletePasswordForResponse(user)

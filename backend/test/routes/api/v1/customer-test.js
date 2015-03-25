@@ -14,7 +14,7 @@ describe('GET /api/v1/customers', () => {
     , { name: 'Company C' }
     ]
 
-    yield Customer.createAsync(customers)
+    yield Customer.create(customers)
   }))
 
   it('needs authentication', done => {
@@ -56,7 +56,7 @@ describe('GET /api/v1/customers/1', () => {
     , { _id: 'c3'.repeat(12), name: 'Company C' }
     ]
 
-    yield Customer.createAsync(customers)
+    yield Customer.create(customers)
   }))
 
   it('needs authentication', done => {
@@ -132,7 +132,7 @@ describe('PUT /api/v1/customers/1', () => {
     , { _id: 'c2'.repeat(12), name: 'Company C' }
     ]
 
-    yield Customer.createAsync(customers)
+    yield Customer.create(customers)
   }))
 
   it('needs authentication', done => {
@@ -167,7 +167,7 @@ describe('DELETE /api/v1/customers/1', () => {
       { _id: 'c1'.repeat(12), name: 'Company A' }
     ]
 
-    yield Customer.createAsync(customers)
+    yield Customer.create(customers)
   }))
 
   it('needs authentication', done => {

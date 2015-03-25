@@ -19,7 +19,7 @@ describe('GET /api/v1/login', () => {
       user.name = data.name
 
       yield user.setPassword(data.password)
-      yield user.saveAsync()
+      yield user.save()
     }
   }))
 
@@ -72,7 +72,7 @@ describe('GET /api/v1/whoami', () => {
     let user = new User({ name: 'Foo' })
 
     yield user.setPassword('123456')
-    yield user.saveAsync()
+    yield user.save()
 
     userId = user.id
 
@@ -137,7 +137,7 @@ describe('GET /api/v1/logout', () => {
     let user = new User({ name: 'Foo' })
 
     yield user.setPassword('123456')
-    yield user.saveAsync()
+    yield user.save()
 
     userId = user.id
 

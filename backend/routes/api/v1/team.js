@@ -28,7 +28,7 @@ router.get('/:id', async(function*(req, res, next) {
 router.post('/', async(function*(req, res, next) {
   let team = new Team(req.body.team)
 
-  yield team.saveAsync()
+  yield team.save()
 
   res.status(201)
   res.pushModel({ team })

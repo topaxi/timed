@@ -18,7 +18,7 @@ router.get('/', async(function*(req, res, next) {
 router.post('/', auth, async(function*(req, res, next) {
   let assignment = new Assignment(req.body.assignment)
 
-  yield assignment.saveAsync()
+  yield assignment.save()
 
   res.status(201)
   res.pushModel({ assignment })

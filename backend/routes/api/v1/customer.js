@@ -18,7 +18,7 @@ router.get('/', async(function*(req, res, next) {
 router.post('/', async(function*(req, res, next) {
   let customer = new Customer(req.body.customer)
 
-  yield customer.saveAsync()
+  yield customer.save()
 
   res.status(201)
   res.pushModel({ customer })

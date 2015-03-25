@@ -14,7 +14,7 @@ describe('GET /api/v1/users', () => {
     , { name: 'User C' }
     ]
 
-    yield User.createAsync(users)
+    yield User.create(users)
   }))
 
   it('needs authentication', done => {
@@ -48,7 +48,7 @@ describe('GET /api/v1/users/1', () => {
     , { _id: 'a3'.repeat(12), name: 'User C' }
     ]
 
-    yield User.createAsync(users)
+    yield User.create(users)
   }))
 
   it('needs authentication', done => {
@@ -126,7 +126,7 @@ describe('PUT /api/v1/users/1', () => {
     , { _id: 'c2'.repeat(12), name: 'User C' }
     ]
 
-    yield User.createAsync(users)
+    yield User.create(users)
   }))
 
   it('needs authentication', done => {
@@ -162,7 +162,7 @@ describe('DELETE /api/v1/users/1', () => {
       { _id: 'c1'.repeat(12), name: 'User A' }
     ]
 
-    yield User.createAsync(users)
+    yield User.create(users)
   }))
 
   it('needs authentication', done => {

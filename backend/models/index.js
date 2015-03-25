@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import Model    from 'mongoose/lib/model'
 import app      from '../src/app'
 
 export { default as Activity   } from './activity'
@@ -13,19 +12,3 @@ export { default as Team       } from './team'
 export { default as User       } from './user'
 
 mongoose.connect(app.get('mongodb'))
-
-// Promisify Model.save, Model#save, Model.remove and Model#remove
-/* jshint loopfunc:true */
-for (let method of [ 'save', 'remove', 'create' ]) {
-  let name = `${method}Async`
-  let fn   = function(...args) {
-    return new Promise((resolve, reject) =>
-      this[method](...args, (err, ...values) =>
-        err ? reject(err) : resolve(...values)
-      )
-    )
-  }
-
-  Model[name] = fn
-  mongoose.Document.prototype[name] = fn
-}

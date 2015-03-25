@@ -46,7 +46,7 @@ router.get('/:id/progress', async(function*(req, res, next) {
 router.post('/', async(function*(req, res, next) {
   let task = new Task(req.body.task)
 
-  yield task.saveAsync()
+  yield task.save()
 
   res.status(201)
   res.pushModel({ task })

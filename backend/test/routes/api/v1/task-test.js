@@ -15,7 +15,7 @@ describe('GET /api/v1/tasks', () => {
   beforeEach(co.wrap(function*() {
     let project = new Project({ name: 'Project A' })
 
-    yield project.saveAsync()
+    yield project.save()
 
     let tasks = [
       { _id: 'a1'.repeat(12), name: 'Task A', project }
@@ -23,7 +23,7 @@ describe('GET /api/v1/tasks', () => {
     , { _id: 'a3'.repeat(12), name: 'Task C', project }
     ]
 
-    yield Task.createAsync(tasks)
+    yield Task.create(tasks)
   }))
 
   it('needs authentication', done => {
@@ -69,7 +69,7 @@ describe('GET /api/v1/tasks/1', () => {
   beforeEach(co.wrap(function*() {
     let project = new Project({ name: 'Project A' })
 
-    yield project.saveAsync()
+    yield project.save()
 
     let tasks = [
       { _id: 'a1'.repeat(12), name: 'Task A', project }
@@ -77,7 +77,7 @@ describe('GET /api/v1/tasks/1', () => {
     , { _id: 'a3'.repeat(12), name: 'Task C', project }
     ]
 
-    yield Task.createAsync(tasks)
+    yield Task.create(tasks)
   }))
 
   it('needs authentication', done => {
@@ -129,13 +129,13 @@ describe('GET /api/v1/tasks/1/progress', () => {
     let project = new Project({ name: 'Project A' })
     let user    = new User({ name: 'User A' })
 
-    yield [ project.saveAsync(), user.saveAsync() ]
+    yield [ project.save(), user.save() ]
 
     let task = new Task({ _id: 'a1'.repeat(12), name: 'Task A', project, duration: 100 })
 
     taskId = task.id
 
-    yield task.saveAsync()
+    yield task.save()
 
     let from = Date.now()
     let to   = Date.now() + 20
@@ -146,7 +146,7 @@ describe('GET /api/v1/tasks/1/progress', () => {
     , { _id: 'b3'.repeat(12), user, from, to, activities: [ { from, to, task }, { from, to, task } ] }
     ]
 
-    yield Attendance.createAsync(attendances)
+    yield Attendance.create(attendances)
   }))
 
   it('needs authentication', done => {
@@ -171,7 +171,7 @@ describe('POST /api/v1/tasks', () => {
   beforeEach(co.wrap(function*() {
     let project = new Project({ name: 'Project A' })
 
-    yield project.saveAsync()
+    yield project.save()
 
     projectId = project.id
   }))
@@ -208,7 +208,7 @@ describe('PUT /api/v1/tasks/1', () => {
   beforeEach(co.wrap(function*() {
     let project = new Project({ name: 'Project A' })
 
-    yield project.saveAsync()
+    yield project.save()
 
     projectId = project.id
 
@@ -219,7 +219,7 @@ describe('PUT /api/v1/tasks/1', () => {
     , { _id: 'a4'.repeat(12), name: 'Task E', project }
     ]
 
-    yield Task.createAsync(tasks)
+    yield Task.create(tasks)
   }))
 
   it('needs authentication', done => {
@@ -254,7 +254,7 @@ describe('DELETE /api/v1/tasks/1', () => {
   beforeEach(co.wrap(function*() {
     let project = new Project({ name: 'Project A' })
 
-    yield project.saveAsync()
+    yield project.save()
 
     let tasks = [
       { _id: 'a1'.repeat(12), name: 'Task A', project }
@@ -262,7 +262,7 @@ describe('DELETE /api/v1/tasks/1', () => {
     , { _id: 'a3'.repeat(12), name: 'Task C', project }
     ]
 
-    yield Task.createAsync(tasks)
+    yield Task.create(tasks)
   }))
 
   it('needs authentication', done => {

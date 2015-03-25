@@ -14,7 +14,7 @@ describe('GET /api/v1/projects', () => {
     , { _id: 'a3'.repeat(12), name: 'Project C' }
     ]
 
-    yield Project.createAsync(projects)
+    yield Project.create(projects)
   }))
 
   it('needs authentication', done => {
@@ -64,7 +64,7 @@ describe('GET /api/v1/projects/1', () => {
     , { _id: 'a3'.repeat(12), name: 'Project C' }
     ]
 
-    yield Project.createAsync(projects)
+    yield Project.create(projects)
   }))
 
   it('needs authentication', done => {
@@ -142,7 +142,7 @@ describe('PUT /api/v1/projects/1', () => {
     , { _id: 'c2'.repeat(12), name: 'Project C' }
     ]
 
-    yield Project.createAsync(projects)
+    yield Project.create(projects)
   }))
 
   it('needs authentication', done => {
@@ -178,7 +178,7 @@ describe('DELETE /api/v1/projects/1', () => {
       { _id: 'c1'.repeat(12), name: 'Project A' }
     ]
 
-    yield Project.createAsync(projects)
+    yield Project.create(projects)
   }))
 
   it('needs authentication', done => {

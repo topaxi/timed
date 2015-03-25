@@ -21,7 +21,7 @@ describe('GET /api/v1/attendances', () => {
     , { from: date3, to: date4, user: 'u3'.repeat(12), activities: [] }
     ]
 
-    yield Attendance.createAsync(attendances)
+    yield Attendance.create(attendances)
   }))
 
   it('needs authentication', done => {
@@ -82,7 +82,7 @@ describe('GET /api/v1/attendances/1', () => {
     , { _id: 'a6'.repeat(12), from: new Date, to: new Date, user: 'u3'.repeat(12), activities: [] }
     ]
 
-    yield Attendance.createAsync(attendances)
+    yield Attendance.create(attendances)
   }))
 
   it('needs authentication', done => {
@@ -168,7 +168,7 @@ describe('PUT /api/v1/attendances/1', () => {
     , { _id: 'a2'.repeat(12), from: new Date, to: new Date, user: 'u1'.repeat(12), activties: [] }
     ]
 
-    yield Attendance.createAsync(attendances)
+    yield Attendance.create(attendances)
   }))
 
   it('needs authentication', done => {
@@ -204,7 +204,7 @@ describe('DELETE /api/v1/attendances/1', () => {
       { _id: 'a1'.repeat(12), from: new Date, to: new Date, user: 'u1'.repeat(12), activties: [] }
     ]
 
-    yield Attendance.createAsync(attendances)
+    yield Attendance.create(attendances)
   }))
 
   it('needs authentication', done => {

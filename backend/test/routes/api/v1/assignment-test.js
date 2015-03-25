@@ -17,7 +17,7 @@ describe('GET /api/v1/assignments', () => {
     , { from: new Date, to: new Date, duration: 0, tasks: [] }
     ]
 
-    yield Assignment.createAsync(assignments)
+    yield Assignment.create(assignments)
   }))
 
   it('needs authentication', done => {
@@ -62,7 +62,7 @@ describe('GET /api/v1/assignments/1', () => {
     , { _id: 'a6'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
     ]
 
-    yield Assignment.createAsync(assignments)
+    yield Assignment.create(assignments)
   }))
 
   it('needs authentication', done => {
@@ -150,7 +150,7 @@ describe('PUT /api/v1/assignments/1', () => {
     , { _id: 'a2'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
     ]
 
-    yield Assignment.createAsync(assignments)
+    yield Assignment.create(assignments)
   }))
 
   it('needs authentication', done => {
@@ -185,7 +185,7 @@ describe('DELETE /api/v1/assignments/1', () => {
       { _id: 'a1'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
     ]
 
-    yield Assignment.createAsync(assignments)
+    yield Assignment.create(assignments)
   }))
 
   it('needs authentication', done => {

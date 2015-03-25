@@ -36,7 +36,7 @@ router.post('/', async(function*(req, res, next) {
     yield user.setPassword(req.body.user.password)
   }
 
-  yield user.saveAsync()
+  yield user.save()
 
   deletePasswordForResponse(user)
 
@@ -56,7 +56,7 @@ router.put('/:id', async(function*(req, res, next) {
 
   if (newPassword) {
     yield user.setPassword(newPassword)
-    yield user.saveAsync()
+    yield user.save()
   }
 
   deletePasswordForResponse(user)

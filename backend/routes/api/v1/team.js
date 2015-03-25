@@ -38,7 +38,9 @@ router.post('/', async(function*(req, res, next) {
 // router.put('/', fun...
 
 router.put('/:id', async(function*(req, res, next) {
-  let team = yield Team.findByIdAndUpdate(req.params.id, req.body.team).exec()
+  let { id }           = req.params
+  let { team: update } = req.body
+  let team             = yield Team.findByIdAndUpdate(id, update, { 'new': true }).exec()
 
   res.pushModel({ team })
 }))

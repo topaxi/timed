@@ -40,7 +40,7 @@ router.get('/:id', async(function*(req, res, next) {
 router.put('/:id', async(function*(req, res, next) {
   let { id }               = req.params
   let { customer: update } = req.body
-  let customer             = yield Customer.findByIdAndUpdate(id, update).exec()
+  let customer             = yield Customer.findByIdAndUpdate(id, update, { 'new': true }).exec()
 
   res.pushModel({ customer })
 }))

@@ -40,7 +40,7 @@ router.get('/:id', async(function*(req, res, next) {
 router.put('/:id', async(function*(req, res, next) {
   let { id }                 = req.params
   let { assignment: update } = req.body
-  let assignment             = yield Assignment.findByIdAndUpdate(id, update).exec()
+  let assignment             = yield Assignment.findByIdAndUpdate(id, update, { 'new': true }).exec()
 
   res.pushModel({ assignment })
 }))

@@ -45,7 +45,7 @@ router.get('/:id', async(function*(req, res, next) {
 router.put('/:id', async(function*(req, res, next) {
   let { id }                 = req.params
   let { attendance: update } = req.body
-  let attendance             = yield Attendance.findByIdAndUpdate(id, update).exec()
+  let attendance             = yield Attendance.findByIdAndUpdate(id, update, { 'new': true }).exec()
 
   res.pushModel({ attendance })
 }))

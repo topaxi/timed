@@ -52,7 +52,9 @@ router.put('/:id', async(function*(req, res, next) {
 
   delete req.body.user.password
 
-  let user = yield User.findByIdAndUpdate(req.params.id, req.body.user).exec()
+  let { id }           = req.params
+  let { user: update } = req.body
+  let user             = yield User.findByIdAndUpdate(id, update, { 'new': true }).exec()
 
   if (newPassword) {
     yield user.setPassword(newPassword)

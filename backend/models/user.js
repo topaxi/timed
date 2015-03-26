@@ -9,7 +9,7 @@ let UserSchema = new Schema({
 , 'lastName':  String
 , 'password':  String
 , 'worktime':  {}
-, 'projects':  [{ type: Schema.Types.ObjectId, ref: 'Project' }]
+, 'projects':  [ { type: Schema.Types.ObjectId, ref: 'Project' } ]
 })
 
 UserSchema.methods.setPassword = function(password) {

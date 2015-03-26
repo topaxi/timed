@@ -13,7 +13,7 @@ router.get('/', async(function*(req, res, next) {
   let { query } = req
 
   if (query.from) query.from = { '$gte': new Date(+query.from) }
-  if (query.to)   query.to   = { '$lte': new Date(+query.to)   }
+  if (query.to)   query.to   = { '$lte': new Date(+query.to  ) }
 
   let attendances = yield Attendance.find(query).exec()
 

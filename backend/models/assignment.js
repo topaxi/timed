@@ -6,5 +6,5 @@ export default mongoose.model('Assignment', {
 , 'duration': Number
 , 'user':     { type: Schema.Types.ObjectId, ref: 'User' }
 , 'project':  { type: Schema.Types.ObjectId, ref: 'Project' }
-, 'tasks':    [{ type: Schema.Types.ObjectId, ref: 'Task' }]
+, 'tasks':    [ { type: Schema.Types.ObjectId, ref: 'Task' } ]
 })

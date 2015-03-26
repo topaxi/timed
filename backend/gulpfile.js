@@ -1,5 +1,6 @@
 var gulp             = require('gulp')
 var jshint           = require('gulp-jshint')
+var jscs             = require('gulp-jscs')
 var istanbul         = require('gulp-istanbul')
 var mocha            = require('gulp-mocha')
 var coverageEnforcer = require('gulp-istanbul-enforcer');
@@ -53,6 +54,7 @@ gulp.task('lint', function() {
   return gulp.src(src)
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
+    .pipe(jscs({ esnext: true, configPath: '../.jscsrc' }))
 })
 
 gulp.task('setup travis', function() {

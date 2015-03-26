@@ -8,7 +8,7 @@ export default Ember.Component.extend({
 , percent: Ember.computed.alias('task.percent')
 
 , title: function() {
-    return `${this.get('percent')|0}%`
+    return `${this.get('percent') | 0}%`
   }.property('percent')
 
 , info: function() {

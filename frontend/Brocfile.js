@@ -3,6 +3,11 @@
 var EmberApp = require('ember-cli/lib/broccoli/ember-app')
 var app      = new EmberApp({
   'es3Safe':             false
+, 'jscsOptions': {
+    'configPath':           '../.jscsrc'
+  , 'esnext':               true
+  , 'disableTestGenerator': false
+  }
 , 'ember-cli-selectize': { 'theme': 'bootstrap3' }
 , '6to5': {
     'blacklist': [ 'react' ]

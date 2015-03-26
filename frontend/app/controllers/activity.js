@@ -5,10 +5,10 @@ export default Ember.Controller.extend({
   'queryParams': [
     'from'
   , 'to'
-  , { 'userId':     'user'     }
-  , { 'teamId':     'team'     }
-  , { 'projectId':  'project'  }
-  , { 'taskId':     'task'     }
+  , { 'userId':     'user' }
+  , { 'teamId':     'team' }
+  , { 'projectId':  'project' }
+  , { 'taskId':     'task' }
   , { 'customerId': 'customer' }
   ]
 

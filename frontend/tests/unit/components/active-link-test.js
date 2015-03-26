@@ -1,7 +1,4 @@
-import {
-  moduleForComponent,
-  test
-} from 'ember-qunit';
+import { moduleForComponent, test } from 'ember-qunit'
 
 moduleForComponent('active-link', {
   // specify the other units that are required for this test

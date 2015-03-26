@@ -1,7 +1,7 @@
 /* globals define, moment, vis */
 
-import Resolver from 'ember/resolver';
-import config from '../../config/environment';
+import Resolver from 'ember/resolver'
+import config   from '../../config/environment'
 
 var resolver = Resolver.create();
 
@@ -18,9 +18,9 @@ if (!Function.prototype.bind) {
 }
 
 resolver.namespace = {
-  modulePrefix: config.modulePrefix,
-  podModulePrefix: config.podModulePrefix
-};
+  modulePrefix: config.modulePrefix
+, podModulePrefix: config.podModulePrefix
+}
 
 define('moment', () => ({
   'default': moment
@@ -33,4 +33,4 @@ define('vis', () => ({
 , 'Graph2d':  vis.Graph2d
 }))
 
-export default resolver;
+export default resolver

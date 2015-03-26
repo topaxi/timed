@@ -1,7 +1,4 @@
-import {
-  moduleFor,
-  test
-} from 'ember-qunit';
+import { moduleFor, test } from 'ember-qunit'
 
 moduleFor('service:socket', {
   // Specify the other units that are required for this test.

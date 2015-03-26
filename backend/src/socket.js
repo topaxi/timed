@@ -35,9 +35,13 @@ app.use((req, res, next) => {
 })
 
 function emitExcept(id, ...data) {
-  let ids = Object.keys(io.engine.clients).filter(i => i !== id)
+  let ids = Object.keys(io.engine.clients).filter(notEqual(id))
 
   for (let clientId of ids) {
     io.to(clientId).emit(...data)
   }
+}
+
+function notEqual(val) {
+  return i => i !== val
 }

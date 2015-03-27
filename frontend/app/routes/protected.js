@@ -4,6 +4,10 @@ import AuthenticatedRouteMixin from 'simple-auth/mixins/authenticated-route-mixi
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
   socket: Ember.inject.service()
 
+, beforeModel() {
+    return this.get('session.user')
+  }
+
 , model() {
     let user = this.get('session.user.id')
 

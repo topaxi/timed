@@ -3,10 +3,11 @@ import bcrypt               from 'bcrypt'
 
 const PASSWORD_ROUNDS = 10
 
-let UserSchema = new Schema({
+export const UserSchema = new Schema({
   'name':      { type: String, required: true, index: { unique: true } }
 , 'firstName': String
 , 'lastName':  String
+, 'email':     String
 , 'password':  String
 , 'worktime':  {}
 , 'projects':  [ { type: Schema.Types.ObjectId, ref: 'Project' } ]

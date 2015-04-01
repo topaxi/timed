@@ -72,7 +72,7 @@
     "requireSpacesInsideParentheses": null,
     "requireTrailingComma": null,
     "safeContextKeyword": "self",
-    "validateIndentation": 2,
+    "validateIndentation": null,
     "validateParameterSeparator": ", ",
     "validateJSDoc": {
         "checkParamNames": true,

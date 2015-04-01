@@ -1,7 +1,4 @@
-import {
-  moduleFor,
-  test
-} from 'ember-qunit';
+import { moduleFor, test } from 'ember-qunit'
 
 moduleFor('controller:protected', {
   // Specify the other units that are required for this test.
@@ -10,6 +7,6 @@ moduleFor('controller:protected', {
 
 // Replace this with your real tests.
 test('it exists', function(assert) {
-  var controller = this.subject();
-  assert.ok(controller);
+  var controller = this.subject()
+  assert.ok(controller)
 });

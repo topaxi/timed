@@ -10,7 +10,12 @@ export default router
 router.use(auth)
 
 router.get('/', async(function*(req, res, next) {
-  let assignments = yield Assignment.find(req.query).exec()
+  let { query } = req
+
+  if (query.from) query.from = { '$gte': new Date(+query.from) }
+  if (query.to)   query.to   = { '$lte': new Date(+query.to  ) }
+
+  let assignments = yield Assignment.find(query).exec()
 
   res.send({ assignments })
 }))

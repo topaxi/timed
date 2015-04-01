@@ -11,8 +11,10 @@ export default Ember.Route.extend({
 
 , afterModel() {
     let user        = this.get('session.user.id')
-    let assignments = this.store.find('assignment', { user })
-    let attendances = this.store.find('attendance', { user })
+    let day         = this.get('day') || moment().startOf('day')
+    let startOfWeek = +moment().subtract(1, 'week').startOf('week')
+    let assignments = this.store.find('assignment', { user, from: startOfWeek })
+    let attendances = this.store.find('attendance', { user, from: +moment(day, 'YYYY-MM-DD') })
 
     return Ember.RSVP.all([ assignments, attendances ])
   }

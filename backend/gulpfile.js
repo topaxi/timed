@@ -16,38 +16,40 @@ var src = [
 var testFiles = [ 'test/**/*-test.js' ]
 var reports   = [ 'lcov', 'json', 'html', 'text', 'text-summary' ]
 
-gulp.task('test', [ 'lint' ], function(done) {
-  gulp.src(src)
+gulp.task('instrument', function() {
+  return gulp.src(src)
     .pipe(istanbul({
       instrumenter:    isparta.Instrumenter
     //, includeUntested: true
     }))
     .pipe(istanbul.hookRequire())
-    .pipe(gulp.dest('test-tmp/'))
-    .on('finish', function() {
-      gulp.src(testFiles)
-        .pipe(mocha({ reporter: 'spec' }))
-        .pipe(istanbul.writeReports(reports))
-        .pipe(coverageEnforcer({
-          thresholds: {
-            statements: 99
-          , branches: 96
-          , lines: 99
-          , functions: 99
-          }
-        , coverageDirectory: 'coverage'
-        , rootDirectory:     ''
-        }))
-        .on('error', function(err) {
-          console.error(err.message)
-          done()
-          process.exit(1)
-        })
-        .on('end', function() {
-          done()
-          process.exit()
-        })
-    })
+    .pipe(gulp.dest('./test-tmp/'))
+})
+
+gulp.task('test', [ 'lint', 'instrument' ], function(done) {
+  gulp.src(testFiles)
+    .pipe(mocha({ reporter: 'spec' }))
+    .pipe(istanbul.writeReports(reports))
+    .pipe(coverageEnforcer({
+      thresholds: {
+        statements: 99
+      , branches: 96
+      , lines: 99
+      , functions: 99
+      }
+    , coverageDirectory: 'coverage'
+    , rootDirectory:     ''
+    }))
+    .on('error', console.error)
+    .on('error', end)
+    .on('end',   end)
+
+    function end() {
+      done()
+      // Not sure why the test doesn't end after calling "done"
+      // using process.exit() as an workaround for now
+      process.exit()
+    }
 })
 
 gulp.task('lint', function() {
@@ -65,4 +67,5 @@ gulp.task('travis', [ 'setup travis', 'test' ])
 
 gulp.task('test-watch', function() {
   gulp.watch(src.concat(testFiles), [ 'test' ])
+      .on('error', console.error)
 })

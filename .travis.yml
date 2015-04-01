@@ -27,3 +27,7 @@ install:
 
 script:
   - make travis
+
+notifications:
+  email:
+    - damian.senn@gmail.com

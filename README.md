@@ -3,6 +3,7 @@ Timed
 
 [![Build Status](https://travis-ci.org/topaxi/timed.svg)](https://travis-ci.org/topaxi/timed)
 [![Coverage Status](https://coveralls.io/repos/topaxi/timed/badge.svg?branch=master)](https://coveralls.io/r/topaxi/timed?branch=master)
+[![Code Climate](https://codeclimate.com/github/topaxi/timed/badges/gpa.svg)](https://codeclimate.com/github/topaxi/timed)
 
 node.js Timetracking Software
 

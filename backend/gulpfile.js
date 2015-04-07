@@ -1,20 +1,20 @@
-var gulp             = require('gulp')
-var jshint           = require('gulp-jshint')
-var jscs             = require('gulp-jscs')
-var mocha            = require('gulp-spawn-mocha')
-var coverageEnforcer = require('gulp-istanbul-enforcer');
+import gulp             from 'gulp'
+import jshint           from 'gulp-jshint'
+import jscs             from 'gulp-jscs'
+import mocha            from 'gulp-spawn-mocha'
+import coverageEnforcer from 'gulp-istanbul-enforcer'
 
-var src = [
+let src = [
   'src/**/*.js'
 , 'routes/**/*.js'
 , 'middleware/*.js'
 , 'models/*.js'
 ]
 
-var testFiles = [ 'test/**/*-test.js' ]
-var reports   = [ 'lcov', 'json', 'html', 'text', 'text-summary' ]
+let testFiles = [ 'test/**/*-test.js' ]
+let reports   = [ 'lcov', 'json', 'html', 'text', 'text-summary' ]
 
-gulp.task('test', [ 'lint' ], function() {
+gulp.task('test', [ 'lint' ], () => {
   return gulp.src(testFiles)
     .pipe(mocha({
       reporter:  'spec'
@@ -33,20 +33,20 @@ gulp.task('test', [ 'lint' ], function() {
     }))
 })
 
-gulp.task('lint', function() {
+gulp.task('lint', () => {
   return gulp.src(src)
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(jscs({ esnext: true, configPath: '../.jscsrc' }))
 })
 
-gulp.task('setup travis', function() {
+gulp.task('setup travis', () => {
   reports = [ 'lcovonly' ]
 })
 
 gulp.task('travis', [ 'setup travis', 'test' ])
 
-gulp.task('test-watch', function() {
+gulp.task('test-watch', () => {
   gulp.watch(src.concat(testFiles), [ 'test' ])
       .on('error', console.error)
 })

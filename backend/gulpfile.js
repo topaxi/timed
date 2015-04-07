@@ -25,7 +25,7 @@ gulp.task('test', [ 'lint' ], () => {
       thresholds: {
         statements: 99
       , branches: 96
-      , lines: 99
+      , lines: 100
       , functions: 100
       }
     , coverageDirectory: 'coverage'

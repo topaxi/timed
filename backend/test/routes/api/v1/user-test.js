@@ -115,6 +115,28 @@ describe('POST /api/v1/users', () => {
         done()
       })
   })
+
+  it('should create a new user with password', done => {
+    request(app).post('/api/v1/users')
+      .set('test-auth', true)
+      .send({ 'user': { name: 'User A', password: '123456' } })
+      .expect('Content-Type', /json/)
+      .expect(201)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        expect(res.body.user._id,  'id')  .to.be.a('string')
+        expect(res.body.user.name, 'name').to.equal('User A')
+
+        User.findById(res.body.user._id, (err, user) => {
+          expect(user.comparePassword('123456'))
+            .to.eventually.be.true.then(() => done())
+                                  .catch(err => done(err))
+        })
+      })
+  })
 })
 
 describe('PUT /api/v1/users/1', () => {
@@ -158,7 +180,7 @@ describe('PUT /api/v1/users/1', () => {
 
     request(app).put(`/api/v1/users/${id}`)
       .set('test-auth', true)
-      .send({ 'user': { password: '12356' } })
+      .send({ 'user': { password: '123456' } })
       .expect('Content-Type', /json/)
       .expect(200)
       .end((err, res) => {
@@ -167,8 +189,9 @@ describe('PUT /api/v1/users/1', () => {
         }
 
         User.findById(id, (err, user) => {
-          expect(user.comparePassword('12356'))
+          expect(user.comparePassword('123456'))
             .to.eventually.be.true.then(() => done())
+                                  .catch(err => done(err))
         })
       })
   })

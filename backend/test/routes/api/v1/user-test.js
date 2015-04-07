@@ -1,9 +1,7 @@
-import co                from 'co'
-import request           from 'supertest'
-import { expect }        from 'chai'
-import app               from '../../../../src/app'
-import { User }          from '../../../../models'
-import { clearDatabase } from '../../../helpers'
+import co       from 'co'
+import request  from 'supertest'
+import app      from '../../../../src/app'
+import { User } from '../../../../models'
 
 describe('GET /api/v1/users', () => {
 
@@ -152,6 +150,26 @@ describe('PUT /api/v1/users/1', () => {
         expect(res.body.user._id,  'id').to.equal(id)
         expect(res.body.user.name, 'name').to.equal('User B')
         done()
+      })
+  })
+
+  it('updates the password', done => {
+    let id = 'c2'.repeat(12)
+
+    request(app).put(`/api/v1/users/${id}`)
+      .set('test-auth', true)
+      .send({ 'user': { password: '12356' } })
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        User.findById(id, (err, user) => {
+          expect(user.comparePassword('12356'))
+            .to.eventually.be.true.then(() => done())
+        })
       })
   })
 })

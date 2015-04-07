@@ -34,7 +34,7 @@ run-server-polling:
 	tmux -2 attach-session -d
 
 run-backend:
-	@cd ./backend && nodemon app.js
+	@make -C backend run
 
 run-frontend:
 	@cd ./frontend && ember serve --port 4200

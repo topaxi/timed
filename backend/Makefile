@@ -1,3 +1,5 @@
+run:
+	npm run watch
 
 test:
 	NODE_ENV=testing \

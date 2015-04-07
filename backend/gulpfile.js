@@ -1,10 +1,8 @@
 var gulp             = require('gulp')
 var jshint           = require('gulp-jshint')
 var jscs             = require('gulp-jscs')
-var istanbul         = require('gulp-istanbul')
-var mocha            = require('gulp-mocha')
+var mocha            = require('gulp-spawn-mocha')
 var coverageEnforcer = require('gulp-istanbul-enforcer');
-var isparta          = require('isparta')
 
 var src = [
   'src/**/*.js'
@@ -16,20 +14,13 @@ var src = [
 var testFiles = [ 'test/**/*-test.js' ]
 var reports   = [ 'lcov', 'json', 'html', 'text', 'text-summary' ]
 
-gulp.task('instrument', function() {
-  return gulp.src(src)
-    .pipe(istanbul({
-      instrumenter:    isparta.Instrumenter
-    //, includeUntested: true
-    }))
-    .pipe(istanbul.hookRequire())
-    .pipe(gulp.dest('./test-tmp/'))
-})
-
-gulp.task('test', [ 'lint', 'instrument' ], function(done) {
+gulp.task('test', [ 'lint' ], function(done) {
   gulp.src(testFiles)
-    .pipe(mocha({ reporter: 'spec' }))
-    .pipe(istanbul.writeReports(reports))
+    .pipe(mocha({
+      reporter:  'spec'
+    , compilers: 'js:babel/register'
+    , istanbul:  true
+    }))
     .pipe(coverageEnforcer({
       thresholds: {
         statements: 99

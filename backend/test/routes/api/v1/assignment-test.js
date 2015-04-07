@@ -6,15 +6,19 @@ import { Assignment }    from '../../../../models'
 import { clearDatabase } from '../../../helpers'
 
 describe('GET /api/v1/assignments', () => {
+  let base  = new Date('2015-03-06T12:10:27.312Z')
+  let date2 = new Date(base  + 1000 * 60 * 60)
+  let date3 = new Date(date3 + 1000 * 60 * 60)
+  let date4 = new Date(date4 + 1000 * 60 * 60)
 
   beforeEach(co.wrap(function*() {
     let assignments = [
-      { from: new Date, to: new Date, duration: 0, tasks: [] }
-    , { from: new Date, to: new Date, duration: 0, tasks: [] }
-    , { from: new Date, to: new Date, duration: 0, tasks: [] }
-    , { from: new Date, to: new Date, duration: 0, tasks: [] }
-    , { from: new Date, to: new Date, duration: 0, tasks: [] }
-    , { from: new Date, to: new Date, duration: 0, tasks: [] }
+      { from: base,  to: date2, duration: 0, tasks: [] }
+    , { from: base,  to: date2, duration: 0, tasks: [] }
+    , { from: date2, to: date3, duration: 0, tasks: [] }
+    , { from: date2, to: date3, duration: 0, tasks: [] }
+    , { from: date2, to: date3, duration: 0, tasks: [] }
+    , { from: date3, to: date4, duration: 0, tasks: [] }
     ]
 
     yield Assignment.create(assignments)
@@ -46,6 +50,22 @@ describe('GET /api/v1/assignments', () => {
         }
 
         expect(res.body.assignments).to.have.length(6)
+        done()
+      })
+  })
+
+  it('filters by "from" and "to" query params', done => {
+    request(app).get('/api/v1/assignments')
+      .query({ from: date2.getTime(), to: date3.getTime() })
+      .set('test-auth', true)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        expect(res.body.assignments).to.have.length(3)
         done()
       })
   })

@@ -14,8 +14,8 @@ var src = [
 var testFiles = [ 'test/**/*-test.js' ]
 var reports   = [ 'lcov', 'json', 'html', 'text', 'text-summary' ]
 
-gulp.task('test', [ 'lint' ], function(done) {
-  gulp.src(testFiles)
+gulp.task('test', [ 'lint' ], function() {
+  return gulp.src(testFiles)
     .pipe(mocha({
       reporter:  'spec'
     , compilers: 'js:babel/register'
@@ -31,16 +31,6 @@ gulp.task('test', [ 'lint' ], function(done) {
     , coverageDirectory: 'coverage'
     , rootDirectory:     ''
     }))
-    .on('error', console.error)
-    .on('error', end)
-    .on('end',   end)
-
-    function end() {
-      done()
-      // Not sure why the test doesn't end after calling "done"
-      // using process.exit() as an workaround for now
-      process.exit()
-    }
 })
 
 gulp.task('lint', function() {

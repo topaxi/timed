@@ -26,7 +26,7 @@ gulp.task('test', [ 'lint' ], function() {
         statements: 99
       , branches: 96
       , lines: 99
-      , functions: 99
+      , functions: 100
       }
     , coverageDirectory: 'coverage'
     , rootDirectory:     ''

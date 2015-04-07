@@ -10,6 +10,7 @@ io.use((socket, next) => {
 })
 
 io.on('connection', socket => {
+  /* istanbul ignore else */
   if (!socket.request.session.passport) {
     socket.disconnect()
   }
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
   next()
 })
 
+/* istanbul ignore next */
 function emitExcept(id, ...data) {
   let ids = Object.keys(io.engine.clients).filter(notEqual(id))
 
@@ -42,6 +44,7 @@ function emitExcept(id, ...data) {
   }
 }
 
+/* istanbul ignore next */
 function notEqual(val) {
   return i => i !== val
 }

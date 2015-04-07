@@ -28,6 +28,7 @@ let morganConfig = {
 
 app.use(require('morgan')(morganConfig[app.get('env')]))
 
+/* istanbul ignore else */
 if (app.get('env') === 'testing') {
   // Remove logger for testing instance
   app._router.stack.pop()

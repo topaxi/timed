@@ -11,6 +11,7 @@ router.post('/login', (req, res, next) =>
     if (!user) return next({ status, message: info.message })
 
     req.login(user, err => {
+      /* istanbul ignore if */
       if (err) return next(err)
 
       res.send({ sessionId: req.sessionID, userId: req.user.id })

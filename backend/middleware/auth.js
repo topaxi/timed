@@ -1,6 +1,7 @@
 import app                    from '../src/app'
 import { NotAuthorizedError } from '../src/error'
 
+/* istanbul ignore next */
 export default app.get('env') !== 'testing' ? auth : testAuth
 
 export function auth(req, res, next) {

@@ -18,6 +18,7 @@ UserSchema.methods.setPassword = function(password) {
 }
 
 UserSchema.methods.comparePassword = function(password) {
+  /* istanbul ignore next */
   return new Promise((resolve, reject) =>
     bcrypt.compare(password, this.password, (err, equal) =>
       err ? reject(err) : resolve(equal)
@@ -27,6 +28,7 @@ UserSchema.methods.comparePassword = function(password) {
 
 export default mongoose.model('User', UserSchema)
 
+/* istanbul ignore next */
 function encryptPassword(password) {
   return new Promise((resolve, reject) =>
     bcrypt.genSalt(PASSWORD_ROUNDS, (err, salt) =>

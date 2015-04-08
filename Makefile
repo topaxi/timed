@@ -40,7 +40,7 @@ run-backend:
 	@make -C backend run
 
 run-frontend:
-	@cd ./frontend && ember serve --port 4200
+	@cd ./frontend && ember serve --port 4200 --proxy http://localhost:3000/
 
 run-frontend-polling:
 	@cd ./frontend && ember serve --port 4200 \

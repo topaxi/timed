@@ -4,9 +4,12 @@
 export class SafeHTML extends String {
 
   constructor(pieces, subs) {
-    this.safehtml = this.process(pieces, subs)
+    // Using this is not valid before super call...
+    let safehtml = process(pieces, subs)
 
-    super(this.safehtml)
+    super(safehtml)
+
+    this.safehtml = safehtml
 
     // Mimic string for Object.prototype.toString.call(new SafeHTML(''))
     this[Symbol.toStringTag] = 'String'
@@ -15,11 +18,6 @@ export class SafeHTML extends String {
     // from String. This causes SafeHTML#length to be 0
     // Redefine length with the proper string length.
     Object.defineProperty(this, 'length', { value: this.safehtml.length })
-  }
-
-  process(pieces, subs) {
-    return subs.reduce((html, sub, i) =>
-      html + toSafeString(sub) + pieces[i + 1], pieces[0])
   }
 
   // Fix to string cast in engines which don't properly
@@ -33,6 +31,11 @@ export class SafeHTML extends String {
   toString() {
     return this.safehtml
   }
+}
+
+function process(pieces, subs) {
+  return subs.reduce((html, sub, i) =>
+    html + toSafeString(sub) + pieces[i + 1], pieces[0])
 }
 
 // safehtml escapes all substitution except instances

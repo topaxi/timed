@@ -1,6 +1,6 @@
 {
   "execMap": {
-    "js": "node_modules/.bin/babel-node --harmony",
+    "js": "node_modules/.bin/babel-node",
     "py": "python",
     "rb": "ruby"
   },

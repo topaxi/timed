@@ -1,20 +1,24 @@
 <div class="row">
   <div class="col-md-4 col-md-push-8">
-    {{#if session.user.currentAssignments}}
-      <h2>Assigned Projects</h2>
+    {{#liquid-spacer}}
+      {{#if session.user.currentAssignments}}
+        <h2>Assigned Projects</h2>
 
-      {{#each assignment in session.user.currentAssignments}}
-        {{assigned-project assignment=assignment}}
-      {{/each}}
-    {{/if}}
+        {{#each assignment in session.user.currentAssignments}}
+          {{assigned-project assignment=assignment}}
+        {{/each}}
+      {{/if}}
+    {{/liquid-spacer}}
 
-    {{#if session.user.projects}}
-      <h2>{{#link-to 'project'}}Followed Projects{{/link-to}}</h2>
+    {{#liquid-spacer}}
+      {{#if session.user.projects}}
+        <h2>{{#link-to 'project'}}Followed Projects{{/link-to}}</h2>
 
-      {{#each project in session.user.projects}}
-        {{followed-project project=project}}
-      {{/each}}
-    {{/if}}
+        {{#each project in session.user.projects}}
+          {{followed-project project=project}}
+        {{/each}}
+      {{/if}}
+    {{/liquid-spacer}}
   </div>
 
   {{attendance-list

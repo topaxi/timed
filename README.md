@@ -23,6 +23,8 @@ $ make user # create your first user
 $ make run  # starts the back- and frontend
 ```
 
+After that, you should be able to visit http://timed.vm/ in your browser.
+
 Manual setup - The "hard" way
 -----------------------------
 
@@ -30,20 +32,18 @@ If you don't want a virtual development environment, you can install
 Timed on your local machine.
 You need the following packages installed on your machine:
 
-- nginx
 - mongodb
-- nodejs
+- nodejs or iojs
 - npm
 - bower
 
 Then run the following commands in this repository:
 
 ```shell
-$ sudo ln -sf $PWD/tools/nginx/example.conf \
-              /etc/nginx/sites-enabled/001-timed.conf
-$ sudo /etc/init.d/nginx restart
-$ sudo npm install ember-cli -g
+$ npm install ember-cli -g
 $ make install
 $ node --harmony backend/bin/user.js # create your first user
 $ make run-server                    # you might need to install tmux to run this command
 ```
+
+After that, you should be able to visit http://localhost:4200/ in your browser.

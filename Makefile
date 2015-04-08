@@ -21,9 +21,12 @@ run:
 run-server:
 	tmux new-session -n timed-dev -d 'make run-backend'
 	tmux set remain-on-exit on
-	tmux split-window -v 'make run-frontend'
 	tmux bind-key R respawn-pane
-	tmux new-window -n timed-test -d 'make test'
+	tmux split-window -v 'make run-frontend'
+	tmux new-window -n timed-test -d 'make -C ./backend test-watch'
+	tmux select-window -t 1
+	tmux set remain-on-exit on
+	tmux split-window -v 'cd ./frontend && ember test --server'
 	tmux -2 attach-session -d
 
 run-server-polling:

@@ -46,7 +46,7 @@ gulp.task('setup travis', () => {
 
 gulp.task('travis', [ 'setup travis', 'test' ])
 
-gulp.task('test-watch', () => {
+gulp.task('test-watch', [ 'test' ], () => {
   gulp.watch(src.concat(testFiles), [ 'test' ])
       .on('error', console.error)
 })

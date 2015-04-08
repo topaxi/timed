@@ -51,9 +51,15 @@
             </a>
             <ul class="dropdown-menu">
               {{#active-link}}
-                {{#link-to 'user.edit' session.user}}Edit profile{{/link-to}}
+                {{#link-to 'user.edit' session.user}}
+                  Edit profile
+                {{/link-to}}
               {{/active-link}}
-              <li><a class="pointer" {{action 'invalidateSession'}}>Logout</a></li>
+              <li>
+                <a class="pointer" {{action 'invalidateSession'}}>
+                  Logout
+                </a>
+              </li>
             </ul>
           </li>
         {{else}}

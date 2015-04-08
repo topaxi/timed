@@ -12,6 +12,22 @@ body {
   padding-top: @navbar-height + 10px
 }
 
+a:focus {
+  outline-offset: 0;
+}
+
+.navbar-nav a:focus {
+  outline-offset: -2px;
+}
+
+a:focus, .btn:focus, .btn:active:focus {
+  outline: thin solid fade(@input-border-focus, 75%);
+  outline-radius: @border-radius-small;
+  -ms-outline-radius: @border-radius-small;
+  -moz-outline-radius: @border-radius-small;
+  -webkit-outline-radius: @border-radius-small;
+}
+
 .ember-application { display: flex }
 .ember-application > .ember-view {
   position: relative;

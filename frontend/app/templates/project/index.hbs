@@ -1,43 +1,49 @@
 <h1>Projects</h1>
 
-<table class="table">
-  <colgroup>
-    <col>
-    <col class="expand-col">
-    <col>
-    <col class="table-button-col">
-    <col class="table-button-col">
-  </colgroup>
-  <thead>
-    <tr>
-      <th>Customer</th>
-      <th>Name</th>
-      <th>Date</th>
-      <th>Tasks</th>
-      <th>Follow</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each project in model}}
+{{#liquid-with pagedModels as projects}}
+  <table class="table">
+    <colgroup>
+      <col>
+      <col class="expand-col">
+      <col>
+      <col class="table-button-col">
+      <col class="table-button-col">
+    </colgroup>
+    <thead>
       <tr>
-        <td class="nowrap">
-          {{project.customer.name}}
-        </td>
-        <td>
-          {{#link-to 'project.edit' project}}{{project.name}}{{/link-to}}
-        </td>
-        <td>
-          {{date-format project.from 'YYYY-MM-DD'}}{{#if project.to}} - {{date-format project.to 'YYYY-MM-DD'}}{{/if}}
-        </td>
-        <td>
-          {{#link-to 'task' project class="btn btn-default"}}
-            <span class="glyphicon glyphicon-tasks"></span>
-          {{/link-to}}
-        </td>
-        <td>
-          {{follow-project project=project}}
-        </td>
+        <th>Customer</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Tasks</th>
+        <th>Follow</th>
       </tr>
-    {{/each}}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {{#each project in projects}}
+        <tr>
+          <td class="nowrap">
+            {{project.customer.name}}
+          </td>
+          <td>
+            {{#link-to 'project.edit' project}}{{project.name}}{{/link-to}}
+          </td>
+          <td>
+            {{date-format project.from 'YYYY-MM-DD'}}{{#if project.to}} - {{date-format project.to 'YYYY-MM-DD'}}{{/if}}
+          </td>
+          <td>
+            {{#link-to 'task' project class="btn btn-default"}}
+              <span class="glyphicon glyphicon-tasks"></span>
+            {{/link-to}}
+          </td>
+          <td>
+            {{follow-project project=project}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{/liquid-with}}
+
+{{#if showPager}}
+  {{pagination-pager current=page count=totalPages}}
+{{/if}}

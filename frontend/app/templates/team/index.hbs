@@ -1,33 +1,39 @@
 <h1>Teams</h1>
 
-<table class="table">
-  <colgroup>
-    <col>
-    <col class="table-button-col">
-    <col class="table-button-col">
-  </colgroup>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Members</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each team in model}}
+{{#liquid-with pagedModels as teams}}
+  <table class="table">
+    <colgroup>
+      <col>
+      <col class="table-button-col">
+      <col class="table-button-col">
+    </colgroup>
+    <thead>
       <tr>
-        <td>
-          {{#link-to 'team.edit' team}}{{team.name}}{{/link-to}}
-        </td>
-        <td class="tar">
-          {{team.users.length}}
-        </td>
-        <td>
-          {{#link-to 'team.edit.manage' team tagName='button' class='btn btn-default tip' title='Manage team'}}
-            <span class="glyphicon glyphicon-tasks"></span>
-          {{/link-to}}
-        </td>
+        <th>Name</th>
+        <th>Members</th>
+        <th></th>
       </tr>
-    {{/each}}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {{#each team in teams}}
+        <tr>
+          <td>
+            {{#link-to 'team.edit' team}}{{team.name}}{{/link-to}}
+          </td>
+          <td class="tar">
+            {{team.users.length}}
+          </td>
+          <td>
+            {{#link-to 'team.edit.manage' team tagName='button' class='btn btn-default tip' title='Manage team'}}
+              <span class="glyphicon glyphicon-tasks"></span>
+            {{/link-to}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{/liquid-with}}
+
+{{#if showPager}}
+  {{pagination-pager current=page count=totalPages}}
+{{/if}}

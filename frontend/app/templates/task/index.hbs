@@ -1,36 +1,42 @@
-<table class="table">
-  <colgroup>
-    <col>
-    <col width="100%">
-    <col width="32">
-  </colgroup>
-  <thead>
-    <tr>
-      <th colspan="2">Name</th>
-      <th>
-        {{#link-to 'task.new' tagName='button' class='btn btn-sm btn-default'}}
-          <span class="glyphicon glyphicon-plus"></span>
-          Create new task
-        {{/link-to}}
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each task in model}}
+{{#liquid-with pagedModels as tasks}}
+  <table class="table">
+    <colgroup>
+      <col>
+      <col width="100%">
+      <col width="32">
+    </colgroup>
+    <thead>
       <tr>
-        <td class="nowrap">
-          {{#link-to 'task.edit' task}}
-            {{#if task.done}}
-              <del>{{task.name}}</del>
-            {{else}}
-              {{task.name}}
-            {{/if}}
+        <th colspan="2">Name</th>
+        <th>
+          {{#link-to 'task.new' tagName='button' class='btn btn-sm btn-default'}}
+            <span class="glyphicon glyphicon-plus"></span>
+            Create new task
           {{/link-to}}
-        </td>
-        <td colspan="2">
-          {{task-progressbar task=task}}
-        </td>
+        </th>
       </tr>
-    {{/each}}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {{#each task in tasks}}
+        <tr>
+          <td class="nowrap">
+            {{#link-to 'task.edit' task}}
+              {{#if task.done}}
+                <del>{{task.name}}</del>
+              {{else}}
+                {{task.name}}
+              {{/if}}
+            {{/link-to}}
+          </td>
+          <td colspan="2">
+            {{task-progressbar task=task}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{/liquid-with}}
+
+{{#if showPager}}
+  {{pagination-pager current=page count=totalPages}}
+{{/if}}

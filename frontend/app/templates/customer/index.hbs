@@ -1,18 +1,24 @@
 <h1>Customers</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each customer in model}}
+{{#liquid-with pagedModels as customers}}
+  <table class="table">
+    <thead>
       <tr>
-        <td>
-          {{#link-to 'customer.edit' customer}}{{customer.name}}{{/link-to}}
-        </td>
+        <th>Name</th>
       </tr>
-    {{/each}}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {{#each customer in customers}}
+        <tr>
+          <td>
+            {{#link-to 'customer.edit' customer}}{{customer.name}}{{/link-to}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{/liquid-with}}
+
+{{#if showPager}}
+  {{pagination-pager current=page count=totalPages}}
+{{/if}}

@@ -41,7 +41,8 @@
     "ember-notify": "^3.1.4",
     "glob": "^5.0.3",
     "http-proxy": "^1.10.1",
-    "liquid-fire": "^0.19.2"
+    "liquid-fire": "^0.19.2",
+    "pagination-pager": "1.2.3"
   },
   "ember-addon": {
     "paths": [

@@ -1,7 +1,8 @@
 import Ember from 'ember'
 
 export default Ember.Mixin.create({
-  page:   1
+  queryParams: [ 'page', 'limit' ]
+, page:   1
 , limit: 20
 , totalPages: function() {
     return Math.ceil(this.get('model.length') / this.get('limit'))

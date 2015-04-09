@@ -9,11 +9,13 @@ io.use((socket, next) => {
   session(socket.request, socket, next)
 })
 
+/* istanbul ignore next */
 io.on('connection', socket => {
-  /* istanbul ignore else */
   if (!socket.request.session.passport) {
-    socket.disconnect()
+    return socket.disconnect()
   }
+
+  socket.emit('backend version', app.get('version'))
 })
 
 app.use((req, res, next) => {

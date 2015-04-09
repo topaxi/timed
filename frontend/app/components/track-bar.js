@@ -3,7 +3,7 @@ import safehtml from 'timed/utils/safehtml'
 
 export default Ember.Component.extend({
   elementId:  'track-bar'
-, classNames: 'container'
+, classNames: 'container track-bar'
 
 , activity: Ember.computed.alias('user.currentActivity')
 , task:     Ember.computed.alias('activity.task')

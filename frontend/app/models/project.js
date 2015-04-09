@@ -13,7 +13,7 @@ export default Model.extend({
 , 'done':     DS.attr('boolean')
 
 , 'searchName': function() {
-    return `${this.get('customer.name')} ${this.get('name')}`
+    return `${this.get('customer.name')} - ${this.get('name')}`
   }.property('customer.name', 'name')
 
 , 'autocomplete': function() {

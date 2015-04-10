@@ -30,4 +30,10 @@ export default Ember.Mixin.create({
       return this.get('totalPages') > 1
     }
   })
+
+, actions: {
+    resetPaging() {
+      this.set('page', 1)
+    }
+  }
 })

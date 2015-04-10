@@ -6,6 +6,7 @@ export default Ember.Controller.extend({
 
 , init: function() {
     this.set('customers', this.store.find('customer'))
+    this.set('users',     this.store.find('user'))
   }
 
 , trackerPartial: function() {

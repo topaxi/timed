@@ -3,8 +3,9 @@ import mongoose, { Schema } from 'mongoose'
 let ProjectSchema = new Schema
 
 ProjectSchema.add({
-  'name':     { type: String, required: true }
-, 'customer': { type: Schema.Types.ObjectId, ref: 'Customer' }
+  'name':           { type: String, required: true }
+, 'customer':       { type: Schema.Types.ObjectId, ref: 'Customer' }
+, 'projectLeaders': [ { type: Schema.Types.ObjectId, ref: 'User' } ]
 , 'tracker':  {
     'type': { type: String, enum: [ 'github', 'redmine' ] }
   , 'data': {}

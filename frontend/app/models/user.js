@@ -10,7 +10,7 @@ export default Model.extend({
 , 'password':    DS.attr('string')
 , 'worktime':    DS.attr('any', { 'defaultValue': {} })
 
-, 'projects':    DS.hasMany('project',    { 'async': true })
+, 'projects':    DS.hasMany('project',    { 'async': true, 'inverse': null })
 , 'teams':       DS.hasMany('team',       { 'async': true, 'inverse': 'users' })
 , 'assignments': DS.hasMany('assignment', { 'async': true })
 , 'attendances': DS.hasMany('attendance', { 'async': true })

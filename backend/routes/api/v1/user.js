@@ -2,14 +2,11 @@ import { Router }        from 'express'
 import { async }         from '../../../src/async-route'
 import { NotFoundError } from '../../../src/error'
 import { User }          from '../../../models'
-import auth              from '../../../middleware/auth'
 
 let router = new Router
 export default router
 
-router.use(auth)
-
-router.get('/', async(function*(req, res, next) {
+router.get('/users', async(function*(req, res, next) {
   let users = yield User.find(req.query).exec()
 
   users.forEach(deletePasswordForResponse)
@@ -17,7 +14,7 @@ router.get('/', async(function*(req, res, next) {
   res.send({ users })
 }))
 
-router.get('/:id', async(function*(req, res, next) {
+router.get('/users/:id', async(function*(req, res, next) {
   let user = yield User.findById(req.params.id).exec()
 
   if (!user) {
@@ -29,7 +26,7 @@ router.get('/:id', async(function*(req, res, next) {
   res.send({ user })
 }))
 
-router.post('/', async(function*(req, res, next) {
+router.post('/users', async(function*(req, res, next) {
   let user = new User(req.body.user)
 
   if (req.body.user.password) {
@@ -47,7 +44,7 @@ router.post('/', async(function*(req, res, next) {
 // todo
 // router.put('/', fun...
 
-router.put('/:id', async(function*(req, res, next) {
+router.put('/users/:id', async(function*(req, res, next) {
   let newPassword = req.body.user.password
 
   delete req.body.user.password
@@ -66,7 +63,7 @@ router.put('/:id', async(function*(req, res, next) {
   res.pushModel({ user })
 }))
 
-router.delete('/:id', async(function*({ params: { id } }, res, next) {
+router.delete('/users/:id', async(function*({ params: { id } }, res, next) {
   yield User.findByIdAndRemove(id).exec()
 
   res.unloadModel('user', id)

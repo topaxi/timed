@@ -2,14 +2,11 @@ import { Router }        from 'express'
 import { async }         from '../../../src/async-route'
 import { NotFoundError } from '../../../src/error'
 import { Project, Task } from '../../../models'
-import auth              from '../../../middleware/auth'
 
 let router = new Router
 export default router
 
-router.use(auth)
-
-router.get('/', async(function*(req, res, next) {
+router.get('/projects', async(function*(req, res, next) {
   let { ids }  = req.query
   let query    = ids && ids.length ? { '_id': { '$in': ids } } : req.query
   let projects = yield Project.find(query).exec()
@@ -17,7 +14,7 @@ router.get('/', async(function*(req, res, next) {
   res.send({ projects })
 }))
 
-router.get('/:id', async(function*(req, res, next) {
+router.get('/projects/:id', async(function*(req, res, next) {
   let project = yield Project.findById(req.params.id).exec()
 
   if (!project) {
@@ -27,7 +24,7 @@ router.get('/:id', async(function*(req, res, next) {
   res.send({ project })
 }))
 
-router.post('/', async(function*(req, res, next) {
+router.post('/projects', async(function*(req, res, next) {
   let project = new Project(req.body.project)
 
   yield project.save()
@@ -39,7 +36,7 @@ router.post('/', async(function*(req, res, next) {
 // todo
 // router.put('/', fun...
 
-router.put('/:id', async(function*(req, res, next) {
+router.put('/projects/:id', async(function*(req, res, next) {
   let { id }              = req.params
   let { project: update } = req.body
   let project             = yield Project.findByIdAndUpdate(id, update, { 'new': true }).exec()
@@ -47,7 +44,7 @@ router.put('/:id', async(function*(req, res, next) {
   res.pushModel({ project })
 }))
 
-router.delete('/:id', async(function*({ params: { id } }, res, next) {
+router.delete('/projects/:id', async(function*({ params: { id } }, res, next) {
   let project = yield Project.findById(id).exec()
 
   yield Task.remove({ project })

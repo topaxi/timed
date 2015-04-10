@@ -2,14 +2,11 @@ import { Router }        from 'express'
 import { async }         from '../../../src/async-route'
 import { NotFoundError } from '../../../src/error'
 import { Assignment }    from '../../../models'
-import auth              from '../../../middleware/auth'
 
 let router = new Router
 export default router
 
-router.use(auth)
-
-router.get('/', async(function*(req, res, next) {
+router.get('/assignments', async(function*(req, res, next) {
   let { query } = req
 
   if (query.from) query.from = { '$gte': new Date(+query.from) }
@@ -20,7 +17,7 @@ router.get('/', async(function*(req, res, next) {
   res.send({ assignments })
 }))
 
-router.post('/', auth, async(function*(req, res, next) {
+router.post('/assignments', async(function*(req, res, next) {
   let assignment = new Assignment(req.body.assignment)
 
   yield assignment.save()
@@ -29,7 +26,7 @@ router.post('/', auth, async(function*(req, res, next) {
   res.pushModel({ assignment })
 }))
 
-router.get('/:id', async(function*(req, res, next) {
+router.get('/assignments/:id', async(function*(req, res, next) {
   let assignment = yield Assignment.findById(req.params.id).exec()
 
   if (!assignment) {
@@ -42,7 +39,7 @@ router.get('/:id', async(function*(req, res, next) {
 // todo
 // router.put('/', fun...
 
-router.put('/:id', async(function*(req, res, next) {
+router.put('/assignments/:id', async(function*(req, res, next) {
   let { id }                 = req.params
   let { assignment: update } = req.body
   let assignment             = yield Assignment.findByIdAndUpdate(id, update, { 'new': true }).exec()
@@ -50,7 +47,7 @@ router.put('/:id', async(function*(req, res, next) {
   res.pushModel({ assignment })
 }))
 
-router.delete('/:id', async(function*({ params: { id } }, res, next) {
+router.delete('/assignments/:id', async(function*({ params: { id } }, res, next) {
   yield Assignment.findByIdAndRemove(id).exec()
 
   res.unloadModel('attendance', id)

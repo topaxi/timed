@@ -4,14 +4,11 @@ import moment              from 'moment'
 import { async }           from '../../../src/async-route'
 import { BadRequestError } from '../../../src/error'
 import * as model          from '../../../models'
-import auth                from '../../../middleware/auth'
 
 let router = new Router
 export default router
 
-router.use(auth)
-
-router.get('/payload', async(function*(req, res) {
+router.get('/init/payload', async(function*(req, res) {
   if (!req.user || !req.user.id) throw new BadRequestError
 
   let query = {

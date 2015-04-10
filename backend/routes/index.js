@@ -1,4 +1,6 @@
-import app from '../src/app'
+import app        from '../src/app'
+import api1       from './api/v1'
+import errorRoute from './error'
 
-app.use('/api/v1', require('./api/v1'))
-app.use(require('./error'))
+app.use('/api/v1', api1)
+app.use(errorRoute)

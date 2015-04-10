@@ -3,14 +3,11 @@ import mongoose             from 'mongoose'
 import { async }            from '../../../src/async-route'
 import { NotFoundError }    from '../../../src/error'
 import { Task, Attendance } from '../../../models'
-import auth                 from '../../../middleware/auth'
 
 let router = new Router
 export default router
 
-router.use(auth)
-
-router.get('/', async(function*(req, res, next) {
+router.get('/tasks', async(function*(req, res, next) {
   let { ids } = req.query
   let query   = ids && ids.length ? { '_id': { '$in': ids } } : req.query
   let tasks   = yield Task.find(query).exec()
@@ -18,7 +15,7 @@ router.get('/', async(function*(req, res, next) {
   res.send({ tasks })
 }))
 
-router.get('/:id', async(function*(req, res, next) {
+router.get('/tasks/:id', async(function*(req, res, next) {
   let task = yield Task.findById(req.params.id).exec()
 
   if (!task) {
@@ -28,7 +25,7 @@ router.get('/:id', async(function*(req, res, next) {
   res.send({ task })
 }))
 
-router.get('/:id/progress', async(function*(req, res, next) {
+router.get('/tasks/:id/progress', async(function*(req, res, next) {
   let id = new mongoose.Types.ObjectId(req.params.id)
 
   let result = yield Attendance.aggregate([
@@ -43,7 +40,7 @@ router.get('/:id/progress', async(function*(req, res, next) {
   res.send({ progress })
 }))
 
-router.post('/', async(function*(req, res, next) {
+router.post('/tasks', async(function*(req, res, next) {
   let task = new Task(req.body.task)
 
   yield task.save()
@@ -55,7 +52,7 @@ router.post('/', async(function*(req, res, next) {
 // todo
 // router.put('/', fun...
 
-router.put('/:id', async(function*(req, res, next) {
+router.put('/tasks/:id', async(function*(req, res, next) {
   let { id }           = req.params
   let { task: update } = req.body
   let task             = yield Task.findByIdAndUpdate(id, update, { 'new': true }).exec()
@@ -63,7 +60,7 @@ router.put('/:id', async(function*(req, res, next) {
   res.pushModel({ task })
 }))
 
-router.delete('/:id', async(function*({ params: { id } }, res, next) {
+router.delete('/tasks/:id', async(function*({ params: { id } }, res, next) {
   yield Task.findByIdAndRemove(id).exec()
 
   res.unloadModel('task', id)

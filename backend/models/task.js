@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose'
-import Task                 from './task'
 
 let TaskSchema = new Schema
 
@@ -9,7 +8,7 @@ TaskSchema.add({
 , 'duration': Number
 , 'from':     Date
 , 'to':       Date
-, 'tasks':    [ Task ]
+, 'tasks':    [ TaskSchema ]
 , 'priority': Number
 , 'done':     Boolean
 })

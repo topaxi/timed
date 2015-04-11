@@ -8,7 +8,6 @@ TaskSchema.add({
 , 'duration': Number
 , 'from':     Date
 , 'to':       Date
-, 'tasks':    [ TaskSchema ]
 , 'priority': Number
 , 'done':     Boolean
 })

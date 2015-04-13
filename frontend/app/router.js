@@ -5,6 +5,7 @@ let Router = Ember.Router.extend({ 'location': config.locationType })
 
 Router.map(function() {
   this.route('login')
+  this.route('about')
 
   this.route('protected', { 'path': '/' }, function() {
     this.resource('index', { 'path': '/' })
@@ -43,8 +44,6 @@ Router.map(function() {
 
     this.resource('activity')
   })
-
-  this.route('about')
 })
 
 export default Router

@@ -64,6 +64,16 @@ a:focus, .btn:focus, .btn:active:focus {
   }
 }
 
+.btn.loading::before {
+  content: url('loading16.png');
+  vertical-align: middle;
+  margin-right: 0.5em
+}
+
+.btn-primary.loading::before {
+  content: url('loading16i.png')
+}
+
 .active-link a.ember-transitioning-in::before {
   opacity: 1;
 }

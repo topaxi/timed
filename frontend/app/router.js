@@ -44,6 +44,8 @@ Router.map(function() {
 
     this.resource('activity')
   })
+
+  this.route('not-found', { 'path': '/*path' })
 })
 
 export default Router

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import app      from '../src/app'
+import config   from '../src/config'
 
 export { default as Activity   } from './activity'
 export { default as Assignment } from './assignment'
@@ -11,4 +11,4 @@ export { default as Task       } from './task'
 export { default as Team       } from './team'
 export { default as User       } from './user'
 
-mongoose.connect(app.get('mongodb'))
+mongoose.connect(config.mongodb)

@@ -1,6 +1,6 @@
 import session      from 'express-session'
 import connectMongo from 'connect-mongo'
-import config       from '../config.json'
+import config       from './config'
 
 let MongoStore = connectMongo(session)
 

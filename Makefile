@@ -6,11 +6,18 @@ build: cache-clean install-frontend
 pull:
 	git pull
 
-update: pull build install-backend
+update: pull deps-clean build install-backend
 
 cache-clean:
 	npm cache clean
 	bower cache clean
+
+deps-clean:
+	rm -rf node_modules
+	rm -rf backend/node_modules
+	rm -rf frontend/node_modules
+	rm -rf frontend/bower_components
+	rm -rf frontend/tmp
 
 user:
 	@vagrant ssh -c 'node --harmony /vagrant/backend/bin/user.js'
@@ -55,12 +62,10 @@ mongo:
 install: cache-clean install-frontend install-backend
 
 install-frontend:
-	rm -rf frontend/tmp frontend/node_modules frontend/bower_components
 	cd frontend && npm install
 	cd frontend && bower install
 
 install-backend:
-	rm -rf backend/node_modules
 	cd backend && npm install
 
 outdated:

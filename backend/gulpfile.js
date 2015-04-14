@@ -11,7 +11,7 @@ let src = [
 , 'models/*.js'
 ]
 
-let testFiles = [ 'test/**/*-test.js' ]
+let testFiles = [ 'test/helper.js', 'test/**/*-test.js' ]
 let reports   = [ 'lcov', 'json', 'html', 'text', 'text-summary' ]
 
 gulp.task('test', [ 'lint' ], () => {

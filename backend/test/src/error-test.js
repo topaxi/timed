@@ -1,4 +1,4 @@
-import * as error from '../src/error'
+import * as error from '../../src/error'
 
 describe('Errors inheritance is correctly setup', () => {
 

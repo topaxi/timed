@@ -1,9 +1,8 @@
-import co                from 'co'
-import request           from 'supertest'
-import { expect }        from 'chai'
-import app               from '../../../../src/app'
-import { Assignment }    from '../../../../models'
-import { clearDatabase } from '../../../helpers'
+import co             from 'co'
+import request        from 'supertest'
+import { expect }     from 'chai'
+import app            from '../../../../src/app'
+import { Assignment } from '../../../../models'
 
 describe('GET /api/v1/assignments', () => {
   let base  = new Date('2015-03-06T12:10:27.312Z')

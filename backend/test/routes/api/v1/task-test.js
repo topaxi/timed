@@ -1,8 +1,7 @@
-import co                from 'co'
-import request           from 'supertest'
-import { expect }        from 'chai'
-import app               from '../../../../src/app'
-import { clearDatabase } from '../../../helpers'
+import co         from 'co'
+import request    from 'supertest'
+import { expect } from 'chai'
+import app        from '../../../../src/app'
 import {
   Project
 , Task

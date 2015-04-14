@@ -1,9 +1,8 @@
-import co                from 'co'
-import request           from 'supertest'
-import { expect }        from 'chai'
-import app               from '../../../../src/app'
-import { Customer }      from '../../../../models'
-import { clearDatabase } from '../../../helpers'
+import co           from 'co'
+import request      from 'supertest'
+import { expect }   from 'chai'
+import app          from '../../../../src/app'
+import { Customer } from '../../../../models'
 
 describe('GET /api/v1/customers', () => {
 

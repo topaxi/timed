@@ -1,5 +1,5 @@
 import io  from 'socket.io-client'
-import app from '../src/app'
+import app from '../../src/app'
 
 let options = {
   transports: [ 'websocket' ]

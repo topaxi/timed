@@ -6,7 +6,7 @@ export default Ember.Service.extend({
   store: Ember.inject.service()
 
 , init: function() {
-    let connection = io()
+    let connection = io({ transports: [ 'websocket' ] })
 
     this.set('connection', connection)
 

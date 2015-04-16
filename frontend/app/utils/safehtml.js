@@ -5,11 +5,11 @@ export class SafeHTML extends String {
 
   constructor(pieces, subs) {
     // Using this is not valid before super call...
-    let safehtml = process(pieces, subs)
+    let str = process(pieces, subs)
 
-    super(safehtml)
+    super(str)
 
-    this.safehtml = safehtml
+    this.safehtml = str
 
     // Mimic string for Object.prototype.toString.call(new SafeHTML(''))
     this[Symbol.toStringTag] = 'String'

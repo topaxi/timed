@@ -48,9 +48,10 @@ test('it lists project assignments', function(assert) {
 
   Ember.run(() => {
     let project    = store.createRecord('project', { id: 5 })
-    let tasks      = createTasks(project)
     let assignment = store.createRecord('assignment', { project })
     let component  = this.subject({ assignment })
+
+    createTasks(project)
 
     this.render()
 

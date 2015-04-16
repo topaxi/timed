@@ -1,9 +1,9 @@
-import Ember               from 'ember'
-import startApp            from '../../../helpers/start-app'
+// import Ember               from 'ember'
+// import startApp            from '../../../helpers/start-app'
 import { moduleFor, test } from 'ember-qunit'
 
-let App
-let store = { find: () => void 0 }
+// let App
+let store = { find: () => {} }
 
 moduleFor('controller:modal/activity', 'ModalActivityController', {
   // Specify the other units that are required for this test.

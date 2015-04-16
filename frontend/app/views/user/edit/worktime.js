@@ -11,8 +11,8 @@ export default Ember.View.extend({
   , 'drawPoints':  false
   , 'graphHeight': 200
   , 'dataAxis':    {
-      'icons': false
-    , 'width': 20
+      'icons':       false
+    , 'width':       20
     , 'customRange': { 'left': { 'min': 0, 'max': 16 } }
     }
   , 'orientation': 'top'

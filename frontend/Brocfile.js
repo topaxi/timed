@@ -2,7 +2,8 @@
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app')
 var app      = new EmberApp({
-  'eslint': {
+  'hinting': false
+, 'eslint': {
     'testGenerator': require('./lib/eslint-test-generator')
   }
 , 'babel': {

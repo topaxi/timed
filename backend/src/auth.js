@@ -11,7 +11,7 @@ import User                from '../models/user'
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) => User.findById(id, done))
 
-let strategy = new LocalStrategy(async function(name, password, done) {
+let strategy = new LocalStrategy(async(name, password, done) => {
   try {
     let user = await User.findOne({ name }).exec()
 

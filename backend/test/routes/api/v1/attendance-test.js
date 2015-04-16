@@ -1,6 +1,4 @@
-import co             from 'co'
 import request        from 'supertest'
-import { expect }     from 'chai'
 import app            from '../../../../src/app'
 import { Attendance } from '../../../../models'
 
@@ -10,7 +8,7 @@ describe('GET /api/v1/attendances', () => {
   let date3 = new Date(date3 + 1000 * 60 * 60)
   let date4 = new Date(date4 + 1000 * 60 * 60)
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let attendances = [
       { from: base,  to: date2, user: 'u1'.repeat(12), activities: [] }
     , { from: base,  to: date2, user: 'u1'.repeat(12), activities: [] }
@@ -20,8 +18,8 @@ describe('GET /api/v1/attendances', () => {
     , { from: date3, to: date4, user: 'u3'.repeat(12), activities: [] }
     ]
 
-    yield Attendance.create(attendances)
-  }))
+    await Attendance.create(attendances)
+  })
 
   it('needs authentication', done => {
     request(app).get('/api/v1/attendances')
@@ -71,7 +69,7 @@ describe('GET /api/v1/attendances', () => {
 })
 
 describe('GET /api/v1/attendances/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let attendances = [
       { _id: 'a1'.repeat(12), from: new Date, to: new Date, user: 'u1'.repeat(12), activities: [] }
     , { _id: 'a2'.repeat(12), from: new Date, to: new Date, user: 'u1'.repeat(12), activities: [] }
@@ -81,8 +79,8 @@ describe('GET /api/v1/attendances/1', () => {
     , { _id: 'a6'.repeat(12), from: new Date, to: new Date, user: 'u3'.repeat(12), activities: [] }
     ]
 
-    yield Attendance.create(attendances)
-  }))
+    await Attendance.create(attendances)
+  })
 
   it('needs authentication', done => {
     request(app).get(`/api/v1/attendances/${'a1'.repeat(12)}`)
@@ -161,14 +159,14 @@ describe('POST /api/v1/attendances', () => {
 })
 
 describe('PUT /api/v1/attendances/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let attendances = [
       { _id: 'a1'.repeat(12), from: new Date, to: new Date, user: 'u1'.repeat(12), activties: [] }
     , { _id: 'a2'.repeat(12), from: new Date, to: new Date, user: 'u1'.repeat(12), activties: [] }
     ]
 
-    yield Attendance.create(attendances)
-  }))
+    await Attendance.create(attendances)
+  })
 
   it('needs authentication', done => {
     request(app).put('/api/v1/attendances/1')
@@ -198,13 +196,13 @@ describe('PUT /api/v1/attendances/1', () => {
 })
 
 describe('DELETE /api/v1/attendances/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let attendances = [
       { _id: 'a1'.repeat(12), from: new Date, to: new Date, user: 'u1'.repeat(12), activties: [] }
     ]
 
-    yield Attendance.create(attendances)
-  }))
+    await Attendance.create(attendances)
+  })
 
   it('needs authentication', done => {
     request(app).delete('/api/v1/attendances/1')

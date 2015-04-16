@@ -1,12 +1,10 @@
-import co         from 'co'
-import request    from 'supertest'
-import { expect } from 'chai'
-import app        from '../../../../src/app'
-import { User }   from '../../../../models'
+import request  from 'supertest'
+import app      from '../../../../src/app'
+import { User } from '../../../../models'
 
 describe('GET /api/v1/login', () => {
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let users = [
       { name: 'Foo', password: '123456' }
     , { name: 'Bar', password: '123456' }
@@ -17,10 +15,10 @@ describe('GET /api/v1/login', () => {
 
       user.name = data.name
 
-      yield user.setPassword(data.password)
-      yield user.save()
+      await user.setPassword(data.password)
+      await user.save()
     }
-  }))
+  })
 
   it('rejects logins without credentials', done => {
     request(app).post('/api/v1/login')
@@ -67,11 +65,11 @@ describe('GET /api/v1/whoami', () => {
   let agent = request.agent(app)
   let userId
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let user = new User({ name: 'Foo' })
 
-    yield user.setPassword('123456')
-    yield user.save()
+    await user.setPassword('123456')
+    await user.save()
 
     userId = user.id
 
@@ -86,7 +84,7 @@ describe('GET /api/v1/whoami', () => {
           resolve()
         })
     )
-  }))
+  })
 
   it('doesn\'t need authentication', done => {
     request(app).get('/api/v1/whoami')
@@ -129,16 +127,12 @@ describe('GET /api/v1/whoami', () => {
 
 describe('GET /api/v1/logout', () => {
   let agent = request.agent(app)
-  let cookie
-  let userId
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let user = new User({ name: 'Foo' })
 
-    yield user.setPassword('123456')
-    yield user.save()
-
-    userId = user.id
+    await user.setPassword('123456')
+    await user.save()
 
     return new Promise((resolve, reject) =>
       agent.post('/api/v1/login')
@@ -148,12 +142,10 @@ describe('GET /api/v1/logout', () => {
             return reject(err)
           }
 
-          cookie = res.headers['set-cookie']
-
           resolve()
         })
     )
-  }))
+  })
 
   it('logout works', done => {
     agent.post('/api/v1/logout')

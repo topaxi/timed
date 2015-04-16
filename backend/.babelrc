@@ -1,5 +1,6 @@
 {
   "auxiliaryComment": "istanbul ignore next",
   "blacklist": [],
+  "optional": [ "es7.asyncFunctions" ],
   "loose": true
 }

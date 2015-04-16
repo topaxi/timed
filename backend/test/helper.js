@@ -1,4 +1,3 @@
-import co               from 'co'
 import chai, { expect } from 'chai'
 import chaiAsPromised   from 'chai-as-promised'
 import * as model       from '../models'
@@ -7,10 +6,10 @@ chai.use(chaiAsPromised)
 
 global.expect = expect
 
-beforeEach(co.wrap(function*() {
+beforeEach(async() => {
   let all = {}
 
-  yield* [
+  await* [
     model.Activity  .remove(all)
   , model.Assignment.remove(all)
   , model.Attendance.remove(all)
@@ -21,4 +20,4 @@ beforeEach(co.wrap(function*() {
   , model.Team      .remove(all)
   , model.User      .remove(all)
   ]
-}))
+})

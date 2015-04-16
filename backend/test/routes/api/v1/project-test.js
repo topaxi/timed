@@ -1,20 +1,18 @@
-import co          from 'co'
 import request     from 'supertest'
-import { expect }  from 'chai'
 import app         from '../../../../src/app'
 import { Project } from '../../../../models'
 
 describe('GET /api/v1/projects', () => {
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let projects = [
       { _id: 'a1'.repeat(12), name: 'Project A' }
     , { _id: 'a2'.repeat(12), name: 'Project B' }
     , { _id: 'a3'.repeat(12), name: 'Project C' }
     ]
 
-    yield Project.create(projects)
-  }))
+    await Project.create(projects)
+  })
 
   it('needs authentication', done => {
     request(app).get('/api/v1/projects')
@@ -56,15 +54,15 @@ describe('GET /api/v1/projects', () => {
 })
 
 describe('GET /api/v1/projects/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let projects = [
       { _id: 'a1'.repeat(12), name: 'Project A' }
     , { _id: 'a2'.repeat(12), name: 'Project B' }
     , { _id: 'a3'.repeat(12), name: 'Project C' }
     ]
 
-    yield Project.create(projects)
-  }))
+    await Project.create(projects)
+  })
 
   it('needs authentication', done => {
     request(app).get(`/api/v1/projects/${'a1'.repeat(12)}`)
@@ -135,14 +133,14 @@ describe('POST /api/v1/projects', () => {
 })
 
 describe('PUT /api/v1/projects/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let projects = [
       { _id: 'c1'.repeat(12), name: 'Project A' }
     , { _id: 'c2'.repeat(12), name: 'Project C' }
     ]
 
-    yield Project.create(projects)
-  }))
+    await Project.create(projects)
+  })
 
   it('needs authentication', done => {
     request(app).put('/api/v1/projects/1')
@@ -172,13 +170,13 @@ describe('PUT /api/v1/projects/1', () => {
 })
 
 describe('DELETE /api/v1/projects/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let projects = [
       { _id: 'c1'.repeat(12), name: 'Project A' }
     ]
 
-    yield Project.create(projects)
-  }))
+    await Project.create(projects)
+  })
 
   it('needs authentication', done => {
     request(app).delete('/api/v1/projects/1')

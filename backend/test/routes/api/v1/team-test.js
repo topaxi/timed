@@ -1,20 +1,18 @@
-import co         from 'co'
-import request    from 'supertest'
-import { expect } from 'chai'
-import app        from '../../../../src/app'
-import { Team }   from '../../../../models'
+import request  from 'supertest'
+import app      from '../../../../src/app'
+import { Team } from '../../../../models'
 
 describe('GET /api/v1/teams', () => {
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let teams = [
       { name: 'Team A' }
     , { name: 'Team B' }
     , { name: 'Team C' }
     ]
 
-    yield Team.create(teams)
-  }))
+    await Team.create(teams)
+  })
 
   it('needs authentication', done => {
     request(app).get('/api/v1/teams')
@@ -40,15 +38,15 @@ describe('GET /api/v1/teams', () => {
 })
 
 describe('GET /api/v1/teams/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let teams = [
       { _id: 'a1'.repeat(12), name: 'Team A' }
     , { _id: 'a2'.repeat(12), name: 'Team B' }
     , { _id: 'a3'.repeat(12), name: 'Team C' }
     ]
 
-    yield Team.create(teams)
-  }))
+    await Team.create(teams)
+  })
 
   it('needs authentication', done => {
     request(app).get(`/api/v1/teams/${'a1'.repeat(12)}`)
@@ -119,14 +117,14 @@ describe('POST /api/v1/teams', () => {
 })
 
 describe('PUT /api/v1/teams/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let teams = [
       { _id: 'c1'.repeat(12), name: 'Team A' }
     , { _id: 'c2'.repeat(12), name: 'Team C' }
     ]
 
-    yield Team.create(teams)
-  }))
+    await Team.create(teams)
+  })
 
   it('needs authentication', done => {
     request(app).put('/api/v1/teams/1')
@@ -156,13 +154,13 @@ describe('PUT /api/v1/teams/1', () => {
 })
 
 describe('DELETE /api/v1/teams/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let teams = [
       { _id: 'c1'.repeat(12), name: 'Team A' }
     ]
 
-    yield Team.create(teams)
-  }))
+    await Team.create(teams)
+  })
 
   it('needs authentication', done => {
     request(app).delete('/api/v1/teams/1')

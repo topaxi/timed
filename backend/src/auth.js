@@ -1,4 +1,3 @@
-import co                  from 'co'
 import passport            from 'passport'
 import LocalStrategy       from 'passport-local'
 import { BadRequestError } from './error'
@@ -12,11 +11,11 @@ import User                from '../models/user'
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) => User.findById(id, done))
 
-let strategy = new LocalStrategy(co.wrap(function*(name, password, done) {
+let strategy = new LocalStrategy(async function(name, password, done) {
   try {
-    let user = yield User.findOne({ name }).exec()
+    let user = await User.findOne({ name }).exec()
 
-    if (!user || !(yield user.comparePassword(password))) {
+    if (!user || !(await user.comparePassword(password))) {
       throw new BadRequestError('Invalid login!')
     }
 
@@ -25,7 +24,7 @@ let strategy = new LocalStrategy(co.wrap(function*(name, password, done) {
   catch (err) {
     done(err)
   }
-}))
+})
 
 passport.use(strategy)
 

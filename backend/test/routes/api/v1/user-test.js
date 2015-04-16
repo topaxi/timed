@@ -1,19 +1,18 @@
-import co       from 'co'
 import request  from 'supertest'
 import app      from '../../../../src/app'
 import { User } from '../../../../models'
 
 describe('GET /api/v1/users', () => {
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let users = [
       { name: 'User A' }
     , { name: 'User B' }
     , { name: 'User C' }
     ]
 
-    yield User.create(users)
-  }))
+    await User.create(users)
+  })
 
   it('needs authentication', done => {
     request(app).get('/api/v1/users')
@@ -39,15 +38,15 @@ describe('GET /api/v1/users', () => {
 })
 
 describe('GET /api/v1/users/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let users = [
       { _id: 'a1'.repeat(12), name: 'User A' }
     , { _id: 'a2'.repeat(12), name: 'User B' }
     , { _id: 'a3'.repeat(12), name: 'User C' }
     ]
 
-    yield User.create(users)
-  }))
+    await User.create(users)
+  })
 
   it('needs authentication', done => {
     request(app).get(`/api/v1/users/${'a1'.repeat(12)}`)
@@ -131,6 +130,8 @@ describe('POST /api/v1/users', () => {
         expect(res.body.user.name, 'name').to.equal('User A')
 
         User.findById(res.body.user._id, (err, user) => {
+          if (err) return done(err)
+
           expect(user.comparePassword('123456'))
             .to.eventually.be.true.then(() => done())
                                   .catch(err => done(err))
@@ -140,14 +141,14 @@ describe('POST /api/v1/users', () => {
 })
 
 describe('PUT /api/v1/users/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let users = [
       { _id: 'c1'.repeat(12), name: 'User A' }
     , { _id: 'c2'.repeat(12), name: 'User C' }
     ]
 
-    yield User.create(users)
-  }))
+    await User.create(users)
+  })
 
   it('needs authentication', done => {
     request(app).put('/api/v1/users/1')
@@ -189,6 +190,8 @@ describe('PUT /api/v1/users/1', () => {
         }
 
         User.findById(id, (err, user) => {
+          if (err) return done(err)
+
           expect(user.comparePassword('123456'))
             .to.eventually.be.true.then(() => done())
                                   .catch(err => done(err))
@@ -198,13 +201,13 @@ describe('PUT /api/v1/users/1', () => {
 })
 
 describe('DELETE /api/v1/users/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let users = [
       { _id: 'c1'.repeat(12), name: 'User A' }
     ]
 
-    yield User.create(users)
-  }))
+    await User.create(users)
+  })
 
   it('needs authentication', done => {
     request(app).delete('/api/v1/users/1')

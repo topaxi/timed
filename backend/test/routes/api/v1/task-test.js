@@ -1,6 +1,4 @@
-import co         from 'co'
 import request    from 'supertest'
-import { expect } from 'chai'
 import app        from '../../../../src/app'
 import {
   Project
@@ -11,10 +9,10 @@ import {
 
 describe('GET /api/v1/tasks', () => {
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let project = new Project({ name: 'Project A' })
 
-    yield project.save()
+    await project.save()
 
     let tasks = [
       { _id: 'a1'.repeat(12), name: 'Task A', project }
@@ -22,8 +20,8 @@ describe('GET /api/v1/tasks', () => {
     , { _id: 'a3'.repeat(12), name: 'Task C', project }
     ]
 
-    yield Task.create(tasks)
-  }))
+    await Task.create(tasks)
+  })
 
   it('needs authentication', done => {
     request(app).get('/api/v1/tasks')
@@ -65,10 +63,10 @@ describe('GET /api/v1/tasks', () => {
 })
 
 describe('GET /api/v1/tasks/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() =>{
     let project = new Project({ name: 'Project A' })
 
-    yield project.save()
+    await project.save()
 
     let tasks = [
       { _id: 'a1'.repeat(12), name: 'Task A', project }
@@ -76,8 +74,8 @@ describe('GET /api/v1/tasks/1', () => {
     , { _id: 'a3'.repeat(12), name: 'Task C', project }
     ]
 
-    yield Task.create(tasks)
-  }))
+    await Task.create(tasks)
+  })
 
   it('needs authentication', done => {
     request(app).get(`/api/v1/tasks/${'a1'.repeat(12)}`)
@@ -124,17 +122,17 @@ describe('GET /api/v1/tasks/1', () => {
 describe('GET /api/v1/tasks/1/progress', () => {
   let taskId
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let project = new Project({ name: 'Project A' })
     let user    = new User({ name: 'User A' })
 
-    yield [ project.save(), user.save() ]
+    await [ project.save(), user.save() ]
 
     let task = new Task({ _id: 'a1'.repeat(12), name: 'Task A', project, duration: 100 })
 
     taskId = task.id
 
-    yield task.save()
+    await task.save()
 
     let from = Date.now()
     let to   = Date.now() + 20
@@ -145,8 +143,8 @@ describe('GET /api/v1/tasks/1/progress', () => {
     , { _id: 'b3'.repeat(12), user, from, to, activities: [ { from, to, task }, { from, to, task } ] }
     ]
 
-    yield Attendance.create(attendances)
-  }))
+    await Attendance.create(attendances)
+  })
 
   it('needs authentication', done => {
     request(app).get(`/api/v1/tasks/${taskId}/progress`)
@@ -167,13 +165,13 @@ describe('GET /api/v1/tasks/1/progress', () => {
 describe('POST /api/v1/tasks', () => {
   let projectId
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let project = new Project({ name: 'Project A' })
 
-    yield project.save()
+    await project.save()
 
     projectId = project.id
-  }))
+  })
 
   it('needs authentication', done => {
     request(app).post('/api/v1/tasks')
@@ -204,10 +202,10 @@ describe('POST /api/v1/tasks', () => {
 describe('PUT /api/v1/tasks/1', () => {
   let projectId
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let project = new Project({ name: 'Project A' })
 
-    yield project.save()
+    await project.save()
 
     projectId = project.id
 
@@ -218,8 +216,8 @@ describe('PUT /api/v1/tasks/1', () => {
     , { _id: 'a4'.repeat(12), name: 'Task E', project }
     ]
 
-    yield Task.create(tasks)
-  }))
+    await Task.create(tasks)
+  })
 
   it('needs authentication', done => {
     request(app).put('/api/v1/tasks/1')
@@ -250,10 +248,10 @@ describe('PUT /api/v1/tasks/1', () => {
 })
 
 describe('DELETE /api/v1/tasks/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let project = new Project({ name: 'Project A' })
 
-    yield project.save()
+    await project.save()
 
     let tasks = [
       { _id: 'a1'.repeat(12), name: 'Task A', project }
@@ -261,8 +259,8 @@ describe('DELETE /api/v1/tasks/1', () => {
     , { _id: 'a3'.repeat(12), name: 'Task C', project }
     ]
 
-    yield Task.create(tasks)
-  }))
+    await Task.create(tasks)
+  })
 
   it('needs authentication', done => {
     request(app).delete('/api/v1/tasks/1')

@@ -1,20 +1,18 @@
-import co           from 'co'
 import request      from 'supertest'
-import { expect }   from 'chai'
 import app          from '../../../../src/app'
 import { Customer } from '../../../../models'
 
 describe('GET /api/v1/customers', () => {
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let customers = [
       { name: 'Company A' }
     , { name: 'Company B' }
     , { name: 'Company C' }
     ]
 
-    yield Customer.create(customers)
-  }))
+    await Customer.create(customers)
+  })
 
   it('needs authentication', done => {
     request(app).get('/api/v1/customers')
@@ -48,15 +46,15 @@ describe('GET /api/v1/customers', () => {
 })
 
 describe('GET /api/v1/customers/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let customers = [
       { _id: 'c1'.repeat(12), name: 'Company A' }
     , { _id: 'c2'.repeat(12), name: 'Company B' }
     , { _id: 'c3'.repeat(12), name: 'Company C' }
     ]
 
-    yield Customer.create(customers)
-  }))
+    await Customer.create(customers)
+  })
 
   it('needs authentication', done => {
     request(app).get(`/api/v1/customers/${'c1'.repeat(12)}`)
@@ -125,14 +123,14 @@ describe('POST /api/v1/customers', () => {
 })
 
 describe('PUT /api/v1/customers/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let customers = [
       { _id: 'c1'.repeat(12), name: 'Company A' }
     , { _id: 'c2'.repeat(12), name: 'Company C' }
     ]
 
-    yield Customer.create(customers)
-  }))
+    await Customer.create(customers)
+  })
 
   it('needs authentication', done => {
     request(app).put('/api/v1/customers/1')
@@ -161,13 +159,13 @@ describe('PUT /api/v1/customers/1', () => {
 })
 
 describe('DELETE /api/v1/customers/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let customers = [
       { _id: 'c1'.repeat(12), name: 'Company A' }
     ]
 
-    yield Customer.create(customers)
-  }))
+    await Customer.create(customers)
+  })
 
   it('needs authentication', done => {
     request(app).delete('/api/v1/customers/1')

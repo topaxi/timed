@@ -1,13 +1,11 @@
-import co         from 'co'
-import request    from 'supertest'
-import { expect } from 'chai'
-import { User }   from '../../../../models'
-import app        from '../../../../src/app'
+import request  from 'supertest'
+import { User } from '../../../../models'
+import app      from '../../../../src/app'
 
 describe('GET /api/v1/init/payload', () => {
   let agent = request.agent(app)
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let users = [
       { name: 'Foo', password: '123456' }
     , { name: 'Bar', password: '123456' }
@@ -18,10 +16,10 @@ describe('GET /api/v1/init/payload', () => {
 
       user.name = data.name
 
-      yield user.setPassword(data.password)
-      yield user.save()
+      await user.setPassword(data.password)
+      await user.save()
     }
-  }))
+  })
 
   it('needs authentication', done => {
     request(app).get('/api/v1/init/payload')

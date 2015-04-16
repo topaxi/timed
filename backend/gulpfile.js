@@ -1,6 +1,5 @@
 import gulp             from 'gulp'
-import jshint           from 'gulp-jshint'
-import jscs             from 'gulp-jscs'
+import eslint           from 'gulp-eslint'
 import mocha            from 'gulp-spawn-mocha'
 import coverageEnforcer from 'gulp-istanbul-enforcer'
 
@@ -12,7 +11,6 @@ let src = [
 ]
 
 let testFiles = [ 'test/helper.js', 'test/**/*-test.js' ]
-let reports   = [ 'lcov', 'json', 'html', 'text', 'text-summary' ]
 
 gulp.task('test', [ 'lint' ], () => {
   return gulp.src(testFiles)
@@ -34,17 +32,13 @@ gulp.task('test', [ 'lint' ], () => {
 })
 
 gulp.task('lint', () => {
-  return gulp.src(src)
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(jscs({ esnext: true, configPath: '../.jscsrc' }))
+  return gulp.src(src.concat(testFiles))
+    .pipe(eslint())
+    .pipe(eslint.format())
+    .pipe(eslint.failOnError())
 })
 
-gulp.task('setup travis', () => {
-  reports = [ 'lcovonly' ]
-})
-
-gulp.task('travis', [ 'setup travis', 'test' ])
+gulp.task('travis', [ 'test' ])
 
 gulp.task('test-watch', [ 'test' ], () => {
   gulp.watch(src.concat(testFiles), [ 'test' ])

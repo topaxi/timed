@@ -1,6 +1,4 @@
-import co             from 'co'
 import request        from 'supertest'
-import { expect }     from 'chai'
 import app            from '../../../../src/app'
 import { Assignment } from '../../../../models'
 
@@ -10,7 +8,7 @@ describe('GET /api/v1/assignments', () => {
   let date3 = new Date(date3 + 1000 * 60 * 60)
   let date4 = new Date(date4 + 1000 * 60 * 60)
 
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let assignments = [
       { from: base,  to: date2, duration: 0, tasks: [] }
     , { from: base,  to: date2, duration: 0, tasks: [] }
@@ -20,8 +18,8 @@ describe('GET /api/v1/assignments', () => {
     , { from: date3, to: date4, duration: 0, tasks: [] }
     ]
 
-    yield Assignment.create(assignments)
-  }))
+    await Assignment.create(assignments)
+  })
 
   it('needs authentication', done => {
     request(app).get('/api/v1/assignments')
@@ -71,7 +69,7 @@ describe('GET /api/v1/assignments', () => {
 })
 
 describe('GET /api/v1/assignments/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let assignments = [
       { _id: 'a1'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
     , { _id: 'a2'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
@@ -81,8 +79,8 @@ describe('GET /api/v1/assignments/1', () => {
     , { _id: 'a6'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
     ]
 
-    yield Assignment.create(assignments)
-  }))
+    await Assignment.create(assignments)
+  })
 
   it('needs authentication', done => {
     request(app).get(`/api/v1/assignments/${'a1'.repeat(12)}`)
@@ -163,14 +161,14 @@ describe('POST /api/v1/assignments', () => {
 })
 
 describe('PUT /api/v1/assignments/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let assignments = [
       { _id: 'a1'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
     , { _id: 'a2'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
     ]
 
-    yield Assignment.create(assignments)
-  }))
+    await Assignment.create(assignments)
+  })
 
   it('needs authentication', done => {
     request(app).put('/api/v1/assignments/1')
@@ -199,13 +197,13 @@ describe('PUT /api/v1/assignments/1', () => {
 })
 
 describe('DELETE /api/v1/assignments/1', () => {
-  beforeEach(co.wrap(function*() {
+  beforeEach(async() => {
     let assignments = [
       { _id: 'a1'.repeat(12), from: new Date, to: new Date, duration: 0, tasks: [] }
     ]
 
-    yield Assignment.create(assignments)
-  }))
+    await Assignment.create(assignments)
+  })
 
   it('needs authentication', done => {
     request(app).delete('/api/v1/assignments/1')

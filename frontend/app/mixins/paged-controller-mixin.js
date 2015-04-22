@@ -16,7 +16,7 @@ export default Ember.Mixin.create({
     let start = (this.get('page') - 1) * limit
 
     return this.get('sortedModels').slice(start, start + limit)
-  }.property('sortedModels[]', 'page', 'totalPages', 'limit')
+  }.property('sortedModels', 'sortedModels[]', 'page', 'totalPages', 'limit')
 
 , showPager: function() {
     return this.get('totalPages') > 1

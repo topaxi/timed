@@ -1,5 +1,10 @@
 /* global document, Image */
 
+const APNG_DATA = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACGFjVEwAAA' +
+                  'ABAAAAAcMq2TYAAAANSURBVAiZY2BgYPgPAAEEAQB9ssjfAAAAGmZjVEwA' +
+                  'AAAAAAAAAQAAAAEAAAAAAAAAAAD6A+gBAbNU+2sAAAARZmRBVAAAAAEImW' +
+                  'NgYGBgAAAABQAB6MzFdgAAAABJRU5ErkJggg=='
+
 // http://eligrey.com/blog/post/apng-feature-detection/
 export function initialize() {
   let apngTest = new Image()
@@ -13,7 +18,7 @@ export function initialize() {
     }
   }
 
-  apngTest.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACGFjVEwAAAABAAAAAcMq2TYAAAANSURBVAiZY2BgYPgPAAEEAQB9ssjfAAAAGmZjVEwAAAAAAAAAAQAAAAEAAAAAAAAAAAD6A+gBAbNU+2sAAAARZmRBVAAAAAEImWNgYGBgAAAABQAB6MzFdgAAAABJRU5ErkJggg=='
+  apngTest.src = `data:image/png;base64,${APNG_DATA}`
 }
 
 export default {

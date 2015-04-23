@@ -21,6 +21,12 @@ export default function() {
   )
 
   this.transition(
+    this.fromRoute('login')
+  , this.use('toUp')
+  , this.reverse('toDown')
+  )
+
+  this.transition(
     this.use('crossFade', { duration: 150 })
   )
 }

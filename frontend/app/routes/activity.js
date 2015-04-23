@@ -23,7 +23,7 @@ export default Ember.Route.extend({
     let customers = this.store.find('customer')
     let users     = this.store.find('user')
 
-    return new Ember.RSVP.all([ projects, customers, users ]).then(args => {
+    return Ember.RSVP.all([ projects, customers, users ]).then(args => {
       this.set('projects',  args[0])
       this.set('customers', args[1])
       this.set('users',     args[2])

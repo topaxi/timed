@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "babel": "^5.1.2",
+    "babel-runtime": "^5.1.13",
     "bcrypt": "^0.8.2",
     "body-parser": "^1.10.2",
     "connect-mongo": "^0.8.0",

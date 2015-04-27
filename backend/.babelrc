@@ -1,6 +1,6 @@
 {
   "auxiliaryComment": "istanbul ignore next",
-  "blacklist": [],
+  "blacklist": [ "es5.properties.mutators" ],
   "optional": [ "es7.asyncFunctions" ],
   "loose": true
 }

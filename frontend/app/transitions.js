@@ -1,7 +1,7 @@
 export default function() {
   this.transition(
     this.fromRoute('project.edit.edit')
-  , this.toRoute('task.index')
+  , this.toRoute([ 'task.index', 'task.edit' ])
   , this.use('toLeft')
   , this.reverse('toRight')
   )

@@ -7,6 +7,17 @@ export default Ember.Component.extend({
     return `${this.get('isFollowing') ? 'Unfollow' : 'Follow'} ${this.get('project.name')}`
   }.property('project.name', 'isFollowing')
 
+, fixTooltip: function() {
+    let tooltip = this.$('.tip')
+
+    tooltip.prop('title', this.get('title'))
+    tooltip.tooltip('fixTitle')
+
+    if (tooltip.is(':hover')) {
+      tooltip.tooltip('show')
+    }
+  }.observes('title')
+
 , isFollowing: function() {
     let projects = this.get('session.user.projects')
 

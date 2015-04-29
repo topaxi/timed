@@ -36,6 +36,17 @@ export default Ember.Component.extend({
     return label
   }.property('session.user.currentAttendance.from', 'session.user.currentAttendance.to', 'refreshLabel')
 
+, fixTooltip: function() {
+    let tooltip = this.$('.tip')
+
+    tooltip.prop('title', this.get('title'))
+    tooltip.tooltip('fixTitle')
+
+    if (tooltip.is(':hover')) {
+      tooltip.tooltip('show')
+    }
+  }.observes('title')
+
 , isTracking: function() {
     let attendance = this.get('session.user.currentAttendance')
     let to         = attendance && attendance.get('to')

@@ -6,6 +6,7 @@ export const ActivitySchema = new Schema({
 , 'task':    { type: Schema.Types.ObjectId, ref: 'Task' }
 , 'comment': String
 , 'review':  Boolean
+, 'nta':     Boolean
 })
 
 export default mongoose.model('Activity', ActivitySchema)

@@ -70,7 +70,7 @@
   </thead>
   <tbody>
     {{#each activity in filteredActivities}}
-      <tr class={{if activity.review 'danger'}}>
+      <tr {{bind-attr class='activity.review:warning activity.nta:danger'}}>
         <td>{{date-format activity.from 'YYYY-MM-DD'}}</td>
         <td>
           {{activity.attendance.user.longName}}

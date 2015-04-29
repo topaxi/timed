@@ -1,5 +1,5 @@
-<button {{action 'track'}} {{bind-attr class=':btn isTracking:btn-danger:btn-default btnClass :tip'}} title={{title}} data-container="body">
-  <span {{bind-attr class=':glyphicon isTracking:glyphicon-record:glyphicon-play'}}></span>
+<button {{action 'track'}} class="btn tip {{if isTracking 'btn-danger' 'btn-default'}} {{btnClass}}" title={{title}} data-container="body">
+  <span class="glyphicon {{if isTracking 'glyphicon-record' 'glyphicon-play'}}"></span>
 </button>
 
 <span>{{label}}</span>

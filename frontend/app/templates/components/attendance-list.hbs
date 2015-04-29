@@ -62,7 +62,7 @@
     </tfoot>
     <tbody>
       {{#each activity in attendance.activities}}
-        <tr {{bind-attr class=':attendance-list-activity activity.review:danger'}}>
+        <tr class="attendance-list-activity {{if activity.review 'danger'}}">
           <td>
             <small>
               {{activity.task.project.customer.name}}

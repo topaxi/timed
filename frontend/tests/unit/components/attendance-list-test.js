@@ -85,7 +85,7 @@ test('it lists todays attendances', function(assert) {
   })
 })
 
-test('it marks activities to report with a danger class', function(assert) {
+test('it marks activities to review with a warning class', function(assert) {
   assert.expect(2)
 
   let component
@@ -118,6 +118,45 @@ test('it marks activities to report with a danger class', function(assert) {
     this.render()
 
     assert.equal(component._state, 'inDOM')
-    assert.equal(component.$('.attendance-list-activity.danger').length, 1)
+    assert.equal(component.$('.attendance-list-activity.warning').length, 1)
+  })
+})
+
+test('it marks activities not to account with a danger class', function(assert) {
+  assert.expect(2)
+
+  let component
+
+  function attend(obj) {
+    return store.createRecord('attendance', obj)
+  }
+
+  function activity(obj) {
+    return store.createRecord('activity', obj)
+  }
+
+  function createAttendances(user) {
+    let attendance = attend({ user, from: moment('2014-02-01'), to: moment('2014-02-01') })
+
+    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: true   , nta: true })
+    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: false  , nta: true })
+    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: false  , nta: false })
+    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: null   , nta: null })
+    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: false  , nta: null })
+  }
+
+  Ember.run(() => {
+    let day  = moment('2014-02-01').startOf('day')
+    let user = store.createRecord('user')
+
+    createAttendances(user)
+
+    component = this.subject({ user })
+    component.set('day', day)
+
+    this.render()
+
+    assert.equal(component._state, 'inDOM')
+    assert.equal(component.$('.attendance-list-activity.danger').length, 2)
   })
 })

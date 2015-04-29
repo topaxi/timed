@@ -7,6 +7,7 @@ export default Model.extend({
 , 'task':       DS.belongsTo('task', { 'async': true })
 , 'comment':    DS.attr('string')
 , 'review':     DS.attr('boolean')
+, 'nta':        DS.attr('boolean')
 , 'from':       DS.attr('moment')
 , 'to':         DS.attr('moment')
 

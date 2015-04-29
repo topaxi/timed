@@ -10,17 +10,6 @@ export default Ember.Component.extend({
     return `${trackingLabel} ${taskName}`.trim()
   }.property('task.name', 'isTracking')
 
-, fixTooltip: function() {
-    let tooltip = this.$('.tip')
-
-    tooltip.prop('title', this.get('title'))
-    tooltip.tooltip('fixTitle')
-
-    if (tooltip.is(':hover')) {
-      tooltip.tooltip('show')
-    }
-  }.observes('title')
-
 , isCurrentTask: function() {
     let activity = this.get('session.user.currentActivity')
 

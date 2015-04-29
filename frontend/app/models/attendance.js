@@ -13,4 +13,11 @@ export default Model.extend({
 
     return this
   }
+, 'activityDuration': function() {
+    return moment.duration(this.get('activities').reduce((duration, activity) => {
+      let to = Number(activity.get('to')) || moment()
+      let from = Number(activity.get('from')) || to
+      return duration + (to - from)
+    }, 0)).format('h[h] mm[m]')
+  }.property('activities.@each.from', 'activities.@each.to')
 })

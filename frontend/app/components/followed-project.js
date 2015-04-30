@@ -1,13 +1,6 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 export default Ember.Component.extend({
-  tagName: 'table'
+  tagName:    'table'
 , classNames: [ 'table' ]
-
-, tasks: function() {
-    return this.project.store.find('task', {
-      'project': this.project.id
-    , 'done':    false
-    })
-  }.property('project.tasks.@each')
 })

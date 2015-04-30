@@ -1,22 +1,26 @@
-import Ember from 'ember';
+import Ember from 'ember'
+
+const { computed } = Ember
 
 export default Ember.Controller.extend({
   isNew: false
 , trackers: [ 'github', 'redmine' ]
 
-, init: function() {
+, init() {
     this.set('customers', this.store.find('customer'))
     this.set('users',     this.store.find('user'))
   }
 
-, trackerPartial: function() {
-    let type = this.get('model.tracker.type')
+, trackerPartial: computed('model.tracker.type', {
+    get() {
+      let type = this.get('model.tracker.type')
 
-    return type ? `project/edit/${type}` : null
-  }.property('model.tracker.type')
+      return type ? `project/edit/${type}` : null
+    }
+  })
 
 , actions: {
-    submit: function() {
+    submit() {
       this.model.save().then(() => {
         this.notify.success('Project successfully saved!')
 
@@ -26,7 +30,7 @@ export default Ember.Controller.extend({
         this.notify.error(err || 'Error while trying to save project!')
       )
     }
-  , delete: function() {
+  , delete() {
       this.model.deleteRecord()
       this.model.save().then(() => {
         this.notify.success('Project successfully deleted!')

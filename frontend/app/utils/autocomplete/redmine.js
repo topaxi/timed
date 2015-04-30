@@ -3,20 +3,21 @@ import moment   from 'moment'
 import safehtml from 'timed/utils/safehtml'
 
 const LIMIT = 100 // Maximum limit is 100
+const { computed } = Ember
 
 export default Ember.Object.extend({
 
   issues: null
 
-, url: function() {
-    let data = this.project.get('tracker.data')
+, url: computed({
+    get() {
+      let data = this.project.get('tracker.data')
 
-    return `${data.url}/projects/${data.projectId}`
-  }.property()
+      return `${data.url}/projects/${data.projectId}`
+    }
+  })
 
-, logo: function() {
-    return '/assets/tracker/redmine.png'
-  }.property()
+, logo: '/assets/tracker/redmine.png'
 
 , searchIssues(/*term = ''*/) {
     if (this.get('issues')) {

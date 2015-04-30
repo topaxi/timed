@@ -1,7 +1,9 @@
-import Ember from 'ember';
+import Ember from 'ember'
+
+const { computed } = Ember
 
 export default Ember.Controller.extend({
-  app: function() {
+  app: computed(function() {
     return Ember.libraries._registry.find(lib => lib.name === 'Timed')
-  }.property()
+  })
 })

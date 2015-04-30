@@ -3,50 +3,63 @@ import DS     from 'ember-data'
 import moment from 'moment'
 import Model  from './model'
 
+const { computed } = Ember
+const { attr, hasMany } = DS
+
 export default Model.extend({
-  'name':        DS.attr('string')
-, 'firstName':   DS.attr('string', { 'defaultValue': '' })
-, 'lastName':    DS.attr('string', { 'defaultValue': '' })
-, 'password':    DS.attr('string')
-, 'worktime':    DS.attr('any', { 'defaultValue': {} })
+  name:        attr('string')
+, firstName:   attr('string', { defaultValue: '' })
+, lastName:    attr('string', { defaultValue: '' })
+, password:    attr('string')
+, worktime:    attr('any', { defaultValue: {} })
 
-, 'projects':    DS.hasMany('project',    { 'async': true, 'inverse': null })
-, 'teams':       DS.hasMany('team',       { 'async': true, 'inverse': 'users' })
-, 'assignments': DS.hasMany('assignment', { 'async': true })
-, 'attendances': DS.hasMany('attendance', { 'async': true })
+, projects:    hasMany('project',    { async: true, inverse: null })
+, teams:       hasMany('team',       { async: true, inverse: 'users' })
+, assignments: hasMany('assignment', { async: true })
+, attendances: hasMany('attendance', { async: true })
 
-, 'attendancesSortingDesc': [ 'from:desc' ]
-, 'sortedAttendances': Ember.computed.sort('attendances', 'attendancesSortingDesc')
+, attendancesSortingDesc: [ 'from:desc' ]
+, sortedAttendances: computed.sort('attendances', 'attendancesSortingDesc')
 
-, 'fullName': function() {
-    return `${this.get('firstName')} ${this.get('lastName')}`.trim()
-  }.property('firstName', 'lastName')
-
-, 'longName': function() {
-    if (!this.get('fullName')) {
-      return this.get('name')
+, fullName: computed('firstName', 'lastName', {
+    get() {
+      return `${this.get('firstName')} ${this.get('lastName')}`.trim()
     }
+  })
 
-    return `${this.get('fullName')} (${this.get('name')})`.trim()
-  }.property('name', 'fullName')
+, longName: computed('name', 'fullName', {
+    get() {
+      if (!this.get('fullName')) {
+        return this.get('name')
+      }
 
-, 'currentAttendance': function() {
-    return this.get('sortedAttendances').find(attendance =>
-      !moment(attendance.get('to')).isValid()
-    )
-  }.property('sortedAttendances')
+      return `${this.get('fullName')} (${this.get('name')})`.trim()
+    }
+  })
 
-, 'currentActivity': function() {
-    let attendance = this.get('currentAttendance')
+, currentAttendance: computed('sortedAttendances', {
+    get() {
+      return this.get('sortedAttendances').find(attendance =>
+        !moment(attendance.get('to')).isValid()
+      )
+    }
+  })
 
-    return attendance ? attendance.get('activities').get('lastObject') : null
-  }.property('currentAttendance.activities')
+, currentActivity: computed('currentAttendance.activities', {
+    get() {
+      let attendance = this.get('currentAttendance')
 
-, 'currentAssignments': function() {
-    return this.getAssignmentsByWeek()
-  }.property('assignments.@each.from', 'assignments.@each.to')
+      return attendance ? attendance.get('activities').get('lastObject') : null
+    }
+  })
 
-, 'startAttendance': function(from = moment(), to = null) {
+, currentAssignments: computed('assignments.@each.from', 'assignments.@each.to', {
+    get() {
+      return this.getAssignmentsByWeek()
+    }
+  })
+
+, startAttendance(from = moment(), to = null) {
     let attendance = this.store.createRecord('attendance', {
       'user': this
     , from
@@ -56,7 +69,7 @@ export default Model.extend({
     return attendance
   }
 
-, 'startActivity': function(task = null, from = moment(), to = null) {
+, startActivity(task = null, from = moment(), to = null) {
     this.endCurrentActivity()
 
     let attendance            = this.get('currentAttendance')
@@ -79,7 +92,7 @@ export default Model.extend({
     return activity
   }
 
-, 'endCurrentAttendance': function() {
+, endCurrentAttendance() {
     let attendance = this.get('currentAttendance')
 
     if (attendance) {
@@ -90,7 +103,7 @@ export default Model.extend({
     return attendance
   }
 
-, 'endCurrentActivity': function() {
+, endCurrentActivity() {
     let activity = this.get('currentActivity')
 
     if (activity) {
@@ -100,13 +113,13 @@ export default Model.extend({
     return activity
   }
 
-, 'getAttendancesByDay': function(day = moment().startOf('day')) {
+, getAttendancesByDay(day = moment().startOf('day')) {
     return this.get('attendances').filter(attendance =>
       !moment(attendance.get('from')).startOf('day').diff(day)
     )
   }
 
-, 'getAssignmentsByWeek': function(day = moment()) {
+, getAssignmentsByWeek(day = moment()) {
     return this.get('assignments').filter(assignment => {
       let from = moment(assignment.get('from'))
       let to   = moment(assignment.get('to'))

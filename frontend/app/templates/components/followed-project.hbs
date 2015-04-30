@@ -22,7 +22,7 @@
   </tr>
 </thead>
 <tbody>
-  {{#each task in tasks}}
+  {{#each project.tasks as |task|}}
     <tr>
       <td>{{track-task btnClass='btn-xs' task=task}}</td>
       <td colspan="2">

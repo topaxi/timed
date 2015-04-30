@@ -1,16 +1,20 @@
-import Ember from 'ember';
-import moment from 'moment';
+import Ember  from 'ember'
+import moment from 'moment'
+
+const { computed } = Ember
 
 export default Ember.Controller.extend({
-  init: function() {
+  init() {
     this.set('from', moment().startOf('month'))
     this.set('to',   moment().endOf('month'))
   }
-, weekdays: function() {
+
+, weekdays: computed(function() {
     return moment.weekdays()
-  }.property()
+  })
+
 , actions: {
-    submit: function() {
+    submit() {
       let wt       = this.model.get('worktime') || {}
       let $sliders = Ember.$('.ui-slider') // TODO: We shouldn't access DOM stuff from our controller...
 

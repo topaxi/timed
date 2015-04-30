@@ -2,17 +2,19 @@ import Ember    from 'ember'
 import moment   from 'moment'
 import safehtml from 'timed/utils/safehtml'
 
+const { computed } = Ember
+
 export default Ember.Object.extend({
 
-  url: function() {
-    let data = this.project.get('tracker.data')
+  url: computed({
+    get() {
+      let data = this.project.get('tracker.data')
 
-    return `https://github.com/${data.repo}`
-  }.property()
+      return `https://github.com/${data.repo}`
+    }
+  })
 
-, logo: function() {
-    return '/assets/tracker/github.png'
-  }.property()
+, logo: '/assets/tracker/github.png'
 
 , searchIssues(term = '') {
     let data = this.project.get('tracker.data')

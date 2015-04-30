@@ -1,42 +1,50 @@
-import Ember from 'ember';
-import moment from 'moment';
+import Ember  from 'ember'
+import moment from 'moment'
+
+const { computed, observer } = Ember
 
 export default Ember.Component.extend({
   tagName: 'span'
 
-, title: function() {
-    return this.get('isTracking') ? 'Stop tracking attendance' : 'Track attendance'
-  }.property('isTracking')
+, attendance: computed.alias('session.user.currentAttendance')
 
-, label: function() {
-    let attendance = this.get('session.user.currentAttendance')
-
-    if (!attendance) {
-      return ''
+, title: computed('isTracking', {
+    get() {
+      return this.get('isTracking') ? 'Stop tracking attendance' : 'Track attendance'
     }
+  })
 
-    let from      = attendance.get('from')
-    let to        = attendance.get('to')
-    let today     = moment().startOf('day')
-    let fromToday = moment(from).startOf('day').diff(today)
-    let tformat   = 'hh:mm'
-    let ntformat  = 'YYYY-MM-DD hh:mm'
-    let label     = from.format(fromToday ? ntformat : tformat)
+, label: computed('attendance.from', 'attendance.to', 'refreshLabel', {
+    get() {
+      let attendance = this.get('attendance')
 
-    if (to && to.isValid()) {
-      let toToday = moment(to).startOf('day').diff(today)
+      if (!attendance) {
+        return ''
+      }
 
-      label = `${label} - ${to.format(toToday ? ntformat : tformat)}`
+      let from      = attendance.get('from')
+      let to        = attendance.get('to')
+      let today     = moment().startOf('day')
+      let fromToday = moment(from).startOf('day').diff(today)
+      let tformat   = 'hh:mm'
+      let ntformat  = 'YYYY-MM-DD hh:mm'
+      let label     = from.format(fromToday ? ntformat : tformat)
+
+      if (to && to.isValid()) {
+        let toToday = moment(to).startOf('day').diff(today)
+
+        label = `${label} - ${to.format(toToday ? ntformat : tformat)}`
+      }
+      else {
+        label = `${label} - <span data-from-now="true" data-from="${from}">${from.fromNow(true)}</span>`
+        label = new Ember.Handlebars.SafeString(label)
+      }
+
+      return label
     }
-    else {
-      label = `${label} - <span data-from-now="true" data-from="${from}">${from.fromNow(true)}</span>`
-      label = new Ember.Handlebars.SafeString(label)
-    }
+  })
 
-    return label
-  }.property('session.user.currentAttendance.from', 'session.user.currentAttendance.to', 'refreshLabel')
-
-, fixTooltip: function() {
+, fixTooltip: observer('title', function() {
     let tooltip = this.$('.tip')
 
     tooltip.prop('title', this.get('title'))
@@ -45,17 +53,18 @@ export default Ember.Component.extend({
     if (tooltip.is(':hover')) {
       tooltip.tooltip('show')
     }
-  }.observes('title')
+  })
 
-, isTracking: function() {
-    let attendance = this.get('session.user.currentAttendance')
-    let to         = attendance && attendance.get('to')
+, isTracking: computed('attendance.to', {
+    get() {
+      let to = this.get('attendance.to')
 
-    return to && !to.isValid()
-  }.property('session.user.currentAttendance.to')
+      return to && !to.isValid()
+    }
+  })
 
 , actions: {
-    track: function() {
+    track() {
       let user = this.get('session.user')
 
       let attendance = this.get('isTracking') ?

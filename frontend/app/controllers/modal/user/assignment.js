@@ -1,17 +1,21 @@
-import Ember from 'ember';
+import Ember from 'ember'
+
+const { computed } = Ember
 
 export default Ember.Controller.extend({
-  'init': function() {
+  init() {
     this.set('allTasks',    this.store.find('task'))
     this.set('allProjects', this.store.find('project'))
   }
 
-, 'title': function() {
-    let action = this.get('model.isNew') ? 'Add' : 'Edit'
-    let name   = this.get('model.user.longName')
+, title: computed('model.user', {
+    get() {
+      let action = this.get('model.isNew') ? 'Add' : 'Edit'
+      let name   = this.get('model.user.longName')
 
-    return `${action} assignment for ${name}`
-  }.property('model.user')
+      return `${action} assignment for ${name}`
+    }
+  })
 
 , actions: {
     save() {

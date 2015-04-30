@@ -1,43 +1,51 @@
 import Ember  from 'ember'
 import moment from 'moment'
 
-export default Ember.Controller.extend({
-  'dateFormat': 'L LT'
+const { computed, observer } = Ember
 
-, 'init': function() {
+export default Ember.Controller.extend({
+  dateFormat: 'L LT'
+
+, init() {
     this.set('tasks', this.store.find('task'))
   }
 
-, 'sortedTasks': function() {
-    return Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
-      'content':        this.get('tasks')
-    , 'sortProperties': [ 'project.name' ]
-    , 'sortAscending':  false
-    })
-  }.property('tasks')
+, sortedTasks: computed('tasks', {
+    get() {
+      return Ember.ArrayProxy.createWithMixins(Ember.SortableMixin, {
+        'content':        this.get('tasks')
+      , 'sortProperties': [ 'project.name' ]
+      , 'sortAscending':  false
+      })
+    }
+  })
 
-, 'createActivityForAttendance': function() {
+, createActivityForAttendance: observer('model', function() {
     if (this.get('model.activities')) {
       this.set('model', this.store.createRecord('activity', {
         'attendance': this.get('model')
       }))
     }
-  }.observes('model')
+  })
 
-, 'from': function() {
-    let from = this.get('model.from')
+, from: computed('model.from', {
+    get() {
+      let from = this.get('model.from')
 
-    return from && from.format(this.dateFormat)
-  }.property('model.from')
+      return from && from.format(this.dateFormat)
+    }
+  })
 
-, 'to': function() {
-    let to = this.get('model.to')
+, to: computed('model.to', {
+    get() {
+      let to = this.get('model.to')
 
-    return to && to.format(this.dateFormat)
-  }.property('model.to')
+      return to && to.format(this.dateFormat)
+    }
+  })
 
-, 'actions': {
-    'save': function() {
+, actions: {
+    save() {
       let activity = this.get('model')
 
       activity.set('from', moment(this.get('from'), this.dateFormat))
@@ -46,7 +54,7 @@ export default Ember.Controller.extend({
       activity.save()
     }
 
-  , 'delete': function() {
+  , delete() {
       this.get('model').destroyRecord()
     }
   }

@@ -1,42 +1,45 @@
-import Ember from 'ember';
-import { Graph2d } from 'vis';
+import Ember       from 'ember'
+import { Graph2d } from 'vis'
 
 const ZOOM = 1000 * 60 * 60 * 24 * 7 * 2 // Show ~2 weeks
+const { computed, observer } = Ember
 
 export default Ember.View.extend({
-  'visOptions': {
-    'style':       'bar'
-  , 'barChart':    { 'width': 20, 'align': 'center' }
-  , 'height':      255
-  , 'drawPoints':  false
-  , 'graphHeight': 200
-  , 'dataAxis':    {
-      'icons': false
-    , 'width': 20
-    , 'customRange': { 'left': { 'min': 0, 'max': 16 } }
+  visOptions: {
+    style:       'bar'
+  , barChart:    { width: 20, align: 'center' }
+  , height:      255
+  , drawPoints:  false
+  , graphHeight: 200
+  , dataAxis:    {
+      icons: false
+    , width: 20
+    , customRange: { left: { min: 0, max: 16 } }
     }
-  , 'orientation': 'top'
-  , 'zoomMin':     ZOOM
+  , orientation: 'top'
+  , zoomMin:     ZOOM
   }
 
-, 'visItems': function() {
-    let items = [ ]
-      , wt    = this.get('controller.model.worktime')
+, visItems: computed('controller.model.worktime', {
+    get() {
+      let items = [ ]
+        , wt    = this.get('controller.model.worktime')
 
-    for (let x in wt) {
-      // Set time to 12:00, or else the bars won't be centered for each day.
-      // TODO: This might me solvable through correct visOptions.barChart.align
-      items.push({ x: `${x} 12:00`, y: wt[x] })
+      for (let x in wt) {
+        // Set time to 12:00, or else the bars won't be centered for each day.
+        // TODO: This might me solvable through correct visOptions.barChart.align
+        items.push({ x: `${x} 12:00`, y: wt[x] })
+      }
+
+      return items
     }
+  })
 
-    return items;
-  }.property('controller.model.worktime')
-
-, 'renderGraph2d': function() {
+, renderGraph2d: observer('visItems', function() {
     this.get('graph2d').setItems(this.get('visItems'))
-  }.observes('visItems')
+  })
 
-, 'updateGraph2dRange': function() {
+, updateGraph2dRange: observer('controller.from', 'controller.to', function() {
     let graph2d = this.get('graph2d')
 
     if (graph2d) {
@@ -45,9 +48,9 @@ export default Ember.View.extend({
 
       graph2d.setOptions({ start, end })
     }
-  }.observes('controller.from', 'controller.to')
+  })
 
-, 'setupGraph2d': function() {
+, setupGraph2d: function() {
     let start = this.get('controller.from')
     let end   = this.get('controller.to')
 

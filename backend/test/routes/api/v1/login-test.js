@@ -8,6 +8,7 @@ describe('GET /api/v1/login', () => {
     let users = [
       { name: 'Foo', password: '123456' }
     , { name: 'Bar', password: '123456' }
+    , { name: 'Baz', password: '' }
     ]
 
     for (let data of users) {
@@ -36,6 +37,14 @@ describe('GET /api/v1/login', () => {
   })
 
   it('rejects logins with wrong username', done => {
+    request(app).post('/api/v1/login')
+      .send({ 'username': 'I don\'t exist', 'password': '123456' })
+      .expect('Content-Type', /json/)
+      .expect({ message: 'Invalid login!', status: 400, error: {} })
+      .expect(400, done)
+  })
+
+  it('rejects logins for users without password', done => {
     request(app).post('/api/v1/login')
       .send({ 'username': 'Baz', 'password': '123456' })
       .expect('Content-Type', /json/)

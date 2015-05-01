@@ -15,7 +15,7 @@ let strategy = new LocalStrategy(async(name, password, done) => {
   try {
     let user = await User.findOne({ name }).exec()
 
-    if (!user || !(await user.comparePassword(password))) {
+    if (await comparePassword(user, password)) {
       throw new BadRequestError('Invalid login!')
     }
 
@@ -25,6 +25,11 @@ let strategy = new LocalStrategy(async(name, password, done) => {
     done(err)
   }
 })
+
+/* istanbul ignore next */
+async function comparePassword(user, password) {
+  return !user || !user.password || !await user.comparePassword(password)
+}
 
 passport.use(strategy)
 

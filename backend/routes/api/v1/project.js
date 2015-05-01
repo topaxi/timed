@@ -8,13 +8,13 @@ export default router
 router.get('/projects', async(req, res, next) => {
   let { ids }  = req.query
   let query    = ids && ids.length ? { '_id': { '$in': ids } } : req.query
-  let projects = await Project.find(query).exec()
+  let projects = await Project.find(query).lean(true).exec()
 
   res.send({ projects })
 })
 
 router.get('/projects/:id', async(req, res, next) => {
-  let project = await Project.findById(req.params.id).exec()
+  let project = await Project.findById(req.params.id).lean(true).exec()
 
   if (!project) {
     throw new NotFoundError

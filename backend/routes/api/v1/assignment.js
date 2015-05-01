@@ -5,13 +5,15 @@ import { Assignment }    from '../../../models'
 let router = new Router
 export default router
 
+const lean = true
+
 router.get('/assignments', async(req, res, next) => {
   let { query } = req
 
   if (query.from) query.from = { '$gte': new Date(+query.from) }
   if (query.to)   query.to   = { '$lte': new Date(+query.to  ) }
 
-  let assignments = await Assignment.find(query).exec()
+  let assignments = await Assignment.find(query).lean(true).exec()
 
   res.send({ assignments })
 })
@@ -26,7 +28,7 @@ router.post('/assignments', async(req, res, next) => {
 })
 
 router.get('/assignments/:id', async(req, res, next) => {
-  let assignment = await Assignment.findById(req.params.id).exec()
+  let assignment = await Assignment.findById(req.params.id).lean(true).exec()
 
   if (!assignment) {
     throw new NotFoundError

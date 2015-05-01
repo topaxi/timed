@@ -5,13 +5,15 @@ import { Attendance }    from '../../../models'
 let router = new Router
 export default router
 
+const lean = true
+
 router.get('/attendances', async(req, res, next) => {
   let { query } = req
 
   if (query.from) query.from = { '$gte': new Date(+query.from) }
   if (query.to)   query.to   = { '$lte': new Date(+query.to  ) }
 
-  let attendances = await Attendance.find(query)
+  let attendances = await Attendance.find(query).lean(true)
                                     .sort({ 'from': -1 })
                                     .limit(100).exec()
 
@@ -28,7 +30,7 @@ router.post('/attendances', async(req, res, next) => {
 })
 
 router.get('/attendances/:id', async(req, res, next) => {
-  let attendance = await Attendance.findById(req.params.id).exec()
+  let attendance = await Attendance.findById(req.params.id).lean(true).exec()
 
   if (!attendance) {
     throw new NotFoundError

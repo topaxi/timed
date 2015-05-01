@@ -5,14 +5,16 @@ import { Team }          from '../../../models'
 let router = new Router
 export default router
 
+const lean = true
+
 router.get('/teams', async(req, res, next) => {
-  let teams = await Team.find(req.query).exec()
+  let teams = await Team.find(req.query).lean(true).exec()
 
   res.send({ teams })
 })
 
 router.get('/teams/:id', async(req, res, next) => {
-  let team = await Team.findById(req.params.id).exec()
+  let team = await Team.findById(req.params.id).lean(true).exec()
 
   if (!team) {
     throw new NotFoundError

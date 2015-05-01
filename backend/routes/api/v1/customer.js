@@ -5,8 +5,10 @@ import { Customer }      from '../../../models'
 let router = new Router
 export default router
 
+const lean = true
+
 router.get('/customers', async(req, res, next) => {
-  let customers = await Customer.find(req.query).exec()
+  let customers = await Customer.find(req.query).lean(true).exec()
 
   res.send({ customers })
 })
@@ -21,7 +23,7 @@ router.post('/customers', async(req, res, next) => {
 })
 
 router.get('/customers/:id', async(req, res, next) => {
-  let customer = await Customer.findById(req.params.id).exec()
+  let customer = await Customer.findById(req.params.id).lean(true).exec()
 
   if (!customer) {
     throw new NotFoundError

@@ -5,8 +5,10 @@ import { User }          from '../../../models'
 let router = new Router
 export default router
 
+const lean = true
+
 router.get('/users', async(req, res, next) => {
-  let users = await User.find(req.query).exec()
+  let users = await User.find(req.query).lean(true).exec()
 
   users.forEach(deletePasswordForResponse)
 
@@ -14,7 +16,7 @@ router.get('/users', async(req, res, next) => {
 })
 
 router.get('/users/:id', async(req, res, next) => {
-  let user = await User.findById(req.params.id).exec()
+  let user = await User.findById(req.params.id).lean(true).exec()
 
   if (!user) {
     throw new NotFoundError

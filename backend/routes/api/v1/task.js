@@ -6,16 +6,18 @@ import { Task, Attendance } from '../../../models'
 let router = new Router
 export default router
 
+const lean = true
+
 router.get('/tasks', async(req, res, next) => {
   let { ids } = req.query
   let query   = ids && ids.length ? { '_id': { '$in': ids } } : req.query
-  let tasks   = await Task.find(query).exec()
+  let tasks   = await Task.find(query).lean(true).exec()
 
   res.send({ tasks })
 })
 
 router.get('/tasks/:id', async(req, res, next) => {
-  let task = await Task.findById(req.params.id).exec()
+  let task = await Task.findById(req.params.id).lean(true).exec()
 
   if (!task) {
     throw new NotFoundError

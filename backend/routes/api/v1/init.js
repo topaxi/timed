@@ -7,6 +7,8 @@ import * as model          from '../../../models'
 let router = new Router
 export default router
 
+const lean = true
+
 router.get('/init/payload', async(req, res) => {
   if (!req.user || !req.user.id) throw new BadRequestError
 
@@ -16,9 +18,9 @@ router.get('/init/payload', async(req, res) => {
   }
 
   res.send({
-    customers:   await model.Customer.find().exec()
-  , projects:    await model.Project.find().exec()
-  , tasks:       await model.Task.find().exec()
-  , attendances: await model.Attendance.find(query).exec()
+    customers:   await model.Customer.find({}).lean(true).exec()
+  , projects:    await model.Project.find({}).lean(true).exec()
+  , tasks:       await model.Task.find({}).lean(true).exec()
+  , attendances: await model.Attendance.find(query).lean(true).exec()
   })
 })

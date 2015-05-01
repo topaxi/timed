@@ -5,8 +5,6 @@ import { User }          from '../../../models'
 let router = new Router
 export default router
 
-const lean = true
-
 router.get('/users', async(req, res, next) => {
   let users = await User.find(req.query).lean(true).exec()
 

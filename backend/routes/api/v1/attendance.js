@@ -5,8 +5,6 @@ import { Attendance }    from '../../../models'
 let router = new Router
 export default router
 
-const lean = true
-
 router.get('/attendances', async(req, res, next) => {
   let { query } = req
 

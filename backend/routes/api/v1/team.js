@@ -5,8 +5,6 @@ import { Team }          from '../../../models'
 let router = new Router
 export default router
 
-const lean = true
-
 router.get('/teams', async(req, res, next) => {
   let teams = await Team.find(req.query).lean(true).exec()
 

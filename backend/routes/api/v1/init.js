@@ -7,8 +7,6 @@ import * as model          from '../../../models'
 let router = new Router
 export default router
 
-const lean = true
-
 router.get('/init/payload', async(req, res) => {
   if (!req.user || !req.user.id) throw new BadRequestError
 

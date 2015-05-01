@@ -2,7 +2,6 @@
 import Ember             from 'ember'
 import Session           from 'simple-auth/session'
 import AuthenticatorBase from 'simple-auth/authenticators/base'
-import AuthorizerBase    from 'simple-auth/authorizers/base'
 
 const { computed } = Ember
 
@@ -55,17 +54,10 @@ let Authenticator = AuthenticatorBase.extend({
   }
 })
 
-let Authorizer = AuthorizerBase.extend({
-  authorize(xhr, request) {
-    xhr.setRequestHeader('X-Timed-Session-Id')
-  }
-})
-
 export default {
   name: 'session'
 , before: 'simple-auth'
 , initialize(container) {
-    container.register('authorizer:custom',    Authorizer)
     container.register('authenticator:custom', Authenticator)
   }
 }

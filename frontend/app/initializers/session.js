@@ -25,22 +25,19 @@ let Authenticator = AuthenticatorBase.extend({
   async authenticate(credentials) {
     let { identification: username, password } = credentials
 
-    let response = await fetch('/api/v1/login', {
-      method: 'post'
-    , headers: {
-        'Accept':       'application/json'
-      , 'Content-Type': 'application/json'
-      }
-    , body: JSON.stringify({ username, password })
+    let res = await Ember.$.ajax({
+      url:         '/api/v1/login'
+    , type:        'POST'
+    , dataType:    'json'
+    , contentType: 'application/json'
+    , data:        JSON.stringify({ username, password })
     })
 
-    let json = await response.json()
-
-    if (!response.ok) {
-      throw new Error(json.message)
+    if (res.error) {
+      throw new Error(res.error.message)
     }
 
-    return json
+    return res
   }
 , restore(data) {
     if (Ember.isEmpty(data.sessionId)) {
@@ -50,7 +47,7 @@ let Authenticator = AuthenticatorBase.extend({
     return data
   }
 , invalidate() {
-    return fetch('/api/v1/logout', { method: 'post' })
+    return Ember.$.post('/api/v1/logout')
   }
 })
 

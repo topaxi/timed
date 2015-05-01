@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember from 'ember'
 import moment from 'moment'
 
@@ -9,15 +10,16 @@ export default Ember.Controller.extend({
 , selectizePlugins: [ 'restore_on_backspace' ]
 
 , actions: {
-    submit() {
-      this.model.save().then(() => {
+    async submit() {
+      try {
+        await this.model.save()
         this.notify.success('Task successfully saved!')
 
         this.transitionToRoute('task')
-      })
-      .catch(err =>
+      }
+      catch (err) {
         this.notify.error(err || 'Error while trying to save task!')
-      )
+      }
     }
 
   , delete() {
@@ -30,22 +32,22 @@ export default Ember.Controller.extend({
       this.set('model.name', name)
     }
 
-  , fetchIssues(filter) {
+  , async fetchIssues(filter) {
       this.set('fetchingIssues', true)
-      this.get('model.project').then(project =>
-        project.searchIssues(filter)
-      )
-      .then(issues =>
-        this.set('issues', issues)
-      )
-      .catch(e => {
+
+      try {
+        let project = await this.get('model.project')
+
+        this.set('issues', await project.searchIssues(filter))
+      }
+      catch (e) {
         this.set('issues', [])
 
-        console.error(e)
-      })
-      .finally(() =>
+        this.notify.error(e)
+      }
+      finally {
         this.set('fetchingIssues', false)
-      )
+      }
     }
 
     , setTaskData(issue) {

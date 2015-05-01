@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember    from 'ember'
 import moment   from 'moment'
 import safehtml from 'timed/utils/safehtml'
@@ -19,14 +20,13 @@ export default Ember.Object.extend({
 
 , logo: '/assets/tracker/redmine.png'
 
-, searchIssues(/*term = ''*/) {
+, async searchIssues(/*term = ''*/) {
     if (this.get('issues')) {
       return this.get('issues')
     }
 
-    this.set('issues', this._fetch().then(issues =>
-      issues.map(i => this.mapIssueToSelectize(i))
-    ))
+    let issues = await this._fetch()
+    this.set('issues', issues.map(i => this.mapIssueToSelectize(i)))
   }
 
 , mapIssueToSelectize(data) {
@@ -63,14 +63,14 @@ export default Ember.Object.extend({
   // Redmine API does not allow to search for issues.
   // For now, we fetch all issues for a project...
   // See: http://www.redmine.org/issues/6277
-, _fetch(offset = 0, issues = []) {
+, async _fetch(fetchOffset = 0) {
     let data = this.project.get('tracker.data')
     let req = {
       url: `${data.url}/issues.json`
     , data: {
-        'project_id': data.projectId
-      , 'limit':      LIMIT
-      , offset
+        project_id: data.projectId // eslint-disable-line
+      , limit:      LIMIT
+      , offset:     fetchOffset
       }
     , dataType: data.datatype
     , headers: {
@@ -82,17 +82,12 @@ export default Ember.Object.extend({
       req.data.key = data.apikey
     }
 
-    return Ember.$.ajax(req).then(res => {
-      issues.push.apply(issues, res.issues)
+    let { issues, offset, limit, total_count: total } = await Ember.$.ajax(req) // eslint-disable-line
 
-      return res
-    })
-    .then(res => {
-      if (res.total_count > res.offset + res.limit) {
-        return this._fetch(res.offset + res.limit, issues)
-      }
+    if (total > offset + limit) {
+      issues.push.apply(issues, this._fetch(offset + limit))
+    }
 
-      return issues
-    })
+    return issues
   }
 })

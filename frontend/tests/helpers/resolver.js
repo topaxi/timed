@@ -17,11 +17,11 @@ resolver.namespace = {
 , podModulePrefix: config.podModulePrefix
 }
 
-define('moment', () => ({
+define('moment', () => Object({
   'default': moment
 }))
 
-define('vis', () => ({
+define('vis', () => Object({
   'default':  vis
 , 'Timeline': vis.Timeline
 , 'DataSet':  vis.DataSet

@@ -1,9 +1,9 @@
-import autocompleteRedmine from '../../../../utils/autocomplete/redmine';
-import { module, test } from 'qunit';
+import autocompleteRedmine from '../../../../utils/autocomplete/redmine'
+import { module, test } from 'qunit'
 
-module('autocompleteRedmine');
+module('autocompleteRedmine')
 
 // Replace this with your real tests.
 test('it exists', function(assert) {
-  assert.ok(autocompleteRedmine);
-});
+  assert.ok(autocompleteRedmine)
+})

@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember                        from 'ember'
 import startApp                     from '../../helpers/start-app'
 import { moduleForComponent, test } from 'ember-qunit'

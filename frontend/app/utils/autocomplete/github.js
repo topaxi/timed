@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember    from 'ember'
 import moment   from 'moment'
 import safehtml from 'timed/utils/safehtml'
@@ -16,17 +17,18 @@ export default Ember.Object.extend({
 
 , logo: '/assets/tracker/github.png'
 
-, searchIssues(term = '') {
+, async searchIssues(term = '') {
     let data = this.project.get('tracker.data')
     let q    = `${term} repo:${data.repo}`
-
-    return Ember.$.ajax({
+    let res  = await Ember.$.ajax({
       url: 'https://api.github.com/search/issues'
     , data: { q }
     , headers: {
         'Authorization': `token ${data.apikey}`
       }
-    }).then(res => res.items.map(i => this.mapIssueToSelectize(i)))
+    })
+
+    return res.items.map(i => this.mapIssueToSelectize(i))
   }
 
 , mapIssueToSelectize(data) {

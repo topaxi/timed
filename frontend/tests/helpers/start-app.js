@@ -1,7 +1,7 @@
-import Ember from 'ember';
-import Application from '../../app';
-import Router from '../../router';
-import config from '../../config/environment';
+import Ember from 'ember'
+import Application from '../../app'
+import Router from '../../router' // eslint-disable-line
+import config from '../../config/environment'
 
 export default function startApp(attrs) {
   var application;

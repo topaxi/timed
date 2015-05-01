@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember from 'ember'
 
 const { computed } = Ember
@@ -20,26 +21,28 @@ export default Ember.Controller.extend({
   })
 
 , actions: {
-    submit() {
-      this.model.save().then(() => {
+    async submit() {
+      try {
+        await this.model.save()
         this.notify.success('Project successfully saved!')
 
         this.transitionToRoute('project.edit', this.model)
-      })
-      .catch(err =>
+      }
+      catch (err) {
         this.notify.error(err || 'Error while trying to save project!')
-      )
+      }
     }
-  , delete() {
-      this.model.deleteRecord()
-      this.model.save().then(() => {
+  , async delete() {
+      try {
+        this.model.deleteRecord()
+        await this.model.save()
         this.notify.success('Project successfully deleted!')
 
         this.transitionToRoute('project')
-      })
-      .catch(err =>
+      }
+      catch (err) {
         this.notify.error(err || 'Error while trying to delete project!')
-      )
+      }
     }
   }
 })

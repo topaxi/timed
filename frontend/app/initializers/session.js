@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember             from 'ember'
 import Session           from 'simple-auth/session'
 import AuthenticatorBase from 'simple-auth/authenticators/base'

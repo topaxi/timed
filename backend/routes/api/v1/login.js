@@ -20,11 +20,10 @@ router.post('/login', (req, res, next) =>
 )
 
 router.get('/whoami', (req, res) => {
-  let [ ip ]  = req.ips
   let userId  = req.user && req.user.id
   let version = app.get('version')
 
-  res.send({ userId, ip, version })
+  res.send({ userId, version })
 })
 
 router.get('/logout', logout)

@@ -128,10 +128,6 @@ describe('GET /api/v1/whoami', () => {
         done()
       })
   })
-
-  it.skip('responds with the users request ip', done => {
-    // Requests supertest don't produce any remote addr...
-  })
 })
 
 describe('GET /api/v1/logout', () => {

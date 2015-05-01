@@ -1,7 +1,8 @@
+/* jshint ignore:start */
 import Ember  from 'ember'
 import ramjet from 'ramjet'
 
-export default function ramjetTransition() {
+export default function ramjetTransition({ easing = ramjet.linear, duration = 250 } = {}) {
   let a = this.oldElement[0]
   let b = this.newElement[0]
 
@@ -9,7 +10,9 @@ export default function ramjetTransition() {
     b.style.visibility = ''
 
     ramjet.transform(a, b, {
-      done: () => {
+      easing,
+      duration,
+      done() {
         b.style.visibility = ''
         resolve()
       }

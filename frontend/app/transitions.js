@@ -20,15 +20,15 @@ export default function() {
   , this.reverse('toRight')
   )
 
-  let indexEditExplode = {
+  let indexEditExplodeName = {
     matchBy: 'data-model-id'
   , use:     [ 'ramjet' ]
   }
   this.transition(
     this.fromRoute([ 'project.index', 'customer.index', 'team.index', 'user.index' ])
   , this.toRoute([ 'project.edit', 'customer.edit', 'team.edit', 'user.edit' ])
-  , this.use('explode', indexEditExplode)
-  , this.reverse('explode', indexEditExplode)
+  , this.use('explode', indexEditExplodeName, { pickOld: 'h1', use: [ 'toUp' ] })
+  , this.reverse('explode', indexEditExplodeName, { pickNew: 'h1', use: [ 'toDown' ] })
   )
 
   this.transition(

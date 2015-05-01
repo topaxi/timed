@@ -1,15 +1,16 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 export default Ember.Route.extend({
-  setupController: function(controller, task) {
+  setupController(controller, model) {
     this.controllerFor('task.edit').setProperties({
-      'isNew':  true
-    , 'model':  task
-    , 'issues': []
+      isNew:  true
+    , model
+    , issues: []
     })
   }
-, model: function() {
-    return this.store.createRecord('task', { 'project': this.modelFor('project.edit') })
+, model() {
+    let project = this.modelFor('project.edit')
+    return this.store.createRecord('task', { project }, { project })
   }
 , renderTemplate: function() {
     this.render('task/edit')

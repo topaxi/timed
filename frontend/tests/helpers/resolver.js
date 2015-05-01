@@ -3,7 +3,7 @@
 import Resolver from 'ember/resolver'
 import config   from '../../config/environment'
 
-var resolver = Resolver.create();
+var resolver = Resolver.create()
 
 // Phantomjs 1.9 doesn't know Function#bind
 if (!Function.prototype.bind) {

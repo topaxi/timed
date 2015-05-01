@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import moment from 'moment';
+import Ember from 'ember'
+import moment from 'moment'
 
 export function dateDuration(date1, date2, format) {
   if (!date1) {

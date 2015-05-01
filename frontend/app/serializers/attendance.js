@@ -1,8 +1,8 @@
-import DS from 'ember-data';
-import ApplicationSerializer from './application';
+import DS from 'ember-data'
+import ApplicationSerializer from './application'
 
 export default ApplicationSerializer.extend(DS.EmbeddedRecordsMixin, {
-  'attrs': {
-    'activities': { 'embedded': 'always' }
+  attrs: {
+    activities: { embedded: 'always' }
   }
 })

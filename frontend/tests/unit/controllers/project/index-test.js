@@ -9,4 +9,4 @@ moduleFor('controller:project/index', {
 test('it exists', function(assert) {
   var controller = this.subject()
   assert.ok(controller)
-});
+})

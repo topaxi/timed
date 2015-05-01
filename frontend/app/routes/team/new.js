@@ -1,19 +1,16 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 export default Ember.Route.extend({
-  'setupController': function(controller, team) {
-    this.controllerFor('team.edit.edit').setProperties({
-      'isNew': true
-    , 'model': team
-    })
+  setupController(controller, model) {
+    this.controllerFor('team.edit.edit').setProperties({ isNew: true, model })
   }
-, 'model': function() {
+, model() {
     return this.store.createRecord('team')
   }
-, 'renderTemplate': function() {
+, renderTemplate() {
     this.render('team/edit/edit')
   }
-, 'rollback': function() {
+, rollback: function() {
     this.controllerFor('team.edit.edit').get('model').rollback()
   }.on('deactivate')
 })

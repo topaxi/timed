@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember from 'ember'
 
 export default Ember.Controller.extend({
@@ -13,8 +14,12 @@ export default Ember.Controller.extend({
     this.get('socket')
   }
 
-, loadInitialData() {
-    Ember.$.get('/api/v1/init/payload')
-      .then(data => this.store.pushPayload(data))
+, async loadInitialData() {
+    try {
+      this.store.pushPayload(await Ember.$.get('/api/v1/init/payload'))
+    }
+    catch (e) {
+      this.notify.error(e.message)
+    }
   }
 })

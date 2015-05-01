@@ -1,4 +1,4 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { moduleForModel, test } from 'ember-qunit'
 
 moduleForModel('assignment', {
   needs: [
@@ -9,10 +9,10 @@ moduleForModel('assignment', {
   , 'model:attendance'
   , 'model:customer'
   ]
-});
+})
 
 test('it exists', function(assert) {
-  var model = this.subject();
-  // var store = this.store();
-  assert.ok(!!model);
-});
+  var model = this.subject()
+  // var store = this.store()
+  assert.ok(!!model)
+})

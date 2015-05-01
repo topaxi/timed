@@ -3,7 +3,7 @@
 import Resolver from 'ember/resolver'
 import config   from '../../config/environment'
 
-var resolver = Resolver.create();
+var resolver = Resolver.create()
 
 // Phantomjs 1.9 doesn't know Function#bind
 if (!Function.prototype.bind) {
@@ -17,11 +17,11 @@ resolver.namespace = {
 , podModulePrefix: config.podModulePrefix
 }
 
-define('moment', () => ({
+define('moment', () => Object({
   'default': moment
 }))
 
-define('vis', () => ({
+define('vis', () => Object({
   'default':  vis
 , 'Timeline': vis.Timeline
 , 'DataSet':  vis.DataSet

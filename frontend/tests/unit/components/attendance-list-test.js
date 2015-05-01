@@ -138,11 +138,11 @@ test('it marks activities not to account with a danger class', function(assert) 
   function createAttendances(user) {
     let attendance = attend({ user, from: moment('2014-02-01'), to: moment('2014-02-01') })
 
-    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: true   , nta: true })
-    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: false  , nta: true })
-    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: false  , nta: false })
-    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: null   , nta: null })
-    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: false  , nta: null })
+    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: true, nta: true })
+    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: false, nta: true })
+    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: false, nta: false })
+    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: null, nta: null })
+    activity({ attendance, from: moment('2014-02-01'), to: moment('2014-02-01'), review: false, nta: null })
   }
 
   Ember.run(() => {

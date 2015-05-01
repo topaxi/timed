@@ -14,19 +14,19 @@ let App = Ember.Application.extend({
 , 'Resolver':        Resolver
 })
 
-define('ramjet', () => ({
+define('ramjet', () => Object({
   'default': ramjet
 }))
 
-define('moment', () => ({
+define('moment', () => Object({
   'default': moment
 }))
 
-define('socket.io', () => ({
+define('socket.io', () => Object({
   'default': io
 }))
 
-define('vis', () => ({
+define('vis', () => Object({
   'default':  vis
 , 'Timeline': vis.Timeline
 , 'DataSet':  vis.DataSet

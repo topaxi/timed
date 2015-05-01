@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import moment from 'moment';
+import Ember from 'ember'
+import moment from 'moment'
 
 const ICON = '<span class="input-group-addon pointer"><i class="glyphicon glyphicon-calendar"></i></span>'
 

@@ -2,16 +2,13 @@
 
 var EmberApp = require('ember-cli/lib/broccoli/ember-app')
 var app      = new EmberApp({
-  'es3Safe':             false
-, 'jscsOptions': {
-    'configPath':           '../.jscsrc'
-  , 'esnext':               true
-  , 'disableTestGenerator': false
+  'eslint': {
+    'testGenerator': require('./lib/eslint-test-generator')
+  }
+, 'babel': {
+    'optional': [ 'es7.asyncFunctions' ]
   }
 , 'ember-cli-selectize': { 'theme': 'bootstrap3' }
-, '6to5': {
-    'blacklist': [ 'react' ]
-  }
 })
 
 // Use `app.import` to add additional libraries to the generated
@@ -26,7 +23,8 @@ var app      = new EmberApp({
 // modules that you would like to import into your application
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
-app.import('vendor/babel-polyfill.js')
+app.import('vendor/babel-polyfill.js', { 'prepend': true })
+app.import('bower_components/fetch/fetch.js')
 
 app.import('bower_components/ramjet/dist/ramjet.js')
 

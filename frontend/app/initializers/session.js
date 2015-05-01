@@ -1,6 +1,8 @@
-import Ember    from 'ember'
-import Session  from 'simple-auth/session'
-import AuthBase from 'simple-auth/authenticators/base'
+/* jshint ignore:start */
+import Ember             from 'ember'
+import Session           from 'simple-auth/session'
+import AuthenticatorBase from 'simple-auth/authenticators/base'
+import AuthorizerBase    from 'simple-auth/authorizers/base'
 
 const { computed } = Ember
 
@@ -20,42 +22,42 @@ Session.reopen({
   })
 })
 
-let Authenticator = AuthBase.extend({
-  authenticate(credentials) {
+let Authenticator = AuthenticatorBase.extend({
+  async authenticate(credentials) {
     let { identification: username, password } = credentials
 
-    return new Ember.RSVP.Promise((resolve, reject) =>
-      Ember.$.ajax({
-        url:         '/api/v1/login'
-      , type:        'POST'
-      , dataType:    'json'
-      , contentType: 'application/json'
-      , data:        JSON.stringify({ username, password })
-      })
-      .then(resolve)
-      .fail(xhr => {
-        let error
+    let response = await fetch('/api/v1/login', {
+      method: 'post'
+    , headers: {
+        'Accept':       'application/json'
+      , 'Content-Type': 'application/json'
+      }
+    , body: JSON.stringify({ username, password })
+    })
 
-        try {
-          error = JSON.parse(xhr.responseText)
-        }
-        catch (e) {
-          error = xhr.responseText
-        }
+    let json = await response.json()
 
-        reject(error)
-      })
-    )
-  }
-, restore(data) {
-    if (Ember.isEmpty(data.sessionId)) {
-      return Ember.RSVP.reject()
+    if (!response.ok) {
+      throw new Error(json.message)
     }
 
-    return Ember.RSVP.resolve(data)
+    return json
+  }
+, async restore(data) {
+    if (Ember.isEmpty(data.sessionId)) {
+      throw new Error('No sessionId to restore found')
+    }
+
+    return data
   }
 , invalidate() {
-    return Ember.$.post('/api/v1/logout')
+    return fetch('/api/v1/logout', { method: 'post' })
+  }
+})
+
+let Authorizer = AuthorizerBase.extend({
+  authorize(xhr, request) {
+    xhr.setRequestHeader('X-Timed-Session-Id')
   }
 })
 
@@ -63,6 +65,7 @@ export default {
   name: 'session'
 , before: 'simple-auth'
 , initialize(container) {
+    container.register('authorizer:custom',    Authorizer)
     container.register('authenticator:custom', Authenticator)
   }
 }

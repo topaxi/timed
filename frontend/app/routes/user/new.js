@@ -1,13 +1,13 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 export default Ember.Route.extend({
-  setupController: function(controller, user) {
-    this.controllerFor('user.edit.edit').setProperties({ 'isNew': true, 'model': user })
+  setupController(controller, model) {
+    this.controllerFor('user.edit.edit').setProperties({ isNew: true, model })
   }
-, model: function() {
+, model() {
     return this.store.createRecord('user')
   }
-, renderTemplate: function() {
+, renderTemplate() {
     this.render('user/edit/edit')
   }
 , rollback: function() {

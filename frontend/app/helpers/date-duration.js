@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import moment from 'moment';
+import Ember from 'ember'
+import moment from 'moment'
 
 export function dateDuration(date1, date2, format) {
   if (!date1) {
@@ -12,13 +12,9 @@ export function dateDuration(date1, date2, format) {
     return new Ember.Handlebars.SafeString(html)
   }
 
-  if (typeof format !== 'string') {
-    format = 'h[h] mm[m]'
-  }
-
   let diff      = Math.abs(moment(date1).diff(moment(date2)))
   let duration  = moment.duration(diff)
-  let formatted = duration.format(format)
+  let formatted = duration.format(typeof format !== 'string' ? 'h[h] mm[m]' : format)
 
   return formatted
 }

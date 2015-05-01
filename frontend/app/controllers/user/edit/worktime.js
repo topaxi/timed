@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember  from 'ember'
 import moment from 'moment'
 
@@ -14,7 +15,7 @@ export default Ember.Controller.extend({
   })
 
 , actions: {
-    submit() {
+    async submit() {
       let wt       = this.model.get('worktime') || {}
       let $sliders = Ember.$('.ui-slider') // TODO: We shouldn't access DOM stuff from our controller...
 
@@ -27,9 +28,14 @@ export default Ember.Controller.extend({
 
       this.model.set('worktime', wt)
 
-      this.model.save().then(() =>
+      try {
+        await this.model.save()
+
         this.notify.success(`Worktime for ${this.model.get('name')} saved!`)
-      )
+      }
+      catch (err) {
+        this.notify.error(err)
+      }
     }
   }
 })

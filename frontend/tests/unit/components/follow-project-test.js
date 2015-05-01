@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember                        from 'ember'
 import startApp                     from '../../helpers/start-app'
 import { moduleForComponent, test } from 'ember-qunit'
@@ -71,7 +72,7 @@ test('it sets the isFollowing attribute', function(assert) {
   })
 })
 
-test('it updated the users projects', function(assert) {
+test('it updated the users projects', async function(assert) {
   assert.expect(4)
 
   let user
@@ -87,21 +88,15 @@ test('it updated the users projects', function(assert) {
     this.render()
   })
 
-  andThen(() => {
-    click(component.$('button'))
-  })
+  await wait()
 
-  andThen(() => {
-    assert.equal(user.get('projects.length'), 1)
-    assert.equal(component.get('isFollowing'), true)
-  })
+  await click(component.$('button'))
 
-  andThen(() => {
-    click(component.$('button'))
-  })
+  assert.equal(user.get('projects.length'), 1)
+  assert.equal(component.get('isFollowing'), true)
 
-  andThen(() => {
-    assert.equal(user.get('projects.length'), 0)
-    assert.equal(component.get('isFollowing'), false)
-  })
+  await click(component.$('button'))
+
+  assert.equal(user.get('projects.length'), 0)
+  assert.equal(component.get('isFollowing'), false)
 })

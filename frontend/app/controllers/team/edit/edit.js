@@ -1,31 +1,37 @@
-import Ember from 'ember';
+/* jshint ignore:start */
+import Ember from 'ember'
 
 export default Ember.Controller.extend({
   isNew: false
-, init: function() {
+
+, init() {
     this.set('allUsers', this.store.find('user'))
   }
+
 , actions: {
-    submit: function() {
-      this.model.save().then(() => {
+    async submit() {
+      try {
+        await this.model.save()
         this.notify.success('Team successfully saved!')
 
         this.transitionToRoute('team.edit', this.model)
-      })
-      .catch(err =>
+      }
+      catch (err) {
         this.notify.error(err || 'Error while trying to save team!')
-      )
+      }
     }
-  , delete: function() {
-      this.model.deleteRecord()
-      this.model.save().then(() => {
+
+  , async delete() {
+      try {
+        this.model.deleteRecord()
+        await this.model.save()
         this.notify.success('Project successfully team!')
 
         this.transitionToRoute('team')
-      })
-      .catch(err =>
+      }
+      catch (err) {
         this.notify.error(err || 'Error while trying to delete team!')
-      )
+      }
     }
   }
 })

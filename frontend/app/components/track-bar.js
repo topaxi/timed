@@ -1,12 +1,14 @@
 import Ember    from 'ember'
 import safehtml from 'timed/utils/safehtml'
 
+const { computed, run } = Ember
+
 export default Ember.Component.extend({
   elementId:  'track-bar'
 , classNames: 'container track-bar'
 
-, activity: Ember.computed.alias('user.currentActivity')
-, task:     Ember.computed.alias('activity.task')
+, activity: computed.alias('user.currentActivity')
+, task:     computed.alias('activity.task')
 , project:  null
 
 , selectedTask: null
@@ -17,11 +19,13 @@ export default Ember.Component.extend({
     this.store = this.container.lookup('store:main')
   }
 
-, projects: function() {
-    return this.store.find('project')
-  }.property()
+, projects: computed({
+    get() {
+      return this.store.find('project')
+    }
+  })
 
-, projectOption: function({ data: project }) {
+, projectOption({ data: project }) {
     return safehtml`<div class="option">
       <div>${project.get('name')}</div>
       <div><small>${project.get('customer.name')}</small></div>
@@ -44,7 +48,7 @@ export default Ember.Component.extend({
   , selectTask(value) {
       // Destructing ember-selectize while calling an action
       // throws errors, delay setting task a bit
-      Ember.run.next(() => {
+      run.next(() => {
         this.set('project', null)
         this.set('task',    value)
         this.get('activity').save()

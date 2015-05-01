@@ -1,16 +1,22 @@
-import Ember from 'ember';
+import Ember from 'ember'
+
+const { computed, observer } = Ember
 
 export default Ember.Component.extend({
   tagName: 'span'
 
-, title: function() {
-    let trackingLabel = this.get('isTracking') ? 'Stop tracking' : 'Track'
-    let taskName      = this.get('task.name') || ''
+, activity: computed.alias('session.user.currentActivity')
 
-    return `${trackingLabel} ${taskName}`.trim()
-  }.property('task.name', 'isTracking')
+, title: computed('task.name', 'isTracking', {
+    get() {
+      let trackingLabel = this.get('isTracking') ? 'Stop tracking' : 'Track'
+      let taskName      = this.get('task.name') || ''
 
-, fixTooltip: function() {
+      return `${trackingLabel} ${taskName}`.trim()
+    }
+  })
+
+, fixTooltip: observer('title', function() {
     let tooltip = this.$('.tip')
 
     tooltip.prop('title', this.get('title'))
@@ -19,40 +25,42 @@ export default Ember.Component.extend({
     if (tooltip.is(':hover')) {
       tooltip.tooltip('show')
     }
-  }.observes('title')
+  })
 
-, isCurrentTask: function() {
-    let activity = this.get('session.user.currentActivity')
-
-    return activity && activity.get('task.id') === this.get('task.id')
+, isCurrentTask() {
+    return this.get('activity.task.id') === this.get('task.id')
   }
 
-, isTracking: function() {
-    if (this.isCurrentTask()) {
-      let to = this.get('session.user.currentActivity.to')
+, isTracking: computed('task.id', 'activity.to', {
+    get() {
+      if (this.isCurrentTask()) {
+        let to = this.get('activity.to')
 
-      return to && !to.isValid()
+        return to && !to.isValid()
+      }
+
+      return false
     }
+  })
 
-    return false
-  }.property('task.id', 'session.user.currentActivity.to')
+, glyphicon: computed('isTracking', {
+    get() {
+      let isTracking = this.get('isTracking')
+      let icon
 
-, glyphicon: function() {
-    let isTracking = this.get('isTracking')
-    let icon
+      if (isTracking) {
+        icon = 'record'
+      }
+      else if (this.isCurrentTask()) {
+        icon = 'repeat'
+      }
+      else {
+        icon = 'play'
+      }
 
-    if (isTracking) {
-      icon = 'record'
+      return `glyphicon-${icon}`
     }
-    else if (this.isCurrentTask()) {
-      icon = 'repeat'
-    }
-    else {
-      icon = 'play'
-    }
-
-    return `glyphicon-${icon}`
-  }.property('isTracking')
+  })
 
 , actions: {
     track() {

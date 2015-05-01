@@ -1,62 +1,65 @@
-import Ember from 'ember';
-import moment from 'moment';
-import { Timeline } from 'vis';
+import Ember        from 'ember'
+import moment       from 'moment'
+import { Timeline } from 'vis'
 
 const ZOOM = 1000 * 60 * 60 * 24 * 7 * 2 // Show ~2 weeks
+const { computed, observer } = Ember
 
 export default Ember.View.extend({
-  'visOptions': {
-    'stack':       true
-  , 'editable':    true
-  , 'orientation': 'top'
-  , 'autoResize':  false
-  , 'zoomMin':     ZOOM
+  visOptions: {
+    stack:       true
+  , editable:    true
+  , orientation: 'top'
+  , autoResize:  false
+  , zoomMin:     ZOOM
   }
 
-, 'assignments': Ember.computed.alias('controller.model.users.@each.assignments')
+, assignments: computed.alias('controller.model.users.@each.assignments')
 
-, 'flatAssignments': function() {
-    return this.get('assignments').reduce((all, assignments) => {
-      assignments.forEach(assignment => all.push(assignment))
+, flatAssignments: computed('assignments.@each', {
+    get() {
+      return this.get('assignments').reduce((all, assignments) => {
+        assignments.forEach(assignment => all.push(assignment))
 
-      return all
-    }, [])
-  }.property('assignments.@each')
+        return all
+      }, [])
+    }
+  })
 
-, 'visGroups': function() {
-    return this.get('controller.model.users').map(user => ({
-      'id':      user.id
-    , 'content': user.get('longName')
-    }))
-  }.property('controller.users')
+, visGroups: computed('controller.users', {
+    get() {
+      return this.get('controller.model.users').map(user => Object({
+        'id':      user.id
+      , 'content': user.get('longName')
+      }))
+    }
+  })
 
-, 'visItems': function() {
-    return this.get('flatAssignments').map(assignment => {
-      let title = `${assignment.get('project.name')} (${assignment.get('potentialWorktime')} hours)`
+, visItems: computed('flatAssignments.@each.from', 'flatAssignments.@each.to', 'flatAssignments.@each.project', {
+    get() {
+      return this.get('flatAssignments').map(assignment => {
+        let title = `${assignment.get('project.name')} (${assignment.get('potentialWorktime')} hours)`
 
-      return {
-        'id':      assignment.id
-      , 'content': title
-      , 'title':   title
-      , 'start':   assignment.get('from')
-      , 'end':     assignment.get('to')
-      , 'group':   assignment.get('user.id')
-      }
-    })
-  }.property(
-    'flatAssignments.@each.from'
-  , 'flatAssignments.@each.to'
-  , 'flatAssignments.@each.project'
-  )
+        return {
+          'id':      assignment.id
+        , 'content': title
+        , 'title':   title
+        , 'start':   assignment.get('from')
+        , 'end':     assignment.get('to')
+        , 'group':   assignment.get('user.id')
+        }
+      })
+    }
+  })
 
-, 'renderTimeline': function() {
+, renderTimeline: observer('visGroups', 'visItems', function() {
     let timeline = this.get('timeline')
 
     timeline.setGroups(this.get('visGroups'))
     timeline.setItems(this.get('visItems'))
-  }.observes('visGroups', 'visItems')
+  })
 
-, 'setupTimeline': function() {
+, setupTimeline: function() {
     let controller = this.get('controller')
     let options    = Ember.$.extend({}, this.get('visOptions'), {
       'start':    moment().subtract(1, 'week')

@@ -14,7 +14,7 @@ co(function*() {
     user.name = yield read({ 'prompt': 'Username: ' })
 
     yield user.setPassword(yield read({ 'prompt': 'Password: ', 'silent': true }))
-    yield user.saveAsync()
+    yield user.save()
 
     console.log('User', user.name, 'created')
   }

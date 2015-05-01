@@ -1,7 +1,18 @@
-import Ember from 'ember';
-import config from './config/environment';
+import Ember  from 'ember'
+import config from './config/environment'
 
 let Router = Ember.Router.extend({ 'location': config.locationType })
+
+Router.reopen({
+  hideMobileMenu: function() {
+    let $collapse  = Ember.$('#navbar').find('.navbar-collapse')
+    let isExpanded = () => $collapse.attr('aria-expanded') === 'true'
+
+    if (isExpanded()) {
+      Ember.run.scheduleOnce('afterRender', () => $collapse.collapse('hide'))
+    }
+  }.on('didTransition')
+})
 
 Router.map(function() {
   this.route('login')

@@ -1,6 +1,13 @@
 {
   "auxiliaryComment": "istanbul ignore next",
-  "blacklist": [],
-  "optional": [ "es7.asyncFunctions" ],
+  "blacklist": [
+    "es3.memberExpressionLiterals",
+    "es3.propertyLiterals",
+    "es5.properties.mutators"
+  ],
+  "optional": [
+    "runtime",
+    "es7.asyncFunctions"
+  ],
   "loose": true
 }

@@ -1,7 +1,7 @@
 <div class="form-group">
-  <label for="url" class="col-sm-2 control-label">URL</label>
+  <label for="{{url.elementId}}" class="col-sm-2 control-label">URL</label>
   <div class="col-sm-10">
-    {{input id='url' placeholder='https://...' value=model.tracker.data.url class='form-control' autocomplete='false'}}
+    {{input viewName='url' placeholder='https://...' value=model.tracker.data.url class='form-control' autocomplete='false'}}
   </div>
 </div>
 <div class="form-group">
@@ -22,15 +22,15 @@
   </div>
 </div>
 <div class="form-group">
-  <label for="projectId" class="col-sm-2 control-label">Project</label>
+  <label for="{{projectId.elementId}}" class="col-sm-2 control-label">Project</label>
   <div class="col-sm-10">
-    {{input id='projectId' placeholder='Project Id' value=model.tracker.data.projectId class='form-control' autocomplete='false'}}
+    {{input viewName='projectId' placeholder='Project Id' value=model.tracker.data.projectId class='form-control' autocomplete='false'}}
   </div>
 </div>
 <div class="form-group">
-  <label for="apikey" class="col-sm-2 control-label">API Key</label>
+  <label for="{{apikey.elementId}}" class="col-sm-2 control-label">API Key</label>
   <div class="col-sm-10">
-    {{input id='apikey' placeholder='' value=model.tracker.data.apikey class='form-control' autocomplete='false'}}
+    {{input viewName='apikey}}' placeholder='' value=model.tracker.data.apikey class='form-control' autocomplete='false'}}
     <small>Get your API-Key <a href="{{model.tracker.data.url}}/my/account" target="_blank">here!</a></small>
   </div>
 </div>

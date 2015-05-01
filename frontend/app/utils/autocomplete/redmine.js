@@ -3,20 +3,21 @@ import moment   from 'moment'
 import safehtml from 'timed/utils/safehtml'
 
 const LIMIT = 100 // Maximum limit is 100
+const { computed } = Ember
 
 export default Ember.Object.extend({
 
   issues: null
 
-, url: function() {
-    let data = this.project.get('tracker.data')
+, url: computed({
+    get() {
+      let data = this.project.get('tracker.data')
 
-    return `${data.url}/projects/${data.projectId}`
-  }.property()
+      return `${data.url}/projects/${data.projectId}`
+    }
+  })
 
-, logo: function() {
-    return '/assets/tracker/redmine.png'
-  }.property()
+, logo: '/assets/tracker/redmine.png'
 
 , searchIssues(/*term = ''*/) {
     if (this.get('issues')) {
@@ -29,7 +30,7 @@ export default Ember.Object.extend({
   }
 
 , mapIssueToSelectize(data) {
-    let subject = `${data.tracker.name}: ${data.subject}`
+    let subject = `${data.tracker.name} ${data.id}: ${data.subject}`
 
     return {
       id:      data.id
@@ -48,7 +49,7 @@ export default Ember.Object.extend({
     }
 
     let html = safehtml`<div class="option">
-      <div><strong>${data.raw.tracker.name}</strong>: ${data.raw.subject}</div>
+      <div><strong>${data.raw.tracker.name} ${data.raw.id}</strong>: ${data.raw.subject}</div>
       <div>
         <small class="nowrap"><strong>Author</strong>: ${data.raw.author.name}</small>
         <small class="nowrap"><strong>Created</strong>: ${data.created.format('YYYY-MM-DD')}</small>

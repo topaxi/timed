@@ -48,9 +48,15 @@ a:focus, .btn:focus, .btn:active:focus {
   color: #fff
 }
 
+.dark-loading-img  { content: url('loading16.png') }
+.light-loading-img { content: url('loading16i.png') }
+
+.no-apng .dark-loading-img  { content: url('loading16.gif') }
+.no-apng .light-loading-img { content: url('loading16i.gif') }
+
 .active-link a::before {
+  &:extend(.dark-loading-img all);
   opacity: 0;
-  content: url('loading16.png');
   position: absolute;
   height: 16px;
   top: calc(~'50% - 8px');
@@ -60,18 +66,18 @@ a:focus, .btn:focus, .btn:active:focus {
 
 .navbar-inverse {
   .active-link a::before {
-    content: url('loading16i.png');
+    &:extend(.light-loading-img all);
   }
 }
 
 .btn.loading::before {
-  content: url('loading16.png');
+  &:extend(.dark-loading-img all);
   vertical-align: middle;
   margin-right: 0.5em
 }
 
 .btn-primary.loading::before {
-  content: url('loading16i.png')
+  &:extend(.light-loading-img all);
 }
 
 .active-link a.ember-transitioning-in::before {

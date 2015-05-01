@@ -3,18 +3,22 @@ import Session           from 'simple-auth/session'
 import AuthenticatorBase from 'simple-auth/authenticators/base'
 import AuthorizerBase    from 'simple-auth/authorizers/base'
 
+const { computed } = Ember
+
 Session.reopen({
-  user: function() {
-    let userId = this.get('userId')
+  user: computed('userId', {
+    get() {
+      let userId = this.get('userId')
 
-    if (userId) {
-      let store = this.container.lookup('store:main')
+      if (userId) {
+        let store = this.container.lookup('store:main')
 
-      return store.find('user', userId).then(user =>
-        this.set('user', user)
-      )
+        return store.find('user', userId).then(user =>
+          this.set('user', user)
+        )
+      }
     }
-  }.property('userId')
+  })
 })
 
 let Authenticator = AuthenticatorBase.extend({

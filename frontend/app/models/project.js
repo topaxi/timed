@@ -1,30 +1,38 @@
+import Ember   from 'ember'
 import DS      from 'ember-data'
 import Model   from './model'
 import Github  from '../utils/autocomplete/github'
 import Redmine from '../utils/autocomplete/redmine'
 
+const { computed } = Ember
+const { attr, belongsTo, hasMany } = DS
+
 export default Model.extend({
-  'name':           DS.attr('string')
-, 'customer':       DS.belongsTo('customer', { 'async': true })
-, 'projectLeaders': DS.hasMany('user', { 'async': true, 'inverse': null })
-, 'tasks':          DS.hasMany('task', { 'async': true })
-, 'tracker':        DS.attr('object', { 'defaultValue': { 'data': {} } })
-, 'from':           DS.attr('moment')
-, 'to':             DS.attr('moment')
-, 'done':           DS.attr('boolean')
+  name:           attr('string')
+, customer:       belongsTo('customer', { async: true })
+, projectLeaders: hasMany('user', { async: true, inverse: null })
+, tasks:          hasMany('task', { async: true })
+, tracker:        attr('object', { defaultValue: { data: {} } })
+, from:           attr('moment')
+, to:             attr('moment')
+, done:           attr('boolean')
 
-, 'searchName': function() {
-    return `${this.get('customer.name')} - ${this.get('name')}`
-  }.property('customer.name', 'name')
-
-, 'autocomplete': function() {
-    switch (this.get('tracker.type')) {
-      case 'github':  return Github.create({ project: this })
-      case 'redmine': return Redmine.create({ project: this })
+, searchName: computed('customer.name', 'name', {
+    get() {
+      return `${this.get('customer.name')} - ${this.get('name')}`
     }
-  }.property('tracker.type')
+  })
 
-, 'searchIssues': function(term = '') {
+, autocomplete: computed('tracker.type', {
+    get() {
+      switch (this.get('tracker.type')) {
+        case 'github':  return Github.create({ project: this })
+        case 'redmine': return Redmine.create({ project: this })
+      }
+    }
+  })
+
+, searchIssues(term = '') {
     return this.get('autocomplete').searchIssues(term)
   }
 })

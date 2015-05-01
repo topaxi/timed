@@ -1,13 +1,13 @@
 <div class="form-group">
-  <label for="repo" class="col-sm-2 control-label">Github Repo</label>
+  <label for="{{repo.elementId}}" class="col-sm-2 control-label">Github Repo</label>
   <div class="col-sm-10">
-    {{input id='repo' placeholder='Repo name' value=model.tracker.data.repo class='form-control' autocomplete='false'}}
+    {{input viewName='repo' placeholder='Repo name' value=model.tracker.data.repo class='form-control' autocomplete='false'}}
   </div>
 </div>
 <div class="form-group">
-  <label for="apikey" class="col-sm-2 control-label">API Key</label>
+  <label for="{{apikey.elementId}}" class="col-sm-2 control-label">API Key</label>
   <div class="col-sm-10">
-    {{input id='apikey' placeholder='' value=model.tracker.data.apikey class='form-control' autocomplete='false'}}
+    {{input viewName='apikey' placeholder='' value=model.tracker.data.apikey class='form-control' autocomplete='false'}}
     <small>Get your API-Key <a href="https://github.com/settings/applications" target="_blank">here!</a></small>
   </div>
 </div>

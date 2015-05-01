@@ -1,4 +1,4 @@
-{{#liquid-with pagedModels as tasks}}
+{{#liquid-with pagedModels as |tasks|}}
   <table class="table">
     <colgroup>
       <col>
@@ -9,7 +9,7 @@
       <tr>
         <th colspan="2">Name</th>
         <th>
-          {{#link-to 'task.new' tagName='button' class='btn btn-sm btn-default'}}
+          {{#link-to 'task.new' project tagName='button' class='btn btn-sm btn-default'}}
             <span class="glyphicon glyphicon-plus"></span>
             Create new task
           {{/link-to}}
@@ -17,10 +17,10 @@
       </tr>
     </thead>
     <tbody>
-      {{#each task in tasks}}
+      {{#each tasks as |task|}}
         <tr>
           <td class="nowrap">
-            {{#link-to 'task.edit' task}}
+            {{#link-to 'task.edit' project task}}
               {{#if task.done}}
                 <del>{{task.name}}</del>
               {{else}}

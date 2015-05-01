@@ -2,16 +2,22 @@ import Ember  from 'ember'
 import DS     from 'ember-data'
 import Notify from 'ember-notify'
 
+const { computed, inject } = Ember
+
 export default DS.RESTAdapter.extend({
-  'namespace': 'api/v1'
-, 'coalesceFindRequests': true
-, 'socket': Ember.inject.service()
-, 'headers': function() {
-    return {
-      'X-Timed-Current-Socket': this.get('socket.connection.id') || ''
+  namespace:            'api/v1'
+, coalesceFindRequests: true
+, socket:               inject.service()
+
+, headers: computed({
+    get() {
+      return {
+        'X-Timed-Current-Socket': this.get('socket.connection.id') || ''
+      }
     }
-  }.property().volatile()
-, 'ajaxError': function(xhr) {
+  }).volatile()
+
+, ajaxError(xhr) {
     let error
 
     try {

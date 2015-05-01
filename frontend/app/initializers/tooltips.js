@@ -5,7 +5,7 @@ export default {
 , initialize: function() {
     Ember.$('body').tooltip({
       'selector': '.tip'
-    , 'container': 'main'
+    , 'container': 'body'
     })
   }
 }

@@ -49,7 +49,7 @@ test('it updates the tooltip', function(assert) {
 
     $tip.trigger('mouseover')
 
-    assert.equal($tip.parent().find('.tooltip').text(), 'Follow Project 1')
+    assert.equal(Ember.$('.tooltip').text(), 'Follow Project 1')
   })
 })
 

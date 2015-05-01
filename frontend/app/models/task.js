@@ -2,36 +2,43 @@ import Ember from 'ember'
 import DS    from 'ember-data'
 import Model from './model'
 
-export default Model.extend({
-  'name':     DS.attr('string')
-, 'project':  DS.belongsTo('project', { 'async': true })
-, 'duration': DS.attr('number')
-, 'from':     DS.attr('moment')
-, 'to':       DS.attr('moment')
-, 'priority': DS.attr('number')
-, 'done':     DS.attr('boolean')
+const { computed } = Ember
+const { attr, belongsTo } = DS
 
-, 'updateProgress': function() {
+export default Model.extend({
+  name:     attr('string')
+, project:  belongsTo('project', { async: true })
+, duration: attr('number')
+, from:     attr('moment')
+, to:       attr('moment')
+, priority: attr('number')
+, done:     attr('boolean')
+
+, updateProgress: function() {
     return Ember.$.getJSON(`/api/v1/tasks/${this.id}/progress`).then(res =>
       this.set('progress', res.progress)
     )
   }
 
-, 'progress': function() {
-    this.updateProgress()
+, progress: computed({
+    get() {
+      this.updateProgress()
 
-    return 0
-  }.property()
-
-, 'percent': function() {
-    let duration = this.get('duration')
-
-    if (!duration) {
       return 0
     }
+  })
 
-    duration = duration * 1000 * 60 * 60
+, percent: computed('duration', 'progress', {
+    get() {
+      let duration = this.get('duration')
 
-    return this.get('progress') / duration * 100
-  }.property('duration', 'progress')
+      if (!duration) {
+        return 0
+      }
+
+      duration = duration * 1000 * 60 * 60
+
+      return this.get('progress') / duration * 100
+    }
+  })
 })

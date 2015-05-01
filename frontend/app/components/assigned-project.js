@@ -1,20 +1,29 @@
-import Ember from 'ember';
+import Ember from 'ember'
+
+const { computed } = Ember
 
 export default Ember.Component.extend({
-  'tagName': 'table'
-, 'classNames': [ 'table' ]
+  tagName: 'table'
+, classNames: [ 'table' ]
 
-, 'assignedTasks': function() {
-    if (this.assignment.get('tasks.length')) {
-      return this.assignment.get('tasks')
+, assignedTasks: computed('assignment.tasks.@each', 'assignment.project.tasks.@each', {
+    get() {
+      let tasks       = this.assignment.get('tasks')
+      let tasksLength = this.assignment.get('tasks.length')
+
+      if (!tasksLength) {
+        tasks = this.assignment.get('project.tasks')
+      }
+
+      return tasks
     }
+  })
 
-    return this.assignment.get('project.tasks')
-  }.property('assignment.tasks.@each', 'assignment.project.tasks.@each')
+, tasks: computed('assignedTasks', 'assignedTasks.@each.isDone', {
+    get() {
+      let tasks = this.get('assignedTasks') || []
 
-, 'tasks': function() {
-    let tasks = this.get('assignedTasks') || []
-
-    return tasks.filter(t => !t.get('done'))
-  }.property('assignedTasks', 'assignedTasks.@each.isDone')
+      return tasks.filter(t => !t.get('done'))
+    }
+  })
 })

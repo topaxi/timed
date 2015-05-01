@@ -1,10 +1,15 @@
-import Ember from 'ember';
+import Ember from 'ember'
 
 export default Ember.Route.extend({
-  model: function() {
-    return this.store.find('task', { 'project': this.modelFor('project.edit').id })
-    // TODO: Somehow, ember does not make requests through getter, fetching tasks through
-    //       the store for now...
-    // return this.modelFor('project.edit').get('tasks')
+  setupController(controller, ...args) {
+    this._super(controller, ...args)
+
+    controller.set('project', this.modelFor('project.edit'))
+  }
+
+, model() {
+    let project = this.modelFor('project.edit')
+
+    return this.store.find('task', { 'project': project.id }, { project })
   }
 })

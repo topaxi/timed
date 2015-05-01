@@ -1,13 +1,18 @@
 import Ember from 'ember'
 
+const { computed, observer } = Ember
+
 export default Ember.Component.extend({
   tagName: 'span'
+, classNames: [ 'dib' ]
 
-, title: function() {
-    return `${this.get('isFollowing') ? 'Unfollow' : 'Follow'} ${this.get('project.name')}`
-  }.property('project.name', 'isFollowing')
+, title: computed('project.name', 'isFollowing', {
+    get() {
+      return `${this.get('isFollowing') ? 'Unfollow' : 'Follow'} ${this.get('project.name')}`
+    }
+  })
 
-, fixTooltip: function() {
+, fixTooltip: observer('title', function() {
     let tooltip = this.$('.tip')
 
     tooltip.prop('title', this.get('title'))
@@ -16,20 +21,22 @@ export default Ember.Component.extend({
     if (tooltip.is(':hover')) {
       tooltip.tooltip('show')
     }
-  }.observes('title')
+  })
 
-, isFollowing: function() {
-    let projects = this.get('session.user.projects')
+, isFollowing: computed('session.user.projects.@each', {
+    get() {
+      let projects = this.get('session.user.projects')
 
-    if (!projects) {
-      return false
+      if (!projects) {
+        return false
+      }
+
+      return projects.contains(this.get('project'))
     }
-
-    return projects.contains(this.get('project'))
-  }.property('session.user.projects.@each')
+  })
 
 , actions: {
-    follow: function() {
+    follow() {
       let user     = this.session.get('user')
       let projects = user.get('projects')
       let action   = this.get('isFollowing') ? 'removeObject' : 'addObject'

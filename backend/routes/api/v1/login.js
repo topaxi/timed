@@ -10,9 +10,9 @@ router.post('/login', (req, res, next) =>
     if (err)   return next(err)
     if (!user) return next({ status, message: info.message })
 
-    req.login(user, err => {
+    req.login(user, loginError => {
       /* istanbul ignore if */
-      if (err) return next(err)
+      if (loginError) return next(loginError)
 
       res.send({ sessionId: req.sessionID, userId: req.user.id })
     })
@@ -20,11 +20,10 @@ router.post('/login', (req, res, next) =>
 )
 
 router.get('/whoami', (req, res) => {
-  let [ ip ]  = req.ips
   let userId  = req.user && req.user.id
   let version = app.get('version')
 
-  res.send({ userId, ip, version })
+  res.send({ userId, version })
 })
 
 router.get('/logout', logout)

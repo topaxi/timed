@@ -1,4 +1,6 @@
-<h1>{{follow-project project=model}} {{model.name}}</h1>
+{{follow-project project=model class='h1'}}
+
+<h1 class="dib" data-model-id={{model.id}}>{{model.name}}</h1>
 
 <ul class="nav nav-tabs">
   {{#active-link}}
@@ -6,7 +8,7 @@
   {{/active-link}}
 
   {{#active-link}}
-    {{#link-to 'task'}}Tasks{{/link-to}}
+    {{#link-to 'task' model}}Tasks{{/link-to}}
   {{/active-link}}
 </ul>
 

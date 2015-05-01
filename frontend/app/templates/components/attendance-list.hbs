@@ -53,9 +53,16 @@
         <th></th>
       </tr>
     </thead>
+    <tfoot>
+      <tr>
+        <th colspan="2">Total duration:</th>
+        <td colspan="2" class="tar">{{attendance.activityDuration}}</td>
+        <td></td>
+      </tr>
+    </tfoot>
     <tbody>
       {{#each activity in attendance.activities}}
-        <tr {{bind-attr class=':attendance-list-activity activity.review:danger'}}>
+        <tr class="attendance-list-activity {{if activity.review 'warning'}} {{if activity.nta 'danger'}}">
           <td>
             <small>
               {{activity.task.project.customer.name}}

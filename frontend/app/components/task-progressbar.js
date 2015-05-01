@@ -1,37 +1,45 @@
-import Ember from 'ember';
-import promiseDelay from '../utils/promise-delay';
+import Ember        from 'ember'
+import promiseDelay from '../utils/promise-delay'
+
+const { computed } = Ember
 
 export default Ember.Component.extend({
-  classNames: [ 'progress' ]
+  classNames:        [ 'progress' ]
 , attributeBindings: [ 'title' ]
 
-, percent: Ember.computed.alias('task.percent')
+, percent: computed.alias('task.percent')
 
-, title: function() {
-    return `${this.get('percent') | 0}%`
-  }.property('percent')
-
-, info: function() {
-    let percent = this.get('percent')
-
-    if (percent > 100) {
-      return 100 / percent * 100
+, title: computed('percent', {
+    get() {
+      return `${this.get('percent') | 0}%`
     }
+  })
 
-    return percent
-  }.property('percent')
+, info: computed('percent', {
+    get() {
+      let percent = this.get('percent')
 
-, warning: function() {
-    let percent = this.get('percent')
+      if (percent > 100) {
+        return 100 / percent * 100
+      }
 
-    if (percent > 100) {
-      let warning = percent - 100
-
-      return warning / percent * 100
+      return percent
     }
+  })
 
-    return 0
-  }.property('percent')
+, warning: computed('percent', {
+    get() {
+      let percent = this.get('percent')
+
+      if (percent > 100) {
+        let warning = percent - 100
+
+        return warning / percent * 100
+      }
+
+      return 0
+    }
+  })
 
 , update: function() {
     this.$('.progress-bar-info').css('width', `${this.get('info')}%`)

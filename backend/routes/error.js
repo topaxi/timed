@@ -8,6 +8,16 @@ export default function(err, req, res, next) {
     error = new HttpError(err.message, err.status)
   }
 
+  // istanbul ignore next
+  if (!error.status) {
+    error.status = 500
+  }
+
+  // istanbul ignore next
+  if (error.status === 500) {
+    console.error(error.stack)
+  }
+
   res.status(error.status)
   res.send({
     message: error.message

@@ -1,10 +1,12 @@
-import Ember from 'ember';
-import moment from 'moment';
+import Ember  from 'ember'
+import moment from 'moment'
+
+const { computed, observer } = Ember
 
 export default Ember.Controller.extend({
-  'dateFormat': 'L LT'
+  dateFormat: 'L LT'
 
-, 'createAttendance': function() {
+, createAttendance: observer('model', function() {
     let model = this.get('model')
 
     if (moment.isMoment(model)) {
@@ -13,22 +15,26 @@ export default Ember.Controller.extend({
       , 'user': this.container.lookup('simple-auth-session:main').get('user')
       }))
     }
-  }.observes('model')
+  })
 
-, 'from': function() {
-    let from = this.get('model.from')
+, from: computed('model.from', {
+    get() {
+      let from = this.get('model.from')
 
-    return from && from.format(this.dateFormat)
-  }.property('model.from')
+      return from && from.format(this.dateFormat)
+    }
+  })
 
-, 'to': function() {
-    let to = this.get('model.to')
+, to: computed('model.to', {
+    get() {
+      let to = this.get('model.to')
 
-    return to && to.format(this.dateFormat)
-  }.property('model.to')
+      return to && to.format(this.dateFormat)
+    }
+  })
 
-, 'actions': {
-    'save': function() {
+, actions: {
+    save() {
       let attendance = this.get('model')
 
       attendance.set('from', moment(this.get('from'), this.dateFormat))
@@ -37,7 +43,7 @@ export default Ember.Controller.extend({
       attendance.save()
     }
 
-  , 'delete': function() {
+  , delete() {
       this.get('model').destroyRecord()
     }
   }

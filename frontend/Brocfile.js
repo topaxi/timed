@@ -27,6 +27,8 @@ var app      = new EmberApp({
 app.import('vendor/babel-polyfill.js', { 'prepend': true })
 app.import('bower_components/fetch/fetch.js')
 
+app.import('bower_components/ramjet/dist/ramjet.js')
+
 app.import('bower_components/socket.io-client/socket.io.js', { 'exports': { 'io': [ 'default' ] } })
 
 app.import('bower_components/jquery-ui/ui/core.js')

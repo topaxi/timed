@@ -1,4 +1,4 @@
-<h1>{{model.name}}</h1>
+<h1 class="dib" data-model-id={{model.id}}>{{model.name}}</h1>
 
 <ul class="nav nav-tabs">
   {{#active-link}}
@@ -6,7 +6,7 @@
   {{/active-link}}
 
   {{#active-link}}
-    {{#link-to 'team.edit.manage'}}Manage{{/link-to}}
+    {{#link-to 'team.edit.manage' model}}Manage{{/link-to}}
   {{/active-link}}
 </ul>
 

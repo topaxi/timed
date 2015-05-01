@@ -1,4 +1,5 @@
-import Ember from 'ember';
+import Ember from 'ember'
+import moment from 'moment'
 
 export default Ember.Controller.extend({
   isNew: false
@@ -45,6 +46,22 @@ export default Ember.Controller.extend({
       .finally(() =>
         this.set('fetchingIssues', false)
       )
+    }
+
+    , setTaskData(issue) {
+      if (issue && issue.type === 'redmine') {
+        if (issue.raw.estimated_hours) {
+          this.model.set('duration', issue.raw.estimated_hours)
+        }
+
+        if (issue.raw.start_date) {
+          this.model.set('from', moment(issue.raw.start_date, 'YYYY-MM-DD'))
+        }
+
+        if (issue.raw.due_date) {
+          this.model.set('to', moment(issue.raw.due_date, 'YYYY-MM-DD'))
+        }
+      }
     }
   }
 })

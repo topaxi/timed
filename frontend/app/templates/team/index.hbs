@@ -18,7 +18,9 @@
       {{#each team in teams}}
         <tr>
           <td>
-            {{#link-to 'team.edit' team}}{{team.name}}{{/link-to}}
+            <div class="dib" data-model-id={{team.id}}>
+              {{#link-to 'team.edit' team}}{{team.name}}{{/link-to}}
+            </div>
           </td>
           <td class="tar">
             {{team.users.length}}

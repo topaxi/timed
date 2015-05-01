@@ -50,20 +50,20 @@ export default Ember.Controller.extend({
       }
     }
 
-    , setTaskData(issue) {
-      if (issue && issue.type === 'redmine') {
-        if (issue.raw.estimated_hours) {
-          this.model.set('duration', issue.raw.estimated_hours)
-        }
+  , setTaskData(issue) {
+    if (issue && issue.type === 'redmine') {
+      if (issue.raw.estimated_hours) {
+        this.model.set('duration', issue.raw.estimated_hours)
+      }
 
-        if (issue.raw.start_date) {
-          this.model.set('from', moment(issue.raw.start_date, 'YYYY-MM-DD'))
-        }
+      if (issue.raw.start_date) {
+        this.model.set('from', moment(issue.raw.start_date, 'YYYY-MM-DD'))
+      }
 
-        if (issue.raw.due_date) {
-          this.model.set('to', moment(issue.raw.due_date, 'YYYY-MM-DD'))
-        }
+      if (issue.raw.due_date) {
+        this.model.set('to', moment(issue.raw.due_date, 'YYYY-MM-DD'))
       }
     }
+  }
   }
 })

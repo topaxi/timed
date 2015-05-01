@@ -6,8 +6,6 @@ import { Task, Attendance } from '../../../models'
 let router = new Router
 export default router
 
-const lean = true
-
 router.get('/tasks', async(req, res, next) => {
   let { ids } = req.query
   let query   = ids && ids.length ? { '_id': { '$in': ids } } : req.query

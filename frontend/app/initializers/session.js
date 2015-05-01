@@ -42,7 +42,7 @@ let Authenticator = AuthenticatorBase.extend({
 
     return json
   }
-, async restore(data) {
+, restore(data) {
     if (Ember.isEmpty(data.sessionId)) {
       throw new Error('No sessionId to restore found')
     }

@@ -121,7 +121,7 @@ describe('POST /api/v1/users', () => {
       .send({ 'user': { name: 'User A', password: '123456' } })
       .expect('Content-Type', /json/)
       .expect(201)
-      .end((err, res) => {
+      .end(async(err, res) => {
         if (err) {
           return done(err)
         }
@@ -129,13 +129,16 @@ describe('POST /api/v1/users', () => {
         expect(res.body.user._id,  'id')  .to.be.a('string')
         expect(res.body.user.name, 'name').to.equal('User A')
 
-        User.findById(res.body.user._id, (err, user) => {
-          if (err) return done(err)
+        try {
+          let user = await User.findById(res.body.user._id).exec()
 
-          expect(user.comparePassword('123456'))
-            .to.eventually.be.true.then(() => done())
-                                  .catch(err => done(err))
-        })
+          await expect(user.comparePassword('123456')).to.eventually.be.true
+
+          done()
+        }
+        catch (e) {
+          done(e)
+        }
       })
   })
 })
@@ -184,18 +187,21 @@ describe('PUT /api/v1/users/1', () => {
       .send({ 'user': { password: '123456' } })
       .expect('Content-Type', /json/)
       .expect(200)
-      .end((err, res) => {
+      .end(async(err, res) => {
         if (err) {
           return done(err)
         }
 
-        User.findById(id, (err, user) => {
-          if (err) return done(err)
+        try {
+          let user = await User.findById(id).exec()
 
-          expect(user.comparePassword('123456'))
-            .to.eventually.be.true.then(() => done())
-                                  .catch(err => done(err))
-        })
+          await expect(user.comparePassword('123456')).to.eventually.be.true
+
+          done()
+        }
+        catch (e) {
+          done(e)
+        }
       })
   })
 })

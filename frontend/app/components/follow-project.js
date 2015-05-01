@@ -4,6 +4,7 @@ const { computed, observer } = Ember
 
 export default Ember.Component.extend({
   tagName: 'span'
+, classNames: [ 'dib' ]
 
 , title: computed('project.name', 'isFollowing', {
     get() {

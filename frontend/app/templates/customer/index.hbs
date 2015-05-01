@@ -11,7 +11,9 @@
       {{#each customer in customers}}
         <tr>
           <td>
-            {{#link-to 'customer.edit' customer}}{{customer.name}}{{/link-to}}
+            <div class="dib" data-model-id={{customer.id}}>
+              {{#link-to 'customer.edit' customer}}{{customer.name}}{{/link-to}}
+            </div>
           </td>
         </tr>
       {{/each}}

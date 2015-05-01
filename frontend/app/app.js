@@ -1,4 +1,4 @@
-/* globals define, moment, vis, io */
+/* globals define, moment, vis, io, ramjet */
 
 import Ember            from 'ember'
 import Resolver         from 'ember/resolver'
@@ -13,6 +13,10 @@ let App = Ember.Application.extend({
 , 'podModulePrefix': config.podModulePrefix
 , 'Resolver':        Resolver
 })
+
+define('ramjet', () => ({
+  'default': ramjet
+}))
 
 define('moment', () => ({
   'default': moment

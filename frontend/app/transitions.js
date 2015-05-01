@@ -20,6 +20,17 @@ export default function() {
   , this.reverse('toRight')
   )
 
+  let indexEditExplode = {
+    matchBy: 'data-model-id'
+  , use:     [ 'ramjet' ]
+  }
+  this.transition(
+    this.fromRoute([ 'project.index', 'customer.index', 'team.index', 'user.index' ])
+  , this.toRoute([ 'project.edit', 'customer.edit', 'team.edit', 'user.edit' ])
+  , this.use('explode', indexEditExplode)
+  , this.reverse('explode', indexEditExplode)
+  )
+
   this.transition(
     this.fromRoute('login')
   , this.use('toUp')

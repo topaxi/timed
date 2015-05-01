@@ -17,7 +17,9 @@
       {{#each user in users}}
         <tr>
           <td>
-            {{#link-to 'user.edit.edit' user}}{{user.name}}{{/link-to}}
+            <div class="dib" data-model-id={{user.id}}>
+              {{#link-to 'user.edit.edit' user}}{{user.name}}{{/link-to}}
+            </div>
           </td>
           <td>
             {{user.fullName}}

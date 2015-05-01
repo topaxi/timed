@@ -25,7 +25,9 @@
             {{project.customer.name}}
           </td>
           <td>
-            {{#link-to 'project.edit' project}}{{project.name}}{{/link-to}}
+            <div class="dib" data-model-id={{project.id}}>
+              {{#link-to 'project.edit' project}}{{project.name}}{{/link-to}}
+            </div>
           </td>
           <td>
             {{date-format project.from 'YYYY-MM-DD'}}{{#if project.to}} - {{date-format project.to 'YYYY-MM-DD'}}{{/if}}

@@ -1,9 +1,9 @@
 <form class="form-horizontal" {{action 'submit' on='submit'}}>
-  <h1>
+  <h1 class="dib" data-model-id={{model.id}}>
     {{#liquid-if model.isNew use='toUp'}}
       Create customer
     {{else}}
-      Edit {{model.name}}
+      {{model.name}}
     {{/liquid-if}}
   </h1>
 

@@ -28,6 +28,8 @@ var app      = new EmberApp({
 // along with the exports of each module as its value.
 app.import('vendor/babel-polyfill.js')
 
+app.import('bower_components/ramjet/dist/ramjet.js')
+
 app.import('bower_components/socket.io-client/socket.io.js', { 'exports': { 'io': [ 'default' ] } })
 
 app.import('bower_components/jquery-ui/ui/core.js')

@@ -1,7 +1,4 @@
 {
-  "env": {
-    "qunit": true
-  },
   "ecmaFeatures": {
     "blockBindings": true,
     "modules": true,

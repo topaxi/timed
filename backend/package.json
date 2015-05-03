@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node_modules/.bin/babel-node src/main",
+    "start": "babel-node src/main",
     "watch": "nodemon src/main",
     "test": "make test"
   },

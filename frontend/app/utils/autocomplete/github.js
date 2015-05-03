@@ -1,5 +1,6 @@
 /* jshint ignore:start */
 import Ember    from 'ember'
+import Notify   from 'ember-notify'
 import moment   from 'moment'
 import safehtml from 'timed/utils/safehtml'
 
@@ -20,15 +21,28 @@ export default Ember.Object.extend({
 , async searchIssues(term = '') {
     let data = this.project.get('tracker.data')
     let q    = `${term} repo:${data.repo}`
-    let res  = await Ember.$.ajax({
-      url: 'https://api.github.com/search/issues'
-    , data: { q }
-    , headers: {
+    let res  = await fetch(`https://api.github.com/search/issues?q=${q}`, {
+      headers: {
         'Authorization': `token ${data.apikey}`
       }
     })
 
-    return res.items.map(i => this.mapIssueToSelectize(i))
+    if (!res.ok) {
+      let { message, documentation_url: url } = await res.json() // eslint-disable-line
+
+      if (!Ember.$('#github-ratelimit').length) {
+        Notify.error({
+          raw:        `<a id="github-ratelimit" href="${url}">${message}</a>`
+        , closeAfter: null
+        })
+      }
+
+      return []
+    }
+
+    let { items } = await res.json()
+
+    return items.map(this.mapIssueToSelectize)
   }
 
 , mapIssueToSelectize(data) {

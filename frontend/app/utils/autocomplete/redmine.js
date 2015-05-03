@@ -26,7 +26,7 @@ export default Ember.Object.extend({
     }
 
     let issues = await this._fetch()
-    this.set('issues', issues.map(i => this.mapIssueToSelectize(i)))
+    this.set('issues', issues.map(this.mapIssueToSelectize))
   }
 
 , mapIssueToSelectize(data) {

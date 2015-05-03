@@ -13,6 +13,7 @@
     "bcrypt": "^0.8.2",
     "body-parser": "^1.10.2",
     "connect-mongo": "^0.8.0",
+    "denodeify": "^1.2.1",
     "express": "topaxi/express#express-4.x-promise",
     "express-session": "^1.10.1",
     "git-repo-version": "^0.2.0",

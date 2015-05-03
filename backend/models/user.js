@@ -1,5 +1,10 @@
 import mongoose, { Schema } from 'mongoose'
 import bcrypt               from 'bcrypt'
+import denodeify            from 'denodeify'
+
+const compareHash = denodeify(bcrypt.compare)
+const genSalt     = denodeify(bcrypt.genSalt)
+const hash        = denodeify(bcrypt.hash)
 
 const PASSWORD_ROUNDS = 10
 
@@ -13,33 +18,20 @@ export const UserSchema = new Schema({
 , 'projects':  [ { type: Schema.Types.ObjectId, ref: 'Project' } ]
 })
 
-UserSchema.methods.setPassword = function(password) {
-  return encryptPassword(password).then(hash => this.password = hash)
+/* istanbul ignore next*/
+UserSchema.methods.setPassword = async function(password) {
+  this.password = await encryptPassword(password)
+
+  return this.password
 }
 
 UserSchema.methods.comparePassword = function(password) {
-  /* istanbul ignore next */
-  return new Promise((resolve, reject) =>
-    bcrypt.compare(password, this.password, (err, equal) =>
-      err ? reject(err) : resolve(equal)
-    )
-  )
+  return compareHash(password, this.password)
+}
+
+/* istanbul ignore next*/
+async function encryptPassword(password) {
+  return hash(password, await genSalt(PASSWORD_ROUNDS))
 }
 
 export default mongoose.model('User', UserSchema)
-
-/* istanbul ignore next */
-function encryptPassword(password) {
-  return new Promise((resolve, reject) =>
-    bcrypt.genSalt(PASSWORD_ROUNDS, (err, salt) =>
-      err ? reject(err) : resolve(salt)
-    )
-  )
-  .then(salt =>
-    new Promise((resolve, reject) =>
-      bcrypt.hash(password, salt, (err, hash) =>
-        err ? reject(err) : resolve(hash)
-      )
-    )
-  )
-}

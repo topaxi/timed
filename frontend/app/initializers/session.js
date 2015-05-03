@@ -26,7 +26,8 @@ let Authenticator = AuthenticatorBase.extend({
     let { identification: username, password } = credentials
 
     let response = await fetch('/api/v1/login', {
-      method: 'post'
+      method:      'post'
+    , credentials: 'same-origin'
     , headers: {
         'Accept':       'application/json'
       , 'Content-Type': 'application/json'
@@ -50,7 +51,7 @@ let Authenticator = AuthenticatorBase.extend({
     return data
   }
 , invalidate() {
-    return fetch('/api/v1/logout', { method: 'post' })
+    return fetch('/api/v1/logout', { method: 'post', credentials: 'same-origin' })
   }
 })
 

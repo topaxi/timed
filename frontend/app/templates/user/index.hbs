@@ -1,39 +1,37 @@
 <h1>Users</h1>
 
-{{#liquid-with pagedModels as users}}
-  <table class="table">
-    <colgroup>
-      <col width="300">
-      <col>
-      <col width="32">
-    </colgroup>
-    <thead>
+<table class="table">
+  <colgroup>
+    <col width="300">
+    <col>
+    <col width="32">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th colspan="2">Fullname</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each pagedModels as |user|}}
       <tr>
-        <th>Username</th>
-        <th colspan="2">Fullname</th>
+        <td>
+          <div class="dib" data-model-id={{user.id}}>
+            {{#link-to 'user.edit.edit' user}}{{user.name}}{{/link-to}}
+          </div>
+        </td>
+        <td>
+          {{user.fullName}}
+        </td>
+        <td>
+          {{#link-to 'user.edit.worktime' user tagName='button' class='btn btn-default tip' title='Edit worktime'}}
+            <span class="glyphicon glyphicon-stats"></span>
+          {{/link-to}}
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      {{#each user in users}}
-        <tr>
-          <td>
-            <div class="dib" data-model-id={{user.id}}>
-              {{#link-to 'user.edit.edit' user}}{{user.name}}{{/link-to}}
-            </div>
-          </td>
-          <td>
-            {{user.fullName}}
-          </td>
-          <td>
-            {{#link-to 'user.edit.worktime' user tagName='button' class='btn btn-default tip' title='Edit worktime'}}
-              <span class="glyphicon glyphicon-stats"></span>
-            {{/link-to}}
-          </td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-{{/liquid-with}}
+    {{/each}}
+  </tbody>
+</table>
 
 {{#if showPager}}
   {{pagination-pager current=page count=totalPages}}

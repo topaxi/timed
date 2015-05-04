@@ -9,12 +9,11 @@ export default Ember.Component.extend({
     , success:     (res, value) => this.sendAction('setValue', value)
     }
 
-    let $editable = Ember.$('<a>').editable(options)
-    this.set('$editable', $editable)
+    let $editable = Ember.$('<a>').addClass('editable').editable(options)
     this.$().append($editable)
   }.on('didInsertElement')
 
 , updateValue: function() {
-    this.get('$editable').editable('setValue', this.get('value'))
+    this.$('.editable').editable('setValue', this.get('value'))
   }.observes('value')
 })

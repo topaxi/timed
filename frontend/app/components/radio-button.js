@@ -6,9 +6,10 @@ export default Ember.Component.extend({
 
 , attributeBindings: [ 'checked', 'name', 'type', 'value' ]
 
-, setInitialValue: function() {
+, init(...args) {
+    this._super(...args)
     this.set('checked', this.get('value') === this.get('groupValue'))
-  }.on('didInsertElement')
+  }
 
 , checked: function() {
     if (this.get('value') === this.get('groupValue')) {

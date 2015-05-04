@@ -4,13 +4,18 @@ import moment from 'moment'
 const ICON = '<span class="input-group-addon pointer"><i class="glyphicon glyphicon-calendar"></i></span>'
 
 export default Ember.TextField.extend({
-  'readonly':   true
-, 'date':       null
-, 'format':     'YYYY-MM-DD'
-, 'classNames': [ 'form-control', 'pointer' ]
-, 'options':    { 'autoclose': true, 'todayHighlight': true, 'format': 'yyyy-mm-dd' }
+  readonly:   true
+, date:       null
+, format:     'YYYY-MM-DD'
+, classNames: [ 'form-control', 'pointer' ]
+, options:    { 'autoclose': true, 'todayHighlight': true, 'format': 'yyyy-mm-dd' }
 
-, 'updateValue': function() {
+, init(...args) {
+    this._super(...args)
+    this.updateValue()
+  }
+
+, updateValue: function() {
     let date = this.get('date')
 
     if (!date || !date.isValid()) {
@@ -20,7 +25,7 @@ export default Ember.TextField.extend({
     this.set('value', date.format(this.format))
   }.observes('date')
 
-, 'updateDate': function() {
+, updateDate: function() {
     let date = moment(this.get('value'), this.format).startOf('day')
 
     if (!date.isValid()) {
@@ -30,7 +35,7 @@ export default Ember.TextField.extend({
     this.set('date', date)
   }.observes('value')
 
-, 'updatePicker': function() {
+, updatePicker: function() {
     let date = this.get('date')
 
     if (date && date.isValid()) {
@@ -38,7 +43,7 @@ export default Ember.TextField.extend({
     }
   }.observes('date')
 
-, 'didInsertElement': function() {
+, setupDatepicker: function() {
     let $datepicker = this.$().datepicker(Ember.$.extend({}, this.options))
       , $icon       = Ember.$(ICON)
 
@@ -46,7 +51,5 @@ export default Ember.TextField.extend({
 
     $datepicker.wrap('<div class="input-group">').after($icon)
     $datepicker.on('changeDate', () => this.updateDate())
-
-    this.updateValue()
-  }
+  }.on('didInsertElement')
 })

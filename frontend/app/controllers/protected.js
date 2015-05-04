@@ -16,7 +16,14 @@ export default Ember.Controller.extend({
 
 , async loadInitialData() {
     try {
-      this.store.pushPayload(await Ember.$.get('/api/v1/init/payload'))
+      let res = await fetch('/api/v1/init/payload', {
+        credentials: 'same-origin'
+      , headers: {
+          Accept: 'application/json'
+        }
+      })
+
+      this.store.pushPayload(await res.json())
     }
     catch (e) {
       this.notify.error(e.message)

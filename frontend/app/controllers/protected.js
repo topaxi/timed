@@ -23,7 +23,9 @@ export default Ember.Controller.extend({
         }
       })
 
-      this.store.pushPayload(await res.json())
+      if (res.ok && res.status !== 404) {
+        this.store.pushPayload(await res.json())
+      }
     }
     catch (e) {
       this.notify.error(e.message)

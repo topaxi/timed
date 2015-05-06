@@ -83,6 +83,6 @@ test:
 
 travis:
 	make travis -C ./backend
-	npm test --prefix ./frontend
+	make travis -C ./frontend
 	# TODO: merge blanket lcov
 	./node_modules/.bin/lcov-result-merger ./backend/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js || true

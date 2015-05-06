@@ -28,12 +28,6 @@ install:
   - npm install --prefix ./frontend
   - bower install --config.cwd=frontend
 
-before_script:
-  - cd ./frontend && ember sauce:connect
-
-after_script:
-  - cd ./frontend && ember sauce:disconnect
-
 script:
   - make travis
 

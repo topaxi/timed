@@ -28,8 +28,19 @@ install:
   - npm install --prefix ./frontend
   - bower install --config.cwd=frontend
 
+before_script:
+  - cd ./frontend && ember sauce:connect
+
+after_script:
+  - cd ./frontend && ember sauce:disconnect
+
 script:
   - make travis
+
+env:
+  global:
+  - SAUCE_USERNAME=topaxi
+  - SAUCE_ACCESS_KEY=18e31e8d-09dd-4507-a172-eed0eef838e3
 
 notifications:
   email:

@@ -36,7 +36,9 @@
       "protocol": "browser"
     }
   },
-  "launch_in_dev": [],
+  "launch_in_dev": [
+    "PhantomJS"
+  ],
   "launch_in_ci": [
     "SL_Firefox_Current",
     "SL_Chrome_Current",

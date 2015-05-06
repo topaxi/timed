@@ -74,12 +74,11 @@ outdated:
 	cd frontend && npm outdated -depth 0
 	cd backend && npm outdated -depth 0
 
-test-server:
-	cd frontend && ember test --server
+test-frontend:
+	make test -C ./frontend
 
-test:
+test-backend:
 	make test -C ./backend
-	npm test --prefix ./frontend
 
 travis:
 	make travis -C ./backend

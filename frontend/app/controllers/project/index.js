@@ -15,7 +15,7 @@ export default Ember.Controller.extend(PagedControllerMixin, {
       let filter   = this.get('projectFilter').toLowerCase()
       let projects = this.get('model')
 
-      if (filter) {
+      if (filter.length > 2) {
         projects = projects.filter(project =>
           project.get('name').toLowerCase().includes(filter)
         )

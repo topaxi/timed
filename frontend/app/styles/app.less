@@ -55,7 +55,7 @@ a:focus, .btn:focus, .btn:active:focus {
 .no-apng .light-loading-img { content: url('loading16i.gif') }
 
 .active-link {
-  a::before {
+  &> a::before {
     &:extend(.dark-loading-img all);
     opacity: 0;
     visibility: hidden;
@@ -67,14 +67,14 @@ a:focus, .btn:focus, .btn:active:focus {
                 visibility 0.3s ease 0.05s
   }
 
-   a.ember-transitioning-in::before {
+   &> a.ember-transitioning-in::before {
     opacity: 1;
     visibility: visible
   }
 }
 
 .navbar-inverse {
-  .active-link a::before {
+  .active-link > a::before {
     &:extend(.light-loading-img all);
   }
 }

@@ -6,21 +6,18 @@ export default Ember.Route.extend({
   }
 
 , setupController(controller, model) {
-    let customers = this.store.all('customer')
+    this._super(controller, model)
 
-    controller.setProperties({ model, customers })
+    controller.set('customers', this.store.all('customer'))
   }
 
 , beforeModel() {
-    return Ember.RSVP.all([
-      this.store.find('customer')
-    , this.store.find('project')
-    ])
+    return this.store.find('customer')
   }
 
 , model({ customerId: customer }) {
     if (!customer || customer === 'null') {
-      return this.store.all('project')
+      return this.store.find('project')
     }
 
     return this.store.filter('project', { customer }, project =>

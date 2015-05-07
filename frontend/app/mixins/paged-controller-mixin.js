@@ -7,16 +7,18 @@ export default Ember.Mixin.create({
 , page:   1
 , limit: 10
 
-, totalPages: computed('model[]', 'limit', {
+, sortable: computed.alias('model')
+
+, totalPages: computed('sortable.@each', 'limit', {
     get() {
-      return Math.ceil(this.get('model.length') / this.get('limit'))
+      return Math.ceil(this.get('sortable.length') / this.get('limit'))
     }
   })
 
 , modelSort: [ ]
-, sortedModels: computed.sort('model', 'modelSort')
+, sortedModels: computed.sort('sortable', 'modelSort')
 
-, pagedModels: computed('sortedModels', 'sortedModels[]', 'page', 'totalPages', 'limit', {
+, pagedModels: computed('sortedModels', 'sortedModels.@each', 'page', 'totalPages', 'limit', {
     get() {
       let limit = this.get('limit')
       let start = (this.get('page') - 1) * limit

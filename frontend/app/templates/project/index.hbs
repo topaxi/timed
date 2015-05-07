@@ -10,16 +10,19 @@
   </colgroup>
   <thead>
     <tr>
-      <td colspan="5">
+      <td>
         {{ember-selectize
           placeholder     = 'Filter customer'
-          class           = 'form-control'
+          class           = 'form-control nowrap'
           content         = customers.content
           value           = customerId
           optionLabelPath = 'content.name'
           optionValuePath = 'content.id'
           select-item     = 'resetPaging'
           }}
+      </td>
+      <td>
+        {{input class='form-control' placeholder='Project filter...' value=projectFilter}}
       </td>
     </tr>
     <tr>

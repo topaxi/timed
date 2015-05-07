@@ -32,10 +32,14 @@ script:
   - make travis
 
 before_script:
-  - cd ./frontend && ember sauce:connect
+  - cd ./frontend
+  - ember sauce:connect
+  - cd ..
 
 after_script:
-  - cd ./frontend && ember sauce:disconnect
+  - cd ./frontend
+  - ember sauce:disconnect
+  - cd ..
 
 env:
   global:

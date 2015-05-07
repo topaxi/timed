@@ -5,6 +5,8 @@ Timed
 [![Coverage Status](https://coveralls.io/repos/topaxi/timed/badge.svg?branch=master)](https://coveralls.io/r/topaxi/timed?branch=master)
 [![Code Climate](https://codeclimate.com/github/topaxi/timed/badges/gpa.svg)](https://codeclimate.com/github/topaxi/timed)
 
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/timed.svg)](https://saucelabs.com/u/timed)
+
 node.js Timetracking Software
 
 Installation

@@ -3,17 +3,17 @@ import Ember  from 'ember'
 import ramjet from 'ramjet'
 
 export default function ramjetTransition({ easing = ramjet.linear, duration = 250 } = {}) {
-  let a = this.oldElement[0]
-  let b = this.newElement[0]
+  let oldElement = this.oldElement[0]
+  let newElement = this.newElement[0]
 
-  let promise = new Ember.RSVP.Promise((resolve) => {
-    b.style.visibility = ''
+  let promise = new Ember.RSVP.Promise(resolve => {
+    show(newElement)
 
-    ramjet.transform(a, b, {
+    ramjet.transform(oldElement, newElement, {
       easing,
       duration,
       done() {
-        b.style.visibility = ''
+        show(newElement)
         resolve()
       }
     })
@@ -23,9 +23,17 @@ export default function ramjetTransition({ easing = ramjet.linear, duration = 25
     // TODO: This can be removed, once https://github.com/ef4/liquid-fire/pull/273
     //       is merged and published
     this.oldView.element.style.opacity = 0
-    a.style.visibility = 'hidden'
-    b.style.visibility = 'hidden'
+    hide(oldElement)
+    hide(newElement)
   })
 
   return promise
+}
+
+function show(el) {
+  el.style.visibility = ''
+}
+
+function hide(el) {
+  el.style.visibility = 'hidden'
 }

@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "babel-node src/main",
+    "docker-import": "babel-node bin/import-devdata",
+    "new-user": "babel-node bin/user",
     "watch": "nodemon src/main",
     "test": "make test"
   },
@@ -36,6 +38,7 @@
     "gulp-istanbul-enforcer": "^1.0.3",
     "gulp-spawn-mocha": "^2.0.1",
     "mocha": "^2.2.3",
+    "nodemon": "^1.3.7",
     "socket.io-client": "^1.3.5",
     "supertest": "^0.15.0"
   }

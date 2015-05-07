@@ -1,0 +1,6 @@
+{ "title":   "Docker-Timed"
+, "mongodb": "mongodb://mongodb/timed"
+, "port":    80
+, "cookieSecret": "{#{oSR4ts.N;+h%Qk1=nTH86uJ*8e}a9/4[J[3Ra4/S*-/W7cvX8]r*/86).io27"
+, "trustProxy": "loopback"
+}

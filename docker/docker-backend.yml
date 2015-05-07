@@ -1,0 +1,8 @@
+backend:
+  image: iojs
+  volumes:
+    - ..:/usr/src/app
+    - backend/config.json:/usr/src/app/backend/config.json
+  command: npm --prefix=/usr/src/app/backend run watch
+  environment:
+    - NODE_ENV=development

@@ -1,7 +1,7 @@
 import Ember                from 'ember'
 import PagedControllerMixin from 'timed/mixins/paged-controller-mixin'
 
-const { computed } = Ember
+const { computed, observer } = Ember
 
 export default Ember.Controller.extend(PagedControllerMixin, {
   queryParams: [ { 'customerId': 'customer' } ]
@@ -23,5 +23,9 @@ export default Ember.Controller.extend(PagedControllerMixin, {
 
       return projects
     }
+  })
+
+, resetPaging: observer('projectFilter', function() {
+    this.send('resetPaging')
   })
 })

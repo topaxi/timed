@@ -1,13 +1,68 @@
 {
   "framework": "qunit",
   "test_page": "tests/index.html?hidepassed",
+  "parallel": 4,
   "launch_in_ci": [
-    "Firefox",
-    "PhantomJS"
+    "SL_android_5_1",
+    "SL_chrome_42",
+    "SL_firefox_37",
+    "SL_internet_explorer_11"
   ],
   "launch_in_dev": [
-    "PhantomJS",
-    "Firefox",
-    "Chrome"
-  ]
+    "PhantomJS"
+  ],
+  "launchers": {
+    "SL_chrome_42": {
+      "exe": "./node_modules/.bin/ember-cli-sauce",
+      "args": [
+        "-b",
+        "chrome",
+        "-v",
+        "42",
+        "--at",
+        "--no-ct",
+        "--u"
+      ],
+      "protocol": "browser"
+    },
+    "SL_firefox_37": {
+      "exe": "./node_modules/.bin/ember-cli-sauce",
+      "args": [
+        "-b",
+        "firefox",
+        "-v",
+        "37",
+        "--at",
+        "--no-ct",
+        "--u"
+      ],
+      "protocol": "browser"
+    },
+    "SL_internet_explorer_11": {
+      "exe": "./node_modules/.bin/ember-cli-sauce",
+      "args": [
+        "-b",
+        "internet explorer",
+        "-v",
+        "11",
+        "--at",
+        "--no-ct",
+        "--u"
+      ],
+      "protocol": "browser"
+    },
+    "SL_android_5_1": {
+      "exe": "./node_modules/.bin/ember-cli-sauce",
+      "args": [
+        "-b",
+        "android",
+        "-v",
+        "5.1",
+        "--at",
+        "--no-ct",
+        "--u"
+      ],
+      "protocol": "browser"
+    }
+  }
 }

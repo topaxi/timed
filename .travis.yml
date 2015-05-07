@@ -31,6 +31,21 @@ install:
 script:
   - make travis
 
+before_script:
+  - cd ./frontend
+  - ember sauce:connect
+  - cd ..
+
+after_script:
+  - cd ./frontend
+  - ember sauce:disconnect
+  - cd ..
+
+env:
+  global:
+  - SAUCE_USERNAME=timed
+  - SAUCE_ACCESS_KEY=68af4468-3509-4254-b75f-703cbdc8795b
+
 notifications:
   email:
     - damian.senn@gmail.com

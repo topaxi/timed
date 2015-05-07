@@ -1,6 +1,7 @@
 {
   "framework": "qunit",
   "test_page": "tests/index.html?hidepassed",
+  "parallel": 4,
   "launch_in_ci": [
     "SL_chrome_42",
     "SL_firefox_37",

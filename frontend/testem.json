@@ -1,48 +1,51 @@
 {
   "framework": "qunit",
   "test_page": "tests/index.html?hidepassed",
-  "parallel": 3,
+  "launch_in_ci": [
+    "SL_chrome_42",
+    "SL_firefox_37",
+    "SL_internet_explorer_11"
+  ],
+  "launch_in_dev": [],
   "launchers": {
-    "SL_Chrome_Current": {
-      "command": "./node_modules/.bin/ember-cli-sauce -b chrome --no-ct -u <url>",
+    "SL_chrome_42": {
+      "exe": "./node_modules/.bin/ember-cli-sauce",
+      "args": [
+        "-b",
+        "chrome",
+        "-v",
+        "42",
+        "--at",
+        "--no-ct",
+        "--u"
+      ],
       "protocol": "browser"
     },
-    "SL_Firefox_Current": {
-      "command": "./node_modules/.bin/ember-cli-sauce -b firefox -v 37 --no-ct -u <url>",
+    "SL_firefox_37": {
+      "exe": "./node_modules/.bin/ember-cli-sauce",
+      "args": [
+        "-b",
+        "firefox",
+        "-v",
+        "37",
+        "--at",
+        "--no-ct",
+        "--u"
+      ],
       "protocol": "browser"
     },
-    "SL_Safari_Current": {
-      "command": "./node_modules/.bin/ember-cli-sauce -b safari -v 8 --no-ct -u <url>",
-      "protocol": "browser"
-    },
-    "SL_Safari_Last": {
-      "command": "./node_modules/.bin/ember-cli-sauce -b safari -v 7 --no-ct -u <url>",
-      "protocol": "browser"
-    },
-    "SL_IE_11": {
-      "command": "./node_modules/.bin/ember-cli-sauce -b 'internet explorer' -v 11 --no-ct -u <url>",
-      "protocol": "browser"
-    },
-    "SL_IE_10": {
-      "command": "./node_modules/.bin/ember-cli-sauce -b 'internet explorer' -v 10 --no-ct -u <url>",
-      "protocol": "browser"
-    },
-    "SL_IE_9": {
-      "command": "./node_modules/.bin/ember-cli-sauce -b 'internet explorer' -v 9 --no-ct -u <url>",
-      "protocol": "browser"
-    },
-    "SL_IE_8": {
-      "command": "./node_modules/.bin/ember-cli-sauce -b 'internet explorer' -v 8 --no-ct -u <url>",
+    "SL_internet_explorer_11": {
+      "exe": "./node_modules/.bin/ember-cli-sauce",
+      "args": [
+        "-b",
+        "internet explorer",
+        "-v",
+        "11",
+        "--at",
+        "--no-ct",
+        "--u"
+      ],
       "protocol": "browser"
     }
-  },
-  "launch_in_dev": [
-    "PhantomJS"
-  ],
-  "launch_in_ci": [
-    "SL_Firefox_Current",
-    "SL_Chrome_Current",
-    "SL_IE_11",
-    "SL_IE_10"
-  ]
+  }
 }

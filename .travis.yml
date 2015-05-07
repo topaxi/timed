@@ -31,10 +31,16 @@ install:
 script:
   - make travis
 
+before_script:
+  - ember sauce:connect
+
+after_script:
+  - ember sauce:disconnect
+
 env:
   global:
-  - SAUCE_USERNAME=topaxi
-  - SAUCE_ACCESS_KEY=18e31e8d-09dd-4507-a172-eed0eef838e3
+  - SAUCE_USERNAME=timed
+  - SAUCE_ACCESS_KEY=68af4468-3509-4254-b75f-703cbdc8795b
 
 notifications:
   email:

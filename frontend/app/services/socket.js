@@ -5,12 +5,12 @@ import io     from 'socket.io'
 export default Ember.Service.extend({
   store: Ember.inject.service()
 
-, init: function() {
+, init() {
     let connection = io({ transports: [ 'websocket' ] })
 
     this.set('connection', connection)
 
-    connection.on('backend version', notifyVersion)
+    connection.on('backend version', version => this.notifyVersion(version))
     connection.on('model', (socketId, data) => {
       if (socketId !== connection.id) {
         this.get('store').pushPayload(data)
@@ -27,21 +27,21 @@ export default Ember.Service.extend({
       }
     })
   }
+
+, notifyVersion(version) {
+    if (!Ember.$('.ember-notify-cn').length) {
+      return Ember.run.later(() => this.notifyVersion(version), 1000)
+    }
+
+    let app = this.get('application')
+
+    if (app.version !== version && !Ember.$('#reload-application').length) {
+      Notify.warning({
+        raw: `<a id="reload-application" href="javascript:window.location.reload()">
+          A new Timed version is available, please reload now.
+        </a>`
+      , closeAfter: null
+      })
+    }
+  }
 })
-
-function notifyVersion(version) {
-  if (!Ember.$('.ember-notify-cn').length) {
-    return Ember.run.later(() => notifyVersion(version), 1000)
-  }
-
-  let app = Ember.libraries._registry.find(lib => lib.name === 'Timed')
-
-  if (app.version !== version && !Ember.$('#reload-application').length) {
-    Notify.warning({
-      raw: `<a id="reload-application" href="javascript:window.location.reload()">
-        A new Timed version is available, please reload now.
-      </a>`
-    , closeAfter: null
-    })
-  }
-}

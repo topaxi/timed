@@ -22,7 +22,10 @@
           </div>
         </td>
         <td class="tar">
-          {{team.users.length}}
+          {{! Don't request all users, if this breaks, blame me and this guy
+            ! https://github.com/emberjs/data/issues/586#issuecomment-39774122
+            !}}
+          {{team._data.users.length}}
         </td>
         <td>
           {{#link-to 'team.edit.manage' team tagName='button' class='btn btn-default tip' title='Manage team'}}

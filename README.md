@@ -27,7 +27,7 @@ $ make -C docker user         # create your first user with password
 $ make -C docker mongo        # drop into the mongo shell
 ```
 
-After that, you should be able to visit http://timed.vm/ in your browser.
+After that, you should be able to visit http://localhost:8080/ in your browser.
 
 Manual setup - The "hard" way
 -----------------------------

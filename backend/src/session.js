@@ -1,12 +1,13 @@
 import session      from 'express-session'
-import connectMongo from 'connect-mongo'
+import connectRedis from 'connect-redis'
 import config       from './config'
 
-let MongoStore = connectMongo(session)
+let { host, port } = config.redis
+let Store          = connectRedis(session)
 
 export default session({
   'secret':            config.cookieSecret
 , 'resave':            false
 , 'saveUninitialized': true
-, 'store':             new MongoStore({ 'url': config.mongodb })
+, 'store':             new Store({ host, port })
 })

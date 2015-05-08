@@ -24,11 +24,11 @@ You need the following packages installed on your machine:
 Then execute the following commands in this repository:
 
 ```shell
-$ make install                # install dependencies
-$ make docker                 # starts the back- and frontend
-$ make -C docker import-data  # import some data to work with
-$ make -C docker user         # create your first user with password
-$ make -C docker mongo        # drop into the mongo shell
+$ make install               # install dependencies
+$ make docker                # starts the back- and frontend
+$ make -C docker user        # create your first user with password
+$ make -C docker import-data # optional, import some data to work with
+$ make -C docker mongo       # optional, drop into the mongo shell
 ```
 
 After that, you should be able to visit http://localhost:8080/ in your browser.
@@ -52,8 +52,10 @@ Then run the following commands in this repository:
 $ npm install ember-cli -g               # install ember-cli
 $ make install                           # install dependencies
 $ make user                              # create your first user
-$ npm --prefix=./backend run import-data # import some data to work with
-$ make run-server                        # you need tmux to run this command
+$ npm --prefix=./backend run import-data # optional, import some data to work with
+$ make run-frontend                      # start the frontend
+$ make run-backend                       # start the backend
+$ make run-server                        # optional, run back- and frontend in tmux
 ```
 
 After that, you should be able to visit http://localhost:4200/ in your browser.

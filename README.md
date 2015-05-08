@@ -12,17 +12,19 @@ node.js Timetracking Software
 Installation
 ============
 
-Vagrant - The easy way
+Docker - The easy way
 ----------------------
 
 If you want to setup Timed in a virtualmachine, all you need is
-vagrant and virtualbox.
+iojs and docker.
 Then execute the following commands in this repository:
 
 ```shell
-$ vagrant up
-$ make user # create your first user
-$ make run  # starts the back- and frontend
+$ make install                # install dependencies
+$ make docker                 # starts the back- and frontend
+$ make -C docker import-data  # import some data to work with
+$ make -C docker user         # create your first user with password
+$ make -C docker mongo        # drop into the mongo shell
 ```
 
 After that, you should be able to visit http://timed.vm/ in your browser.
@@ -42,10 +44,11 @@ You need the following packages installed on your machine:
 Then run the following commands in this repository:
 
 ```shell
-$ npm install ember-cli -g
-$ make install
-$ node --harmony backend/bin/user.js # create your first user
-$ make run-server                    # you might need to install tmux to run this command
+$ npm install ember-cli -g               # install ember-cli
+$ make install                           # install dependencies
+$ npm --prefix=./backend run new-user    # create your first user
+$ npm --prefix=./backend run import-data # import some data to work with
+$ make run-server                        # you need tmux to run this command
 ```
 
 After that, you should be able to visit http://localhost:4200/ in your browser.

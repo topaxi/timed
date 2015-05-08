@@ -1,0 +1,45 @@
+web:
+  image: nginx
+  volumes:
+    - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  links:
+    - backend1
+    - backend2
+    - backend3
+    - frontend
+  ports:
+    - "8080:80"
+
+backend1:
+  extends:
+    file: docker-backend.yml
+    service: backend
+  links:
+    - mongodb
+
+backend2:
+  extends:
+    file: docker-backend.yml
+    service: backend
+  links:
+    - mongodb
+
+backend3:
+  extends:
+    file: docker-backend.yml
+    service: backend
+  links:
+    - mongodb
+
+frontend:
+  image: iojs
+  volumes:
+    - ../:/usr/src/app
+  command: npm --prefix=/usr/src/app/frontend run start
+  environment:
+    - NODE_ENV=development
+  ports:
+    - "35729:35729"
+
+mongodb:
+  image: mongo

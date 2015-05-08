@@ -1,3 +1,5 @@
+.PHONY: docker
+
 all: build
 
 build: cache-clean install-frontend
@@ -20,10 +22,7 @@ deps-clean:
 	rm -rf frontend/tmp
 
 user:
-	@vagrant ssh -c 'node --harmony /vagrant/backend/bin/user.js'
-
-run:
-	@vagrant ssh -c 'cd /vagrant && make run-server-polling'
+	npm --prefix=./backend run new-user
 
 run-server:
 	tmux new-session -n timed-dev -d 'make run-backend'
@@ -39,25 +38,11 @@ run-test-server:
 	tmux split-window -v 'cd ./frontend && ember test --server'
 	tmux -2 attach-session -d
 
-run-server-polling:
-	tmux new-session -n timed-dev -d 'make run-backend'
-	tmux set remain-on-exit on
-	tmux bind-key R respawn-pane
-	tmux split-window -v 'make run-frontend-polling'
-	tmux -2 attach-session -d
-
 run-backend:
 	@make -C backend run
 
 run-frontend:
 	@cd ./frontend && ember serve --port 4200 --proxy http://localhost:3000/
-
-run-frontend-polling:
-	@cd ./frontend && ember serve --port 4200 \
-	                              --watcher polling
-
-mongo:
-	@vagrant ssh -c mongo
 
 install: cache-clean install-frontend install-backend
 	npm install
@@ -85,3 +70,6 @@ travis:
 	make travis -C ./frontend
 	# TODO: merge blanket lcov
 	./node_modules/.bin/lcov-result-merger ./backend/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js || true
+
+docker:
+	make docker -C ./docker

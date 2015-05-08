@@ -22,7 +22,12 @@
           }}
       </td>
       <td>
-        {{input class='form-control' placeholder='Project filter...' value=projectFilter}}
+        {{input
+          placeholder = 'Filter project'
+          class       = 'form-control'
+          value       = projectFilter
+          key-press   = 'updateFilter'
+          }}
       </td>
     </tr>
     <tr>

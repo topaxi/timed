@@ -47,29 +47,23 @@ run-frontend:
 install: cache-clean install-frontend install-backend
 	npm install
 
+install-backend:
+	cd backend && npm install
+
 install-frontend:
 	cd frontend && npm install
 	cd frontend && bower install
-
-install-backend:
-	cd backend && npm install
 
 outdated:
 	cd frontend && bower list
 	cd frontend && npm outdated -depth 0
 	cd backend && npm outdated -depth 0
 
-test-frontend:
-	make test -C ./frontend
-
 test-backend:
 	make test -C ./backend
 
-travis:
-	make travis -C ./backend
-	make travis -C ./frontend
-	# TODO: merge blanket lcov
-	./node_modules/.bin/lcov-result-merger ./backend/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js || true
+test-frontend:
+	make test -C ./frontend
 
 docker:
 	make docker -C ./docker

@@ -23,5 +23,12 @@ travis:
 	MONGODB=mongodb://127.0.0.1/timed-testing \
 		node_modules/.bin/babel-node --harmony \
 		node_modules/.bin/gulp travis
+	cat coverage/lcov.info | ../node_modules/coveralls/bin/coveralls.js || true
+
+travis-install:
+	npm install
+
+travis-before:
+travis-after:
 
 .PHONY: test

@@ -13,37 +13,33 @@ sudo: false
 cache:
   directories:
     - node_modules
-    - frontend/node_modules
     - backend/node_modules
+    - frontend/node_modules
 
 before_install:
   - "npm config set spin false"
   - "npm install -g npm@^2"
 
 install:
-  - npm install -g bower
   - npm install
-  - npm install --prefix ./backend
-  - npm install --prefix ./frontend
-  - bower install --config.cwd=frontend
+  - "make -C ./$TIMED_ENV travis-install"
 
 script:
-  - make travis
+  - "make -C ./$TIMED_ENV travis"
 
 before_script:
-  - cd ./frontend
-  - ember sauce:connect
-  - cd ..
+  - "make -C ./$TIMED_ENV travis-before"
 
 after_script:
-  - cd ./frontend
-  - ember sauce:disconnect
-  - cd ..
+  - "make -C ./$TIMED_ENV travis-after"
 
 env:
   global:
-  - SAUCE_USERNAME=timed
-  - SAUCE_ACCESS_KEY=68af4468-3509-4254-b75f-703cbdc8795b
+    - SAUCE_USERNAME=timed
+    - SAUCE_ACCESS_KEY=68af4468-3509-4254-b75f-703cbdc8795b
+  matrix:
+    - TIMED_ENV=backend
+    - TIMED_ENV=frontend
 
 notifications:
   email:

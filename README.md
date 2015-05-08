@@ -15,8 +15,12 @@ Installation
 Docker - The easy way
 ----------------------
 
-If you want to setup Timed in a virtualmachine, all you need is
-iojs and docker.
+You need the following packages installed on your machine:
+
+- docker
+- npm
+- bower
+
 Then execute the following commands in this repository:
 
 ```shell
@@ -32,8 +36,9 @@ After that, you should be able to visit http://localhost:8080/ in your browser.
 Manual setup - The "hard" way
 -----------------------------
 
-If you don't want a virtual development environment, you can install
+If you don't want to use the docker environment, you can install
 Timed on your local machine.
+
 You need the following packages installed on your machine:
 
 - mongodb
@@ -46,7 +51,7 @@ Then run the following commands in this repository:
 ```shell
 $ npm install ember-cli -g               # install ember-cli
 $ make install                           # install dependencies
-$ npm --prefix=./backend run new-user    # create your first user
+$ make user                              # create your first user
 $ npm --prefix=./backend run import-data # import some data to work with
 $ make run-server                        # you need tmux to run this command
 ```

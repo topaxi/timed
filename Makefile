@@ -1,3 +1,5 @@
+.PHONY: docker
+
 all: build
 
 build: cache-clean install-frontend
@@ -68,3 +70,6 @@ travis:
 	make travis -C ./frontend
 	# TODO: merge blanket lcov
 	./node_modules/.bin/lcov-result-merger ./backend/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js || true
+
+docker:
+	make docker -C ./docker

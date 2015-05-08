@@ -16,6 +16,7 @@ backend1:
     service: backend
   links:
     - mongodb
+    - redis
 
 backend2:
   extends:
@@ -23,6 +24,7 @@ backend2:
     service: backend
   links:
     - mongodb
+    - redis
 
 backend3:
   extends:
@@ -30,6 +32,7 @@ backend3:
     service: backend
   links:
     - mongodb
+    - redis
 
 frontend:
   image: iojs
@@ -43,3 +46,6 @@ frontend:
 
 mongodb:
   image: mongo
+
+redis:
+  image: redis

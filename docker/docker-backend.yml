@@ -6,3 +6,4 @@ backend:
   command: npm --prefix=/usr/src/app/backend run watch
   environment:
     - NODE_ENV=development
+    - DEBUG=socket.io:*

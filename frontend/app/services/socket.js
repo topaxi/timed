@@ -11,13 +11,19 @@ export default Ember.Service.extend({
     this.set('connection', connection)
 
     connection.on('backend version', notifyVersion)
-    connection.on('model', data => this.get('store').pushPayload(data))
-    connection.on('unload model', (type, id) => {
-      let model = this.get('store').getById(type, id)
+    connection.on('model', (socketId, data) => {
+      if (socketId !== connection.id) {
+        this.get('store').pushPayload(data)
+      }
+    })
+    connection.on('unload model', (socketId, type, id) => {
+      if (socketId === connection.id) return
+
+      let store = this.get('store')
+      let model = store.getById(type, id)
 
       if (model) {
-        model.unloadRecord()
-        model.destroy()
+        store.unloadRecord(model)
       }
     })
   }

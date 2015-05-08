@@ -1,5 +1,6 @@
 { "title":   "Timed"
 , "mongodb": "mongodb://127.0.0.1/timed"
+, "redis":   { "host": "localhost", "port": "6379" }
 , "port":    3000
 , "cookieSecret": "*7wkG1}}MlrYx5]ZNm*577-0874,2j=?C1p(u+h10h"
 , "trustProxy": "loopback"

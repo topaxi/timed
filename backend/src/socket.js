@@ -1,9 +1,13 @@
 import socketio from 'socket.io'
-import session  from './session'
+import redis    from 'socket.io-redis'
 import app      from './app'
+import config   from './config'
+import session  from './session'
 
 const io = socketio(app.server)
 export default io
+
+io.adapter(redis(config.redis))
 
 io.use((socket, next) => {
   session(socket.request, socket, next)
@@ -22,31 +26,17 @@ app.use((req, res, next) => {
   let socketId = req.headers['x-timed-current-socket']
 
   res.push = (event, data) => {
-    emitExcept(socketId, event, data)
+    io.emit(event, socketId, data)
     res.send(data)
   }
 
   res.pushModel = data => res.push('model', data)
 
   res.unloadModel = (type, id) => {
-    emitExcept(socketId, 'unload model', type, id)
+    io.emit('unload model', socketId, type, id)
     res.status(204)
     res.send()
   }
 
   next()
 })
-
-/* istanbul ignore next */
-function emitExcept(id, ...data) {
-  let ids = Object.keys(io.engine.clients).filter(notEqual(id))
-
-  for (let clientId of ids) {
-    io.to(clientId).emit(...data)
-  }
-}
-
-/* istanbul ignore next */
-function notEqual(val) {
-  return i => i !== val
-}

@@ -24,8 +24,8 @@ You need the following packages installed on your machine:
 Then execute the following commands in this repository:
 
 ```shell
-$ make install               # install dependencies
-$ make docker                # starts the back- and frontend
+$ make -C docker install     # install dependencies
+$ make -C docker up          # starts the back- and frontend
 $ make -C docker user        # create your first user with password
 $ make -C docker import-data # optional, import some data to work with
 $ make -C docker mongo       # optional, drop into the mongo shell

@@ -3,7 +3,7 @@ backend:
   volumes:
     - ..:/usr/src/app
     - backend/config.json:/usr/src/app/backend/config.json
-  command: npm --prefix=/usr/src/app/backend run watch
+  command: make -C /usr/src/app/docker run-backend
   environment:
     - NODE_ENV=development
     - DEBUG=socket.io:*

@@ -18,8 +18,6 @@ Docker - The easy way
 You need the following packages installed on your machine:
 
 - docker
-- npm
-- bower
 
 Then execute the following commands in this repository:
 

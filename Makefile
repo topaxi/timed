@@ -52,7 +52,7 @@ install-backend:
 
 install-frontend:
 	cd frontend && npm install
-	cd frontend && bower install
+	cd frontend && bower install --allow-root
 
 outdated:
 	cd frontend && bower list

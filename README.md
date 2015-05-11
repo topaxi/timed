@@ -31,6 +31,15 @@ $ make -C docker import-data # optional, import some data to work with
 $ make -C docker mongo       # optional, drop into the mongo shell
 ```
 
+Run tests
+
+```shell
+$ make -C docker test-backend  # run backend tests
+$ make -C docker test-frontend # run frontend tests in saucelabs
+$ make -C docker test          # run backend then frontend tests
+```
+
+
 After that, you should be able to visit http://localhost:8080/ in your browser.
 
 Manual setup - The "hard" way
@@ -56,6 +65,13 @@ $ npm --prefix=./backend run import-data # optional, import some data to work wi
 $ make run-frontend                      # start the frontend
 $ make run-backend                       # start the backend
 $ make run-server                        # optional, run back- and frontend in tmux
+```
+
+Run tests
+
+```shell
+$ make test-backend  # run backend tests
+$ make test-frontend # run frontend tests server
 ```
 
 After that, you should be able to visit http://localhost:4200/ in your browser.

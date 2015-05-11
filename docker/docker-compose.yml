@@ -38,7 +38,7 @@ frontend:
   image: iojs
   volumes:
     - ../:/usr/src/app
-  command: make -C /usr/src/app/docker run-frontend
+  command: npm --prefix=/usr/src/app/frontend run start
   environment:
     - NODE_ENV=development
   ports:

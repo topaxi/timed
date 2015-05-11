@@ -45,7 +45,11 @@ frontend:
     - "35729:35729"
 
 mongodb:
-  image: mongo
+  extends:
+    file: docker-backend.yml
+    service: mongodb
 
 redis:
-  image: redis
+  extends:
+    file: docker-backend.yml
+    service: redis

@@ -7,3 +7,9 @@ backend:
   environment:
     - NODE_ENV=development
     - DEBUG=socket.io:*
+
+mongodb:
+  image: mongo
+
+redis:
+  image: redis

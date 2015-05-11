@@ -3,14 +3,21 @@
 test:
 	ember test --server
 
-travis:
-	npm test
+travis: sauce-test
 
-travis-before:
+test-docker: sauce-connect sauce-test sauce-disconnect
+
+sauce-connect:
 	ember sauce:connect
 
-travis-after:
+sauce-test:
+	npm test
+
+sauce-disconnect:
 	ember sauce:disconnect
+
+travis-before: sauce-connect
+travis-after:  sauce-disconnect
 
 travis-install:
 	npm install -g bower

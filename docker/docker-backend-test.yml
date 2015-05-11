@@ -1,0 +1,21 @@
+backendtest:
+  extends:
+    file: docker-backend.yml
+    service: backend
+  command: npm --prefix=/usr/src/app/backend run test
+  links:
+    - redistest:redis
+    - mongodbtest:mongodb
+  environment:
+    - NODE_ENV=testing
+    - DEBUG=
+
+redistest:
+  extends:
+    file: docker-backend.yml
+    service: redis
+
+mongodbtest:
+  extends:
+    file: docker-backend.yml
+    service: mongodb

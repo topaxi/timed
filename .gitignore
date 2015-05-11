@@ -1,4 +1,3 @@
-lib-cov
 *.seed
 *.log
 *.csv
@@ -10,7 +9,9 @@ lib-cov
 
 pids
 logs
+dump
 results
+lib-cov
 
 node_modules
 npm-debug.log

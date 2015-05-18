@@ -1,7 +1,8 @@
-import Ember  from 'ember'
-import moment from 'moment'
+import Ember            from 'ember'
+import moment           from 'moment'
+import LoadingIndicator from 'timed/mixins/loading-indicator'
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(LoadingIndicator, {
   queryParams: { 'day': { 'refreshModel': true, 'replace': true } }
 
 , setupController(controller, model) {

@@ -1,6 +1,7 @@
-import Ember from 'ember'
+import Ember            from 'ember'
+import LoadingIndicator from 'timed/mixins/loading-indicator'
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(LoadingIndicator, {
   afterModel() {
     return Ember.RSVP.all([
       this.store.find('user')       // TODO: Only get users of the current team.

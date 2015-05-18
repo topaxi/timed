@@ -1,4 +1,4 @@
-/* globals define, moment, vis, io, ramjet */
+/* globals define, moment, vis, io, ramjet, NProgress */
 
 import Ember            from 'ember'
 import Resolver         from 'ember/resolver'
@@ -31,6 +31,10 @@ define('vis', () => Object({
 , 'Timeline': vis.Timeline
 , 'DataSet':  vis.DataSet
 , 'Graph2d':  vis.Graph2d
+}))
+
+define('nprogress', () => Object({
+  'default': NProgress
 }))
 
 Ember.$(window).on('error', ({ originalEvent: { error: err } }) =>

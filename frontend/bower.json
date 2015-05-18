@@ -27,7 +27,8 @@
     "vis": "^3.9.1",
     "x-editable": "^1.5.1",
     "fetch": "^0.8.1",
-    "ramjet": "^0.4.4"
+    "ramjet": "^0.4.4",
+    "nprogress": "^0.2.0"
   },
   "resolutions": {
     "moment": "^2.10.2",

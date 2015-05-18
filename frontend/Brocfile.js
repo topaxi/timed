@@ -66,4 +66,7 @@ app.import('bower_components/x-editable/dist/bootstrap3-editable/css/bootstrap-e
 app.import('bower_components/x-editable/dist/bootstrap3-editable/img/clear.png',   { 'destDir': 'assets/img' })
 app.import('bower_components/x-editable/dist/bootstrap3-editable/img/loading.gif', { 'destDir': 'assets/img' })
 
+app.import('bower_components/nprogress/nprogress.js')
+app.import('bower_components/nprogress/nprogress.css')
+
 module.exports = app.toTree()

@@ -5,13 +5,12 @@
 {{/liquid-if}}
 
 <form class="form-horizontal" {{action 'submit' on='submit'}}>
-  <div class="form-group">
-    <label for="{{taskName.elementId}}" class="col-sm-2 control-label">Name</label>
+  {{#input-label class="form-group" labelClass="col-sm-2" label="Name" as |labelId|}}
     <div class="col-sm-10">
       {{#if model.project.tracker.type}}
         {{ember-selectize
           tagName         = 'input'
-          viewName        = 'taskName'
+          id              = labelId
           plugins         = selectizePlugins
           placeholder     = 'Task name'
           optionValuePath = 'content.value'
@@ -28,7 +27,7 @@
           }}
       {{else}}
         {{input
-          viewName     = 'taskName'
+          id           = labelId
           placeholder  = 'Task name'
           value        = model.name
           class        = 'form-control'
@@ -36,25 +35,22 @@
           }}
       {{/if}}
     </div>
-  </div>
-  <div class="form-group">
-    <label for="{{taskDuration.elementId}}" class="col-sm-2 control-label">Duration (in hours)</label>
+  {{/input-label}}
+  {{#input-label class="form-group" labelClass="col-sm-2" label="Duration (in hours)" as |labelId|}}
     <div class="col-sm-10">
-      {{input viewName='taskDuration' type='number' class='form-control' value=model.duration}}
+      {{input id=labelId type='number' class='form-control' value=model.duration}}
     </div>
-  </div>
-  <div class="form-group">
-    <label for="{{taskFrom.elementId}}" class="col-sm-2 control-label">From</label>
+  {{/input-label}}
+  {{#input-label class="form-group" labelClass="col-sm-2" label="From" as |labelId|}}
     <div class="col-sm-10">
-      {{date-picker viewName='taskFrom' class='form-control pointer' readonly=true date=model.from}}
+      {{date-picker id=labelId class='form-control pointer' readonly=true date=model.from}}
     </div>
-  </div>
-  <div class="form-group">
-    <label for="{{taskTo.elementId}}" class="col-sm-2 control-label">To</label>
+  {{/input-label}}
+  {{#input-label class="form-group" labelClass="col-sm-2" label="To" as |labelId|}}
     <div class="col-sm-10">
-      {{date-picker viewName='taskTo' class='form-control pointer' readonly=true date=model.to}}
+      {{date-picker id=labelId class='form-control pointer' readonly=true date=model.to}}
     </div>
-  </div>
+  {{/input-label}}
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <div class="checkbox">

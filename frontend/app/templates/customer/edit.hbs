@@ -7,30 +7,26 @@
     {{/liquid-if}}
   </h1>
 
-  <div class="form-group">
-    <label for="{{customerName.elementId}}" class="col-sm-2 control-label">Name</label>
+  {{#input-label class="form-group" labelClass="col-sm-2" label="Name" as |labelId|}}
     <div class="col-sm-10">
-      {{input viewName='customerName' placeholder='Customer name' value=model.name class='form-control' autocomplete='false'}}
+      {{input id=labelId placeholder='Customer name' value=model.name class='form-control' autocomplete='false'}}
     </div>
-  </div>
-  <div class="form-group">
-    <label for="{{customerEmail.elementId}}" class="col-sm-2 control-label">Email</label>
+  {{/input-label}}
+  {{#input-label class="form-group" labelClass="col-sm-2" label="Email" as |labelId|}}
     <div class="col-sm-10">
-      {{input viewName='customer-email' type='email' placeholder='Email' value=model.email class='form-control' autocomplete='false'}}
+      {{input id=labelId type='email' placeholder='Email' value=model.email class='form-control' autocomplete='false'}}
     </div>
-  </div>
-  <div class="form-group">
-    <label for="{{customerWebsite.elementId}}" class="col-sm-2 control-label">Website</label>
+  {{/input-label}}
+  {{#input-label class="form-group" labelClass="col-sm-2" label="Website" as |labelId|}}
     <div class="col-sm-10">
-      {{input viewName='customerWebsite' type='url' placeholder='Website' value=model.website class='form-control' autocomplete='false'}}
+      {{input id=labelId type='url' placeholder='Website' value=model.website class='form-control' autocomplete='false'}}
     </div>
-  </div>
-  <div class="form-group">
-    <label for="{{customerComment.elementId}}" class="col-sm-2 control-label">Comment</label>
+  {{/input-label}}
+  {{#input-label class="form-group" labelClass="col-sm-2" label="Comment" as |labelId|}}
     <div class="col-sm-10">
-      {{textarea viewName='customerComment' placeholder='Comment' value=model.comment class='form-control'}}
+      {{textarea id=labelId placeholder='Comment' value=model.comment class='form-control'}}
     </div>
-  </div>
+  {{/input-label}}
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-primary">

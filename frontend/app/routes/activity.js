@@ -1,49 +1,44 @@
+/* jshint ignore:start */
 import Ember            from 'ember'
 import moment           from 'moment'
 import LoadingIndicator from 'timed/mixins/loading-indicator'
 
 export default Ember.Route.extend(LoadingIndicator, {
-  'queryParams': {
-    'from': { 'refreshModel': true, 'replace': true }
-  , 'to':   { 'refreshModel': true, 'replace': true }
-  , 'user': { 'refreshModel': true, 'replace': true }
+  queryParams: {
+    from: { refreshModel: true, replace: true }
+  , to:   { refreshModel: true, replace: true }
+  , user: { refreshModel: true, replace: true }
   }
 
-, 'setupController': function(controller, model) {
+, setupController(controller, model) {
     controller.setProperties({
-      'momentFrom': +moment().startOf('month')
-    , 'momentTo':   +moment().endOf('month')
-    , 'projects':   this.get('projects')
-    , 'customers':  this.get('customers')
-    , 'model':      model
+      momentFrom: +moment().startOf('month')
+    , momentTo:   +moment().endOf('month')
+    , projects:   this.store.all('projects')
+    , customers:  this.store.all('customers')
+    , model
     })
   }
 
-, 'beforeModel': function() {
-    let projects  = this.store.find('project')
-    let customers = this.store.find('customer')
-    let users     = this.store.find('user')
-
-    return Ember.RSVP.all([ projects, customers, users ]).then(args => {
-      this.set('projects',  args[0])
-      this.set('customers', args[1])
-      this.set('users',     args[2])
-    })
+, async beforeModel() {
+    await* [
+      this.store.find('project')
+    , this.store.find('customer')
+    , this.store.find('user')
+    ]
   }
 
-, 'model': function({ from, to, user }) {
+, model({ from, to, user }) {
     return this.store.find('attendance', { from, to, user })
   }
 
-, 'afterModel': function(model) {
-    let promises = model.reduce((promises, attendance) => {
+, async afterModel(model) {
+    return await* model.reduce((promises, attendance) => {
       attendance.get('activities').forEach(activity =>
         promises.push(activity.get('task'))
       )
 
       return promises
     }, [])
-
-    return Ember.RSVP.all(promises)
   }
 })

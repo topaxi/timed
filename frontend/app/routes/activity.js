@@ -33,7 +33,7 @@ export default Ember.Route.extend(LoadingIndicator, {
   }
 
 , async afterModel(model) {
-    return await* model.reduce((promises, attendance) => {
+    await* model.reduce((promises, attendance) => {
       attendance.get('activities').forEach(activity =>
         promises.push(activity.get('task'))
       )

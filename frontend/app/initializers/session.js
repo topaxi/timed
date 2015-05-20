@@ -7,15 +7,17 @@ const { computed } = Ember
 
 Session.reopen({
   user: computed('userId', {
-    get() {
+    async get() {
       let userId = this.get('userId')
 
       if (userId) {
         let store = this.container.lookup('store:main')
 
-        return store.find('user', userId).then(user =>
-          this.set('user', user)
-        )
+        let user = await store.find('user', userId)
+
+        this.set('user', user)
+
+        return user
       }
     }
   })

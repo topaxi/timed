@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember        from 'ember'
 import promiseDelay from '../utils/promise-delay'
 
@@ -50,12 +51,13 @@ export default Ember.Component.extend({
     this.$().toggle(!!this.get('task.duration'))
   }.observes('task.duration').on('didInsertElement')
 
-, fetchProgress: function() {
+, fetchProgress: async function() {
     let $progressbar = this.$('.progress-bar')
 
     $progressbar.addClass('active')
 
-    Ember.RSVP.all([ this.get('task').updateProgress(), promiseDelay(500) ])
-              .then(() => $progressbar.removeClass('active'))
+    await* [ this.get('task').updateProgress(), promiseDelay(500) ]
+
+    $progressbar.removeClass('active')
   }.on('click')
 })

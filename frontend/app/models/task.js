@@ -1,3 +1,4 @@
+/* jshint ignore:start */
 import Ember from 'ember'
 import DS    from 'ember-data'
 import Model from './model'
@@ -14,10 +15,17 @@ export default Model.extend({
 , priority: attr('number')
 , done:     attr('boolean')
 
-, updateProgress: function() {
-    return Ember.$.getJSON(`/api/v1/tasks/${this.id}/progress`).then(res =>
-      this.set('progress', res.progress)
-    )
+, async updateProgress() {
+    let res = await fetch(`/api/v1/tasks/${this.id}/progress`, {
+      credentials: 'same-origin'
+    , headers: {
+        Accept: 'application/json'
+      }
+    })
+
+    if (res.ok && res.status !== 404) {
+      this.set('progress', (await res.json()).progress)
+    }
   }
 
 , progress: computed({

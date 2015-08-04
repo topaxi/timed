@@ -1,5 +1,5 @@
 {
-  "auxiliaryComment": "istanbul ignore next",
+  "auxiliaryCommentBefore": "istanbul ignore next",
   "blacklist": [
     "es3.memberExpressionLiterals",
     "es3.propertyLiterals",

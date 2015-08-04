@@ -37,12 +37,14 @@ define('nprogress', () => Object({
   'default': NProgress
 }))
 
-Ember.$(window).on('error', ({ originalEvent: { error: err } }) =>
+Ember.$(window).on('error', ({ originalEvent: { error: err } }) => {
+  if (!err) return
+
   Notify.error({
     raw: `<pre><strong>${err.name}:</strong> ${err.message}\n${err.stack}</pre>`
   , closeAfter: null
   })
-)
+})
 
 loadInitializers(App, config.modulePrefix)
 

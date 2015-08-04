@@ -42,7 +42,7 @@ frontend:
   environment:
     - NODE_ENV=development
   ports:
-    - "35729:35729"
+    - "49152:49152"
 
 mongodb:
   extends:

@@ -1,10 +1,8 @@
 export class HttpError extends Error {
   constructor(message = 'Request Error', status = 500) {
-    let err = super(message)
+    super(message)
 
-    this.stack   = err.stack
-    this.message = message
-    this.status  = status
+    this.status = status
   }
 }
 

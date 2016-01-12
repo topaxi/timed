@@ -1,13 +1,7 @@
 {
   "auxiliaryCommentBefore": "istanbul ignore next",
-  "blacklist": [
-    "es3.memberExpressionLiterals",
-    "es3.propertyLiterals",
-    "es5.properties.mutators"
-  ],
-  "optional": [
-    "runtime",
-    "es7.asyncFunctions"
-  ],
-  "loose": true
+  "presets": [
+    "es2015",
+    "stage-3"
+  ]
 }

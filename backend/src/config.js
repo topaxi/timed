@@ -1,5 +1,3 @@
-import merge from 'lodash/object/merge'
-
 const defaults = {
   title:      'Timed'
 , mongodb:    { host: '127.0.0.1', db: 'timed' }
@@ -7,7 +5,7 @@ const defaults = {
 , trustProxy: 'loopback'
 }
 
-const config = merge({}, defaults, require('../config.json'), {
+const config = Object.assign({}, defaults, require('../config.json'), {
   port:    process.env.PORT
 , mongodb: { host: process.env.MONGO_HOST, db: process.env.MONGO_DB }
 })

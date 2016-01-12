@@ -1,10 +1,13 @@
 import socketio from 'socket.io'
 import redis    from 'socket.io-redis'
-import app      from './app'
 import config   from './config'
 import session  from './session'
 
-const io = socketio(app.server)
+import app, {
+  server
+} from './app'
+
+const io = socketio(server)
 export default io
 
 io.adapter(redis(config.redis))

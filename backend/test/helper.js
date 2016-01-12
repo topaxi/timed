@@ -9,7 +9,7 @@ global.expect = expect
 beforeEach(async() => {
   let all = {}
 
-  await* [
+  await Promise.all([
     model.Activity  .remove(all)
   , model.Assignment.remove(all)
   , model.Attendance.remove(all)
@@ -19,5 +19,5 @@ beforeEach(async() => {
   , model.Task      .remove(all)
   , model.Team      .remove(all)
   , model.User      .remove(all)
-  ]
+  ])
 })

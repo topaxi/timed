@@ -1,17 +1,14 @@
-import express      from 'express'
-import bodyParser   from 'body-parser'
-import http         from 'http'
-import version      from 'git-repo-version'
-import auth         from './auth'
-import session      from './session'
-import config       from './config'
+import express    from 'express'
+import bodyParser from 'body-parser'
+import http       from 'http'
+import version    from 'git-repo-version'
+import auth       from './auth'
+import session    from './session'
+import config     from './config'
 
-let app = express()
-
-app.server = http.createServer(app)
-
+const app = express()
 export default app
-export { default as io } from './socket'
+export const server = http.createServer(app)
 
 app.set('version',     version())
 app.set('title',       config.title)

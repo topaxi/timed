@@ -7,14 +7,14 @@ export default router
 export let authRouter = new Router
 authRouter.use(auth)
 
-router.use(require('./login'))
+router.use(require('./login').default)
 router.use(authRouter)
 
-authRouter.use(require('./project'))
-authRouter.use(require('./task'))
-authRouter.use(require('./customer'))
-authRouter.use(require('./team'))
-authRouter.use(require('./assignment'))
-authRouter.use(require('./attendance'))
-authRouter.use(require('./user'))
-authRouter.use(require('./init'))
+authRouter.use(require('./project').default)
+authRouter.use(require('./task').default)
+authRouter.use(require('./customer').default)
+authRouter.use(require('./team').default)
+authRouter.use(require('./assignment').default)
+authRouter.use(require('./attendance').default)
+authRouter.use(require('./user').default)
+authRouter.use(require('./init').default)

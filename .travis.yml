@@ -34,11 +34,19 @@ after_script:
 
 env:
   global:
+    - CXX=g++-4.8
     - SAUCE_USERNAME=timed
     - SAUCE_ACCESS_KEY=68af4468-3509-4254-b75f-703cbdc8795b
   matrix:
     - TIMED_ENV=backend
     - TIMED_ENV=frontend
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 
 notifications:
   email:

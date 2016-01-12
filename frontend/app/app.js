@@ -1,7 +1,7 @@
-/* globals define, moment, vis, io, ramjet, NProgress */
+/* globals define, vis, io, ramjet, NProgress */
 
 import Ember            from 'ember'
-import Resolver         from 'ember/resolver'
+import Resolver         from 'ember-resolver'
 import loadInitializers from 'ember/load-initializers'
 import config           from './config/environment'
 import Notify           from 'ember-notify'
@@ -16,10 +16,6 @@ let App = Ember.Application.extend({
 
 define('ramjet', () => Object({
   'default': ramjet
-}))
-
-define('moment', () => Object({
-  'default': moment
 }))
 
 define('socket.io', () => Object({

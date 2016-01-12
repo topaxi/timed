@@ -1,9 +1,9 @@
 /* globals define, moment, vis */
 
-import Resolver from 'ember/resolver'
+import Resolver from 'ember-resolver'
 import config   from '../../config/environment'
 
-var resolver = Resolver.create()
+const resolver = Resolver.create()
 
 // Phantomjs 1.9 doesn't know Function#bind
 if (!Function.prototype.bind) {
@@ -16,10 +16,6 @@ resolver.namespace = {
   modulePrefix: config.modulePrefix
 , podModulePrefix: config.podModulePrefix
 }
-
-define('moment', () => Object({
-  'default': moment
-}))
 
 define('vis', () => Object({
   'default':  vis

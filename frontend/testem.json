@@ -2,6 +2,7 @@
   "framework": "qunit",
   "test_page": "tests/index.html?hidepassed",
   "parallel": 4,
+  "disable_watching": true,
   "launch_in_ci": [
     "SL_android_5_0",
     "SL_android_5_1",

@@ -10,7 +10,12 @@ module.exports = function(defaults) {
   , 'babel': {
       'optional': [ 'es7.asyncFunctions' ]
     }
-  , 'ember-cli-selectize': { 'theme': 'bootstrap3' }
+  , 'ember-cli-selectize': {
+      'theme': 'bootstrap3'
+    }
+  , 'ember-cli-qunit': {
+      'useLintTree': false
+    }
   })
 
   app.import('vendor/babel-polyfill.js', { 'prepend': true })
@@ -38,8 +43,7 @@ module.exports = function(defaults) {
   app.import('bower_components/bootstrap/js/popover.js') // x-editable needs popover
   app.import('bower_components/bootstrap/js/modal.js')
 
-  app.import('bower_components/moment/moment.js', { 'exports': { 'moment': [ 'default' ] } })
-  app.import('bower_components/moment-range/lib/moment-range.js')
+  app.import('bower_components/moment-range/dist/moment-range.js')
   app.import('bower_components/moment-duration-format/lib/moment-duration-format.js')
 
   app.import('bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')

@@ -5,7 +5,7 @@ const read = denodeify(require('read'))
 
 ;(async function main() {
   try {
-    var user = new User
+    let user = new User
 
     user.name = await read({ 'prompt': 'Username: ' })
 
@@ -18,6 +18,6 @@ const read = denodeify(require('read'))
     console.error('Error %s: %s', err.code, err.message)
   }
   finally {
-    process.exit()
+    process.exit() //eslint-disable-line
   }
 })()

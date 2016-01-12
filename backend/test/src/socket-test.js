@@ -1,5 +1,8 @@
-import io  from 'socket.io-client'
-import app from '../../src/app'
+import io from 'socket.io-client'
+
+import {
+  server
+} from '../../src/app'
 
 let options = {
   transports: [ 'websocket' ]
@@ -11,11 +14,11 @@ const TEST_PORT = 5555
 describe('Socket.io', () => {
 
   beforeEach(done =>
-    app.server.listen(TEST_PORT, done)
+    server.listen(TEST_PORT, done)
   )
 
   afterEach(done => {
-    app.server.close()
+    server.close()
     done()
   })
 

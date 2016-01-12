@@ -10,6 +10,8 @@ const app = express()
 export default app
 export const server = http.createServer(app)
 
+exports.io = require('./socket').default
+
 app.set('version',     version())
 app.set('title',       config.title)
 app.set('trust proxy', config.trustProxy)

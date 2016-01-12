@@ -4,9 +4,9 @@ import { Attendance } from '../../../../models'
 
 describe('GET /api/v1/attendances', () => {
   let base  = new Date('2015-03-06T12:10:27.312Z')
-  let date2 = new Date(base  + 1000 * 60 * 60)
-  let date3 = new Date(date3 + 1000 * 60 * 60)
-  let date4 = new Date(date4 + 1000 * 60 * 60)
+  let date2 = new Date(+base  + 1000 * 60 * 60)
+  let date3 = new Date(+date2 + 1000 * 60 * 60)
+  let date4 = new Date(+date3 + 1000 * 60 * 60)
 
   beforeEach(async() => {
     let attendances = [

@@ -1,5 +1,5 @@
 frontendtest:
-  image: iojs
+  image: node
   volumes:
     - ../:/usr/src/app
   command: npm --prefix=/usr/src/app/frontend run test-docker

@@ -1,5 +1,5 @@
 backend:
-  image: iojs
+  image: node
   volumes:
     - ..:/usr/src/app
     - backend/config.json:/usr/src/app/backend/config.json

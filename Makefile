@@ -65,5 +65,8 @@ test-backend:
 test-frontend:
 	make test -C ./frontend
 
+install-docker:
+	make -C ./docker install
+
 docker:
 	make -C ./docker up

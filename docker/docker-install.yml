@@ -1,5 +1,5 @@
 install:
-  image: iojs
+  image: node
   volumes:
     - ..:/usr/src/app
   command: make -C  /usr/src/app/docker install-root install-backend install-frontend

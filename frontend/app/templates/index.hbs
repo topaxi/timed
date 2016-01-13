@@ -4,7 +4,7 @@
       {{#if session.user.currentAssignments}}
         <h2>Assigned Projects</h2>
 
-        {{#each assignment in session.user.currentAssignments}}
+        {{#each session.user.currentAssignments as |assignment|}}
           {{assigned-project assignment=assignment}}
         {{/each}}
       {{/if}}
@@ -14,7 +14,7 @@
       {{#if session.user.projects}}
         <h2>{{#link-to 'project'}}Followed Projects{{/link-to}}</h2>
 
-        {{#each project in session.user.projects}}
+        {{#each session.user.projects as |project|}}
           {{followed-project project=project}}
         {{/each}}
       {{/if}}

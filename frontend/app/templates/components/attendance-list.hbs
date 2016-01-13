@@ -19,7 +19,7 @@
   </tbody>
 </table>
 
-{{#each attendance in view.attendances}}
+{{#each view.attendances as |attendance|}}
   <table class="table attendance-list-attendance">
     <colgroup>
       <col>
@@ -61,7 +61,7 @@
       </tr>
     </tfoot>
     <tbody>
-      {{#each activity in attendance.activities}}
+      {{#each attendance.activities as |activity|}}
         <tr class="attendance-list-activity {{if activity.review 'warning'}} {{if activity.nta 'danger'}}">
           <td>
             <small>

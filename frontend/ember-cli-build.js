@@ -8,6 +8,7 @@ module.exports = function(defaults) {
       'testGenerator': require('./lib/eslint-test-generator')
     }
   , 'babel': {
+      'includePolyfill': true,
       'optional': [ 'es7.asyncFunctions' ]
     }
   , 'ember-cli-selectize': {
@@ -18,7 +19,6 @@ module.exports = function(defaults) {
     }
   })
 
-  app.import('vendor/babel-polyfill.js', { 'prepend': true })
   app.import('bower_components/fetch/fetch.js')
 
   app.import('bower_components/ramjet/dist/ramjet.js')

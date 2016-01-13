@@ -25,7 +25,7 @@ export default Ember.View.extend({
       let items = [ ]
         , wt    = this.get('controller.model.worktime')
 
-      for (let x in wt) {
+      for (let x in wt) { //eslint-disable-line
         // Set time to 12:00, or else the bars won't be centered for each day.
         // TODO: This might me solvable through correct visOptions.barChart.align
         items.push({ x: `${x} 12:00`, y: wt[x] })

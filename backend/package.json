@@ -9,6 +9,9 @@
     "watch": "nodemon src/main",
     "test": "make test"
   },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
   "dependencies": {
     "babel": "^6.3.26",
     "babel-plugin-transform-async-to-generator": "^6.4.0",

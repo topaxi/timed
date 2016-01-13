@@ -11,7 +11,7 @@ export default Ember.Component.extend({
     this.set('checked', this.get('value') === this.get('groupValue'))
   }
 
-, checked: function() {
+, checked() {
     if (this.get('value') === this.get('groupValue')) {
       Ember.run.once(this, 'takeAction')
 
@@ -21,11 +21,11 @@ export default Ember.Component.extend({
     return false
   }
 
-, takeAction: function() {
+, takeAction() {
     this.sendAction('selectedAction', this.get('value'))
   }
 
-, change: function() {
+, change() {
     this.set('groupValue', this.get('value'))
     Ember.run.once(this, 'checked') // manual observer
   }

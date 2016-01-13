@@ -2,7 +2,7 @@ import Ember from 'ember'
 
 export default {
   name: 'tooltips'
-, initialize: function() {
+, initialize() {
     Ember.$('body').tooltip({
       'selector': '.tip'
     , 'container': 'body'

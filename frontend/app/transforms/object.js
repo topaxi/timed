@@ -2,11 +2,11 @@ import Ember from 'ember'
 import DS    from 'ember-data'
 
 export default DS.Transform.extend({
-  deserialize: function(serialized) {
+  deserialize(serialized) {
     return Ember.Object.create(serialized)
   }
 
-, serialize: function(deserialized) {
+, serialize(deserialized) {
     return deserialized
   }
 })

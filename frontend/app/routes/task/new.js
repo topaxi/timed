@@ -12,7 +12,7 @@ export default Ember.Route.extend({
     let project = this.modelFor('project.edit')
     return this.store.createRecord('task', { project }, { project })
   }
-, renderTemplate: function() {
+, renderTemplate() {
     this.render('task/edit')
   }
 , rollback: function() {

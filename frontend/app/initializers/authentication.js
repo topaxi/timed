@@ -4,12 +4,12 @@ import ApplicationAdapter from 'timed/adapters/application'
 export default {
   name: 'authentication'
 , after: 'simple-auth'
-, initialize: function(container) {
+, initialize(container) {
     let applicationRoute = container.lookup('route:application')
     let session          = container.lookup('simple-auth-session:main')
 
     ApplicationAdapter.reopen({
-      'ajaxError': function(xhr) {
+      ajaxError(xhr) {
         this._super(xhr)
 
         if (xhr.status === 401) {

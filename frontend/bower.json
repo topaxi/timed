@@ -32,5 +32,8 @@
   },
   "resolutions": {
     "moment": "^2.11.1"
+  },
+  "devDependencies": {
+    "blanket": "~1.1.5"
   }
 }

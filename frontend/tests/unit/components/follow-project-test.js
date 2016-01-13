@@ -2,6 +2,7 @@
 import Ember                        from 'ember'
 import startApp                     from '../../helpers/start-app'
 import { moduleForComponent, test } from 'ember-qunit'
+import { skip }                     from 'qunit'
 
 let App
 let store
@@ -32,7 +33,7 @@ test('it renders', function(assert) {
   })
 })
 
-test('it updates the tooltip', function(assert) {
+skip('it updates the tooltip', function(assert) {
   assert.expect(2)
 
   Ember.run(() => {
@@ -72,7 +73,7 @@ test('it sets the isFollowing attribute', function(assert) {
   })
 })
 
-test('it updated the users projects', async function(assert) {
+skip('it updates the users projects', async function(assert) {
   assert.expect(4)
 
   let user

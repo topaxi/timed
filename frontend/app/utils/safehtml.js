@@ -45,7 +45,7 @@ export default function safehtml(pieces, ...subs) {
 }
 
 function toSafeString(s) {
-  if (s == null) {
+  if (s == null) { //eslint-disable-line eqeqeq
     return ''
   }
 

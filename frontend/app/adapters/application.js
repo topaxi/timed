@@ -29,4 +29,8 @@ export default DS.RESTAdapter.extend({
 
     Notify.error(error)
   }
+
+, pathForType(type) {
+    return Ember.String.dasherize(this._super(type))
+  }
 })

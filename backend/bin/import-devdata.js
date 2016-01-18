@@ -16,6 +16,9 @@ import * as timed from '../models'
 
     await timed.Team.create(getTeams())
     console.log('Teams created')
+
+    await timed.TaskTemplate.create(getTaskTemplates())
+    console.log('Task templates created')
   }
   catch (e) {
     console.error(e)
@@ -31,6 +34,10 @@ function getCustomers() {
 
 function getUsers() {
   return require('../../docker/mongodb/json/users/data.json')
+}
+
+function getTaskTemplates() {
+  return require('../../docker/mongodb/json/task-templates/data.json')
 }
 
 function getTeams() {

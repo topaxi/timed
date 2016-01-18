@@ -2,7 +2,7 @@ backend:
   image: node
   volumes:
     - ..:/usr/src/app
-    - backend/config.json:/usr/src/app/backend/config.json
+    - ./backend/config.json:/usr/src/app/backend/config.json
   command: make -C /usr/src/app/docker run-backend
   environment:
     - NODE_ENV=development

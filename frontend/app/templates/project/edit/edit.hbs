@@ -57,6 +57,23 @@
       {{date-picker id=labelId date=model.to}}
     </div>
   {{/input-label}}
+  {{#liquid-if model.isNew use='toUp'}}
+    {{#input-label class="form-group" labelClass="col-sm-2" label="Tasks" as |labelId|}}
+      <div class="col-sm-10">
+        {{#each taskTemplates as |tt|}}
+          <div class="checkbox">
+            <label>
+              <input
+               type="checkbox"
+               onclick={{action 'toggleTaskTemplate' tt}}
+              >
+              {{tt.name}}
+            </label>
+          </div>
+        {{/each}}
+      </div>
+    {{/input-label}}
+  {{/liquid-if}}
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <div class="checkbox">

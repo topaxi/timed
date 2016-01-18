@@ -1,3 +1,4 @@
+import path             from 'path'
 import gulp             from 'gulp'
 import eslint           from 'gulp-eslint'
 import mocha            from 'gulp-spawn-mocha'
@@ -15,20 +16,25 @@ let testFiles = [ 'test/helper.js', 'test/**/*-test.js' ]
 gulp.task('test', [ 'lint' ], () => {
   return gulp.src(testFiles)
     .pipe(mocha({
-      reporter:  'spec'
-    , compilers: 'js:babel-register'
-    , istanbul:  true
+      reporter:  'spec',
+      compilers: 'js:babel-register',
+      istanbul:  {
+        bin: path.join(
+          path.dirname(require.resolve('babel-istanbul')),
+          require('babel-istanbul/package.json').bin['babel-istanbul']
+        )
+      }
     }))
-    //.pipe(coverageEnforcer({
-    //  thresholds: {
-    //    statements: 100
-    //  , branches:   100
-    //  , lines:      100
-    //  , functions:  100
-    //  }
-    //, coverageDirectory: 'coverage'
-    //, rootDirectory:     ''
-    //}))
+    .pipe(coverageEnforcer({
+      thresholds: {
+        statements: 100,
+        branches:   100,
+        lines:      100,
+        functions:  100
+      },
+      coverageDirectory: 'coverage',
+      rootDirectory:     ''
+    }))
 })
 
 gulp.task('lint', () => {

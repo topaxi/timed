@@ -1,78 +1,71 @@
-<nav id="navbar" class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+<nav id="navbar" class="nav-top">
+    <header class="nav-top-header">
+      <button class="nav-toggle nav-top-toggle" onclick="this.parentNode.parentNode.classList.toggle('nav-top--expand')">
+        <span class="nav-toggle-icon"></span>
       </button>
-      {{#link-to 'index' class="navbar-brand"}}
-        <div class="clock">
+      {{#link-to 'index'}}
+        <div class="clock nav-top-header-logo">
           <div class="hour"></div>
           <div class="minute"></div>
           <div class="second"></div>
         </div>
-        Timed
+        <div class="nav-top-header-title">
+          Timed
+        </div>
       {{/link-to}}
-    </div>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav nav">
-        {{#active-link}}
+    </header>
+    <section class="nav-top-body">
+      <ul class="nav-top-list">
+        <li class="nav-top-list-item">
           {{#link-to 'project'}}Projects{{/link-to}}
-        {{/active-link}}
+        </li>
 
-        {{#active-link}}
+        <li class="nav-top-list-item">
           {{#link-to 'customer'}}Customers{{/link-to}}
-        {{/active-link}}
+        </li>
 
-        {{#active-link}}
+        <li class="nav-top-list-item">
           {{#link-to 'team'}}Teams{{/link-to}}
-        {{/active-link}}
+        </li>
 
-        {{#active-link}}
+        <li class="nav-top-list-item">
           {{#link-to 'user'}}Users{{/link-to}}
-        {{/active-link}}
+        </li>
 
-        {{#active-link}}
+        <li class="nav-top-list-item">
           {{#link-to 'activity'}}Activities{{/link-to}}
-        {{/active-link}}
+        </li>
 
-        {{#active-link}}
+        <li class="nav-top-list-item">
           {{#link-to 'about'}}About{{/link-to}}
-        {{/active-link}}
+        </li>
       </ul>
-      <ul class="navbar-nav nav navbar-right">
+      <ul class="nav-top-list nav-top-list--right">
         {{#if session.isAuthenticated}}
-          <li class="dropdown">
-            <a class="dropdown-toggle pointer" data-toggle="dropdown">
+          <li class="nav-top-list-item">
+            {{#link-to 'user.edit' session.user}}
               {{session.user.name}}
-              <span class="caret"></span>
+            {{/link-to}}
+          </li>
+          <li class="nav-top-list-item">
+            <a class="pointer" {{action 'invalidateSession'}}>
+              <i class="fa fa-power-off"></i> Logout
             </a>
-            <ul class="dropdown-menu">
-              {{#active-link}}
-                {{#link-to 'user.edit' session.user}}
-                  Edit profile
-                {{/link-to}}
-              {{/active-link}}
-              <li>
-                <a class="pointer" {{action 'invalidateSession'}}>
-                  Logout
-                </a>
-              </li>
-            </ul>
           </li>
         {{else}}
-          {{#active-link}}
+          <li class="nav-top-list-item">
             {{#link-to 'login'}}Login{{/link-to}}
-          {{/active-link}}
+          </li>
         {{/if}}
       </ul>
-    </div>
-  </div>
+    </section>
 </nav>
 
-<main id="main" class="container">{{outlet}}</main>
+<main id="main" class="page-main">
+  <section class="page-content">
+    {{outlet}}
+  </section>
+</main>
 
 {{ember-notify messageStyle='bootstrap'}}
 {{outlet 'modal'}}

@@ -1,15 +1,11 @@
-<div class="row">
-  <div class="col-md-2">
-    <ul class="nav nav-pills nav-stacked">
-      {{#active-link}}
-        {{#link-to 'team.index'}}Teams{{/link-to}}
-      {{/active-link}}
+<div class="grid">
+  <div class="grid-cell grid-cell--2of12">
+    <ul class="list-group">
+        {{#link-to 'team.index' class="list-group-item"}}Teams{{/link-to}}
 
-      {{#active-link}}
-        {{#link-to 'team.new'}}Create team{{/link-to}}
-      {{/active-link}}
+        {{#link-to 'team.new' class="list-group-item"}}Create team{{/link-to}}
     </ul>
   </div>
 
-  <div class="col-md-10">{{liquid-outlet}}</div>
+  <div class="grid-cell grid-cell--10of12">{{liquid-outlet}}</div>
 </div>

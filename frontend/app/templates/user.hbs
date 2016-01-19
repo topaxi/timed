@@ -1,15 +1,11 @@
-<div class="row">
-  <div class="col-md-2">
-    <ul class="nav nav-pills nav-stacked">
-      {{#active-link}}
-        {{#link-to 'user.index'}}Users{{/link-to}}
-      {{/active-link}}
+<div class="grid">
+  <div class="grid-cell grid-cell--2of12">
+    <ul class="list-group">
+        {{#link-to 'user.index' class="list-group-item"}}Users{{/link-to}}
 
-      {{#active-link}}
-        {{#link-to 'user.new'}}Create user{{/link-to}}
-      {{/active-link}}
+        {{#link-to 'user.new' class="list-group-item"}}Create user{{/link-to}}
     </ul>
   </div>
 
-  <div class="col-md-10">{{liquid-outlet}}</div>
+  <div class="grid-cell grid-cell--10of12">{{liquid-outlet}}</div>
 </div>

@@ -11,7 +11,8 @@
     "SL_firefox_ESR",
     "SL_firefox_42",
     "SL_firefox_43",
-    "SL_internet_explorer_11"
+    "SL_internet_explorer_11",
+    "SL_edge"
   ],
   "launch_in_dev": [
     "PhantomJS"
@@ -128,6 +129,17 @@
         "android",
         "-v",
         "5.1",
+        "--at",
+        "--no-ct",
+        "--u"
+      ],
+      "protocol": "browser"
+    },
+    "SL_edge": {
+      "exe": "./node_modules/.bin/ember-cli-sauce",
+      "args": [
+        "-b",
+        "microsoftedge",
         "--at",
         "--no-ct",
         "--u"

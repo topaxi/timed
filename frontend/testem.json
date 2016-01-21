@@ -11,8 +11,7 @@
     "SL_firefox_ESR",
     "SL_firefox_42",
     "SL_firefox_43",
-    "SL_internet_explorer_11",
-    "SL_edge"
+    "SL_internet_explorer_11"
   ],
   "launch_in_dev": [
     "PhantomJS"

@@ -49,7 +49,7 @@ export default Ember.Component.extend({
       let icon
 
       if (isTracking) {
-        icon = 'record'
+        icon = 'pause'
       }
       else if (this.isCurrentTask()) {
         icon = 'repeat'
@@ -58,7 +58,7 @@ export default Ember.Component.extend({
         icon = 'play'
       }
 
-      return `glyphicon-${icon}`
+      return `fa-${icon}`
     }
   })
 

@@ -6,76 +6,64 @@
 
 <form class="form-horizontal" {{action 'submit' on='submit'}}>
   {{#input-label class="form-group" labelClass="col-sm-2" label="Name" as |labelId|}}
-    <div class="col-sm-10">
-      {{#if model.project.tracker.type}}
-        {{ember-selectize
-          tagName         = 'input'
-          id              = labelId
-          plugins         = selectizePlugins
-          placeholder     = 'Task name'
-          optionValuePath = 'content.value'
-          optionLabelPath = 'content.label'
-          value           = model.name
-          content         = issues
-          loading         = fetchingIssues
-          optionFunction  = model.project.autocomplete.selectizeOptionTemplate
-          create          = true
-          createOnBlur    = true
-          create-item     = 'createTaskName'
-          update-filter   = 'fetchIssues'
-          select-item     = 'setTaskData'
-          }}
-      {{else}}
-        {{input
-          id           = labelId
-          placeholder  = 'Task name'
-          value        = model.name
-          class        = 'form-control'
-          autocomplete = 'false'
-          }}
-      {{/if}}
-    </div>
+    {{#if model.project.tracker.type}}
+      {{ember-selectize
+        tagName         = 'input'
+        id              = labelId
+        plugins         = selectizePlugins
+        placeholder     = 'Task name'
+        optionValuePath = 'content.value'
+        optionLabelPath = 'content.label'
+        value           = model.name
+        content         = issues
+        loading         = fetchingIssues
+        optionFunction  = model.project.autocomplete.selectizeOptionTemplate
+        create          = true
+        createOnBlur    = true
+        create-item     = 'createTaskName'
+        update-filter   = 'fetchIssues'
+        select-item     = 'setTaskData'
+        }}
+    {{else}}
+      {{input
+        id           = labelId
+        placeholder  = 'Task name'
+        value        = model.name
+        class        = 'form-control'
+        autocomplete = 'false'
+        }}
+    {{/if}}
   {{/input-label}}
   {{#input-label class="form-group" labelClass="col-sm-2" label="Duration (in hours)" as |labelId|}}
-    <div class="col-sm-10">
-      {{input id=labelId type='number' class='form-control' value=model.duration}}
-    </div>
+    {{input id=labelId type='number' class='form-control' value=model.duration}}
   {{/input-label}}
   {{#input-label class="form-group" labelClass="col-sm-2" label="From" as |labelId|}}
-    <div class="col-sm-10">
-      {{date-picker id=labelId class='form-control pointer' readonly=true date=model.from}}
-    </div>
+    {{date-picker id=labelId class='form-control pointer' readonly=true date=model.from}}
   {{/input-label}}
   {{#input-label class="form-group" labelClass="col-sm-2" label="To" as |labelId|}}
-    <div class="col-sm-10">
-      {{date-picker id=labelId class='form-control pointer' readonly=true date=model.to}}
-    </div>
+    {{date-picker id=labelId class='form-control pointer' readonly=true date=model.to}}
   {{/input-label}}
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <div class="checkbox">
-        <label>
-          {{input type='checkbox' checked=model.done}}
-          Done
-        </label>
-      </div>
+    <div class="checkbox">
+      <label>
+        {{input type='checkbox' checked=model.done}}
+        Done
+      </label>
     </div>
   </div>
   <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">
-        {{#if model.isNew}}
-          Create task
-        {{else}}
-          Update task
-        {{/if}}
-      </button>
+    <button type="submit" class="btn btn-primary">
+      {{#if model.isNew}}
+        Create task
+      {{else}}
+        Update task
+      {{/if}}
+    </button>
 
-      {{#unless model.isNew}}
-        {{#delete-button class='pull-right' action='delete'}}
-          Delete task
-        {{/delete-button}}
-      {{/unless}}
-    </div>
+    {{#unless model.isNew}}
+      {{#delete-button class='pull-right' action='delete'}}
+        Delete task
+      {{/delete-button}}
+    {{/unless}}
   </div>
 </form>

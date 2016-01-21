@@ -3,13 +3,12 @@
 <h1 class="dib" data-model-id={{model.id}}>{{model.name}}</h1>
 
 <ul class="nav nav-tabs">
-  {{#active-link}}
+  <li>
     {{#link-to 'project.edit.edit' model}}Edit{{/link-to}}
-  {{/active-link}}
-
-  {{#active-link}}
+  </li>
+  <li>
     {{#link-to 'task' model}}Tasks{{/link-to}}
-  {{/active-link}}
+  </li>
 </ul>
 
 <br>

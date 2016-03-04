@@ -56,7 +56,7 @@ export default Ember.Component.extend({
 
     $progressbar.addClass('active')
 
-    await* [ this.get('task').updateProgress(), promiseDelay(500) ]
+    await Promise.all([ this.get('task').updateProgress(), promiseDelay(500) ])
 
     $progressbar.removeClass('active')
   }.on('click')

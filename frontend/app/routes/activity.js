@@ -21,11 +21,11 @@ export default Ember.Route.extend(LoadingIndicator, {
   }
 
 , async beforeModel() {
-    await* [
+    await Promise.all([
       this.store.find('project')
     , this.store.find('customer')
     , this.store.find('user')
-    ]
+    ])
   }
 
 , model({ from, to, user }) {
@@ -33,12 +33,14 @@ export default Ember.Route.extend(LoadingIndicator, {
   }
 
 , async afterModel(model) {
-    await* model.reduce((promises, attendance) => {
-      attendance.get('activities').forEach(activity =>
-        promises.push(activity.get('task'))
-      )
+    await Promise.all(
+      model.reduce((promises, attendance) => {
+        attendance.get('activities').forEach(activity =>
+          promises.push(activity.get('task'))
+        )
 
-      return promises
-    }, [])
+        return promises
+      }, [])
+    )
   }
 })

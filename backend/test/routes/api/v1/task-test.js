@@ -135,7 +135,7 @@ describe('GET /api/v1/tasks/1/progress', () => {
     await task.save()
 
     let from = Date.now()
-    let to   = Date.now() + 20
+    let to   = from + 20
 
     let attendances = [
       { _id: 'b1'.repeat(12), user, from, to, activities: [ { from, to, task } ] }

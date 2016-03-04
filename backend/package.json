@@ -2,6 +2,8 @@
   "name": "timed",
   "version": "0.0.0",
   "private": true,
+  "author": "Damian Senn <damian.senn@topaxi.codes>",
+  "license": "GPLv3",
   "scripts": {
     "start": "babel-node src/main",
     "docker-import": "babel-node bin/import-devdata",
